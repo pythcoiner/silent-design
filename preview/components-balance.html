@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Components — Balance Header" subtitle="Confirmed hero (mono) + unconfirmed indicator · atop History / Coins" viewport="700x190" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .wrap { padding: 26px; font-family: var(--font-sans); }
+  .hdr { padding: 4px 4px 18px; border-bottom: 1px solid var(--border-light); display: flex; align-items: flex-end; gap: 30px; }
+  .cap { font: 600 10px var(--font-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted); }
+  .hero { display: flex; align-items: baseline; gap: 8px; margin-top: 8px; }
+  .amt { font: 600 30px var(--font-mono); letter-spacing: -.015em; line-height: 1; color: var(--text); }
+  .unit { font: 15px var(--font-mono); color: var(--text-muted); }
+  .cnt { font: 12px var(--font-sans); color: var(--text-secondary); margin-left: 4px; }
+  .unconf { display: flex; align-items: center; gap: 8px; padding-bottom: 3px; white-space: nowrap; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--warning); flex: none; }
+  .ucap { font: 600 10px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+  .uval { font: 13px var(--font-mono); color: var(--text); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="hdr">
+      <div>
+        <div class="cap">Balance</div>
+        <div class="hero"><span class="amt">0.04827310</span><span class="unit">BTC</span><span class="cnt">(4 coins)</span></div>
+      </div>
+      <div class="unconf">
+        <span class="dot"></span><span class="ucap">Unconfirmed</span>
+        <span class="uval">+0.00051200</span><span class="unit" style="font-size:12px">BTC</span><span class="cnt">(1 coin)</span>
+      </div>
+    </div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

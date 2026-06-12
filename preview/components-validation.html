@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Validation & Status" subtitle="✓ / ✗ indicators · status-bar text" viewport="700x160" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .card { padding: 22px 26px; font-family: var(--font-sans); }
+  .row { display: flex; align-items: center; gap: 10px; padding: 5px 0; }
+  .t { font: var(--size-body) var(--font-sans); color: var(--text); }
+  .status { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="row"><input class="s-input s-input--mono" value="sp1qq2…7f8x9a" style="width:240px" /><span class="s-valid">✓</span><span class="t">valid address</span></div>
+    <div class="row"><input class="s-input s-input--mono" value="0.5" style="width:240px" /><span class="s-invalid">✗</span><span class="t">invalid amount</span></div>
+    <div class="status"><span class="s-toggle s-toggle--status is-on"></span><span class="t-status">Scanning… 812043 / 812519 • ~3m 20s</span></div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

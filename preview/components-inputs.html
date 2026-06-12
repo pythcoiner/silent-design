@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Inputs & Fields" subtitle="Input · Display (read-only)" viewport="700x130" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .card { padding: 22px 26px; font-family: var(--font-sans); }
+  .grp { display: flex; align-items: center; gap: 10px; }
+  .grp + .grp { margin-top: 14px; }
+  .cap { font: 11px var(--font-mono); color: var(--text-muted); width: 88px; flex: none; }
+  /* inline chevron for the combobox specimen */
+  .s-combo .chev-svg { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); z-index: 1; color: var(--text); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="grp">
+      <span class="cap">Input</span>
+      <input class="s-input" placeholder="Enter account name" style="width:200px" />
+      <input class="s-input s-input--mono" value="sp1qq2…7f8x9a" style="width:180px" />
+      <input class="s-input" placeholder="locked" disabled style="width:96px" />
+    </div>
+    <div class="grp">
+      <span class="cap">Read-only</span>
+      <span class="s-display" style="width:120px">Segwit</span>
+      <span class="s-display s-display--mono" style="width:150px">3a9f2c…1d4e:0</span>
+      <span class="s-display s-display--amount" style="width:150px">0.00200000 BTC</span>
+    </div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

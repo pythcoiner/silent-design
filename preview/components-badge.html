@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Badges" subtitle="Status pills — success / warning / error / neutral · color-mix tint + semantic border" viewport="700x150" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .wrap { padding: 26px; font-family: var(--font-sans); display: flex; flex-direction: column; gap: 18px; }
+  .row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .note { font: 11px var(--font-mono); color: var(--text-muted); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="row">
+      <span class="s-badge s-badge--success"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Signed</span>
+      <span class="s-badge s-badge--warning">Unconfirmed</span>
+      <span class="s-badge s-badge--error">Failed</span>
+      <span class="s-badge s-badge--neutral">Draft</span>
+    </div>
+    <div class="note">.s-badge--{success · warning · error · neutral} · icon optional · 999px radius</div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

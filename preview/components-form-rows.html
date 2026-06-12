@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Form Rows" subtitle="Field · PaymentRow · ValidatedInput · KeyValue — the labelled-row family" viewport="760x360" -->
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" /><style>html,body{margin:0;background:var(--bg);}.wrap{padding:24px 26px;font-family:var(--font-sans);}
+.lead{font:10px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.box{background:var(--surface);border:1px solid var(--border-light);border-radius:8px;}
+.sec{display:flex;flex-direction:column;gap:14px;}
+.fieldrow{display:flex;align-items:center;gap:5px;padding:3px 0;}
+.flabel{flex:none;color:var(--text);}
+.payrow{display:flex;align-items:center;gap:20px;padding:5px 0;}
+.paylabel{width:89px;flex:none;text-align:right;font:600 13px var(--font-sans);color:var(--text);}
+.vi{position:relative;display:flex;align-items:center;flex:1;}
+.kv{display:flex;justify-content:space-between;gap:20px;padding:2px 0;}
+</style>  <link rel="stylesheet" href="specimen-shell.css" />
+</head><body><div class="wrap"><div class="sec">
+  <div><div class="lead">Field — label + control (settings)</div>
+    <div class="fieldrow"><span class="flabel t-info-label" style="width:130px">Network:</span><span class="s-display s-display--mono" style="padding:6px 10px">Signet</span></div></div>
+  <div><div class="lead">PaymentRow — right-aligned label + flexible control (send)</div>
+    <div class="payrow"><span class="paylabel">Address</span><div class="vi"><input class="s-input s-input--mono" style="flex:1;padding-right:30px" value="sp1q…zmzj85c" readonly /><span style="position:absolute;right:9px;color:var(--success)">✓</span></div></div></div>
+  <div><div class="lead">KeyValue — summary line</div>
+    <div class="kv"><span class="t-info-label">Network fee</span><span class="t-mono">0.00000200 BTC</span></div>
+    <div class="kv"><span class="t-info-label">Total</span><span class="t-mono" style="font-weight:600">0.00500200 BTC</span></div></div>
+</div></div>  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body></html>

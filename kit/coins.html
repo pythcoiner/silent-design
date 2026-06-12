@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Silent — Coins · components</title>
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="gallery.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="harness.js"></script>
+</head>
+<body>
+  <script type="text/babel" src="../ui_kits/silent/Icons.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Primitives.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Layout.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Widgets.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Modal.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Address.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Data.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/ScreensBasic.jsx"></script>
+  <script type="text/babel">
+    const W = WALLETS[KNOWN_WALLETS[0]] || Object.values(WALLETS)[0];
+    Gallery.render({
+      kicker: 'Coins · components', title: 'Coins panel',
+      lede: 'The UTXO list: every coin with type, outpoint, an inline-editable label (pencil), and value. Click the pencil to rename a coin in place.',
+      groups: [
+        { name: 'Screen', items: [
+          { title: 'Coins — full screen', tag: 'CoinsScreen', span: 'full', frame: true, height: 520, el: <CoinsScreen wallet={W} /> },
+        ]},
+        { name: 'Building blocks', items: [
+          { title: 'Balance summary header', tag: 'BalanceHeader', span: 'span2', el: <div style={{ padding: 4 }}><BalanceHeader wallet={W} /></div> },
+        ]},
+      ],
+    });
+  </script>
+</body>
+</html>

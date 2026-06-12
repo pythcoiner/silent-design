@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — ComboBox" subtitle="Closed selector + open option list (theme::ComboBox)" viewport="700x230" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .card { padding: 24px 26px; font-family: var(--font-sans); display: flex; gap: 40px; align-items: flex-start; }
+  .col { display: flex; flex-direction: column; gap: 10px; }
+  .lead { font: 10px var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+  .s-combo { position: relative; box-sizing: border-box; }
+  .s-combo .chev-svg { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); color: var(--text); }
+  /* open dropdown panel */
+  .menu { width: 200px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-button); padding: 4px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
+  .menu .opt { font: 13px var(--font-sans); color: var(--text); padding: 7px 10px; border-radius: 6px; cursor: pointer; }
+  .menu .opt:hover { background: var(--surface-hover); }
+  .menu .opt.is-sel { background: var(--accent); color: var(--on-accent); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="col">
+      <span class="lead">Closed</span>
+      <span class="s-combo" style="width:200px">Regtest<svg class="chev-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+      <span class="s-combo" style="width:160px">Signet<svg class="chev-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+    </div>
+    <div class="col">
+      <span class="lead">Open</span>
+      <div class="menu">
+        <div class="opt is-sel">Regtest</div>
+        <div class="opt">Signet</div>
+        <div class="opt">Testnet</div>
+        <div class="opt">Bitcoin</div>
+      </div>
+    </div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

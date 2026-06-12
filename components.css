@@ -1,0 +1,246 @@
+/* =====================================================================
+   Silent — Component styles
+   Faithful web translation of src/theme/*.cpp QSS + paint code.
+   Requires colors_and_type.css for tokens. Class names mirror the
+   Qt roles (.btn--primary == ButtonRole::Primary, etc).
+   ===================================================================== */
+
+/* ---------------- Button (theme/Button.cpp) ---------------- */
+.s-btn {
+  font: var(--weight-normal) var(--size-body) var(--font-sans);
+  color: var(--text);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-button);
+  padding: 6px 16px;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.s-btn:not(:disabled):hover { background: var(--surface-hover); }
+.s-btn:not(:disabled):active { background: var(--bg); }
+.s-btn:disabled,
+.s-btn[disabled] { color: var(--text-muted); border-color: var(--border-light); cursor: default; }
+
+.s-btn--primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  border: none;
+}
+.s-btn--primary:not(:disabled):hover { background: var(--accent-hover); }
+.s-btn--primary:not(:disabled):active { background: var(--accent); }
+.s-btn--primary:disabled,
+.s-btn--primary[disabled] { background: var(--border-light); color: var(--text-muted); }
+
+.s-btn--destructive {
+  background: var(--error);
+  color: var(--on-accent);
+  border: none;
+}
+.s-btn--destructive:not(:disabled):hover { background: var(--error-hover); }
+.s-btn--destructive:not(:disabled):active { background: var(--error); }
+.s-btn--destructive:disabled,
+.s-btn--destructive[disabled] { background: var(--border-light); color: var(--text-muted); }
+
+.s-btn--inline {
+  padding: 4px 10px;
+  border-radius: var(--radius-input);
+  background: var(--bg-secondary);
+  border: 1px solid var(--input-border);
+}
+
+/* Sidebar menu item (ButtonRole::Menu): H3 font, left aligned, 8px radius */
+.s-btn--menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  font: var(--weight-normal) var(--size-h3) var(--font-sans);
+  text-align: left;
+  background: var(--bg-secondary);
+  border: none;
+  border-radius: var(--radius-button);
+  padding: 12px 16px;
+  color: var(--text);
+}
+.s-btn--menu:not(:disabled):hover { background: var(--surface-hover); }
+.s-btn--menu:active,
+.s-btn--menu.is-active { background: var(--bg); }
+
+/* Square icon button (50×50) and inline icon (30×30, radius 4) */
+.s-btn--icon {
+  width: 50px; height: 50px; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.s-btn--inline-icon {
+  width: 30px; height: 30px; padding: 0;
+  min-height: 0;
+  border-radius: var(--radius-inline-icon);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+
+/* Tab-open / tab-create buttons (Menu tab wallet list) */
+.s-btn--tab-open   { width: 300px; height: 50px; font-size: var(--size-h3); }
+.s-btn--tab-create { width: 354px; height: 50px; font: var(--weight-demibold) var(--size-h3) var(--font-sans); }
+
+/* ---------------- Input (theme/Input.cpp) ---------------- */
+.s-input {
+  font: var(--weight-normal) var(--size-body) var(--font-sans);
+  color: var(--text);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-input);
+  padding: 6px 10px;
+  outline: none;
+}
+.s-input::placeholder { color: var(--text-muted); }
+.s-input:focus { border-color: var(--input-focus); }
+.s-input:disabled { background: var(--bg-secondary); color: var(--text-secondary); border-color: var(--border-light); }
+.s-input--mono { font-family: var(--font-mono); }
+
+/* ---------------- Display: read-only field (theme/Display.cpp) ---------------- */
+.s-display {
+  font: var(--weight-normal) var(--size-body) var(--font-sans);
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-input);
+  padding: 6px 10px;
+}
+.s-display--mono { font-family: var(--font-mono); }
+.s-display--amount { font-family: var(--font-mono); text-align: right; }
+
+/* ---------------- ComboBox (theme/ComboBox.cpp) ---------------- */
+.s-combo {
+  position: relative;
+  display: inline-flex; align-items: center;
+  font: var(--weight-normal) var(--size-body) var(--font-sans);
+  color: var(--text);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-button);
+  padding: 6px 40px 6px 10px;
+  min-width: 120px;
+  cursor: pointer;
+}
+.s-combo::after {
+  content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 30px;
+  border-left: 1px solid var(--input-border);
+  background: var(--bg-secondary);
+  border-radius: 0 var(--radius-button) var(--radius-button) 0;
+}
+.s-combo > .chev {
+  position: absolute; right: 9px; top: 50%; transform: translateY(-50%);
+  width: 12px; height: 12px; background: var(--text); z-index: 1;
+  -webkit-mask: var(--chevron) center/contain no-repeat;
+  mask: var(--chevron) center/contain no-repeat;
+}
+
+/* ---------------- Checkbox (theme/Checkbox.cpp, paint-based) ---------------- */
+.s-check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font: var(--size-caption) var(--font-sans); color: var(--text); user-select: none; }
+.s-check .box {
+  width: var(--checkbox-box); height: var(--checkbox-box);
+  border: 1.5px solid var(--input-border); border-radius: var(--radius-checkbox);
+  background: var(--input-bg); position: relative; flex: none;
+}
+.s-check:hover .box { border-color: var(--input-focus); }
+.s-check.is-checked .box { background: var(--accent); border-color: var(--accent); }
+.s-check.is-checked .box::after {
+  content: ""; position: absolute; left: 5px; top: 2px; width: 4px; height: 8px;
+  border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+
+/* ---------------- Toggle switch (theme/Toggle.cpp, 40×20) ---------------- */
+.s-toggle {
+  width: var(--toggle-w); height: var(--toggle-h); border-radius: 999px;
+  background: var(--border); position: relative; cursor: pointer; flex: none;
+  display: inline-block;
+}
+.s-toggle::after {
+  content: ""; position: absolute; top: 3px; left: 3px;
+  width: 14px; height: 14px; border-radius: 999px; background: var(--text);
+  transition: left .12s ease;
+}
+.s-toggle.is-on { background: var(--accent); }
+.s-toggle.is-on::after { left: 23px; }
+/* Status role: green on / red off */
+.s-toggle--status { background: var(--error); }
+.s-toggle--status.is-on { background: var(--success); }
+
+/* ---------------- Validation marks (Send.cpp) ---------------- */
+.s-valid { color: var(--success); font-weight: 700; }
+.s-invalid { color: var(--error); font-weight: 700; }
+
+/* ---------------- Data table (flat, QTableView-style) ----------------
+   Faithful-but-cleaner take on the app's Display-cell rows: muted header
+   rule, flat cells, thin row separators, row hover, mono for hashes/amounts.
+   Buildable in Qt6 Widgets via QTableView grid-off + row styling. */
+.s-tbl { display: flex; flex-direction: column; font: var(--size-body) var(--font-sans); width: 100%; }
+.s-tbl__head { display: flex; align-items: center; padding-bottom: 7px; border-bottom: 1px solid var(--border); }
+.s-tbl__hcell { color: var(--text-secondary); padding: 0 10px; flex: none; }
+.s-tbl__hcell--amount { text-align: right; }
+.s-tbl__body { display: flex; flex-direction: column; }
+.s-tbl__row { display: flex; align-items: center; min-height: 34px; }
+.s-tbl__body .s-tbl__row:nth-child(odd) { background: var(--bg-secondary); }
+.s-tbl__body .s-tbl__row.is-selected { background: var(--bg-secondary); box-shadow: inset 2px 0 0 var(--accent); }
+.s-tbl__body .s-tbl__row:hover { background: var(--surface-hover); }
+.s-tbl__cell { padding: 7px 10px; color: var(--text); flex: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.s-tbl__cell--grow { flex: 1; min-width: 0; }
+.s-tbl__cell--mono { font-family: var(--font-mono); color: var(--text-secondary); }
+.s-tbl__cell--amount { font-family: var(--font-mono); color: var(--text); text-align: right; }
+.s-tbl__cell--muted { color: var(--text-muted); }
+.s-tbl__edit { width: 26px; height: 26px; border-radius: 4px; background: transparent; border: none; display: inline-flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; }
+.s-tbl__edit:hover { color: var(--text); }
+
+/* ---------------- Icon helper (Lucide via CSS mask) ---------------- */
+.s-icon {
+  display: inline-block; width: var(--icon-size); height: var(--icon-size);
+  background: currentColor;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+
+/* ---------------- Card / surface panel ----------------
+   The repeated "panel" recipe — a bordered surface with a radius. Default
+   tone sits on --surface (recipient cards, list items); --inset sits on
+   --bg-secondary (tx diagram, summary boxes). Override padding/radius inline
+   when a specific panel needs it. */
+.s-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-button);
+  padding: var(--pad-l);
+  box-sizing: border-box;
+}
+.s-card--inset { background: var(--bg-secondary); }
+
+/* ---------------- Badge / status pill ----------------
+   Small rounded status tag. Tones tint a semantic color; neutral is grey. */
+.s-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 11px; border-radius: 999px; white-space: nowrap;
+  font: var(--weight-demibold) 12px var(--font-sans); letter-spacing: 0.02em;
+  border: 1px solid transparent;
+}
+.s-badge--success { background: color-mix(in srgb, var(--success) 14%, transparent); border-color: color-mix(in srgb, var(--success) 45%, transparent); color: var(--success); }
+.s-badge--warning { background: color-mix(in srgb, var(--warning) 16%, transparent); border-color: color-mix(in srgb, var(--warning) 48%, transparent); color: var(--warning); }
+.s-badge--error   { background: color-mix(in srgb, var(--error) 14%, transparent);   border-color: color-mix(in srgb, var(--error) 45%, transparent);   color: var(--error); }
+.s-badge--neutral { background: var(--bg-secondary); border-color: var(--border-light); color: var(--text-secondary); }
+
+/* ---------------- Select row (modal pick-list) ----------------
+   Full-width tappable row: leading accent icon, title, optional mono meta,
+   trailing chevron. Used by the signer picker and any choose-one list. */
+.s-select-row {
+  display: flex; align-items: center; gap: var(--space-m); width: 100%;
+  box-sizing: border-box; text-align: left; cursor: pointer;
+  padding: 12px 14px; color: var(--text);
+  background: var(--surface); border: 1px solid var(--border-light);
+  border-radius: var(--radius-button);
+}
+.s-select-row:hover { background: var(--surface-hover); border-color: var(--border); }

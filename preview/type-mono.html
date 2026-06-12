@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Type" name="Type — Monospace" subtitle="Self-hosted Noto Sans Mono · addresses / amounts / outpoints" viewport="700x195" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .card { padding: 22px 26px; font-family: var(--font-sans); }
+  .row { display: flex; align-items: baseline; gap: 14px; padding: 6px 0; }
+  .row .meta { font: var(--weight-normal) 11px var(--font-mono); color: var(--text-muted); width: 92px; flex: none; }
+  .t-mono { color: var(--text); }
+  .amt { color: var(--text-secondary); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="row"><span class="meta">address</span><span class="t-mono">sp1qq2…7f8x9a</span></div>
+    <div class="row"><span class="meta">outpoint</span><span class="t-mono">3a9f2c…1d4e:0</span></div>
+    <div class="row"><span class="meta">amount</span><span class="t-mono amt">0.00200000 BTC</span></div>
+    <div class="row"><span class="meta">fee rate</span><span class="t-mono amt">1.000 sats/vb</span></div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

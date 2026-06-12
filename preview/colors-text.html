@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Colors" name="Colors — Text" subtitle="text / secondary / muted, both themes" viewport="700x190" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin: 0; background: #e2e2e2; }
+  .card { padding: 20px 22px; font-family: var(--font-sans); display: flex; gap: 18px; }
+  .panel { flex: 1; border-radius: 8px; padding: 16px 18px; border: 1px solid rgba(128,128,128,.35); }
+  .panel.light { background: #f5f5f5; }
+  .panel.dark { background: #1e1e1e; }
+  .head { font: 9px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
+  .light .head { color: #969696; }
+  .dark .head { color: #6e6e6e; }
+  .sample { font: var(--weight-demibold) 17px var(--font-sans); line-height: 1.15; }
+  .cap { font: 10px var(--font-mono); margin-top: 2px; }
+  .light .cap { color: #969696; }
+  .dark .cap { color: #6e6e6e; }
+  .item + .item { margin-top: 13px; }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="panel light">
+      <div class="head">Light theme · text on page</div>
+      <div class="item"><div class="sample" style="color:#1e1e1e">Silent Payments</div><div class="cap">Primary &nbsp;·&nbsp; #1e1e1e</div></div>
+      <div class="item"><div class="sample" style="color:#5a5a5a">Confirmed balance</div><div class="cap">Secondary &nbsp;·&nbsp; #5a5a5a</div></div>
+      <div class="item"><div class="sample" style="color:#969696">812519 · watching…</div><div class="cap">Muted &nbsp;·&nbsp; #969696</div></div>
+    </div>
+    <div class="panel dark">
+      <div class="head">Dark theme · text on page</div>
+      <div class="item"><div class="sample" style="color:#e6e6e6">Silent Payments</div><div class="cap">Primary &nbsp;·&nbsp; #e6e6e6</div></div>
+      <div class="item"><div class="sample" style="color:#aaaaaa">Confirmed balance</div><div class="cap">Secondary &nbsp;·&nbsp; #aaaaaa</div></div>
+      <div class="item"><div class="sample" style="color:#6e6e6e">812519 · watching…</div><div class="cap">Muted &nbsp;·&nbsp; #6e6e6e</div></div>
+    </div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

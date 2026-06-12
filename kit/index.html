@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Silent — Panel components</title>
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 56px 32px 96px; }
+  .back { font: 600 11px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); text-decoration: none; }
+  .kicker { font: 600 11px var(--font-mono); letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-muted); margin-top: 14px; }
+  h1 { font: 600 32px var(--font-sans); letter-spacing: -0.015em; margin: 8px 0 6px; }
+  .lede { max-width: 660px; font-size: 14px; line-height: 1.7; color: var(--text-secondary); margin: 0 0 40px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 18px; }
+  a.card { display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: inherit;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 20px 18px;
+    transition: border-color 0.12s, background 0.12s; }
+  a.card:hover { border-color: var(--input-focus); background: var(--surface-hover); }
+  .card .ico { color: var(--accent); margin-bottom: 6px; }
+  .card .t { font: 600 16px var(--font-sans); }
+  .card .d { font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+  .card .go { margin-top: 6px; font: 600 11px var(--font-mono); letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="../index.html">← Home</a>
+    <div class="kicker">Silent · Design System</div>
+    <h1>Panel components</h1>
+    <p class="lede">Each wallet panel and the panel-specific components it's built from — rendered live
+      with mock data. Toggle Light/Dark inside any gallery.</p>
+
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <script>
+    const ICON = {
+      history: '<path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/>',
+      coins: '<circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/>',
+      send: '<path d="M12 3v12"/><path d="m8 7 4-4 4 4"/><rect x="4" y="15" width="16" height="6" rx="2"/>',
+      receive: '<path d="M12 15V3"/><path d="m8 11 4 4 4-4"/><rect x="4" y="15" width="16" height="6" rx="2"/>',
+      settings: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+      launcher: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M17.5 14v7M14 17.5h7"/>',
+    };
+    const PANELS = [
+      ['launcher', 'Launcher', 'Wallet menu — wordmark, create, open/delete + their modals.'],
+      ['history', 'History', 'Balance header + transaction list.'],
+      ['coins', 'Coins', 'UTXO table with inline-editable labels.'],
+      ['send', 'Send', 'Tx-shape diagram, payment cards, summary, coin selection.'],
+      ['receive', 'Receive', 'Static SP address + Segwit/Taproot address rows.'],
+      ['settings', 'Settings', 'Endpoint test rows, network selector, backend info.'],
+    ];
+    const grid = document.getElementById('grid');
+    for (const [id, t, d] of PANELS) {
+      const a = document.createElement('a');
+      a.className = 'card';
+      a.href = id + '.html';
+      a.innerHTML =
+        '<svg class="ico" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + ICON[id] + '</svg>' +
+        '<div class="t">' + t + '</div><div class="d">' + d + '</div>' +
+        '<div class="go">Open →</div>';
+      grid.appendChild(a);
+    }
+  </script>
+</body>
+</html>

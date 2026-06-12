@@ -1,0 +1,20 @@
+/* Chrome for specimen pages, injected by specimen-shell.js. Mirrors the
+   bespoke Button page so every component page reads as one full catalog page. */
+.sh-wrap { max-width: 1080px; margin: 0 auto; padding: 36px 32px 72px; font-family: var(--font-sans); color: var(--text); }
+.sh-bar { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+.sh-pill { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: 999px;
+  padding: 7px 14px; font: 500 13px var(--font-sans); color: var(--text-secondary); background: var(--surface);
+  cursor: pointer; text-decoration: none; white-space: nowrap; transition: border-color .15s, color .15s; }
+.sh-pill:hover { border-color: var(--accent); color: var(--text); }
+.sh-toggle { margin-left: auto; } .sh-ic { width: 15px; height: 15px; display: inline-flex; }
+.sh-eyebrow { font: 600 11px var(--font-mono); letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
+.sh-title { font: 700 30px var(--font-sans); letter-spacing: -0.02em; margin: 8px 0 0; }
+.sh-fns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.sh-fns code { font: 12px var(--font-mono); color: var(--accent); background: var(--bg-secondary);
+  border: 1px solid var(--border-light); border-radius: 6px; padding: 2px 8px; }
+.sh-panel { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 24px; background: var(--surface); }
+.sh-hd { padding: 13px 18px; font: 600 12px var(--font-mono); letter-spacing: .04em; color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-light); background: var(--bg-secondary); }
+.sh-body { padding: 6px 4px; }
+/* the moved demo set its own bg/margins for standalone use — neutralise inside the panel */
+.sh-body .card, .sh-body .wrap { background: transparent !important; }

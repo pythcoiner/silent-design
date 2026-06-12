@@ -1,0 +1,8 @@
+/* =====================================================================
+   Silent — Design System entry stylesheet.
+   Import closure that wires the self-hosted brand fonts (@font-face in
+   colors_and_type.css) plus the design tokens and component styles.
+   Link this single file, or import the pieces individually.
+   ===================================================================== */
+@import "colors_and_type.css";
+@import "components.css";

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Toggle" subtitle="40×20 switch · plain (accent) + status (green/red)" viewport="700x180" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .card { padding: 24px 26px; font-family: var(--font-sans); display: flex; gap: 48px; align-items: flex-start; }
+  .col { display: flex; flex-direction: column; gap: 16px; }
+  .lbl { font: 11px var(--font-mono); color: var(--text-muted); }
+  .pair { display: flex; align-items: center; gap: 10px; }
+  .t { font: var(--size-body) var(--font-sans); color: var(--text); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="col">
+      <div class="pair"><span class="s-toggle is-on"></span><span class="t">sats/vB</span></div>
+      <div class="pair"><span class="s-toggle"></span><span class="t">sats</span></div>
+      <div class="lbl">Plain · accent when on</div>
+    </div>
+    <div class="col">
+      <div class="pair"><span class="s-toggle s-toggle--status is-on"></span><span class="t">Scanning…</span></div>
+      <div class="pair"><span class="s-toggle s-toggle--status"></span><span class="t">Disconnected</span></div>
+      <div class="lbl">Status · green / red</div>
+    </div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

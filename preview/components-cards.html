@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Cards & Surfaces" subtitle="Panel recipe — surface (forms, list items) · inset (diagrams, summary boxes)" viewport="700x230" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .wrap { padding: 24px 26px; font-family: var(--font-sans); display: flex; gap: 22px; align-items: stretch; }
+  .demo { flex: 1; }
+  .lead { font: 10px var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  .lbl { font: var(--weight-demibold) 13px var(--font-sans); color: var(--text); }
+  .sub { font: 11px var(--font-mono); color: var(--text-muted); margin-top: 6px; }
+  .mono { font: 13px var(--font-mono); color: var(--text); }
+  .muted { color: var(--text-secondary); font: var(--size-body) var(--font-sans); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="demo">
+      <div class="lead">.s-card — surface</div>
+      <div class="s-card">
+        <div class="lbl">Recipient · form panel</div>
+        <div class="sub">var(--surface) · 1px --border-light · radius 8 · pad 20</div>
+      </div>
+    </div>
+    <div class="demo">
+      <div class="lead">.s-card--inset</div>
+      <div class="s-card s-card--inset" style="border-radius:6px;padding:11px 15px;display:flex;align-items:baseline;gap:8px">
+        <span class="mono">0.04827310 BTC</span><span class="muted">(4 coins)</span>
+      </div>
+      <div class="sub" style="margin-top:10px">var(--bg-secondary) — diagrams · summary boxes</div>
+    </div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

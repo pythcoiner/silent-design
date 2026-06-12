@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Colors" name="Colors — Semantic" subtitle="success / error / warning (light · dark)" viewport="700x175" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .card { padding: 22px 26px; font-family: var(--font-sans); }
+  .grid { display: flex; gap: 14px; }
+  .sw { flex: 1; }
+  .chip { height: 56px; border-radius: 8px; }
+  .name { font: var(--weight-demibold) 12px var(--font-sans); color: var(--text); margin-top: 8px; }
+  .role { font: 11px var(--font-sans); color: var(--text-muted); margin-top: 1px; }
+  .hex { font: 11px var(--font-mono); color: var(--text-muted); margin-top: 3px; }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="grid">
+      <div class="sw"><div class="chip" style="background:#4aa55e"></div><div class="name">success</div><div class="role">connected · valid</div><div class="hex">#4aa55e / #5fc07a</div></div>
+      <div class="sw"><div class="chip" style="background:#c83232"></div><div class="name">error</div><div class="role">disconnected · invalid</div><div class="hex">#c83232 / #dc4646</div></div>
+      <div class="sw"><div class="chip" style="background:#e6e600"></div><div class="name">warning</div><div class="role">caution</div><div class="hex">#e6e600 / #ffff4a</div></div>
+    </div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

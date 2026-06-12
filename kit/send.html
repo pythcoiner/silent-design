@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Silent — Send · components</title>
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="gallery.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="harness.js"></script>
+</head>
+<body>
+  <script type="text/babel" src="../ui_kits/silent/Icons.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Primitives.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Layout.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Widgets.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Modal.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Address.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Data.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Sidebar.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/ScreensBasic.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/TxFlow.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Send.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/Settings.jsx"></script>
+  <script type="text/babel" src="../ui_kits/silent/MenuTab.jsx"></script>
+
+  <script type="text/babel">
+    const W = WALLETS[KNOWN_WALLETS[0]] || Object.values(WALLETS)[0];
+
+    const inItems = [
+      { w: 0.02, title: 'Input #1', usd: '$1360.00', addr: '3a9f2c…1d4e:0' },
+      { w: 0.015, title: 'Input #2', usd: '$1020.00', addr: '7b1e84…9c0f:1' },
+    ];
+    const outItems = [
+      { w: 0.025, kind: 'recipient', title: 'Rent payment', label: 'Rent payment', usd: '$1700.00', addr: 'bc1q7eu…h3esg' },
+      { w: 0.00984, kind: 'change', title: 'Change', usd: '$669.12', addr: '(returned to your wallet)' },
+      { w: 0.00016, kind: 'fee', title: 'Network fee', usd: '$10.88', addr: '(paid to miners)' },
+    ];
+
+    function PaymentDemo() {
+      const [out, setOut] = React.useState({ address: 'bc1q7eu259lf71x9anq4ezev8xdyuhk3esg',
+        amount: '0.025', usd: '1700.00', label: 'Rent payment', max: false });
+      return <RecipientCard out={out} idx={0} deletable canMax onChange={setOut} onDelete={() => {}} />;
+    }
+
+    function SummaryDemo() {
+      return (
+        <TransactionSummary
+          rows={[
+            { label: 'Sending', value: '0.02500000 BTC', sub: '$1700.00' },
+            { label: 'Network fee', value: '0.00016000 BTC' },
+            { label: 'Change', value: '0.00984000 BTC' },
+          ]}
+          total={{ label: 'Total', value: '0.02516000 BTC' }} />
+      );
+    }
+
+    function CoinSelectDemo() {
+      const [sel, setSel] = React.useState({ 0: true, 1: true });
+      return (
+        <CoinTable coins={W.coins} maxHeight={0}
+          isChecked={(c, i) => !!sel[i]}
+          onToggle={(i, v) => setSel({ ...sel, [i]: v })} />
+      );
+    }
+
+    Gallery.render({
+      kicker: 'Send · components',
+      title: 'Send panel',
+      lede: 'The Send screen and its building blocks — the transaction-shape diagram, payment cards, the live transaction summary, and coin selection. All interactive with mock data.',
+      groups: [
+        { name: 'Screen', items: [
+          { title: 'Send — full screen', tag: 'SendScreen', span: 'full', frame: true, height: 660, el: <SendScreen wallet={W} /> },
+        ]},
+        { name: 'Transaction shape', items: [
+          { title: 'Populated (2 in → recipient · change · fee)', tag: 'TxFlow', span: 'span2', el: <Card tone="inset" style={{ padding: '12px 10px 8px' }}><TxFlow inputs={inItems} outputs={outItems} /></Card> },
+          { title: 'Empty state', tag: 'TxFlow', el: <Card tone="inset" style={{ padding: '12px 10px 8px' }}><TxFlow inputs={[]} outputs={[]} /></Card> },
+        ]},
+        { name: 'Building blocks', items: [
+          { title: 'Payment card', tag: 'RecipientCard', span: 'span2', el: <PaymentDemo /> },
+          { title: 'Transaction summary', tag: 'TransactionSummary', el: <SummaryDemo /> },
+          { title: 'Coin selection (manual)', tag: 'CoinTable', span: 'span2', el: <CoinSelectDemo /> },
+        ]},
+      ],
+    });
+  </script>
+</body>
+</html>

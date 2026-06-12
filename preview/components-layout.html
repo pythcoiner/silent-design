@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Layout" name="Layout — Stack · Row · Spacer · Divider" subtitle="Flex primitives that map 1:1 to Qt QVBoxLayout / QHBoxLayout / addStretch / QFrame line" viewport="760x300" -->
+<html lang="en"><head><meta charset="utf-8" /><link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" /><style>html,body{margin:0;background:var(--bg);}.wrap{padding:24px 26px;font-family:var(--font-sans);}
+.lead{font:10px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+.box{background:var(--surface);border:1px solid var(--border-light);border-radius:8px;}
+.demo{display:flex;gap:30px;}
+.col{flex:1;}
+.chip{background:var(--bg-secondary);border:1px solid var(--border-light);border-radius:6px;padding:8px 12px;font:12px var(--font-mono);color:var(--text-secondary);text-align:center;}
+.rowdemo{display:flex;flex-direction:row;gap:10px;align-items:center;}
+.stackdemo{display:flex;flex-direction:column;gap:10px;}
+.vline{width:1px;align-self:stretch;background:var(--border-light);}
+.note{font:11px var(--font-mono);color:var(--text-muted);margin-top:9px;}
+</style>  <link rel="stylesheet" href="specimen-shell.css" />
+</head><body><div class="wrap"><div class="demo">
+  <div class="col"><div class="lead">Stack · gap="s"</div><div class="stackdemo box" style="padding:12px">
+    <div class="chip">child A</div><div class="chip">child B</div><div class="chip">child C</div></div>
+    <div class="note">column · gap · align · justify · grow</div></div>
+  <div class="col"><div class="lead">Row · gap + Spacer + Divider</div><div class="rowdemo box" style="padding:12px">
+    <div class="chip">A</div><div class="chip">B</div><span style="flex:1"></span><div class="vline"></div><div class="chip">end</div></div>
+    <div class="note">Spacer eats free space · Divider = hair rule</div></div>
+</div></div>  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body></html>

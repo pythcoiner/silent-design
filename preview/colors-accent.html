@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Colors" name="Colors — Accent" subtitle="Brand blue · roles, hex, contrast · CVD-safe (color never sole signal)" viewport="700x210" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .card { padding: 22px 26px; font-family: var(--font-sans); }
+  .grid { display: flex; gap: 14px; }
+  .sw { flex: 1; }
+  .chip { height: 64px; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .chip .on { font: var(--weight-demibold) 13px var(--font-sans); color: #fff; }
+  .chip .ratio { font: 10px var(--font-mono); color: rgba(255,255,255,0.85); }
+  .name { font: var(--weight-demibold) 12px var(--font-sans); color: var(--text); margin-top: 8px; }
+  .role { font: 11px var(--font-sans); color: var(--text-secondary); margin-top: 1px; }
+  .hex { font: 11px var(--font-mono); color: var(--text-muted); margin-top: 3px; }
+  .note { display: flex; align-items: baseline; gap: 8px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-light); }
+  .note b { font: var(--weight-demibold) 11px var(--font-sans); color: var(--text); }
+  .note span { font: 11px var(--font-sans); color: var(--text-secondary); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="grid">
+      <div class="sw"><div class="chip" style="background:#3278c8"><span class="on">Aa</span><span class="ratio">4.7:1</span></div><div class="name">accent</div><div class="role">light · primary action</div><div class="hex">#3278c8</div></div>
+      <div class="sw"><div class="chip" style="background:#468cdc"><span class="on">Aa</span><span class="ratio">3.6:1</span></div><div class="name">accent-hover</div><div class="role">light · hover</div><div class="hex">#468cdc</div></div>
+      <div class="sw"><div class="chip" style="background:#508cdc"><span class="on">Aa</span><span class="ratio">3.5:1</span></div><div class="name">accent</div><div class="role">dark · primary action</div><div class="hex">#508cdc</div></div>
+      <div class="sw"><div class="chip" style="background:#64a0f0"><span class="on">Aa</span><span class="ratio">2.7:1</span></div><div class="name">accent-hover</div><div class="role">dark · hover</div><div class="hex">#64a0f0</div></div>
+    </div>
+    <div class="note">
+      <b>CVD-safe</b>
+      <span>Blue accent — distinguishable under red-green color blindness. State is never color-only: toggles use position + text, validation uses ✓ / ✗ shapes.</span>
+    </div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

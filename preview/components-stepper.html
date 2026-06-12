@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Stepper & Disclosure" subtitle="− ●●●○○ + level stepper · collapsible section header" viewport="700x210" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .wrap { padding: 24px 26px; font-family: var(--font-sans); display: flex; gap: 50px; align-items: flex-start; }
+  .lead { font: 10px var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .slabel { font: 500 13px var(--font-sans); color: var(--text-secondary); }
+  .ctrl { display: flex; align-items: center; gap: 10px; }
+  .dots { min-width: 56px; text-align: center; font: 10px var(--font-mono); letter-spacing: 1px; color: var(--accent); }
+  .fold { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+  .chev { display: inline-flex; color: var(--text-secondary); }
+  .chev.closed { transform: rotate(-90deg); }
+  .sec { font: 600 11px var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div>
+      <div class="lead">Stepper</div>
+      <div class="step">
+        <span class="slabel">Contrast</span>
+        <div class="ctrl">
+          <button class="s-btn s-btn--inline-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg></button>
+          <span class="dots">●●●○○</span>
+          <button class="s-btn s-btn--inline-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="lead">FoldSection</div>
+      <div class="fold"><span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span><span class="sec">Connection</span></div>
+      <div class="fold"><span class="chev closed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span><span class="sec">Backend Info</span></div>
+    </div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

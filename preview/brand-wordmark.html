@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="Brand — Wordmark" subtitle="Logo system — mark + wordmark, app icon, reversed, mono" viewport="700x255" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .card { padding: 26px 30px; font-family: var(--font-sans); display: flex; align-items: stretch; gap: 30px; }
+
+  /* mark sizing — recolors via currentColor on the wrapper */
+  .mark svg { display: block; }
+
+  /* ---- primary lockup ---- */
+  .primary { display: flex; flex-direction: column; justify-content: center; gap: 16px; flex: none; }
+  .lockup { display: flex; align-items: center; gap: 16px; }
+  .lockup .mark { color: var(--accent); }
+  .lockup .mark svg { width: 60px; height: 60px; }
+  .word { font: var(--weight-demibold) 40px var(--font-sans); color: var(--text); letter-spacing: -0.015em; line-height: 1; }
+  .tagline { font: 11px var(--font-mono); color: var(--text-muted); letter-spacing: 0.16em; text-transform: uppercase; padding-left: 76px; margin-top: -8px; }
+
+  .divider { width: 1px; background: var(--border); }
+
+  /* ---- variants ---- */
+  .variants { display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+  .vrow { display: flex; align-items: center; gap: 14px; }
+  .tile { width: 56px; height: 56px; border-radius: 13px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .tile svg { width: 34px; height: 34px; }
+  .tile-accent { background: var(--accent); color: #fff; }
+  .tile-dark { background: var(--gray-95); color: #fff; }
+  .tile-mono { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+  .vlabel { font: 11px var(--font-mono); color: var(--text-muted); }
+  .vlabel b { display: block; font-family: var(--font-sans); font-weight: 600; color: var(--text); font-size: 12px; margin-bottom: 1px; }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="primary">
+      <div class="lockup">
+        <span class="mark" data-mark></span>
+        <span class="word">Silent</span>
+      </div>
+      <div class="tagline">Silent Payments Wallet</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="variants">
+      <div class="vrow">
+        <div class="tile tile-accent" data-mark></div>
+        <span class="vlabel"><b>App icon</b>white mark · accent tile</span>
+      </div>
+      <div class="vrow">
+        <div class="tile tile-dark" data-mark></div>
+        <span class="vlabel"><b>Reversed</b>on dark surface</span>
+      </div>
+      <div class="vrow">
+        <div class="tile tile-mono" data-mark></div>
+        <span class="vlabel"><b>Monochrome</b>single-color · inherits text</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var MARK = '<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="18" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="102 113.1" transform="rotate(-33 24 24)"></circle><circle cx="24" cy="24" r="5.5" fill="currentColor"></circle></svg>';
+    document.querySelectorAll('[data-mark]').forEach(function (el) { el.innerHTML = MARK; });
+  </script>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Silent — Wireframes</title>
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  /* Low-fidelity wireframe board. Deliberately monochrome + sketchy:
+     these are PLACEHOLDERS — replace each frame with real lo-fi flows. */
+  :root {
+    --wf-ink:   #3a3a3a;
+    --wf-line:  #b8b8b8;
+    --wf-fill:  #ececec;
+    --wf-fill2: #e0e0e0;
+    --wf-page:  #f4f4f4;
+    --wf-paper: #ffffff;
+  }
+  * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+  html, body { margin: 0; background: var(--wf-page); color: var(--wf-ink);
+    font-family: var(--font-sans, system-ui, sans-serif); }
+  .page { max-width: 1280px; margin: 0 auto; padding: 40px 32px 80px; }
+
+  header.head { margin-bottom: 36px; }
+  .kicker { font: 600 11px var(--font-mono, monospace); letter-spacing: 0.18em;
+    text-transform: uppercase; color: #9a9a9a; }
+  h1 { font: 600 30px var(--font-sans, sans-serif); margin: 8px 0 10px; letter-spacing: -0.01em; }
+  .lede { max-width: 720px; font-size: 14px; line-height: 1.7; color: #555; margin: 0; }
+  .note { display: inline-block; margin-top: 16px; font: 600 11px var(--font-mono, monospace);
+    letter-spacing: 0.08em; text-transform: uppercase; color: #8a6d00;
+    background: #fbf3d6; border: 1px solid #ecdca0; border-radius: 6px; padding: 6px 11px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 28px; }
+
+  /* one wireframe frame */
+  .frame { background: var(--wf-paper); border: 1.5px solid var(--wf-line); border-radius: 10px;
+    overflow: hidden; display: flex; flex-direction: column; }
+  .frame__bar { display: flex; align-items: center; gap: 7px; padding: 9px 12px;
+    border-bottom: 1.5px solid var(--wf-line); background: var(--wf-fill); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--wf-line); }
+  .frame__title { margin-left: 6px; font: 600 11px var(--font-mono, monospace);
+    letter-spacing: 0.1em; text-transform: uppercase; color: #6a6a6a; }
+  .frame__body { display: flex; min-height: 280px; }
+
+  /* sketchy wallet chrome */
+  .wf-side { width: 96px; flex: none; border-right: 1.5px solid var(--wf-line);
+    background: var(--wf-fill); padding: 12px 8px; display: flex; flex-direction: column; gap: 8px; }
+  .wf-nav { height: 22px; border-radius: 5px; background: var(--wf-fill2); }
+  .wf-nav.is-active { background: #cfd8e6; border: 1.5px solid #aebbd0; }
+  .wf-side .spacer { flex: 1; }
+  .wf-main { flex: 1; min-width: 0; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+
+  /* lo-fi primitives */
+  .ph { background: var(--wf-fill); border: 1.5px solid var(--wf-line); border-radius: 6px; }
+  .ph--label { width: 38%; height: 11px; border: none; background: var(--wf-fill2); }
+  .ph--title { width: 52%; height: 20px; border: none; background: #d6d6d6; }
+  .ph--line  { width: 100%; height: 13px; border: none; background: var(--wf-fill); }
+  .ph--input { width: 100%; height: 30px; }
+  .ph--btn   { width: 96px; height: 30px; background: #cfd8e6; border-color: #aebbd0; }
+  .ph--btn.alt { width: 72px; background: var(--wf-fill); border-color: var(--wf-line); }
+  .row { display: flex; gap: 10px; align-items: center; }
+  .row.end { justify-content: flex-end; }
+  .col { display: flex; flex-direction: column; gap: 8px; }
+  .grow { flex: 1; min-width: 0; }
+
+  /* a fake table */
+  .wf-table { border: 1.5px solid var(--wf-line); border-radius: 6px; overflow: hidden; }
+  .wf-trow { display: flex; gap: 10px; padding: 8px 10px; border-bottom: 1.5px solid var(--wf-line); }
+  .wf-trow:last-child { border-bottom: none; }
+  .wf-trow.head { background: var(--wf-fill); }
+  .wf-cell { height: 11px; background: var(--wf-fill2); border-radius: 3px; }
+
+  .annot { font: 11px var(--font-mono, monospace); color: #9a9a9a; }
+  footer.foot { margin-top: 48px; padding-top: 20px; border-top: 1px solid #e2e2e2;
+    font-size: 12px; color: #8a8a8a; }
+  footer.foot a { color: #3278c8; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header class="head">
+      <div class="kicker">Silent · Wireframes</div>
+      <h1>Low-fidelity wireframes</h1>
+      <p class="lede">Placeholder lo-fi layouts for the five wallet screens — structure and
+        flow only, no styling. Use these as the scaffold: replace each frame with real
+        wireframes as flows are designed, then promote them to the hi-fi kit under
+        <code>ui_kits/silent/</code>.</p>
+      <div class="note">⚠ Placeholders — to be fleshed out</div>
+    </header>
+
+    <div class="grid">
+
+      <!-- History -->
+      <div class="frame">
+        <div class="frame__bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="frame__title">History</span></div>
+        <div class="frame__body">
+          <div class="wf-side">
+            <div class="wf-nav is-active"></div><div class="wf-nav"></div><div class="wf-nav"></div>
+            <div class="wf-nav"></div><div class="spacer"></div><div class="wf-nav"></div>
+          </div>
+          <div class="wf-main">
+            <div class="ph ph--label"></div>
+            <div class="ph ph--title"></div>
+            <div class="wf-table">
+              <div class="wf-trow head"><div class="wf-cell grow"></div><div class="wf-cell" style="width:60px"></div><div class="wf-cell" style="width:80px"></div></div>
+              <div class="wf-trow"><div class="wf-cell grow"></div><div class="wf-cell" style="width:60px"></div><div class="wf-cell" style="width:80px"></div></div>
+              <div class="wf-trow"><div class="wf-cell grow"></div><div class="wf-cell" style="width:60px"></div><div class="wf-cell" style="width:80px"></div></div>
+              <div class="wf-trow"><div class="wf-cell grow"></div><div class="wf-cell" style="width:60px"></div><div class="wf-cell" style="width:80px"></div></div>
+            </div>
+            <div class="annot">tx list · direction / txid / height / amount</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coins -->
+      <div class="frame">
+        <div class="frame__bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="frame__title">Coins</span></div>
+        <div class="frame__body">
+          <div class="wf-side">
+            <div class="wf-nav"></div><div class="wf-nav is-active"></div><div class="wf-nav"></div>
+            <div class="wf-nav"></div><div class="spacer"></div><div class="wf-nav"></div>
+          </div>
+          <div class="wf-main">
+            <div class="ph ph--title"></div>
+            <div class="wf-table">
+              <div class="wf-trow head"><div class="wf-cell" style="width:24px"></div><div class="wf-cell" style="width:54px"></div><div class="wf-cell grow"></div><div class="wf-cell" style="width:70px"></div></div>
+              <div class="wf-trow"><div class="wf-cell" style="width:24px"></div><div class="wf-cell" style="width:54px"></div><div class="wf-cell grow"></div><div class="wf-cell" style="width:70px"></div></div>
+              <div class="wf-trow"><div class="wf-cell" style="width:24px"></div><div class="wf-cell" style="width:54px"></div><div class="wf-cell grow"></div><div class="wf-cell" style="width:70px"></div></div>
+              <div class="wf-trow"><div class="wf-cell" style="width:24px"></div><div class="wf-cell" style="width:54px"></div><div class="wf-cell grow"></div><div class="wf-cell" style="width:70px"></div></div>
+            </div>
+            <div class="annot">utxo list · type / outpoint / label / value</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Send -->
+      <div class="frame">
+        <div class="frame__bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="frame__title">Send</span></div>
+        <div class="frame__body">
+          <div class="wf-side">
+            <div class="wf-nav"></div><div class="wf-nav"></div><div class="wf-nav is-active"></div>
+            <div class="wf-nav"></div><div class="spacer"></div><div class="wf-nav"></div>
+          </div>
+          <div class="wf-main">
+            <div class="ph ph--label"></div>
+            <div class="ph ph--input"></div>
+            <div class="ph ph--label" style="margin-top:4px"></div>
+            <div class="col" style="border:1.5px dashed var(--wf-line); border-radius:8px; padding:12px; gap:10px;">
+              <div class="ph ph--input"></div>
+              <div class="row"><div class="ph ph--input grow"></div><div class="ph ph--input" style="width:90px"></div></div>
+            </div>
+            <div class="row end"><div class="ph ph--btn alt"></div><div class="ph ph--btn"></div></div>
+            <div class="annot">payments + coin select + fee → tx preview</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Receive -->
+      <div class="frame">
+        <div class="frame__bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="frame__title">Receive</span></div>
+        <div class="frame__body">
+          <div class="wf-side">
+            <div class="wf-nav"></div><div class="wf-nav"></div><div class="wf-nav"></div>
+            <div class="wf-nav is-active"></div><div class="spacer"></div><div class="wf-nav"></div>
+          </div>
+          <div class="wf-main">
+            <div class="ph ph--label"></div>
+            <div class="row"><div class="ph ph--input grow"></div><div class="ph ph--btn alt"></div></div>
+            <div class="ph" style="width:120px; height:120px; align-self:center; margin-top:6px;"></div>
+            <div class="annot" style="text-align:center">static silent-payment address + copy</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="frame">
+        <div class="frame__bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="frame__title">Settings</span></div>
+        <div class="frame__body">
+          <div class="wf-side">
+            <div class="wf-nav"></div><div class="wf-nav"></div><div class="wf-nav"></div>
+            <div class="wf-nav"></div><div class="spacer"></div><div class="wf-nav is-active"></div>
+          </div>
+          <div class="wf-main">
+            <div class="ph ph--label"></div>
+            <div class="row"><div class="ph ph--input grow"></div><div class="ph ph--btn alt"></div></div>
+            <div class="row"><div class="ph ph--input grow"></div><div class="ph ph--btn alt"></div></div>
+            <div class="ph ph--input" style="width:160px"></div>
+            <div class="row end"><div class="ph ph--btn"></div></div>
+            <div class="annot">endpoints · network · backend info</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- New / blank frame -->
+      <div class="frame" style="border-style: dashed;">
+        <div class="frame__bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="frame__title">+ New flow</span></div>
+        <div class="frame__body" style="align-items:center; justify-content:center;">
+          <div class="annot" style="text-align:center; padding:24px;">Duplicate a frame and sketch<br>a new flow or modal here.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="foot">
+      Wireframes are intentionally lo-fi. Hi-fi, interactive screens live in
+      <a href="../ui_kits/silent/index.html">ui_kits/silent/</a> · tokens in
+      <a href="../README.md">README.md</a>.
+    </footer>
+  </div>
+</body>
+</html>

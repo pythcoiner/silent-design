@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Components — Sidebar Menu" subtitle="ButtonRole::Menu nav items with Lucide icons" viewport="700x230" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .card { padding: 22px 26px; font-family: var(--font-sans); display: flex; gap: 24px; align-items: flex-start; }
+  .menu { width: 200px; background: var(--bg-secondary); padding: 6px; border-radius: 6px; display: flex; flex-direction: column; gap: 10px; }
+  .note { font: 11px var(--font-mono); color: var(--text-muted); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="menu">
+      <button class="s-btn--menu is-active"><span class="s-icon" style="width:20px;height:20px;-webkit-mask:url(../assets/icons/history.svg) center/contain no-repeat;mask:url(../assets/icons/history.svg) center/contain no-repeat"></span>History</button>
+      <button class="s-btn--menu"><span class="s-icon" style="width:20px;height:20px;-webkit-mask:url(../assets/icons/coins.svg) center/contain no-repeat;mask:url(../assets/icons/coins.svg) center/contain no-repeat"></span>Coins</button>
+      <button class="s-btn--menu"><span class="s-icon" style="width:20px;height:20px;-webkit-mask:url(../assets/icons/upload.svg) center/contain no-repeat;mask:url(../assets/icons/upload.svg) center/contain no-repeat"></span>Send</button>
+      <button class="s-btn--menu"><span class="s-icon" style="width:20px;height:20px;-webkit-mask:url(../assets/icons/download.svg) center/contain no-repeat;mask:url(../assets/icons/download.svg) center/contain no-repeat"></span>Receive</button>
+    </div>
+    <div class="note">ButtonRole::Menu<br />sidebar nav · H3 / 19px<br />active = page bg<br />icons 20px Lucide</div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

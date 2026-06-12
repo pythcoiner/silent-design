@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Spacing" name="Spacing — Scale" subtitle="Spacing enum · 5 / 10 / 20 / 30 / 60 / 120" viewport="700x215" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); }
+  .card { padding: 20px 26px; font-family: var(--font-sans); }
+  .lead { font: 10px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .row { display: flex; align-items: center; gap: 14px; padding: 4px 0; }
+  .tok { width: 38px; font: var(--weight-demibold) 12px var(--font-mono); color: var(--text); flex: none; text-align: right; }
+  .bar { height: 14px; background: var(--accent); border-radius: 2px; flex: none; }
+  .use { font: 11px var(--font-sans); color: var(--text-secondary); }
+</style>
+  <link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="card">
+    <div class="lead">Spacing scale — from the app's Spacing enum (px)</div>
+    <div class="row"><span class="tok">5</span><span class="bar" style="width:5px"></span><span class="use">gaps between table columns &amp; inline controls</span></div>
+    <div class="row"><span class="tok">10</span><span class="bar" style="width:10px"></span><span class="use">screen padding · gap between buttons</span></div>
+    <div class="row"><span class="tok">20</span><span class="bar" style="width:20px"></span><span class="use">balance header ↔ table · field groups</span></div>
+    <div class="row"><span class="tok">30</span><span class="bar" style="width:30px"></span><span class="use">section dividers · status-bar height</span></div>
+    <div class="row"><span class="tok">60</span><span class="bar" style="width:60px"></span><span class="use">large vertical breaks (form top padding)</span></div>
+    <div class="row"><span class="tok">120</span><span class="bar" style="width:120px"></span><span class="use">major page-level spacing</span></div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>
