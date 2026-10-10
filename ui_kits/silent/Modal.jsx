@@ -39,7 +39,12 @@ export function Modal({ title, width = 500, onClose, children, headerRight }) {
             ) : null}
           </Row>
         </Row>
-        {children}
+        {/* the body sits centred across the modal; ModalActions stretches (Qt: the step
+            body between two spacers, the actions bar outside them) */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',
+          '--modal-body-w': `calc(${typeof width === 'number' ? width + 'px' : width} - 2 * var(--space-m) - 2px)` }}>
+          {children}
+        </div>
       </div>
     </div>
   );

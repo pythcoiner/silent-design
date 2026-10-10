@@ -434,15 +434,20 @@ export function ScrollArea({ children, style }) {
    primary says why. Qt: HBox(Button, stretch, Label, Button…). */
 export function ModalActions({ onBack, backId = 'back', reason, children, style }) {
   /* Sticky: stays pinned to the bottom of a scrolling modal, so the buttons are
-     always reachable. Qt: the footer sits outside the dialog's QScrollArea. */
+     always reachable. Qt: the footer sits outside the dialog's QScrollArea, so it
+     spans the modal while the step body is centred: the zero-width anchor keeps the
+     bar out of the body's width, the bar overflows it to the modal's inner width. */
   return (
-    <Row gap="s" style={{ position: 'sticky', bottom: 'calc(-1 * var(--space-m))', zIndex: 2, background: 'var(--bg)',
-      margin: '0 0 calc(-1 * var(--space-m))', padding: 'var(--space-s) 0 var(--space-m)', ...style }}>
-      {onBack ? <Btn id={backId} onClick={onBack} /> : null}
-      <Spacer />
-      {reason ? <Text variant="caption" align="right" style={{ maxWidth: 260 }}>{reason}</Text> : null}
-      {children}
-    </Row>
+    <div style={{ alignSelf: 'center', width: 0, position: 'sticky', bottom: 'calc(-1 * var(--space-m))', zIndex: 2,
+      margin: '0 0 calc(-1 * var(--space-m))' }}>
+      <Row gap="s" style={{ width: 'var(--modal-body-w)', marginLeft: 'calc(var(--modal-body-w) / -2)', boxSizing: 'border-box',
+        background: 'var(--bg)', padding: 'var(--space-s) 0 var(--space-m)', ...style }}>
+        {onBack ? <Btn id={backId} onClick={onBack} /> : null}
+        <Spacer />
+        {reason ? <Text variant="caption" align="right" style={{ maxWidth: 260 }}>{reason}</Text> : null}
+        {children}
+      </Row>
+    </div>
   );
 }
 
