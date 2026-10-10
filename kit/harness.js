@@ -1,6 +1,9 @@
 /* Silent — gallery harness. Plain JS (loaded before the Babel specimen script).
    A panel page calls Gallery.render({...}) with React elements; this builds the
    page chrome (header + theme toggle) and mounts each specimen into a card. */
+/* Catalog .jsx files use `export function` (so the DS compiler exposes them);
+   in-browser Babel compiles that to CommonJS, which needs an `exports` object. */
+window.exports = window.exports || {};
 (function () {
   function el(tag, cls, txt) {
     const n = document.createElement(tag);

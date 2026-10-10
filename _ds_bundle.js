@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"SilentDesignSystem_243e89","components":[],"sourceHashes":{"kit/harness.js":"5fb8c9053c6a","preview/catalog-data.js":"be598af0ef7e","preview/specimen-back.js":"3061a81bb3fc","preview/specimen-shell.js":"33523c9cd69a","ui_kits/silent/Address.jsx":"94ce717ec983","ui_kits/silent/App.jsx":"e41f322fef98","ui_kits/silent/Data.jsx":"144cdcbc357b","ui_kits/silent/Icons.jsx":"75bc767ae2cd","ui_kits/silent/Layout.jsx":"4c606fb69277","ui_kits/silent/LayoutDoc.jsx":"125392df58ba","ui_kits/silent/MenuTab.jsx":"35060562a956","ui_kits/silent/Modal.jsx":"0e1797ef9caa","ui_kits/silent/Primitives.jsx":"c9931b8a0780","ui_kits/silent/ScreensBasic.jsx":"c14c79a789ee","ui_kits/silent/Send.jsx":"968f754c74ae","ui_kits/silent/Settings.jsx":"82994452be44","ui_kits/silent/Sidebar.jsx":"a7568ec62d21","ui_kits/silent/TxFlow.jsx":"7c8b486da357","ui_kits/silent/Widgets.jsx":"c4613a187109"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"SilentDesignSystem_243e89","components":[{"name":"QRCard","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"QRCode","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"ChunkedAddress","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"Address","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"Icon","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"SilentMark","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"Icons","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"Stack","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Row","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Spacer","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Divider","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Text","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Eyebrow","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Amount","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Layout","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Modal","sourcePath":"ui_kits/silent/Modal.jsx"},{"name":"Button","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Input","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"TextArea","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Display","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"FieldGroup","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Field","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Checkbox","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Toggle","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Spinner","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Card","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Badge","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"SelectRow","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Notice","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ModalStatus","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Legend","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ComboBox","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ValidationMark","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"BalanceHeader","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Tab","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Primitives","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"BTN_WIDTH","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"BUTTONS","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Btn","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"PILL_WIDTH","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"PILLS","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Pill","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Variants","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"SectionLabel","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FieldLabel","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"PaymentRow","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ValidatedInput","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Stepper","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Tooltip","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FoldSection","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"IndexPill","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"KeyValue","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Table","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"TransactionSummary","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"CoinTable","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"SectionHeader","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Section","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"CopyField","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ShortValue","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WordInputGrid","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WordGrid","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ROUTE_KINDS","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"RouteIcons","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ScanProgress","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FieldNote","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"EmptyState","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FoldChevron","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ScrollArea","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ModalActions","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Widgets","sourcePath":"ui_kits/silent/Widgets.jsx"}],"sourceHashes":{"kit/harness.js":"f9051916dc0a","preview/catalog-data.js":"83b26d012d9f","preview/specimen-back.js":"3061a81bb3fc","preview/specimen-shell.js":"33523c9cd69a","ui_kits/silent/AddKey.jsx":"568331aa3b36","ui_kits/silent/Address.jsx":"be526ece7360","ui_kits/silent/App.jsx":"ad3eaf24a82b","ui_kits/silent/Data.jsx":"0ad36d0c1b04","ui_kits/silent/GlobalSettings.jsx":"7c590eee3244","ui_kits/silent/Icons.jsx":"d68d8fc500da","ui_kits/silent/Keys.jsx":"3d278a629c2b","ui_kits/silent/Layout.jsx":"28af04d5dc8a","ui_kits/silent/LayoutDoc.jsx":"125392df58ba","ui_kits/silent/MenuTab.jsx":"376c1e73122e","ui_kits/silent/Modal.jsx":"5463ec561da4","ui_kits/silent/Primitives.jsx":"c3e3ea1e4106","ui_kits/silent/ScreensBasic.jsx":"cf5e76faf56d","ui_kits/silent/Send.jsx":"77a3ebc0987a","ui_kits/silent/Settings.jsx":"2de778bf6478","ui_kits/silent/Sidebar.jsx":"a7568ec62d21","ui_kits/silent/Signing.jsx":"74f2bf5a9962","ui_kits/silent/TxFlow.jsx":"e4eedeff4032","ui_kits/silent/Variants.jsx":"8f4dc62bc11a","ui_kits/silent/Widgets.jsx":"412c0d4b9518"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -13,6 +13,9 @@ try { (() => {
 /* Silent — gallery harness. Plain JS (loaded before the Babel specimen script).
    A panel page calls Gallery.render({...}) with React elements; this builds the
    page chrome (header + theme toggle) and mounts each specimen into a card. */
+/* Catalog .jsx files use `export function` (so the DS compiler exposes them);
+   in-browser Babel compiles that to CommonJS, which needs an `exports` object. */
+window.exports = window.exports || {};
 (function () {
   function el(tag, cls, txt) {
     const n = document.createElement(tag);
@@ -100,7 +103,7 @@ try { (() => {
    where `fns` are the component FUNCTION names that produce the specimen — the
    canonical way to refer to it (e.g. window.<NS>.Button). Token/brand cards
    have no producing function, so `fns` is empty. */
-window.CATALOG_GROUPS = [['Type', 'Font scale, text roles & Bitcoin amounts', [['type-display', 'Display & headings', 'span2', ['Text']], ['type-body', 'Body & labels', '', ['Text']], ['type-mono', 'Monospace', '', ['Text']], ['components-typography', 'Text variants', 'span2', ['Text']], ['components-amount', 'Amount', '', ['Amount']]]], ['Layout', 'Flex primitives — map 1:1 to Qt layouts', [['components-layout', 'Stack · Row · Spacer · Divider', 'full', ['Stack', 'Row', 'Spacer', 'Divider']]]], ['Generic Components', 'Atomic, reusable building blocks', [['components-buttons', 'Buttons', 'full', ['Button']], ['components-inputs', 'Inputs & fields', 'full', ['Input', 'Display', 'TextArea']], ['components-combobox', 'ComboBox', '', ['ComboBox']], ['components-checkbox', 'Checkbox', '', ['Checkbox']], ['components-toggle', 'Toggle', '', ['Toggle']], ['components-validation', 'Validation', '', ['ValidationMark']], ['components-cards', 'Cards & surfaces', 'span2', ['Card']], ['components-badge', 'Badges', '', ['Badge']], ['components-select-row', 'Select row', '', ['SelectRow']], ['components-modal-status', 'Modal & status', 'span2', ['Modal', 'ModalStatus', 'Spinner']], ['components-stepper', 'Stepper & disclosure', '', ['Stepper', 'FoldSection', 'Tooltip']], ['components-form-rows', 'Form rows', 'span2', ['Field', 'PaymentRow', 'ValidatedInput', 'KeyValue']], ['components-table', 'Table', 'span2', ['Table']]]], ['Components', 'App-specific compositions', [['components-menu', 'Sidebar menu', '', ['Sidebar']], ['components-balance', 'Balance header', 'span2', ['BalanceHeader']]]], ['Colors', 'Palette & semantic roles, both themes', [['colors-accent', 'Accent', '', []], ['colors-semantic', 'Semantic', '', []], ['colors-text', 'Text', '', []], ['colors-light-neutrals', 'Light neutrals', 'full', []], ['colors-dark-neutrals', 'Dark neutrals', 'full', []]]], ['Spacing', 'Spacing scale, corner radii & layout metrics', [['spacing-scale', 'Spacing scale', 'span2', []], ['radii', 'Corner radii', '', []], ['layout-metrics', 'Layout metrics', '', []]]], ['Brand', 'Wordmark, lockups & iconography', [['brand-wordmark', 'Wordmark & lockups', 'span2', []], ['brand-iconography', 'Iconography', 'span2', []]]]];
+window.CATALOG_GROUPS = [['Type', 'Font scale, text roles & Bitcoin amounts', [['type-display', 'Display & headings', 'span2', ['Text']], ['type-body', 'Body & labels', '', ['Text']], ['type-mono', 'Monospace', '', ['Text']], ['components-typography', 'Text variants', 'span2', ['Text']], ['components-amount', 'Amount', '', ['Amount']]]], ['Layout', 'Flex primitives — map 1:1 to Qt layouts', [['components-layout', 'Stack · Row · Spacer · Divider', 'full', ['Stack', 'Row', 'Spacer', 'Divider']]]], ['Generic Components', 'Atomic, reusable building blocks', [['components-buttons', 'Buttons', 'full', ['Button', 'Btn']], ['components-inputs', 'Inputs & fields', 'full', ['Input', 'Display', 'TextArea']], ['components-combobox', 'ComboBox', '', ['ComboBox']], ['components-checkbox', 'Checkbox', '', ['Checkbox']], ['components-toggle', 'Toggle', '', ['Toggle']], ['components-validation', 'Validation', '', ['ValidationMark']], ['components-cards', 'Cards & surfaces', 'span2', ['Card']], ['components-badge', 'Pills', 'span2', ['Badge', 'Pill']], ['components-variants', 'Widget variants', 'full', ['Text', 'Icon', 'Card', 'Input', 'FieldNote', 'SectionHeader', 'Section', 'ScrollArea', 'EmptyState', 'Tab', 'IndexPill']], ['components-select-row', 'Select row', 'span2', ['SelectRow']], ['components-notice', 'Notice', 'span2', ['Notice']], ['components-copy-field', 'Copy field', '', ['CopyField']], ['components-word-grid', 'Word grid', '', ['WordGrid']], ['components-scan-progress', 'Scan progress', '', ['ScanProgress']], ['components-route-icons', 'Route icons · section header · modal actions', 'span2', ['RouteIcons', 'SectionHeader', 'ModalActions']], ['components-modal-status', 'Modal & status', 'span2', ['Modal', 'ModalStatus', 'Spinner']], ['components-stepper', 'Stepper & disclosure', '', ['Stepper', 'FoldSection', 'Tooltip']], ['components-form-rows', 'Form rows', 'span2', ['Field', 'FieldGroup', 'PaymentRow', 'ValidatedInput', 'KeyValue']], ['components-table', 'Table', 'span2', ['Table']]]], ['Components', 'App-specific compositions', [['components-menu', 'Sidebar menu', '', ['Sidebar']], ['components-balance', 'Balance header', 'span2', ['BalanceHeader']], ['components-plugin-row', 'Plugin row', 'span2', ['PluginRow']]]], ['Colors', 'Palette & semantic roles, both themes', [['colors-accent', 'Accent', '', []], ['colors-semantic', 'Semantic', '', []], ['colors-text', 'Text', '', []], ['colors-light-neutrals', 'Light neutrals', 'full', []], ['colors-dark-neutrals', 'Dark neutrals', 'full', []]]], ['Spacing', 'Spacing scale, corner radii & layout metrics', [['spacing-scale', 'Spacing scale', 'span2', []], ['radii', 'Corner radii', '', []], ['layout-metrics', 'Layout metrics', '', []]]], ['Brand', 'Wordmark, lockups & iconography', [['brand-wordmark', 'Wordmark & lockups', 'span2', []], ['brand-iconography', 'Iconography', 'span2', []]]]];
 window.CATALOG_SLUG = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 /* Unique component function names within a group, in first-seen order. */
 window.CATALOG_FNS = items => {
@@ -201,6 +204,463 @@ try { (() => {
 })();
 })(); } catch (e) { __ds_ns.__errors.push({ path: "preview/specimen-shell.js", error: String((e && e.message) || e) }); }
 
+// ui_kits/silent/AddKey.jsx
+try { (() => {
+/* Silent UI Kit — Add a Key (issue #2 §3.4) + Hot key steps (§3.5).
+   One modal. Step 1 picks the mode (the pick looks selected); the next steps
+   replace it in place. Every disabled primary action shows its reason. */
+
+FLOW_COPY.add = {
+  ...FLOW_COPY.fetch,
+  scanHint: 'Hold the answer code from the device in front of the camera.'
+};
+const ADD_MODES = [{
+  id: 'qr',
+  icon: 'qr',
+  title: 'Airgap over QR Code',
+  sub: 'Show a request code to the device, then scan its answer with the camera.'
+}, {
+  id: 'sd',
+  icon: 'folder',
+  title: 'Import a File',
+  sub: 'Open a key export from a device (e.g. on an SD card) or a .json key file from Silent.'
+}, {
+  id: 'import',
+  icon: 'pencil',
+  title: 'Paste Xpub',
+  sub: 'Paste the key with its origin, e.g. [73c5da0a/84\'/1\'/0\']tpubD…'
+}, {
+  id: 'hot',
+  icon: 'key',
+  title: 'Hot Key',
+  sub: 'Generate or import a mnemonic, stored on this computer and sealed with a password.'
+}];
+const KEY_FILE_ERRORS = {
+  invalid: 'This is not a valid key file.',
+  newer: 'This key file was written by a newer version of Silent. Update Silent to import it.',
+  network: n => `This key file is for Bitcoin, not ${n}. Switch the network in the Keys tab to import it.`,
+  nofp: 'This key file has no fingerprint, so the key cannot be identified.',
+  route: 'This key file has a route type Silent does not know (“nfc”). Remove that route from the file, or update Silent.'
+};
+const ORIGIN_RE = /^\[([0-9a-f]{8})((\/\d+['h]?)+)\]$/;
+const originFp = o => {
+  const m = ORIGIN_RE.exec((o || '').trim());
+  return m ? m[1] : null;
+};
+const xpubOk = x => /^[xt]pub[1-9A-HJ-NP-Za-km-z]{100,}$/.test((x || '').trim());
+
+/* Read-only review of what the device returned. */
+/* Same row as Cached Xpubs (XpubTable), read-only. The fingerprint is in the
+   modal title bar. */
+const originPath = o => 'm/' + (o || '').replace(/^\[[0-9a-f]{8}\/?/, '').replace(/\]$/, '');
+function KeyReview({
+  origin,
+  xpub
+}) {
+  return /*#__PURE__*/React.createElement(XpubTable, {
+    rows: [{
+      path: originPath(origin),
+      xpub
+    }],
+    copy: false
+  });
+}
+function AliasField({
+  value,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(Field, {
+    label: "Alias:"
+  }, /*#__PURE__*/React.createElement(Input, {
+    grow: true,
+    placeholder: "Name the key",
+    value: value,
+    onChange: e => onChange(e.target.value)
+  }));
+}
+function AddKeyModal({
+  network = 'Signet',
+  existing = [],
+  onClose,
+  onAdd,
+  initial = {}
+}) {
+  const [step, setStep] = React.useState(initial.step || 'mode');
+  const [mode, setMode] = React.useState(initial.mode || null);
+  const [alias, setAlias] = React.useState(initial.alias || '');
+  const [res, setRes] = React.useState(initial.res || null); // { origin, xpub } returned by device / file
+  const [origin, setOrigin] = React.useState(initial.origin || '');
+  const [xpub, setXpub] = React.useState(initial.xpub || '');
+  const [fileErr, setFileErr] = React.useState(initial.fileError || null);
+  const [sdErr, setSdErr] = React.useState(initial.sdError || false);
+  // hot key
+  const [hotKind, setHotKind] = React.useState(initial.hotKind || 'gen12'); // gen12 | gen24 | import
+  const [typed, setTyped] = React.useState(initial.typed || '');
+  const [inWords, setInWords] = React.useState(() => {
+    const t = (initial.typed || '').trim().split(/\s+/).filter(Boolean);
+    const n = initial.words || (t.length > 12 ? 24 : 12);
+    return Array.from({
+      length: n
+    }, (_, i) => t[i] || '');
+  });
+  const [wrote, setWrote] = React.useState(!!initial.wrote);
+  const [pw, setPw] = React.useState(initial.pw || '');
+  const [pw2, setPw2] = React.useState(initial.pw2 || '');
+  const words = React.useMemo(() => hotKind === 'gen24' ? HOT_WORDS['9a41e6b3'] : MNEMONIC_WORDS.slice(0, 12), [hotKind]);
+  const xp = network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T;
+  const coin = network === 'Bitcoin' ? "0'" : "1'";
+  const fpOf = res ? originFp(res.origin) : originFp(origin);
+  const dup = fpOf && existing.some(k => k.fp === fpOf);
+  const dupNotice = dup ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "error",
+    title: "Fingerprint already registered"
+  }, "Key ", fpOf, " is already registered as \u201C", existing.find(k => k.fp === fpOf).alias, "\u201D.") : null;
+  const aliasReason = !alias.trim() ? 'Enter an alias.' : existing.some(k => k.alias === alias.trim()) ? 'Another key already has this alias.' : null;
+  const add = (o, x, routes, hasHot) => onAdd && onAdd({
+    fp: originFp(o) || 'f00dcafe',
+    alias: alias.trim(),
+    routes,
+    hasHot,
+    devicesSeen: [],
+    xpubs: [{
+      path: 'm/' + o.slice(10, -1),
+      xpub: x
+    }],
+    descriptors: []
+  });
+  let title = 'Add a Key',
+    width = 600,
+    body;
+  if (step === 'mode') {
+    body =
+    /*#__PURE__*/
+    /* clicking a mode goes straight to its step (no Continue) */
+    React.createElement(Stack, {
+      gap: "s"
+    }, ADD_MODES.map(m => /*#__PURE__*/React.createElement(SelectRow, {
+      key: m.id,
+      icon: m.icon,
+      title: m.title,
+      sub: m.sub,
+      onClick: () => {
+        setMode(m.id);
+        setStep(m.id === 'hot' ? 'hot-choose' : m.id);
+      }
+    })));
+  } else if (step === 'qr') {
+    title = 'Add a Key · QR Code';
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "m",
+      align: "center"
+    }, /*#__PURE__*/React.createElement(Text, {
+      variant: "body",
+      color: "secondary",
+      align: "center"
+    }, "Scan this request with the device. It answers with its key origin and xpub."), /*#__PURE__*/React.createElement(QRCode, {
+      text: `UR:CRYPTO-REQUEST/XPUB/${network.toUpperCase()}/M-84H-${coin === "0'" ? '0' : '1'}H-0H`,
+      size: 240
+    }), /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setStep('mode'),
+      style: {
+        width: '100%'
+      }
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "next_scan_the_answer",
+      onClick: () => setStep('qr-scan')
+    })));
+  } else if (step === 'qr-scan') {
+    title = 'Add a Key · Scan the Answer';
+    width = 640;
+    body = /*#__PURE__*/React.createElement(CameraStep, {
+      context: "add",
+      force: initial.camera,
+      progress: initial.progress,
+      scanError: initial.scanError,
+      onBack: () => setStep('qr'),
+      onCancel: onClose,
+      onDone: () => {
+        setRes({
+          origin: `[7e02da41/84'/${coin}/0']`,
+          xpub: xp
+        });
+        setStep('review');
+      }
+    });
+  } else if (step === 'review' || step === 'sd') {
+    title = step === 'sd' ? 'Add a Key · Import a File' : 'Add a Key · Review';
+    const loaded = step === 'review' || res && !fileErr;
+    const fileMsg = fileErr ? typeof KEY_FILE_ERRORS[fileErr] === 'function' ? KEY_FILE_ERRORS[fileErr](network) : KEY_FILE_ERRORS[fileErr] : null;
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "m"
+    }, step === 'sd' && !loaded ? /*#__PURE__*/React.createElement(Stack, {
+      gap: "s"
+    }, /*#__PURE__*/React.createElement(Card, {
+      tone: "inset",
+      pad: "m"
+    }, /*#__PURE__*/React.createElement(Stack, {
+      align: "center",
+      gap: "s",
+      style: {
+        padding: 'var(--space-l) 0'
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: "folder",
+      size: 48,
+      tone: "muted"
+    }), /*#__PURE__*/React.createElement(Text, {
+      variant: "caption",
+      color: "muted",
+      align: "center"
+    }, "Open or drop a file here"))), sdErr ? /*#__PURE__*/React.createElement(Notice, {
+      tone: "error",
+      title: "Could not read the file"
+    }, "The file is not a key export, or the SD card was removed. Pick the export file again.") : null, fileMsg ? /*#__PURE__*/React.createElement(Notice, {
+      tone: "error",
+      title: "Cannot import this file"
+    }, fileMsg) : null) : null, loaded ? /*#__PURE__*/React.createElement(KeyReview, {
+      origin: res.origin,
+      xpub: res.xpub
+    }) : null, loaded ? dupNotice : null, loaded ? /*#__PURE__*/React.createElement(AliasField, {
+      value: alias,
+      onChange: setAlias
+    }) : null, /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => {
+        setRes(null);
+        setStep(step === 'review' ? 'qr' : 'mode');
+      },
+      reason: !loaded ? null : dup ? 'This key is already registered.' : aliasReason
+    }, loaded ? /*#__PURE__*/React.createElement(Btn, {
+      id: "add_key",
+      disabled: dup || !!aliasReason,
+      onClick: () => add(res.origin, res.xpub, [mode === 'sd' ? 'sd' : 'qr'], false)
+    }) : /*#__PURE__*/React.createElement(Btn, {
+      id: "open_file",
+      onClick: () => {
+        setSdErr(false);
+        setFileErr(null);
+        setRes({
+          origin: `[a19c44e0/84'/${coin}/0']`,
+          xpub: xp
+        });
+      }
+    })));
+  } else if (step === 'import') {
+    title = 'Add a Key · Paste Xpub';
+    /* one field: the key with its origin, e.g. [73c5da0a/84'/1'/0']tpubD… */
+    const m = /^(\[[^\]]*\])\s*(\S+)$/.exec(xpub.trim());
+    const kOrigin = m ? m[1] : '',
+      kXpub = m ? m[2] : '';
+    const kOk = !!m && !!originFp(kOrigin) && xpubOk(kXpub);
+    const kState = !xpub.trim() ? 'none' : kOk ? 'valid' : 'invalid';
+    const kFp = m ? originFp(kOrigin) : null;
+    const kDup = kFp && existing.some(k => k.fp === kFp);
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "s"
+    }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
+      label: "Xpub:"
+    }, /*#__PURE__*/React.createElement(ValidatedInput, {
+      mono: true,
+      state: kState,
+      placeholder: `[73c5da0a/84'/1'/0']${network === 'Bitcoin' ? 'xpub' : 'tpub'}…`,
+      value: xpub,
+      onChange: e => setXpub(e.target.value),
+      wrapStyle: {
+        flex: 1
+      }
+    })), kState === 'invalid' ? /*#__PURE__*/React.createElement(FieldNote, {
+      tone: "error"
+    }, "Paste the key with its origin, e.g. [73c5da0a/84'/1'/0']tpubD\u2026") : null, /*#__PURE__*/React.createElement(AliasField, {
+      value: alias,
+      onChange: setAlias
+    })), kDup ? /*#__PURE__*/React.createElement(Notice, {
+      tone: "error",
+      title: "Fingerprint already registered"
+    }, "Key ", kFp, " is already registered as \u201C", existing.find(k => k.fp === kFp).alias, "\u201D.") : null, /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setStep('mode'),
+      reason: kState !== 'valid' ? null : kDup ? 'This key is already registered.' : aliasReason
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "add_key",
+      disabled: !kOk || kDup || !!aliasReason,
+      onClick: () => add(kOrigin, kXpub, ['usb'], false)
+    })));
+  } else if (step === 'hot-choose') {
+    title = 'Add a Key · Hot Key';
+    const filled = inWords.filter(Boolean).length;
+    const bad = inWords.filter(x => x && !isBip39(x)).length;
+    const typedOk = filled === inWords.length && bad === 0;
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "m"
+    }, /*#__PURE__*/React.createElement(Stack, {
+      gap: "s"
+    }, /*#__PURE__*/React.createElement(SelectRow, {
+      icon: "refresh",
+      title: "Generate 12 Words",
+      sub: "A new mnemonic. Enough for most uses.",
+      selected: hotKind === 'gen12',
+      onClick: () => setHotKind('gen12')
+    }), /*#__PURE__*/React.createElement(SelectRow, {
+      icon: "refresh",
+      title: "Generate 24 Words",
+      sub: "A new, longer mnemonic.",
+      selected: hotKind === 'gen24',
+      onClick: () => setHotKind('gen24')
+    }), /*#__PURE__*/React.createElement(SelectRow, {
+      icon: "pencil",
+      title: "Import Words",
+      sub: "Type an existing mnemonic.",
+      selected: hotKind === 'import',
+      onClick: () => setHotKind('import'),
+      trailing: /*#__PURE__*/React.createElement(ComboBox, {
+        value: inWords.length + ' Words',
+        options: ['12 Words', '15 Words', '24 Words'],
+        width: 110,
+        onChange: l => {
+          const n = parseInt(l, 10);
+          setHotKind('import');
+          setInWords(ws => Array.from({
+            length: n
+          }, (_, i) => ws[i] || ''));
+        }
+      })
+    })), hotKind === 'import' ? /*#__PURE__*/React.createElement(WordInputGrid, {
+      words: inWords,
+      onChange: setInWords,
+      isWord: isBip39
+    }) : null, /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setStep('mode'),
+      reason: hotKind !== 'import' || typedOk ? null : bad ? `${bad} word${bad === 1 ? ' is' : 's are'} not in the word list.` : `${inWords.length - filled} word${inWords.length - filled === 1 ? '' : 's'} missing.`
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "continue",
+      disabled: hotKind === 'import' && !typedOk,
+      onClick: () => setStep(hotKind === 'import' ? 'hot-password' : 'hot-backup')
+    })));
+  } else if (step === 'hot-backup') {
+    title = 'Add a Key · Back Up the Words';
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "m"
+    }, /*#__PURE__*/React.createElement(Notice, {
+      tone: "warning",
+      title: "These words are shown once"
+    }, "Write them down in order and keep them offline. Anyone holding them holds the coins."), /*#__PURE__*/React.createElement(WordGrid, {
+      words: words
+    }), /*#__PURE__*/React.createElement(Checkbox, {
+      checked: wrote,
+      onChange: setWrote,
+      label: "I wrote the words down, in order."
+    }), /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setStep('hot-choose'),
+      reason: wrote ? null : 'Confirm that you wrote the words down.'
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "continue",
+      disabled: !wrote,
+      onClick: () => setStep('hot-password')
+    })));
+  } else if (step === 'hot-password') {
+    title = 'Add a Key · Choose a Password';
+    const short = pw && pw.length < 8,
+      mismatch = pw2 && pw !== pw2;
+    const reason = aliasReason || (!pw ? 'Choose a password.' : short ? 'Use at least 8 characters.' : pw !== pw2 ? 'The two passwords must match.' : null);
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "s"
+    }, /*#__PURE__*/React.createElement(Text, {
+      as: "div",
+      variant: "body",
+      color: "secondary"
+    }, "The password seals the mnemonic on this computer. Silent asks for it each time the key signs."), /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(AliasField, {
+      value: alias,
+      onChange: setAlias
+    }), /*#__PURE__*/React.createElement(Field, {
+      label: "Password:"
+    }, /*#__PURE__*/React.createElement(Input, {
+      grow: true,
+      type: "password",
+      value: pw,
+      onChange: e => setPw(e.target.value)
+    })), short ? /*#__PURE__*/React.createElement(FieldNote, {
+      tone: "error"
+    }, "Use at least 8 characters.") : null, /*#__PURE__*/React.createElement(Field, {
+      label: "Confirm:"
+    }, /*#__PURE__*/React.createElement(Input, {
+      grow: true,
+      type: "password",
+      value: pw2,
+      onChange: e => setPw2(e.target.value)
+    })), mismatch ? /*#__PURE__*/React.createElement(FieldNote, {
+      tone: "error"
+    }, "The passwords do not match.") : null), /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setStep(hotKind === 'import' ? 'hot-choose' : 'hot-backup'),
+      reason: reason
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "seal_key",
+      disabled: !!reason,
+      onClick: () => {
+        setStep('hot-sealing');
+        setTimeout(() => setStep('hot-done'), 2200);
+      }
+    })));
+  } else if (step === 'hot-sealing') {
+    title = 'Add a Key · Sealing';
+    body = /*#__PURE__*/React.createElement(ModalStatus, {
+      spinner: true,
+      title: "Sealing the key\u2026",
+      subtitle: "Encrypting the mnemonic with the password. This takes a few seconds.",
+      pad: "var(--space-m) 0"
+    });
+  } else if (step === 'hot-done') {
+    title = 'Add a Key';
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "m"
+    }, /*#__PURE__*/React.createElement(ModalStatus, {
+      icon: "circle_check",
+      iconColor: "var(--success)",
+      title: "Key Added",
+      subtitle: `“${alias || 'Hot Key'}” (f00dcafe) is stored on this computer and ready to sign.`,
+      pad: "var(--space-m) 0 0"
+    }), /*#__PURE__*/React.createElement(ModalActions, null, /*#__PURE__*/React.createElement(Btn, {
+      id: "done",
+      onClick: () => add(`[f00dcafe/84'/${coin}/0']`, xp, ['hot'], true)
+    })));
+  } else if (step === 'hot-error') {
+    title = 'Add a Key';
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "m"
+    }, /*#__PURE__*/React.createElement(ModalStatus, {
+      icon: "circle_x",
+      iconColor: "var(--error)",
+      title: "Could Not Seal the Key",
+      subtitle: "This computer ran out of memory while encrypting the mnemonic. Close other apps, then try again.",
+      pad: "var(--space-m) 0 0"
+    }), /*#__PURE__*/React.createElement(ModalActions, null, /*#__PURE__*/React.createElement(Btn, {
+      id: "try_again",
+      onClick: () => {
+        setStep('hot-sealing');
+        setTimeout(() => setStep('hot-done'), 2200);
+      }
+    })));
+  }
+  const fpHead = (step === 'review' || step === 'sd') && res && !fileErr ? originFp(res.origin) : null;
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: title,
+    width: width,
+    onClose: onClose,
+    headerRight: fpHead ? /*#__PURE__*/React.createElement(Text, {
+      variant: "mono",
+      color: "secondary",
+      size: "sm"
+    }, fpHead) : null
+  }, body);
+}
+Object.assign(window, {
+  AddKeyModal,
+  ADD_MODES,
+  KEY_FILE_ERRORS,
+  KeyReview,
+  AliasField,
+  originFp,
+  xpubOk
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/AddKey.jsx", error: String((e && e.message) || e) }); }
+
 // ui_kits/silent/Address.jsx
 try { (() => {
 /* Silent UI Kit — Address & QR catalog.
@@ -241,12 +701,14 @@ function qrSvg(text, {
 
 /* QRCard — the white framed tile that holds a QR (or any square glyph).
    `bg`/`color` let the airgap scanner tune contrast; `onClick` makes it tappable. */
+/* `dim` fades the code while it is being rebuilt. */
 function QRCard({
   size = 132,
   pad = 12,
   bg = '#ffffff',
   color,
   radius = 8,
+  dim,
   onClick,
   title,
   style,
@@ -260,6 +722,8 @@ function QRCard({
       flex: 'none',
       width: size,
       height: size,
+      maxWidth: '100%',
+      opacity: dim ? 0.25 : 1,
       padding: pad,
       background: bg,
       color,
@@ -305,10 +769,7 @@ function QRCode({
   }, /*#__PURE__*/React.createElement(QRCard, {
     size: 560,
     pad: 20,
-    radius: 12,
-    style: {
-      maxWidth: '100%'
-    }
+    radius: 12
   }, svg), /*#__PURE__*/React.createElement(ChunkedAddress, {
     text: text
   }))) : null);
@@ -374,11 +835,21 @@ Object.assign(window, {
   QRCode,
   ChunkedAddress
 });
+
+/* File-level namespace (DS compiler indexes this file as `Address`). */
+const Address = {
+  QRCard,
+  QRCode,
+  ChunkedAddress
+};
+Object.assign(__ds_scope, { QRCard, QRCode, ChunkedAddress, Address });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Address.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/App.jsx
 try { (() => {
 /* Silent UI Kit — App shell: QTabWidget tabs (MainWindow.cpp) + AccountView.
+   Tab order: Keys (non-closable) · wallets · + menu; Settings gear in the end slot
+   opens the global Settings modal (GlobalSettings.jsx), which owns the theme.
    Structure is built from catalog layout primitives (Stack/Row/Text) so it maps
    1:1 to Qt layouts; Tab is the catalog component (Primitives.jsx). */
 
@@ -432,7 +903,10 @@ function AccountView({
   }));
 }
 function App() {
-  const [theme, setTheme] = React.useState('light');
+  // Theme is a global setting (GlobalSettingsModal). Module themes render on the
+  // light palette in the kit; the app ships their own palettes.
+  const [themeName, setThemeName] = React.useState('Light');
+  const theme = themeName === 'Dark' || themeName === 'Midnight' ? 'dark' : 'light';
   const [appW, setAppW] = React.useState('full');
   const [known, setKnown] = React.useState(KNOWN_WALLETS);
   const [openTabs, setOpenTabs] = React.useState(['savings']);
@@ -440,6 +914,7 @@ function App() {
   const [screens, setScreens] = React.useState({
     savings: 'history'
   });
+  const [settingsOpen, setSettingsOpen] = React.useState(false);
   React.useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
@@ -536,24 +1011,7 @@ function App() {
       minWidth: 42,
       textAlign: 'right'
     }
-  }, appW === 'full' ? 'Full' : appW)), /*#__PURE__*/React.createElement(Row, {
-    style: {
-      flex: 'none',
-      border: '1px solid var(--border)',
-      borderRadius: 6,
-      overflow: 'hidden'
-    }
-  }, ['light', 'dark'].map(t => /*#__PURE__*/React.createElement(Button, {
-    key: t,
-    role: theme === t ? 'primary' : 'default',
-    onClick: () => setTheme(t),
-    style: {
-      borderRadius: 0,
-      border: 'none',
-      minHeight: 0,
-      padding: '5px 12px'
-    }
-  }, t[0].toUpperCase() + t.slice(1))))), /*#__PURE__*/React.createElement(Stack, {
+  }, appW === 'full' ? 'Full' : appW))), /*#__PURE__*/React.createElement(Stack, {
     grow: true,
     style: {
       width: '100%',
@@ -565,15 +1023,22 @@ function App() {
       borderLeft: appW === 'full' ? 'none' : '1px solid var(--border)',
       borderRight: appW === 'full' ? 'none' : '1px solid var(--border)'
     }
-  }, /*#__PURE__*/React.createElement(Row, {
-    align: "flex-end",
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "s-tabstrip",
     style: {
       flex: 'none',
-      padding: '8px 8px 0',
+      padding: 'var(--pad-xs) var(--pad-xs) 0',
       background: 'var(--bg-secondary)',
       borderBottom: '1px solid var(--border)'
     }
-  }, openTabs.map(name => /*#__PURE__*/React.createElement(Tab, {
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "s-tabstrip__tabs"
+  }, /*#__PURE__*/React.createElement(Tab, {
+    label: "Keys",
+    active: active === 'keys',
+    closable: false,
+    onClick: () => setActive('keys')
+  }), openTabs.map(name => /*#__PURE__*/React.createElement(Tab, {
     key: name,
     label: name,
     active: active === name,
@@ -585,16 +1050,29 @@ function App() {
     active: active === 'menu',
     closable: false,
     onClick: () => setActive('menu')
-  })), /*#__PURE__*/React.createElement(Row, {
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "s-tabstrip__end"
+  }, /*#__PURE__*/React.createElement(SettingsGear, {
+    onClick: () => setSettingsOpen(true)
+  }))), /*#__PURE__*/React.createElement(Row, {
     grow: true,
     align: "stretch",
     style: {
       minHeight: 0,
-      background: 'var(--bg)'
+      background: 'var(--bg)',
+      position: 'relative'
     }
-  }, active === 'menu' ? /*#__PURE__*/React.createElement(MenuTab, {
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: active === 'keys' ? 'flex' : 'none',
+      flex: 1,
+      minWidth: 0,
+      minHeight: 0
+    }
+  }, /*#__PURE__*/React.createElement(KeysScreen, null)), active === 'keys' ? null : active === 'menu' ? /*#__PURE__*/React.createElement(MenuTab, {
     wallets: known,
     openWallets: openTabs,
+    onOpenKeys: () => setActive('keys'),
     onOpen: openWallet,
     onCreate: createWallet,
     onDelete: deleteWallet
@@ -605,7 +1083,11 @@ function App() {
       ...prev,
       [active]: s
     }))
-  }))));
+  }), settingsOpen ? /*#__PURE__*/React.createElement(GlobalSettingsModal, {
+    theme: themeName,
+    onTheme: setThemeName,
+    onClose: () => setSettingsOpen(false)
+  }) : null)));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/App.jsx", error: String((e && e.message) || e) }); }
@@ -725,14 +1207,700 @@ function fakeMnemonic() {
   }
   return w.slice(0, 12).join(' ');
 }
+
+/* ---------------- Keys, devices (issue #2) ----------------
+   Keys are per network. `routes` is ordered (first = primary). `hasHot` = a sealed
+   mnemonic is stored on this computer. Devices are the hardware wallets connected
+   right now; `fp` is null when the device can't report it (locked / unsupported). */
+const DEMO_XPUB_T = 'tpubDCtKfsNyRhULjZ9XMS4VKKtVcPdVDi8MKUbcSD9MJDyjRu1A2ND5MiipozyyspBT9bg8upEp7a8EAgFxNxXn1d7QkdbL52Ty5jiSLcxPt1P';
+const DEMO_XPUB_M = 'xpub6CUGRUonZSQ4TWtTMmzXdrXDtypWKiKrhko4egpiMZbpiaQL2jkwSB1icqYh2cfDfVxdx4df189oLKnC5fSwqPfgyP3hooxujYzAu3fDVmz';
+const desc = (fp, path, xpub) => `sp([${fp}/${path.replace(/^m\//, '')}]${xpub}/<0;1>/*)#7q9zr3kd`;
+const KEYS = [{
+  fp: '73c5da0a',
+  alias: 'Daily Ledger',
+  network: 'Signet',
+  routes: ['usb', 'qr'],
+  hasHot: false,
+  devicesSeen: [{
+    brand: 'Ledger',
+    model: 'Nano S Plus',
+    module: 'Ledger'
+  }],
+  xpubs: [{
+    path: "m/84'/1'/0'",
+    xpub: DEMO_XPUB_T,
+    used: true
+  }, {
+    path: "m/86'/1'/0'",
+    xpub: DEMO_XPUB_T.replace('CtK', 'Rw8'),
+    used: false
+  }],
+  descriptors: [{
+    desc: desc('73c5da0a', "m/352'/1'/0'", DEMO_XPUB_T),
+    registered: true,
+    account: 'savings',
+    module: 'SP Accounts'
+  }, {
+    desc: desc('73c5da0a', "m/352'/1'/1'", DEMO_XPUB_T.replace('Lj', 'Qm')),
+    registered: false,
+    account: 'testing',
+    module: 'SP Accounts'
+  }]
+}, {
+  fp: 'f23a9e01',
+  alias: 'Laptop Hot Key',
+  network: 'Signet',
+  routes: ['hot'],
+  hasHot: true,
+  devicesSeen: [],
+  xpubs: [{
+    path: "m/84'/1'/0'",
+    xpub: DEMO_XPUB_T.replace('Ctk', 'Hk2'),
+    used: false
+  }],
+  descriptors: []
+}, {
+  fp: '5be0c7d2',
+  alias: 'Vault Coldcard',
+  network: 'Signet',
+  routes: ['sd', 'qr'],
+  hasHot: false,
+  devicesSeen: [{
+    brand: 'Coldcard',
+    model: 'Q',
+    module: 'Coldcard'
+  }],
+  xpubs: [],
+  descriptors: [{
+    desc: desc('5be0c7d2', "m/352'/1'/0'", DEMO_XPUB_T.replace('ULj', 'Vv3')),
+    registered: true,
+    account: 'savings'
+  }]
+}, {
+  fp: '9a41e6b3',
+  alias: 'Backup Key',
+  network: 'Signet',
+  routes: ['hot', 'usb', 'sd'],
+  hasHot: true,
+  devicesSeen: [{
+    brand: 'BitBox',
+    model: 'BitBox02',
+    module: 'BitBox'
+  }],
+  xpubs: [],
+  descriptors: []
+}, {
+  fp: '0d6f2c88',
+  alias: 'Cold Ledger',
+  network: 'Bitcoin',
+  routes: ['usb'],
+  hasHot: false,
+  devicesSeen: [{
+    brand: 'Ledger',
+    model: 'Nano X',
+    module: 'Ledger'
+  }],
+  xpubs: [{
+    path: "m/84'/0'/0'",
+    xpub: DEMO_XPUB_M,
+    used: true
+  }],
+  descriptors: [{
+    desc: desc('0d6f2c88', "m/352'/0'/0'", DEMO_XPUB_M),
+    registered: true,
+    account: 'cold-storage'
+  }]
+}];
+const DEVICES = [{
+  id: 'hid-0001',
+  brand: 'Ledger',
+  model: 'Nano S Plus',
+  fp: '73c5da0a',
+  state: 'ready',
+  network: 'Signet',
+  kind: 'Ledger',
+  firmware: '1.4.1'
+}, {
+  id: 'hid-0002',
+  brand: 'Coldcard',
+  model: 'Mk4',
+  fp: '7e02da41',
+  state: 'ready',
+  network: 'Signet',
+  kind: 'Coldcard',
+  firmware: '5.4.0'
+}, {
+  id: 'hid-0003',
+  brand: 'Blockstream',
+  model: 'Jade',
+  fp: 'c0e1a7f4',
+  state: 'ready',
+  network: 'Signet',
+  kind: 'Jade',
+  firmware: '1.0.31',
+  registerError: 'The device disconnected before it returned its xpub. Reconnect it and try again.'
+}, {
+  id: 'hid-0004',
+  brand: 'BitBox',
+  model: 'BitBox02',
+  fp: null,
+  state: 'locked',
+  network: 'Signet',
+  kind: 'BitBox',
+  detail: 'Enter the PIN on the device to unlock it.'
+}, {
+  id: 'hid-0005',
+  brand: 'Trezor',
+  model: 'Model One',
+  fp: null,
+  state: 'unsupported',
+  network: 'Signet',
+  kind: 'Trezor',
+  detail: 'This model does not support silent payments.'
+}];
+const DEVICE_STATE = {
+  ready: {
+    label: 'Ready',
+    tone: 'success'
+  },
+  locked: {
+    label: 'Locked',
+    tone: 'warning'
+  },
+  unsupported: {
+    label: 'Unsupported',
+    tone: 'error'
+  }
+};
+
+/* Signing plans: one row per key the transaction needs. `status` is the plan's
+   verdict for that key; `route` is the route it will use (null when none). */
+/* ---------------- Global settings (issue #4) ---------------- */
+const LANGUAGES = ['English', 'Français', 'Italiano', 'Deutsch', 'Português', 'Español'];
+/* External plugins found in ~/.silent/plugins/ (built-in modules are never listed). */
+const PLUGINS = [{
+  id: 'atomic-swaps',
+  name: 'Atomic Swaps',
+  version: '0.3.0',
+  desc: 'Swap accounts and two extra themes.',
+  enabled: true,
+  themes: ['Midnight', 'Paper'],
+  accounts: ['swaps']
+}, {
+  id: 'payjoin',
+  name: 'Payjoin',
+  version: '1.2.3',
+  desc: 'Payjoin sending and receiving.',
+  enabled: false
+}, {
+  id: 'nostr-backup',
+  name: 'Nostr Backup',
+  version: '0.1.4',
+  enabled: true,
+  error: 'Could not load: the plugin was built for a newer Silent (needs 0.9, this is 0.8).'
+}];
+const EXTENSION_SECTIONS = [{
+  id: 'hw',
+  title: 'Hardware Wallets',
+  module: 'Hardware Wallets',
+  icon: 'usb'
+}, {
+  id: 'swaps',
+  title: 'Atomic Swaps',
+  module: 'Atomic Swaps',
+  icon: 'puzzle'
+}];
+/* Demo stand-in for the BIP39 English list (the app checks the real 2048 words). */
+const BIP39_DEMO = new Set([...MNEMONIC_WORDS, 'lumber', 'quarter', 'solar', 'tiny', 'wisdom', 'zebra', 'abandon', 'ability', 'able', 'about', 'above', 'absent', 'absorb', 'abstract', 'absurd', 'abuse', 'access', 'accident', 'account', 'zoo']);
+const isBip39 = w => BIP39_DEMO.has(w);
+Object.assign(window, {
+  BIP39_DEMO,
+  isBip39,
+  LANGUAGES,
+  PLUGINS,
+  EXTENSION_SECTIONS
+});
+const SIGNING_PLAN = [{
+  fp: '73c5da0a',
+  alias: 'Daily Ledger',
+  route: 'usb',
+  status: 'first',
+  device: 'Ledger Nano S Plus'
+}, {
+  fp: 'f23a9e01',
+  alias: 'Laptop Hot Key',
+  route: 'hot',
+  status: 'waiting'
+}];
+const SIGNING_PLAN_ALL = [{
+  fp: '73c5da0a',
+  alias: 'Daily Ledger',
+  route: 'usb',
+  status: 'first',
+  device: 'Ledger Nano S Plus'
+}, {
+  fp: '5be0c7d2',
+  alias: 'Vault Coldcard',
+  route: 'qr',
+  status: 'ready'
+}, {
+  fp: 'f23a9e01',
+  alias: 'Laptop Hot Key',
+  route: 'hot',
+  status: 'waiting'
+}, {
+  fp: '9a41e6b3',
+  alias: 'Backup Key',
+  route: 'usb',
+  status: 'disconnected',
+  device: 'BitBox02'
+}, {
+  fp: '3e8d1f20',
+  alias: 'Old Hot Key',
+  route: null,
+  status: 'no_hot'
+}, {
+  fp: '6c2a90bd',
+  alias: 'Spare Key',
+  route: null,
+  status: 'no_route'
+}, {
+  fp: 'e4b27a19',
+  alias: null,
+  route: null,
+  status: 'unregistered'
+}];
+const VERIFY_PLAN = [{
+  fp: '73c5da0a',
+  alias: 'Daily Ledger',
+  route: 'usb',
+  status: 'ready',
+  device: 'Ledger Nano S Plus'
+}, {
+  fp: '5be0c7d2',
+  alias: 'Vault Coldcard',
+  route: 'qr',
+  status: 'ready'
+}];
+const OTHER_DEVICES = [{
+  name: 'Coldcard Mk4',
+  fp: '7e02da41'
+}];
+Object.assign(window, {
+  SIGNING_PLAN,
+  SIGNING_PLAN_ALL,
+  VERIFY_PLAN,
+  OTHER_DEVICES
+});
+const defaultXpubPath = network => network === 'Bitcoin' ? "m/84'/0'/0'" : "m/84'/1'/0'";
+const deviceName = d => d.brand && d.model && !d.model.startsWith(d.brand) ? `${d.brand} ${d.model}` : d.model || d.brand;
 Object.assign(window, {
   SP_ADDRESS,
   WALLETS,
   KNOWN_WALLETS,
   NETWORKS,
-  fakeMnemonic
+  fakeMnemonic,
+  MNEMONIC_WORDS,
+  KEYS,
+  DEVICES,
+  DEVICE_STATE,
+  defaultXpubPath,
+  deviceName,
+  DEMO_XPUB_T,
+  DEMO_XPUB_M
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Data.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/silent/GlobalSettings.jsx
+try { (() => {
+/* Silent UI Kit — Global Settings modal (issue #4; src/views/modals/AppSettings.cpp).
+   One modal, title "Settings" once. Sections: General (theme, language), Plugin
+   Manager (external plugins only), Extension Settings (module sections, only when
+   at least one exists). Opening a section or confirming a plugin disable REPLACES
+   the modal content, with a way back — never a modal on top of a modal.
+   SettingsGear sits in the tab strip's fixed end slot (.s-tabstrip__end), so it
+   never overlaps a tab. */
+
+const GS_WIDTH = 1040; /* issue #4: 1040 × 640 */
+
+function SettingsGear({
+  onClick
+}) {
+  return /*#__PURE__*/React.createElement(Tooltip, {
+    label: "Settings"
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "settings_gear",
+    onClick: onClick
+  }));
+}
+
+/* PluginRow — one discovered plugin: name · description, id + version (mono),
+   enable toggle. A plugin that failed to load uses the error row tone, with the
+   reason, and has no toggle (there is nothing to switch). The toggle slot keeps its
+   width when empty, so id/version lines up on every row.
+   Qt: QFrame row with HBox(Label stack, Label, Pill, Toggle). */
+function PluginRow({
+  plugin,
+  busy,
+  onToggle
+}) {
+  const failed = !!plugin.error;
+  return /*#__PURE__*/React.createElement(SelectRow, {
+    icon: failed ? 'circle_x' : 'puzzle',
+    tone: failed ? 'error' : undefined,
+    title: plugin.name || plugin.id,
+    sub: failed ? plugin.error : plugin.desc,
+    meta: `${plugin.id}  v${plugin.version}`,
+    status: busy ? /*#__PURE__*/React.createElement(Pill, {
+      id: "plugin_unloading"
+    }) : null,
+    trailingWidth: "var(--toggle-w)",
+    chevron: false,
+    trailing: failed ? null : /*#__PURE__*/React.createElement(Toggle, {
+      on: plugin.enabled,
+      disabled: busy,
+      onClick: () => onToggle(plugin)
+    })
+  });
+}
+function GeneralSection({
+  theme,
+  themes,
+  onTheme,
+  language,
+  onLanguage,
+  langSaved,
+  open = true,
+  onFold
+}) {
+  const mod = themes.find(t => t.name === theme && t.provider);
+  return /*#__PURE__*/React.createElement(Stack, null, /*#__PURE__*/React.createElement(SectionHeader, {
+    label: "General",
+    open: open,
+    onToggle: onFold
+  }), open ? /*#__PURE__*/React.createElement(Row, {
+    gap: "xl",
+    align: "flex-start",
+    wrap: true
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(Field, {
+    label: "Theme:"
+  }, /*#__PURE__*/React.createElement(ComboBox, {
+    value: theme,
+    options: themes.map(t => t.name),
+    onChange: onTheme,
+    width: 160
+  })), mod ? /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "caption"
+  }, "Provided by ", mod.provider, ".") : null), /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(Field, {
+    label: "Language:"
+  }, /*#__PURE__*/React.createElement(ComboBox, {
+    value: language,
+    options: LANGUAGES,
+    onChange: onLanguage,
+    width: 160
+  })), langSaved ? /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "caption",
+    color: "success"
+  }, "Language saved. Restart Silent to apply it everywhere.") : null)) : null);
+}
+function PluginSection({
+  registry,
+  plugins,
+  scan,
+  notice,
+  busyId,
+  onScan,
+  onToggle,
+  open = true,
+  onFold
+}) {
+  const scanning = scan === 'scanning';
+  return /*#__PURE__*/React.createElement(Stack, null, /*#__PURE__*/React.createElement(SectionHeader, {
+    label: "Plugin Manager",
+    count: registry && plugins.length ? plugins.length : null,
+    open: open,
+    onToggle: onFold,
+    action: open ? /*#__PURE__*/React.createElement(Btn, {
+      id: scanning ? 'scanning_plugins' : 'scan_plugins',
+      disabled: scanning || !registry,
+      onClick: onScan
+    }) : null
+  }), open ? /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, !registry ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "error",
+    title: "Plugin registry unavailable"
+  }, "Silent could not read the plugin folder ", /*#__PURE__*/React.createElement(Text, {
+    variant: "mono",
+    size: "inherit"
+  }, "~/.silent/plugins/"), ". Check that it exists and is readable, then reopen Settings.") : null, notice ? /*#__PURE__*/React.createElement(Notice, {
+    tone: notice.tone,
+    title: notice.title
+  }, notice.body) : null, scan && scan !== 'scanning' && scan.found ? /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "caption",
+    color: "success"
+  }, `${scan.found} new plugin${scan.found === 1 ? '' : 's'} found.`) : null, registry && plugins.length ? plugins.map(p => /*#__PURE__*/React.createElement(PluginRow, {
+    key: p.id,
+    plugin: p,
+    busy: busyId === p.id,
+    onToggle: onToggle
+  })) : registry && !scanning ? /*#__PURE__*/React.createElement(EmptyState, {
+    icon: "puzzle",
+    title: "No Plugin Found",
+    subtitle: "Put a plugin and its metadata file in ~/.silent/plugins/, then scan. Built-in modules are not listed here."
+  }) : null, scanning && !plugins.length ? /*#__PURE__*/React.createElement(ModalStatus, {
+    spinner: true,
+    title: "Scanning for plugins\u2026",
+    pad: "var(--space-m) 0"
+  }) : null) : null);
+}
+function ExtensionSection({
+  sections,
+  onOpen,
+  open = true,
+  onFold
+}) {
+  if (!sections.length) return null;
+  return /*#__PURE__*/React.createElement(Stack, null, /*#__PURE__*/React.createElement(SectionHeader, {
+    label: "Extension Settings",
+    count: sections.length,
+    open: open,
+    onToggle: onFold
+  }), open ? /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, sections.map((s, i) => /*#__PURE__*/React.createElement(SelectRow, {
+    key: s.id,
+    icon: s.icon || 'settings',
+    title: s.title || `Section ${i + 1}`,
+    sub: s.module ? `From ${s.module}.` : null,
+    onClick: () => onOpen(s.id),
+    trailing: /*#__PURE__*/React.createElement(Btn, {
+      id: "open",
+      onClick: () => onOpen(s.id)
+    })
+  }))) : null);
+}
+
+/* The frame around a module's own settings widget: the module draws the content. */
+function ExtensionFrame({
+  section
+}) {
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "body",
+    color: "secondary"
+  }, "These settings belong to ", section.module, ". Changes apply when you leave this page."), /*#__PURE__*/React.createElement(Card, {
+    tone: "inset",
+    pad: "m"
+  }, /*#__PURE__*/React.createElement(Stack, {
+    align: "center",
+    justify: "center",
+    gap: "xs",
+    style: {
+      minHeight: 220
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "puzzle",
+    size: 28,
+    tone: "muted"
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "caption",
+    color: "muted",
+    align: "center"
+  }, section.module, "'s settings widget"))));
+}
+function DisablePluginConfirm({
+  plugin
+}) {
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "body"
+  }, "Disable \u201C", plugin.name, "\u201D (", /*#__PURE__*/React.createElement(Text, {
+    variant: "mono"
+  }, plugin.id, "  v", plugin.version), ")? Silent stops all of its modules and unloads it."), plugin.accounts && plugin.accounts.length ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "warning",
+    title: `${plugin.accounts.length === 1 ? '1 open account closes' : plugin.accounts.length + ' open accounts close'}`
+  }, plugin.accounts.join(', '), " ", plugin.accounts.length === 1 ? 'comes' : 'come', " from this plugin and will close. Enable the plugin again to reopen ", plugin.accounts.length === 1 ? 'it' : 'them', ".") : /*#__PURE__*/React.createElement(Notice, {
+    tone: "info"
+  }, "No open account uses this plugin."), plugin.themes && plugin.themes.length ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "info"
+  }, "Its themes (", plugin.themes.join(', '), ") are removed. If one is in use, Silent switches to Light.") : null);
+}
+function GlobalSettingsModal({
+  theme: themeProp,
+  onTheme,
+  onClose,
+  plugins: pluginsIn = PLUGINS,
+  sections = EXTENSION_SECTIONS,
+  initial = {}
+}) {
+  const [themeLocal, setThemeLocal] = React.useState(initial.theme || themeProp || 'Light');
+  const theme = themeProp != null && initial.theme == null ? themeProp : themeLocal;
+  const [language, setLanguage] = React.useState(initial.language || 'English');
+  const [langSaved, setLangSaved] = React.useState(!!initial.langSaved);
+  const [plugins, setPlugins] = React.useState(pluginsIn);
+  const [scan, setScan] = React.useState(initial.scan || null); // null | 'scanning' | { found }
+  const [notice, setNotice] = React.useState(initial.notice || null);
+  const [busyId, setBusyId] = React.useState(initial.busyId || null);
+  const [view, setView] = React.useState(initial.view || null);
+  const [folds, setFolds] = React.useState({
+    general: true,
+    plugins: true,
+    extensions: true,
+    ...(initial.folds || {})
+  }); // true = open
+  const fold = k => setFolds(f => ({
+    ...f,
+    [k]: !f[k]
+  })); // null | { section } | { disable }
+  const registry = initial.registry !== false;
+  const themes = [{
+    name: 'Light'
+  }, {
+    name: 'Dark'
+  }, ...plugins.filter(p => p.enabled && !p.error).flatMap(p => (p.themes || []).map(t => ({
+    name: t,
+    provider: p.name
+  })))];
+  const pickTheme = t => {
+    setThemeLocal(t);
+    onTheme && onTheme(t);
+  };
+  const pickLanguage = l => {
+    setLanguage(l);
+    setLangSaved(l !== 'English' || langSaved);
+  };
+  const runScan = () => {
+    setScan('scanning');
+    setNotice(null);
+    setTimeout(() => setScan({
+      found: 0
+    }), 1200);
+  };
+  const toggle = p => {
+    setNotice(null);
+    if (!p.enabled) return setPlugins(ps => ps.map(x => x.id === p.id ? {
+      ...x,
+      enabled: true,
+      error: null
+    } : x));
+    setView({
+      disable: p.id
+    });
+  };
+  const confirmDisable = p => {
+    setView(null);
+    setBusyId(p.id);
+    setTimeout(() => {
+      setBusyId(null);
+      if (p.refuseUnload) {
+        setNotice({
+          tone: 'error',
+          title: `Could not disable ${p.name}`,
+          body: 'The plugin refused to unload. It stays enabled. Close its accounts, then try again.'
+        });
+        return;
+      }
+      setPlugins(ps => ps.map(x => x.id === p.id ? {
+        ...x,
+        enabled: false
+      } : x));
+      if ((p.themes || []).includes(theme)) pickTheme('Light');
+    }, 900);
+  };
+  const section = view && view.section ? sections.find(s => s.id === view.section) : null;
+  const disabling = view && view.disable ? plugins.find(p => p.id === view.disable) : null;
+  let title = 'Settings',
+    body,
+    actions;
+  if (section) {
+    title = section.title;
+    body = /*#__PURE__*/React.createElement(ExtensionFrame, {
+      section: section
+    });
+    actions = /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setView(null),
+      backId: "all_settings"
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "done",
+      onClick: () => setView(null)
+    }));
+  } else if (disabling) {
+    title = 'Disable Plugin';
+    body = /*#__PURE__*/React.createElement(DisablePluginConfirm, {
+      plugin: disabling
+    });
+    actions = /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setView(null)
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "disable_plugin",
+      onClick: () => confirmDisable(disabling)
+    }));
+  } else {
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "s"
+    }, /*#__PURE__*/React.createElement(GeneralSection, {
+      theme: theme,
+      themes: themes,
+      onTheme: pickTheme,
+      language: language,
+      onLanguage: pickLanguage,
+      langSaved: langSaved,
+      open: folds.general,
+      onFold: () => fold('general')
+    }), /*#__PURE__*/React.createElement(Divider, {
+      space: "0"
+    }), /*#__PURE__*/React.createElement(PluginSection, {
+      registry: registry,
+      plugins: plugins,
+      scan: scan,
+      notice: notice,
+      busyId: busyId,
+      onScan: runScan,
+      onToggle: toggle,
+      open: folds.plugins,
+      onFold: () => fold('plugins')
+    }), sections.length ? /*#__PURE__*/React.createElement(Divider, {
+      space: "0"
+    }) : null, /*#__PURE__*/React.createElement(ExtensionSection, {
+      sections: sections,
+      onOpen: id => setView({
+        section: id
+      }),
+      open: folds.extensions,
+      onFold: () => fold('extensions')
+    }));
+    actions = null; /* the header × closes; a Close button would repeat it */
+  }
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: title,
+    width: GS_WIDTH,
+    onClose: onClose
+  }, body, actions);
+}
+Object.assign(window, {
+  SettingsGear,
+  PluginRow,
+  GlobalSettingsModal,
+  GeneralSection,
+  PluginSection,
+  ExtensionSection,
+  ExtensionFrame,
+  DisablePluginConfirm,
+  GS_WIDTH
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/GlobalSettings.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/Icons.jsx
 try { (() => {
@@ -754,6 +1922,7 @@ const ICON_PATHS = {
   folder: '<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
   chevron_down: '<path d="m6 9 6 6 6-6"/>',
   chevron_right: '<path d="m9 18 6-6-6-6"/>',
+  chevron_left: '<path d="m15 18-6-6 6-6"/>',
   sd_card: '<path d="M4 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.4.6l4.5 4.5a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M11 7v3"/><path d="M14 7v3"/><path d="M17 7v3"/>',
   shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
   wallet: '<path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>',
@@ -762,12 +1931,35 @@ const ICON_PATHS = {
   qr: '<rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>',
   usb: '<circle cx="10" cy="7" r="1"/><circle cx="4" cy="20" r="1"/><path d="M4.7 19.3 19 5"/><path d="m21 3-3 1 2 2Z"/><path d="M9.26 7.68 5 12l2 5"/><path d="m10 14 5 2 3.5-3.5"/><path d="m18 12 1-1 1 1-1 1Z"/>',
   bitcoin: '<path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-3.94-.694m5.155-6.2L8.29 4.26m5.908 1.042.348-1.97M7.48 20.364l3.126-17.727"/>',
-  layout: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>'
+  layout: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>',
+  /* keys, signer and device flows (issue #2) */
+  key: '<path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/>',
+  puzzle: '<path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/>',
+  arrow_up: '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
+  arrow_down: '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+  eye: '<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/>',
+  eye_off: '<path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/>',
+  alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  lock: '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  circle_check: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  circle_x: '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>'
+};
+
+/* tone colours the glyph with a role token: accent | muted | secondary | success | warning | error. */
+const ICON_TONE = {
+  accent: 'var(--accent)',
+  muted: 'var(--text-muted)',
+  secondary: 'var(--text-secondary)',
+  success: 'var(--success)',
+  warning: 'var(--warning)',
+  error: 'var(--error)'
 };
 function Icon({
   name,
   size = 24,
   stroke = 2,
+  tone,
   className = '',
   style = {}
 }) {
@@ -785,6 +1977,7 @@ function Icon({
     style: {
       display: 'block',
       flex: 'none',
+      color: tone ? ICON_TONE[tone] : undefined,
       ...style
     },
     dangerouslySetInnerHTML: {
@@ -829,7 +2022,1053 @@ function SilentMark({
     fill: "currentColor"
   }));
 }
+
+/* File-level namespace (DS compiler indexes this file as `Icons`). */
+const Icons = {
+  Icon,
+  SilentMark
+};
+Object.assign(__ds_scope, { Icon, SilentMark, Icons });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Icons.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/silent/Keys.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* Silent UI Kit — Keys tab (issue #2 §3.1, 3.3, 3.6; no device detail — see handoff).
+   KeysScreen: network selector, connected devices, registered keys.
+   RegisterDeviceModal / KeyDetail: one modal each; steps (password, reveal, remove)
+   replace the modal content — never a modal on top of a modal. */
+
+/* The Keys tab content is a fixed 700px column, centred (not fluid like wallet panels). */
+const KEYS_TAB_W = 700;
+const HOT_WORDS = {
+  f23a9e01: MNEMONIC_WORDS.slice(0, 12),
+  '9a41e6b3': MNEMONIC_WORDS.concat(['lumber', 'quarter', 'solar', 'tiny', 'wisdom', 'zebra'])
+};
+
+/* Reachability of a key right now: a matching ready device, a hot secret, or neither. */
+function keyStatus(key, devices) {
+  /* -> PILLS id */
+  if ((devices || []).some(d => d.fp === key.fp && d.state === 'ready')) return 'key_connected';
+  if (key.hasHot) return 'key_hot';
+  return 'key_offline';
+}
+
+/* Devices and Keys lists share one row layout so they line up:
+   icon · name + fingerprint / detail · status pill · glyph (rightmost).
+   The glyph says what a click does: chevron = open, plus = register. The whole
+   row is the click target; the glyph is not a separate button. */
+const LIST_COLS = {
+  statusWidth: 146,
+  chevron: false
+};
+function ListTitle({
+  name,
+  fp
+}) {
+  return /*#__PURE__*/React.createElement(Row, {
+    gap: "s",
+    inline: true,
+    style: {
+      alignItems: 'baseline',
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", null, name), /*#__PURE__*/React.createElement(Text, {
+    variant: "mono",
+    color: "muted",
+    size: "sm"
+  }, fp || '—'));
+}
+function ListEnd({
+  pill,
+  glyph = 'chevron_right',
+  busy
+}) {
+  /* glyph null = empty slot */
+  return /*#__PURE__*/React.createElement(Row, {
+    gap: "m",
+    justify: "flex-end",
+    style: {
+      width: '100%'
+    }
+  }, pill, /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__chev",
+    style: {
+      width: 16,
+      justifyContent: 'center'
+    }
+  }, busy ? /*#__PURE__*/React.createElement(Spinner, {
+    size: 14
+  }) : glyph ? /*#__PURE__*/React.createElement(Icon, {
+    name: glyph,
+    size: 16
+  }) : null));
+}
+function StateBadge({
+  state
+}) {
+  return /*#__PURE__*/React.createElement(Pill, {
+    id: 'device_' + (DEVICE_STATE[state] ? state : 'unsupported')
+  });
+}
+
+/* ---------------- 3.1 Keys tab ---------------- */
+
+function DeviceRow({
+  device,
+  keyAlias,
+  registering,
+  onRegister
+}) {
+  const known = !!keyAlias;
+  const canRegister = device.state === 'ready' && device.fp && !known;
+  const sub = registering ? 'Registering…' : device.state !== 'ready' ? device.detail : known ? `Registered as “${keyAlias}”` : 'Not registered as a key';
+  return /*#__PURE__*/React.createElement(SelectRow, _extends({
+    icon: "usb",
+    title: /*#__PURE__*/React.createElement(ListTitle, {
+      name: deviceName(device),
+      fp: device.fp
+    }),
+    sub: sub
+  }, LIST_COLS, {
+    disabled: known,
+    onClick: canRegister && !registering ? onRegister : undefined,
+    status: /*#__PURE__*/React.createElement(ListEnd, {
+      pill: /*#__PURE__*/React.createElement(StateBadge, {
+        state: device.state
+      }),
+      glyph: canRegister ? 'plus' : null,
+      busy: registering
+    })
+  }));
+}
+function KeyRow({
+  k,
+  devices,
+  onOpen
+}) {
+  const st = keyStatus(k, devices);
+  return /*#__PURE__*/React.createElement(SelectRow, _extends({
+    icon: ROUTE_KINDS[k.routes[0]].icon,
+    title: /*#__PURE__*/React.createElement(ListTitle, {
+      name: k.alias,
+      fp: k.fp
+    }),
+    onClick: onOpen
+  }, LIST_COLS, {
+    sub: k.routes.map((r, i) => ROUTE_KINDS[r].label + (i === 0 && k.routes.length > 1 ? ' (primary)' : '')).join(' · '),
+    status: /*#__PURE__*/React.createElement(ListEnd, {
+      pill: /*#__PURE__*/React.createElement(Pill, {
+        id: st
+      })
+    })
+  }));
+}
+function KeysScreen({
+  initialNetwork = 'Signet',
+  initialKeys = KEYS,
+  initialDevices = DEVICES,
+  initialError = null,
+  initialRegistering = null,
+  initialModal = null
+}) {
+  const [network, setNetwork] = React.useState(initialNetwork);
+  const [keys, setKeys] = React.useState(initialKeys);
+  const [error, setError] = React.useState(initialError);
+  const [registering, setRegistering] = React.useState(initialRegistering);
+  const [modal, setModal] = React.useState(initialModal);
+  const devices = initialDevices.filter(d => d.network === network);
+  const netKeys = keys.filter(k => k.network === network);
+  const aliasOf = fp => (keys.find(k => k.fp === fp && k.network === network) || {}).alias;
+  const register = (d, alias) => {
+    setError(null);
+    setRegistering(d.id);
+    setModal(null);
+    setTimeout(() => {
+      setRegistering(null);
+      if (d.registerError) {
+        setError({
+          device: deviceName(d),
+          message: d.registerError
+        });
+        return;
+      }
+      setKeys(ks => [...ks, {
+        fp: d.fp,
+        alias: (alias || '').trim() || deviceName(d),
+        network,
+        routes: ['usb'],
+        hasHot: false,
+        devicesSeen: [{
+          brand: d.brand,
+          model: d.model,
+          module: d.kind
+        }],
+        xpubs: [{
+          path: defaultXpubPath(network),
+          xpub: network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T
+        }],
+        descriptors: []
+      }]);
+    }, 900);
+  };
+  const saveKey = (fp, next) => setKeys(ks => ks.map(k => k.fp === fp && k.network === network ? next : k));
+  const removeKey = fp => {
+    setKeys(ks => ks.filter(k => !(k.fp === fp && k.network === network)));
+    setModal(null);
+  };
+  const openKey = netKeys.find(k => modal && modal.type === 'key' && k.fp === modal.fp);
+  const regDevice = devices.find(d => modal && modal.type === 'register' && d.id === modal.id);
+  const addBtn = /*#__PURE__*/React.createElement(Btn, {
+    id: "add_a_key",
+    onClick: () => setModal({
+      type: 'add'
+    })
+  });
+  const [open, setOpen] = React.useState({
+    devices: true,
+    keys: true
+  });
+  const toggle = id => setOpen(o => ({
+    ...o,
+    [id]: !o[id]
+  }));
+  /* Each open section takes its content height and scrolls on its own once the two
+     no longer fit; the page itself never scrolls. A folded section is just its header. */
+  const section = (id, header, body) => /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: 0,
+      flex: open[id] ? '0 1 auto' : 'none'
+    }
+  }, header, open[id] ? /*#__PURE__*/React.createElement(ScrollArea, null, body) : null);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      display: 'flex',
+      flex: 1,
+      minWidth: 0,
+      minHeight: 0
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 'var(--space-l)',
+      width: KEYS_TAB_W,
+      maxWidth: '100%',
+      margin: '0 auto',
+      padding: 'var(--space-s)',
+      minHeight: 0,
+      boxSizing: 'border-box'
+    }
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "m",
+    style: {
+      flex: 'none'
+    }
+  }, /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "title"
+  }, "Keys"), /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Field, {
+    label: "Network:"
+  }, /*#__PURE__*/React.createElement(ComboBox, {
+    value: network,
+    options: NETWORKS,
+    onChange: n => {
+      setNetwork(n);
+      setError(null);
+    },
+    width: 160
+  }))), error ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "error",
+    title: `Could not register ${error.device}`,
+    action: /*#__PURE__*/React.createElement(Btn, {
+      id: "dismiss_notice",
+      onClick: () => setError(null)
+    })
+  }, error.message) : null, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: 0,
+      flex: '0 1 auto',
+      gap: open.devices && open.keys ? 'var(--space-l)' : 'calc(var(--space-l) / 2)'
+    }
+  }, section('devices', /*#__PURE__*/React.createElement(SectionHeader, {
+    label: "Devices",
+    count: devices.length || null,
+    open: open.devices,
+    onToggle: () => toggle('devices')
+  }), devices.length ? /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, devices.map(d => /*#__PURE__*/React.createElement(DeviceRow, {
+    key: d.id,
+    device: d,
+    keyAlias: aliasOf(d.fp),
+    registering: registering === d.id,
+    onRegister: () => setModal({
+      type: 'register',
+      id: d.id
+    })
+  }))) : /*#__PURE__*/React.createElement(EmptyState, {
+    icon: "usb",
+    title: "No Device Connected",
+    subtitle: `Connect a hardware wallet over USB and unlock it. It appears here while it runs on ${network}.`
+  })), section('keys', /*#__PURE__*/React.createElement(SectionHeader, {
+    label: "Keys",
+    count: netKeys.length || null,
+    open: open.keys,
+    onToggle: () => toggle('keys'),
+    action: netKeys.length && open.keys ? addBtn : null
+  }), netKeys.length ? /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, netKeys.map(k => /*#__PURE__*/React.createElement(KeyRow, {
+    key: k.fp,
+    k: k,
+    devices: devices,
+    onOpen: () => setModal({
+      type: 'key',
+      fp: k.fp
+    })
+  }))) : /*#__PURE__*/React.createElement(EmptyState, {
+    icon: "key",
+    title: `No Key on ${network}`,
+    subtitle: "Add a key to sign transactions, verify addresses and create accounts.",
+    action: addBtn
+  })))), regDevice ? /*#__PURE__*/React.createElement(RegisterDeviceModal, {
+    device: regDevice,
+    network: network,
+    existing: netKeys,
+    onCancel: () => setModal(null),
+    onConfirm: alias => register(regDevice, alias)
+  }) : null, openKey ? /*#__PURE__*/React.createElement(KeyDetail, {
+    k: openKey,
+    devices: devices,
+    others: netKeys.filter(x => x.fp !== openKey.fp),
+    onClose: () => setModal(null),
+    onSave: n => saveKey(openKey.fp, n),
+    onRemove: () => removeKey(openKey.fp)
+  }) : null, modal && modal.type === 'add' ? /*#__PURE__*/React.createElement(AddKeyModal, {
+    network: network,
+    existing: keys.filter(k => k.network === network),
+    onClose: () => setModal(null),
+    onAdd: k => {
+      setKeys(ks => [...ks, {
+        ...k,
+        network
+      }]);
+      setModal(null);
+    }
+  }) : null);
+}
+
+/* Register a connected device as a key: confirmation + optional alias.
+   An empty alias falls back to the device name. */
+function RegisterDeviceModal({
+  device,
+  network,
+  existing = [],
+  onCancel,
+  onConfirm,
+  initialAlias = ''
+}) {
+  const [alias, setAlias] = React.useState(initialAlias);
+  const name = deviceName(device);
+  const taken = alias.trim() && existing.some(k => k.alias === alias.trim());
+  const submit = () => {
+    if (!taken) onConfirm(alias);
+  };
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: "Register as Key",
+    width: 460,
+    onClose: onCancel
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "l"
+  }, /*#__PURE__*/React.createElement(Card, {
+    tone: "inset",
+    pad: "m"
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "usb",
+    size: 24,
+    tone: "accent"
+  }), /*#__PURE__*/React.createElement(Stack, {
+    gap: "xxs",
+    grow: true
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "section"
+  }, name), /*#__PURE__*/React.createElement(Text, {
+    variant: "mono",
+    color: "secondary",
+    size: "sm"
+  }, device.fp)), /*#__PURE__*/React.createElement(Pill, {
+    id: "network",
+    label: network
+  }))), /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(Text, {
+    as: "label",
+    variant: "body",
+    weight: "demibold",
+    htmlFor: "reg-alias"
+  }, "Alias"), /*#__PURE__*/React.createElement(Input, {
+    id: "reg-alias",
+    width: "100%",
+    autoFocus: true,
+    placeholder: `Optional. Leave empty to name it “${name}”.`,
+    value: alias,
+    onChange: e => setAlias(e.target.value),
+    onKeyDown: e => {
+      if (e.key === 'Enter') submit();
+    }
+  }), taken ? /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "caption",
+    color: "error"
+  }, "Another key is already named \u201C", alias.trim(), "\u201D.") : null), /*#__PURE__*/React.createElement(ModalActions, null, /*#__PURE__*/React.createElement(Btn, {
+    id: "register",
+    disabled: !!taken,
+    onClick: submit
+  }))));
+}
+
+/* ---------------- 3.6 Password step (reused by signing + SP descriptor fetch) ---------------- */
+
+/* onBack: shown when the step can return to a previous one (key detail); in the
+   signing flow the header × is the only exit. */
+function PasswordStep({
+  prompt,
+  proceedId = 'proceed',
+  onBack,
+  error: initialError = null,
+  onProceed,
+  onCancel
+}) {
+  const [pw, setPw] = React.useState('');
+  const [error, setError] = React.useState(initialError);
+  const [busy, setBusy] = React.useState(false);
+  const submit = () => {
+    setBusy(true);
+    setError(null);
+    setTimeout(() => {
+      setBusy(false);
+      if (pw.length < 8) {
+        setError('Wrong password. Try again.');
+        setPw('');
+        return;
+      } // demo rule
+      onProceed && onProceed(pw);
+    }, 700);
+  };
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, prompt ? /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "body",
+    color: "secondary"
+  }, prompt) : null, /*#__PURE__*/React.createElement(Field, {
+    label: "Password:"
+  }, /*#__PURE__*/React.createElement(Input, {
+    type: "password",
+    width: 260,
+    value: pw,
+    autoFocus: true,
+    disabled: busy,
+    onChange: e => {
+      setPw(e.target.value);
+      if (error) setError(null);
+    },
+    onKeyDown: e => {
+      if (e.key === 'Enter' && pw) submit();
+    }
+  })), error ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "error"
+  }, error) : null, /*#__PURE__*/React.createElement(ModalActions, {
+    onBack: onBack,
+    reason: !pw ? 'Enter the password.' : null
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: busy ? 'unlocking' : proceedId,
+    disabled: !pw || busy,
+    onClick: submit
+  })));
+}
+
+/* ---------------- 3.3 Key detail ---------------- */
+
+function RouteTable({
+  routes,
+  hasHot,
+  onChange,
+  initialAdding = false
+}) {
+  const addable = Object.keys(ROUTE_KINDS).filter(r => !routes.includes(r) && (r !== 'hot' || hasHot));
+  const [adding, setAdding] = React.useState(initialAdding);
+  const [pick, setPick] = React.useState(addable[0]);
+  React.useEffect(() => {
+    if (!addable.includes(pick)) setPick(addable[0]);
+  }, [routes.join()]);
+  const move = (i, d) => {
+    const n = [...routes];
+    [n[i], n[i + d]] = [n[i + d], n[i]];
+    onChange(n);
+  };
+  const confirm = () => {
+    onChange([...routes, pick || addable[0]]);
+    setAdding(false);
+  };
+  const ADD = '__add';
+  /* The last row adds a route: + (in the remove column) opens a kind picker in the
+     row and turns into ✓ to confirm; × beside it cancels. */
+  const rows = addable.length ? [...routes, ADD] : routes;
+  return /*#__PURE__*/React.createElement(Table, {
+    hideHeader: true,
+    rows: rows,
+    rowKey: r => r,
+    rowClass: r => r === ADD && !adding ? 'is-bare' : '',
+    columns: [{
+      header: '',
+      width: 40,
+      render: r => r === ADD ? null : /*#__PURE__*/React.createElement(Icon, {
+        name: ROUTE_KINDS[r].icon,
+        size: 16,
+        tone: "accent"
+      })
+    }, {
+      header: 'Route',
+      grow: true,
+      render: (r, i) => r === ADD ? adding ? /*#__PURE__*/React.createElement(ComboBox, {
+        value: ROUTE_KINDS[pick || addable[0]].label,
+        options: addable.map(x => ROUTE_KINDS[x].label),
+        onChange: l => setPick(addable.find(x => ROUTE_KINDS[x].label === l)),
+        width: 160
+      }) : null : /*#__PURE__*/React.createElement(Text, {
+        variant: "body"
+      }, ROUTE_KINDS[r].label)
+    }, {
+      header: '',
+      width: 116,
+      render: (r, i) => r === ADD ? /*#__PURE__*/React.createElement(Row, {
+        gap: "xxs",
+        justify: "flex-end"
+      }, adding ? /*#__PURE__*/React.createElement(Btn, {
+        id: "cancel_add_route",
+        onClick: () => setAdding(false)
+      }) : null, adding ? /*#__PURE__*/React.createElement(Btn, {
+        id: "confirm_add_route",
+        onClick: confirm
+      }) : /*#__PURE__*/React.createElement(Btn, {
+        id: "add_route_icon",
+        onClick: () => setAdding(true)
+      })) : /*#__PURE__*/React.createElement(Row, {
+        gap: "xxs",
+        justify: "flex-end"
+      }, /*#__PURE__*/React.createElement(Btn, {
+        id: "move_up",
+        disabled: i === 0,
+        onClick: () => move(i, -1)
+      }), /*#__PURE__*/React.createElement(Btn, {
+        id: "move_down",
+        disabled: i === routes.length - 1,
+        onClick: () => move(i, 1)
+      }), /*#__PURE__*/React.createElement(Btn, {
+        id: "remove_route",
+        title: routes.length === 1 ? 'A key needs at least one route' : 'Remove Route',
+        disabled: routes.length === 1,
+        onClick: () => onChange(routes.filter(x => x !== r))
+      }))
+    }]
+  });
+}
+function EmptyLine({
+  children
+}) {
+  return /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "body",
+    color: "muted"
+  }, children);
+}
+function RevealMnemonic({
+  words,
+  onDone,
+  initialHidden = false
+}) {
+  const [hidden, setHidden] = React.useState(initialHidden);
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(Notice, {
+    tone: "warning",
+    title: "Anyone with these words holds the coins"
+  }, "Make sure no one can see the screen. Silent never asks for these words."), /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, /*#__PURE__*/React.createElement(Row, {
+    justify: "flex-end"
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: hidden ? 'show_words' : 'hide_words',
+    onClick: () => setHidden(h => !h)
+  })), /*#__PURE__*/React.createElement(WordGrid, {
+    words: words,
+    hidden: hidden
+  })), /*#__PURE__*/React.createElement(ModalActions, null, /*#__PURE__*/React.createElement(Btn, {
+    id: "done",
+    onClick: onDone
+  })));
+}
+function RemoveKeyConfirm({
+  k,
+  onCancel,
+  onConfirm
+}) {
+  const reg = k.descriptors.filter(d => d.registered);
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "body"
+  }, "Remove \u201C", k.alias, "\u201D (", /*#__PURE__*/React.createElement(Text, {
+    variant: "mono"
+  }, k.fp), ") from this computer?"), reg.length ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "warning",
+    title: `${reg.length === 1 ? '1 account uses' : reg.length + ' accounts use'} this key`
+  }, reg.map(d => d.account).join(', '), " will no longer be able to sign.") : null, k.hasHot ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "warning"
+  }, "The sealed mnemonic is deleted with the key. Without a backup of the words, it cannot be recovered.") : null, /*#__PURE__*/React.createElement(ModalActions, {
+    onBack: onCancel
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "remove_key",
+    onClick: onConfirm
+  })));
+}
+
+/* XpubTable — the one way an xpub list is shown: path (mono, muted) · short xpub.
+   Used by Cached Xpubs (with copy, Used pill and a trailing + row) and by the
+   Add a Key review (read-only: no copy, no pill). */
+function XpubTable({
+  rows,
+  copy = true,
+  pill = false,
+  addRow = null
+}) {
+  const all = addRow ? [...rows, {
+    __add: true
+  }] : rows;
+  return /*#__PURE__*/React.createElement(Table, {
+    hideHeader: true,
+    rows: all,
+    rowKey: x => x.__add ? '__add' : x.path,
+    rowClass: x => x.__add ? 'is-bare' : '',
+    columns: [{
+      header: 'Path',
+      width: 120,
+      mono: true,
+      render: x => x.__add ? null : x.path
+    }, {
+      header: 'Xpub',
+      grow: true,
+      render: x => x.__add ? addRow.empty || null : /*#__PURE__*/React.createElement(ShortValue, {
+        value: x.xpub,
+        copy: copy,
+        title: "Copy xpub"
+      })
+    }, ...(pill || addRow ? [{
+      header: '',
+      width: 130,
+      align: 'right',
+      render: x => x.__add ? addRow.action : pill ? /*#__PURE__*/React.createElement(Pill, {
+        id: x.used ? 'xpub_used' : 'xpub_unused'
+      }) : null
+    }] : [])]
+  });
+}
+
+/* Fetch an xpub at a chosen path: purpose (84 / 86 / 49 / 48 / 87 / custom) and
+   account index. A step of the key detail modal (replaces its content; Back returns). */
+/* BIP48 script type: the last path level. 1' and 2' are in BIP48; 3' (Taproot) is
+   not in the BIP but is the convention wallets use for P2TR multisig. */
+const BIP48_SCRIPTS = [{
+  id: 2,
+  label: "2' · P2WSH"
+}, {
+  id: 1,
+  label: "1' · P2SH-P2WSH"
+}, {
+  id: 3,
+  label: "3' · P2TR"
+}];
+const XPUB_PURPOSES = [{
+  id: '84',
+  label: "BIP84 · Native SegWit (84')",
+  tpl: (c, a) => `m/84'/${c}'/${a}'`
+}, {
+  id: '86',
+  label: "BIP86 · Taproot (86')",
+  tpl: (c, a) => `m/86'/${c}'/${a}'`
+}, {
+  id: '49',
+  label: "BIP49 · Nested SegWit (49')",
+  tpl: (c, a) => `m/49'/${c}'/${a}'`
+}, {
+  id: '48',
+  label: "BIP48 · Multisig (48')",
+  tpl: (c, a, s = 2) => `m/48'/${c}'/${a}'/${s}'`
+}, {
+  id: '87',
+  label: "BIP87 · Multisig (87')",
+  tpl: (c, a) => `m/87'/${c}'/${a}'`
+}, {
+  id: 'custom',
+  label: 'Custom Path'
+}];
+function FetchXpubStep({
+  network,
+  device,
+  existing = [],
+  onBack,
+  onFetched,
+  initial = {}
+}) {
+  const coin = network === 'Bitcoin' ? 0 : 1;
+  const [purpose, setPurpose] = React.useState(initial.purpose || '84');
+  /* default account = the first index whose path is not cached yet for this purpose */
+  const freeAccount = pid => {
+    const t = XPUB_PURPOSES.find(x => x.id === pid).tpl;
+    if (!t) return '0';
+    let a = 0;
+    while (existing.some(x => x.path === t(coin, a)) && a < 99) a++;
+    return String(a);
+  };
+  const [account, setAccount] = React.useState(initial.account != null ? String(initial.account) : freeAccount(initial.purpose || '84'));
+  const [typed, setTyped] = React.useState(initial.account != null);
+  const [script, setScript] = React.useState(initial.script || 2);
+  const [custom, setCustom] = React.useState(initial.custom || '');
+  const [busy, setBusy] = React.useState(!!initial.busy);
+  const p = XPUB_PURPOSES.find(x => x.id === purpose);
+  /* 48 splits the path around the account AND the script type; others only the account */
+  const pathParts = p.tpl ? p.tpl(coin, '\u0000', '\u0001').split(/[\u0000\u0001]/) : ['', ''];
+  const accOk = /^\d{1,2}$/.test(account);
+  const path = purpose === 'custom' ? custom.trim() : accOk ? p.tpl(coin, +account, script) : '';
+  const pathOk = purpose !== 'custom' || /^m(\/\d+'?)+$/.test(path);
+  const dup = path && existing.some(x => x.path === path);
+  const reason = purpose !== 'custom' && !accOk ? 'Enter an account index (0–99).' : purpose === 'custom' && !path ? 'Enter a derivation path.' : !pathOk ? "Write the path like m/84'/1'/0'." : dup ? 'This xpub is already cached.' : null;
+  if (busy) return /*#__PURE__*/React.createElement(ModalStatus, {
+    spinner: true,
+    title: "Fetching the xpub\u2026",
+    subtitle: `Confirm on ${deviceName(device)} if it asks.`,
+    pad: "var(--space-m) 0"
+  });
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
+    label: "Path Type:"
+  }, /*#__PURE__*/React.createElement(ComboBox, {
+    value: p.label,
+    options: XPUB_PURPOSES.map(x => x.label),
+    onChange: l => {
+      const id = XPUB_PURPOSES.find(x => x.label === l).id;
+      setPurpose(id);
+      if (!typed && id !== 'custom') setAccount(freeAccount(id));
+    },
+    width: 260
+  })), purpose === 'custom' ? /*#__PURE__*/React.createElement(Field, {
+    label: "Path:"
+  }, /*#__PURE__*/React.createElement(Input, {
+    mono: true,
+    width: 260,
+    placeholder: `m/84'/${coin}'/0'`,
+    value: custom,
+    onChange: e => setCustom(e.target.value)
+  })) :
+  /*#__PURE__*/
+  /* the path with the account index as the only editable part */
+  React.createElement(Field, {
+    label: "Path:"
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "xxs"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "mono"
+  }, pathParts[0]), /*#__PURE__*/React.createElement(Input, {
+    mono: true,
+    width: 44,
+    maxLength: 2,
+    value: account,
+    title: "Account index (0\u201399)",
+    onChange: e => {
+      setTyped(true);
+      setAccount(e.target.value.replace(/[^\d]/g, '').slice(0, 2));
+    }
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "mono"
+  }, pathParts[1]), purpose === '48' ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ComboBox, {
+    value: BIP48_SCRIPTS.find(x => x.id === script).label,
+    options: BIP48_SCRIPTS.map(x => x.label),
+    onChange: l => setScript(BIP48_SCRIPTS.find(x => x.label === l).id),
+    width: 150
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "mono"
+  }, pathParts[2])) : null))), /*#__PURE__*/React.createElement(ModalActions, {
+    reason: reason
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "fetch_this_xpub",
+    disabled: !!reason,
+    onClick: () => {
+      setBusy(true);
+      setTimeout(() => onFetched(path), 1000);
+    }
+  })));
+}
+function KeyDetail({
+  k,
+  devices = [],
+  others = [],
+  onClose,
+  onSave,
+  onRemove,
+  initial = {}
+}) {
+  const [step, setStep] = React.useState(initial.step || 'detail'); // detail | password | reveal | remove
+  const [alias, setAlias] = React.useState(initial.alias != null ? initial.alias : k.alias);
+  const [aliasMsg, setAliasMsg] = React.useState(initial.aliasMsg || null); // { ok } | { error }
+  const st = keyStatus(k, devices);
+  const device = (devices || []).find(d => d.fp === k.fp && d.state === 'ready');
+  const [xpubs, setXpubs] = React.useState(k.xpubs);
+  const [fetching, setFetching] = React.useState(!!initial.fetchingXpubs);
+  const [accounts, setAccounts] = React.useState(k.descriptors);
+  const [registering, setRegistering] = React.useState(null);
+  const registerAccount = idx => {
+    setRegistering(idx);
+    setTimeout(() => {
+      setAccounts(a => a.map((x, n) => n === idx ? {
+        ...x,
+        registered: true
+      } : x));
+      setRegistering(null);
+    }, 1000);
+  };
+  const [folds, setFolds] = React.useState({
+    routes: true,
+    devices: false,
+    xpubs: true,
+    descriptors: true,
+    ...(initial.folds || {})
+  });
+  const fold = id => setFolds(f => ({
+    ...f,
+    [id]: !f[id]
+  }));
+  const saveAlias = () => {
+    const a = alias.trim();
+    if (!a) return setAliasMsg({
+      error: 'Enter an alias.'
+    });
+    if (others.some(o => o.alias === a)) return setAliasMsg({
+      error: `Another key is already named “${a}”.`
+    });
+    onSave && onSave({
+      ...k,
+      alias: a
+    });
+    setAliasMsg({
+      ok: true
+    });
+  };
+  const addXpub = path => {
+    setXpubs(xs => [...xs, {
+      path,
+      xpub: (k.network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T).replace('Lj', path.slice(2, 4)),
+      used: false
+    }]);
+    setStep('detail');
+  };
+  const title = {
+    detail: k.alias,
+    'fetch-xpub': 'Fetch Xpub',
+    password: 'Reveal Mnemonic',
+    reveal: 'Reveal Mnemonic',
+    remove: 'Remove Key'
+  }[step];
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: title,
+    width: 600,
+    onClose: onClose,
+    headerRight: /*#__PURE__*/React.createElement(Row, {
+      gap: "s"
+    }, /*#__PURE__*/React.createElement(Text, {
+      variant: "mono",
+      color: "secondary",
+      size: "sm"
+    }, k.fp), /*#__PURE__*/React.createElement(Pill, {
+      id: st
+    }))
+  }, step === 'fetch-xpub' && device ? /*#__PURE__*/React.createElement(FetchXpubStep, {
+    network: k.network,
+    device: device,
+    existing: xpubs,
+    initial: initial.fetch || {},
+    onBack: () => setStep('detail'),
+    onFetched: addXpub
+  }) : step === 'password' ? /*#__PURE__*/React.createElement(PasswordStep, {
+    proceedId: "show_mnemonic",
+    error: initial.pwError || null,
+    onBack: () => setStep('detail'),
+    onProceed: () => setStep('reveal')
+  }) : step === 'reveal' ? /*#__PURE__*/React.createElement(RevealMnemonic, {
+    words: HOT_WORDS[k.fp] || MNEMONIC_WORDS.slice(0, 12),
+    initialHidden: !!initial.hidden,
+    onDone: () => setStep('detail')
+  }) : step === 'remove' ? /*#__PURE__*/React.createElement(RemoveKeyConfirm, {
+    k: k,
+    onCancel: () => setStep('detail'),
+    onConfirm: onRemove
+  }) : /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, /*#__PURE__*/React.createElement(Field, {
+    label: "Alias:"
+  }, /*#__PURE__*/React.createElement(Input, {
+    grow: true,
+    value: alias,
+    onChange: e => {
+      setAlias(e.target.value);
+      setAliasMsg(null);
+    },
+    onKeyDown: e => {
+      if (e.key === 'Enter' && alias.trim() !== k.alias) saveAlias();
+    }
+  }), alias.trim() !== k.alias ? /*#__PURE__*/React.createElement(Btn, {
+    id: "save_alias",
+    onClick: saveAlias
+  }) : null), aliasMsg && aliasMsg.ok ? /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "caption",
+    color: "success"
+  }, "Saved") : null, aliasMsg && aliasMsg.error ? /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "caption",
+    color: "error"
+  }, aliasMsg.error) : null), /*#__PURE__*/React.createElement(Section, {
+    dense: true,
+    label: "Devices Seen",
+    count: k.devicesSeen.length || null,
+    open: folds.devices,
+    onToggle: () => fold('devices')
+  }, k.devicesSeen.length ? /*#__PURE__*/React.createElement(Table, {
+    rows: k.devicesSeen,
+    columns: [{
+      header: 'Device',
+      grow: true,
+      render: d => deviceName(d)
+    }, {
+      key: 'module',
+      header: 'Module',
+      width: 160
+    }]
+  }) : /*#__PURE__*/React.createElement(EmptyLine, null, "No device with this fingerprint has been connected yet.")), /*#__PURE__*/React.createElement(Section, {
+    dense: true,
+    label: "Routes",
+    count: k.routes.length,
+    open: folds.routes,
+    onToggle: () => fold('routes')
+  }, /*#__PURE__*/React.createElement(RouteTable, {
+    routes: k.routes,
+    hasHot: k.hasHot,
+    initialAdding: !!initial.addingRoute,
+    onChange: r => onSave && onSave({
+      ...k,
+      routes: r
+    })
+  })), /*#__PURE__*/React.createElement(Section, {
+    dense: true,
+    label: "Cached Xpubs",
+    count: xpubs.length || null,
+    open: folds.xpubs,
+    onToggle: () => fold('xpubs')
+  }, /*#__PURE__*/React.createElement(XpubTable, {
+    rows: xpubs,
+    pill: true,
+    addRow: {
+      empty: xpubs.length ? null : /*#__PURE__*/React.createElement(Text, {
+        variant: "body",
+        color: "muted"
+      }, device ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'),
+      action: /*#__PURE__*/React.createElement(Btn, {
+        id: "fetch_xpub",
+        disabled: !device,
+        onClick: () => setStep('fetch-xpub'),
+        title: device ? `Fetch xpubs from ${deviceName(device)}` : 'Connect the device to fetch xpubs'
+      })
+    }
+  })), /*#__PURE__*/React.createElement(Section, {
+    dense: true,
+    label: "Registered Accounts",
+    count: accounts.length || null,
+    open: folds.descriptors,
+    onToggle: () => fold('descriptors')
+  }, accounts.length ? /*#__PURE__*/React.createElement(Table, {
+    hideHeader: true,
+    rows: accounts,
+    rowKey: (d, i) => d.account + i,
+    columns: [{
+      header: 'Account',
+      grow: true,
+      render: d => /*#__PURE__*/React.createElement(Text, {
+        variant: "body",
+        weight: "demibold"
+      }, d.account)
+    }, {
+      header: 'Module',
+      width: 160,
+      muted: true,
+      render: d => d.module || 'SP Accounts'
+    }, {
+      header: '',
+      width: 140,
+      align: 'right',
+      render: (d, i) => d.registered ? /*#__PURE__*/React.createElement(Pill, {
+        id: "account_registered"
+      }) : registering === i ? /*#__PURE__*/React.createElement(Spinner, {
+        size: 14
+      }) : /*#__PURE__*/React.createElement(Btn, {
+        id: "register_account",
+        disabled: !device,
+        onClick: () => registerAccount(i),
+        title: device ? `Register on ${deviceName(device)}` : 'Connect the device to register'
+      })
+    }]
+  }) : /*#__PURE__*/React.createElement(EmptyLine, null, "No account uses this key.")), /*#__PURE__*/React.createElement(ModalActions, null, k.hasHot ? /*#__PURE__*/React.createElement(Btn, {
+    id: "reveal_mnemonic",
+    onClick: () => setStep('password')
+  }) : null, /*#__PURE__*/React.createElement(Btn, {
+    id: "remove_key",
+    onClick: () => setStep('remove')
+  }))));
+}
+Object.assign(window, {
+  XpubTable,
+  FetchXpubStep,
+  XPUB_PURPOSES,
+  BIP48_SCRIPTS,
+  KeysScreen,
+  RegisterDeviceModal,
+  DeviceRow,
+  KeyRow,
+  KeyDetail,
+  PasswordStep,
+  RevealMnemonic,
+  RemoveKeyConfirm,
+  RouteTable,
+  KEYS_TAB_W,
+  LIST_COLS,
+  ListTitle,
+  ListEnd,
+  StateBadge,
+  keyStatus,
+  HOT_WORDS
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Keys.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/Layout.jsx
 try { (() => {
@@ -984,7 +3223,17 @@ const TEXT_COLOR = {
   success: 'var(--success)',
   error: 'var(--error)',
   warning: 'var(--warning)',
-  'on-accent': 'var(--on-accent)'
+  'on-accent': 'var(--on-accent)',
+  /* on a fixed dark surface (camera viewport), whatever the theme */
+  inverse: 'var(--gray-10)',
+  'inverse-muted': 'var(--gray-40)'
+};
+/* size overrides the variant's font size with a token step: sm (caption) | md (body) | lg (section) | inherit. */
+const TEXT_SIZE = {
+  sm: 'var(--size-caption)',
+  md: 'var(--size-body)',
+  lg: 'var(--size-section)',
+  inherit: 'inherit'
 };
 function Text(props) {
   const {
@@ -996,6 +3245,8 @@ function Text(props) {
     caps,
     align,
     nowrap,
+    size,
+    wrap,
     truncate,
     className = '',
     style,
@@ -1008,6 +3259,8 @@ function Text(props) {
     color: color ? TEXT_COLOR[color] || color : undefined,
     fontWeight: weight === 'demibold' ? 600 : weight === 'normal' ? 400 : weight,
     textAlign: align,
+    fontSize: size ? TEXT_SIZE[size] : undefined,
+    wordBreak: wrap === 'anywhere' ? 'break-all' : undefined,
     textTransform: caps ? 'uppercase' : undefined,
     letterSpacing: caps ? '0.08em' : undefined,
     whiteSpace: nowrap || truncate ? 'nowrap' : undefined,
@@ -1018,7 +3271,7 @@ function Text(props) {
   const dom = {
     ...rest
   };
-  ['as', 'variant', 'color', 'weight', 'mono', 'caps', 'align', 'nowrap', 'truncate'].forEach(k => delete dom[k]);
+  ['as', 'variant', 'color', 'weight', 'mono', 'caps', 'align', 'nowrap', 'truncate', 'size', 'wrap'].forEach(k => delete dom[k]);
   return /*#__PURE__*/React.createElement(As, _extends({
     className: cls.trim(),
     style: st
@@ -1109,6 +3362,18 @@ Object.assign(window, {
   Amount,
   spaceVal
 });
+
+/* File-level namespace (DS compiler indexes this file as `Layout`). */
+const Layout = {
+  Stack,
+  Row,
+  Spacer,
+  Divider,
+  Text,
+  Eyebrow,
+  Amount
+};
+Object.assign(__ds_scope, { Stack, Row, Spacer, Divider, Text, Eyebrow, Amount, Layout });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Layout.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/LayoutDoc.jsx
@@ -1501,7 +3766,8 @@ function MenuTab({
   openWallets,
   onOpen,
   onCreate,
-  onDelete
+  onDelete,
+  onOpenKeys
 }) {
   const [creating, setCreating] = React.useState(false);
   const [deleting, setDeleting] = React.useState(null);
@@ -1529,23 +3795,24 @@ function MenuTab({
       style: {
         opacity: open ? 0.5 : 1
       }
-    }, /*#__PURE__*/React.createElement(Button, {
-      role: "tab-open",
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "open_wallet",
+      label: name,
       disabled: open,
       onClick: () => onOpen(name)
-    }, name), /*#__PURE__*/React.createElement(Button, {
-      role: "icon",
-      title: "Delete wallet",
+    }), /*#__PURE__*/React.createElement(Btn, {
+      id: "delete_wallet",
       onClick: () => setDeleting(name)
-    }, /*#__PURE__*/React.createElement(Icon, {
-      name: "trash",
-      size: 20
-    })));
-  })), /*#__PURE__*/React.createElement(Button, {
-    role: "tab-create",
+    }));
+  })), /*#__PURE__*/React.createElement(Btn, {
+    id: "create_new_wallet",
     onClick: () => setCreating(true)
-  }, "+ Create New Wallet"), creating ? /*#__PURE__*/React.createElement(CreateAccount, {
+  }), creating ? /*#__PURE__*/React.createElement(CreateAccount, {
     existing: wallets,
+    onOpenKeys: onOpenKeys ? () => {
+      setCreating(false);
+      onOpenKeys();
+    } : null,
     onCancel: () => setCreating(false),
     onCreate: name => {
       onCreate(name);
@@ -1560,92 +3827,224 @@ function MenuTab({
     }
   }) : null);
 }
+
+/* 3.11 Create account from a key. The descriptor fetch runs the route steps in
+   the "fetch" context — rendered in place of this modal, so modals never stack. */
+const ENDPOINT_DEFAULTS = {
+  Bitcoin: {
+    blindbit: 'https://blindbit.silentpayments.dev',
+    electrum: 'electrum.blockstream.info:50002',
+    auto: true
+  },
+  Regtest: {
+    blindbit: 'http://localhost:8080',
+    electrum: '127.0.0.1:50001',
+    auto: true
+  },
+  Signet: {
+    blindbit: '',
+    electrum: '',
+    auto: false
+  },
+  Testnet: {
+    blindbit: '',
+    electrum: '',
+    auto: false
+  }
+};
+const descriptorRoute = k => k.routes.find(r => r === 'qr' || r === 'hot') || null;
+function EndpointRow({
+  label,
+  value,
+  onChange,
+  test,
+  onTest
+}) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Field, {
+    label: label
+  }, /*#__PURE__*/React.createElement(Input, {
+    grow: true,
+    mono: true,
+    value: value,
+    onChange: e => onChange(e.target.value)
+  }), /*#__PURE__*/React.createElement(Btn, {
+    id: test === 'testing' ? 'testing' : 'test',
+    disabled: !value.trim() || test === 'testing',
+    onClick: onTest
+  }), /*#__PURE__*/React.createElement(ValidationMark, {
+    state: test === 'ok' ? 'valid' : test && test.error ? 'invalid' : 'none'
+  })), test && test.error ? /*#__PURE__*/React.createElement(FieldNote, {
+    tone: "error"
+  }, test.error) : null);
+}
 function CreateAccount({
   existing,
+  keys = window.KEYS,
   onCancel,
-  onCreate
+  onCreate,
+  onOpenKeys,
+  initial = {}
 }) {
-  const [name, setName] = React.useState('');
-  const [mnemonic, setMnemonic] = React.useState('');
-  const [network, setNetwork] = React.useState('Regtest');
-  const [blindbit, setBlindbit] = React.useState('http://localhost:8080');
-  const [electrum, setElectrum] = React.useState('127.0.0.1:50001');
-  const nameOk = name.trim() !== '' && !name.includes(' ') && !existing.includes(name.trim());
-  const mnemonicOk = mnemonic.trim().split(/\s+/).length >= 12;
-  const canCreate = nameOk && mnemonicOk;
-  const labelW = 110;
+  const [name, setName] = React.useState(initial.name || '');
+  const [network, setNetwork] = React.useState(initial.network || 'Regtest');
+  const [keyFp, setKeyFp] = React.useState(initial.keyFp || null);
+  const [desc, setDesc] = React.useState(initial.desc || null); // { value, network }
+  const [fetching, setFetching] = React.useState(false);
+  const [blindbit, setBlindbit] = React.useState(ENDPOINT_DEFAULTS[initial.network || 'Regtest'].blindbit);
+  const [electrum, setElectrum] = React.useState(ENDPOINT_DEFAULTS[initial.network || 'Regtest'].electrum);
+  const [tests, setTests] = React.useState(initial.tests || {}); // { blindbit, electrum }: 'testing' | 'ok' | { error }
+
+  const runTest = (which, value) => {
+    setTests(t => ({
+      ...t,
+      [which]: 'testing'
+    }));
+    setTimeout(() => setTests(t => ({
+      ...t,
+      [which]: /localhost:8080/.test(value) ? {
+        error: `Could not reach ${value}: connection refused. Start the BlindBit server, then test again.`
+      } : 'ok'
+    })), 900);
+  };
+  const pickNetwork = n => {
+    setNetwork(n);
+    setKeyFp(null);
+    const d = ENDPOINT_DEFAULTS[n];
+    setBlindbit(d.blindbit);
+    setElectrum(d.electrum);
+    setTests({});
+    if (d.auto) {
+      runTest('blindbit', d.blindbit);
+      runTest('electrum', d.electrum);
+    }
+  };
+  React.useEffect(() => {
+    if (!initial.tests && ENDPOINT_DEFAULTS[network].auto) {
+      runTest('blindbit', blindbit);
+      runTest('electrum', electrum);
+    }
+  }, []);
+  const netKeys = keys.filter(k => k.network === network);
+  const elsewhere = keys.filter(k => k.network !== network);
+  const key = netKeys.find(k => k.fp === keyFp);
+  const trimmed = name.trim();
+  const reason = !trimmed ? 'Enter an account name.' : /\s/.test(name) ? 'The account name cannot contain spaces.' : existing.includes(trimmed) ? `An account named “${trimmed}” already exists.` : !desc ? 'Get the descriptor of a key first.' : desc.network !== network ? `The descriptor is for ${desc.network}, not ${network}. Get it again.` : tests.blindbit !== 'ok' || tests.electrum !== 'ok' ? 'Test both backends first.' : null;
+  if (fetching && key) {
+    return /*#__PURE__*/React.createElement(SigningFlow, {
+      context: "fetch",
+      keyRow: {
+        fp: key.fp,
+        alias: key.alias,
+        route: descriptorRoute(key)
+      },
+      onCancel: () => setFetching(false),
+      onDone: () => {
+        setDesc({
+          value: `sp([${key.fp}/352'/${network === 'Bitcoin' ? 0 : 1}'/0']${network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T})#k7f3qz9d`,
+          network
+        });
+        setFetching(false);
+      }
+    });
+  }
   return /*#__PURE__*/React.createElement(Modal, {
     title: "Create Account",
-    width: 560,
+    width: 620,
     onClose: onCancel
   }, /*#__PURE__*/React.createElement(Stack, {
-    gap: "s"
-  }, /*#__PURE__*/React.createElement(Field, {
-    label: "Account Name:",
-    labelWidth: labelW
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
+    label: "Account Name:"
   }, /*#__PURE__*/React.createElement(Input, {
-    width: 200,
-    placeholder: "Enter account name",
+    width: 240,
+    placeholder: "e.g. savings",
     value: name,
     onChange: e => setName(e.target.value)
   })), /*#__PURE__*/React.createElement(Field, {
-    label: "Mnemonic:",
-    labelWidth: labelW,
-    align: "flex-start"
-  }, /*#__PURE__*/React.createElement(TextArea, {
-    mono: true,
-    width: 320,
-    height: 50,
-    placeholder: "Mnemonic phrase",
-    value: mnemonic,
-    onChange: e => setMnemonic(e.target.value)
-  })), /*#__PURE__*/React.createElement(Row, {
-    justify: "center"
-  }, /*#__PURE__*/React.createElement(Button, {
-    onClick: () => setMnemonic(fakeMnemonic())
-  }, "Generate")), /*#__PURE__*/React.createElement(Field, {
-    label: "Network:",
-    labelWidth: labelW
+    label: "Network:"
   }, /*#__PURE__*/React.createElement(ComboBox, {
     value: network,
     options: NETWORKS,
-    onChange: setNetwork,
-    width: 200
-  })), /*#__PURE__*/React.createElement(Field, {
+    onChange: pickNetwork,
+    width: 240
+  }))), /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, /*#__PURE__*/React.createElement(SectionLabel, null, "Key"), netKeys.length ? netKeys.map(k => {
+    const route = descriptorRoute(k);
+    return /*#__PURE__*/React.createElement(SelectRow, {
+      key: k.fp,
+      icon: route ? ROUTE_KINDS[route].icon : 'key',
+      title: k.alias,
+      meta: k.fp,
+      sub: route ? `Gets the descriptor with ${ROUTE_KINDS[route].label}.` : 'Only a QR Code or Hot Key route can return a descriptor.',
+      disabled: !route,
+      selected: route ? keyFp === k.fp : undefined,
+      onClick: route ? () => {
+        setKeyFp(k.fp);
+        if (keyFp !== k.fp) setDesc(null);
+      } : undefined
+    });
+  }) : keys.length === 0 ? /*#__PURE__*/React.createElement(EmptyState, {
+    icon: "key",
+    title: "No Key Registered",
+    subtitle: "An account is created from a key. Register one in the Keys tab first.",
+    action: onOpenKeys ? /*#__PURE__*/React.createElement(Btn, {
+      id: "open_keys_tab",
+      onClick: onOpenKeys
+    }) : null
+  }) : /*#__PURE__*/React.createElement(EmptyState, {
+    icon: "key",
+    title: `No Key on ${network}`,
+    subtitle: `${elsewhere.length === 1 ? '1 key is' : elsewhere.length + ' keys are'} registered on ${[...new Set(elsewhere.map(k => k.network))].join(', ')}. Pick that network, or add a ${network} key.`,
+    action: onOpenKeys ? /*#__PURE__*/React.createElement(Btn, {
+      id: "open_keys_tab",
+      onClick: onOpenKeys
+    }) : null
+  }), netKeys.length ? /*#__PURE__*/React.createElement(Row, {
+    gap: "s"
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: desc ? 'get_again' : 'get_descriptor',
+    disabled: !key,
+    onClick: () => setFetching(true)
+  }), !key ? /*#__PURE__*/React.createElement(Text, {
+    variant: "caption"
+  }, "Pick a key first.") : null) : null, desc ? /*#__PURE__*/React.createElement(CopyField, {
+    value: desc.value,
+    wrap: true,
+    title: "Copy descriptor"
+  }) : null), /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(SectionLabel, null, "Backends"), /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(EndpointRow, {
     label: "BlindBit URL:",
-    labelWidth: labelW
-  }, /*#__PURE__*/React.createElement(Input, {
-    width: 260,
     value: blindbit,
-    onChange: e => setBlindbit(e.target.value)
-  }), /*#__PURE__*/React.createElement(Button, {
-    style: {
-      marginLeft: 'var(--space-xs)'
-    }
-  }, "Test")), /*#__PURE__*/React.createElement(Field, {
+    onChange: v => {
+      setBlindbit(v);
+      setTests(t => ({
+        ...t,
+        blindbit: null
+      }));
+    },
+    test: tests.blindbit,
+    onTest: () => runTest('blindbit', blindbit)
+  }), /*#__PURE__*/React.createElement(EndpointRow, {
     label: "Electrum:",
-    labelWidth: labelW
-  }, /*#__PURE__*/React.createElement(Input, {
-    width: 260,
     value: electrum,
-    onChange: e => setElectrum(e.target.value)
-  }), /*#__PURE__*/React.createElement(Button, {
-    style: {
-      marginLeft: 'var(--space-xs)'
-    }
-  }, "Test"))), /*#__PURE__*/React.createElement(Row, {
-    justify: "center",
-    gap: "m",
-    style: {
-      marginTop: 'var(--space-m)'
-    }
-  }, /*#__PURE__*/React.createElement(Button, {
-    onClick: onCancel
-  }, "Cancel"), /*#__PURE__*/React.createElement(Button, {
-    role: "primary",
-    disabled: !canCreate,
-    onClick: () => onCreate(name.trim())
-  }, "Create")));
+    onChange: v => {
+      setElectrum(v);
+      setTests(t => ({
+        ...t,
+        electrum: null
+      }));
+    },
+    test: tests.electrum,
+    onTest: () => runTest('electrum', electrum)
+  }))), /*#__PURE__*/React.createElement(ModalActions, {
+    reason: reason
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "create",
+    disabled: !!reason,
+    onClick: () => onCreate(trimmed)
+  }))));
 }
 function ConfirmDelete({
   name,
@@ -1656,34 +4055,43 @@ function ConfirmDelete({
     title: "Delete Wallet",
     width: 420,
     onClose: onCancel
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
   }, /*#__PURE__*/React.createElement(Text, {
     as: "div",
-    variant: "body",
-    style: {
-      marginBottom: 'var(--space-m)'
-    }
-  }, "Delete wallet \"", name, "\"? This cannot be undone."), /*#__PURE__*/React.createElement(Row, {
-    justify: "center",
-    gap: "m"
-  }, /*#__PURE__*/React.createElement(Button, {
-    onClick: onCancel
-  }, "Cancel"), /*#__PURE__*/React.createElement(Button, {
-    role: "destructive",
+    variant: "body"
+  }, "Delete wallet \u201C", name, "\u201D? This cannot be undone."), /*#__PURE__*/React.createElement(ModalActions, null, /*#__PURE__*/React.createElement(Btn, {
+    id: "delete",
     onClick: onConfirm
-  }, "Delete")));
+  }))));
 }
 Object.assign(window, {
   MenuTab,
   CreateAccount,
-  ConfirmDelete
+  ConfirmDelete,
+  EndpointRow,
+  ENDPOINT_DEFAULTS
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/MenuTab.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/Modal.jsx
 try { (() => {
 /* Silent UI Kit — Modal shell (qontrol::Modal / Window dialog).
-   Generic: <Modal title="…" onClose={fn} width={…}>content</Modal>
-   Renders a header (title + [x] close) above the content. */
+   Generic: <Modal title="…" onClose={fn} width={…}>content … <ModalActions>…</ModalActions></Modal>
+   Renders the header (title + [x] close) above the content. `headerRight` holds
+   context next to the ×, e.g. a key's fingerprint and status pill; it never
+   gets pushed out — a long title truncates with an ellipsis instead.
+   ONE modal at a time, with one exception: a small settings overlay (e.g. Camera
+   Settings) may open on top of a flow step and closes back to it.
+   RULE: every modal (and every step inside a stepped modal) ends with ONE
+   <ModalActions> button bar — Back on the left, disabled reason, then the
+   buttons (secondary first, primary last). Never hand-roll a button row. A
+   transient status with no action (broadcasting, sealing) may omit it, and so may
+   a modal whose only action would be Close (the header × already closes it).
+   Never add a Close / OK / Cancel button — the × is the only close control; a
+   sub-step that returns to the previous one uses Back (ModalActions onBack).
+   When the content is taller than the window, the body scrolls between a pinned
+   header and a pinned button bar (ModalActions is sticky). */
 
 function Modal({
   title,
@@ -1721,28 +4129,37 @@ function Modal({
     align: "center",
     gap: "m",
     style: {
-      marginBottom: 'var(--space-m)'
+      marginBottom: 'var(--space-m)',
+      position: 'sticky',
+      top: 'calc(-1 * var(--space-m))',
+      zIndex: 2,
+      background: 'var(--bg)',
+      margin: 'calc(-1 * var(--space-m)) 0 var(--space-m)',
+      paddingTop: 'var(--space-m)',
+      paddingBottom: 'var(--space-xs)'
     }
   }, /*#__PURE__*/React.createElement(Text, {
     variant: "heading",
-    nowrap: true
+    truncate: true,
+    title: typeof title === 'string' ? title : undefined,
+    style: {
+      flex: '1 1 auto',
+      minWidth: 0
+    }
   }, title), /*#__PURE__*/React.createElement(Row, {
     gap: "s",
     style: {
       flex: 'none'
     }
-  }, headerRight || null, onClose ? /*#__PURE__*/React.createElement(Button, {
-    role: "inline-icon",
-    title: "Close",
+  }, headerRight || null, onClose ? /*#__PURE__*/React.createElement(Btn, {
+    id: "modal_close",
     onClick: onClose
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "x",
-    size: 16
-  })) : null)), children));
+  }) : null)), children));
 }
 Object.assign(window, {
   Modal
 });
+Object.assign(__ds_scope, { Modal });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Modal.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/Primitives.jsx
@@ -1787,7 +4204,8 @@ function Button({
     icon: 's-btn s-btn--icon',
     'inline-icon': 's-btn s-btn--inline-icon',
     'tab-open': 's-btn s-btn--tab-open',
-    'tab-create': 's-btn s-btn--tab-create'
+    'tab-create': 's-btn s-btn--tab-create',
+    index: 's-btn s-btn--index'
   }[role] || 's-btn';
   const dom = {
     ...rest
@@ -1800,20 +4218,30 @@ function Button({
     size: iconSize
   }) : null, children);
 }
+
+/* `grow` fills the free space of its Row / Field (flex 1) instead of a fixed width. */
 function Input({
   mono = false,
   width,
+  grow = false,
   className = '',
   ...rest
 }) {
-  const style = width ? {
-    width
+  // border-box so width="100%" includes padding + border and never overflows its container
+  const style = grow ? {
+    flex: 1,
+    minWidth: 0,
+    boxSizing: 'border-box'
+  } : width ? {
+    width,
+    boxSizing: 'border-box'
   } : {};
   const dom = {
     ...rest
   };
   delete dom.mono;
-  delete dom.width; // defensive: preview instrumentation can leave these in rest
+  delete dom.width;
+  delete dom.grow; // defensive: preview instrumentation can leave these in rest
   return /*#__PURE__*/React.createElement("input", _extends({
     className: `s-input ${mono ? 's-input--mono' : ''} ${className}`,
     style: style
@@ -1861,12 +4289,52 @@ function Display({
     style: style
   }, value);
 }
+
+/* Field — label + control on one row. The label is sized to its text: no gap
+   beyond the row gap. Inside a <FieldGroup> the labels share ONE column, as wide
+   as the group's longest label — just enough to line the inputs up, never more.
+   `labelWidth` forces a width (legacy screens). Qt: QFormLayout. */
+const FieldGroupCtx = React.createContext(false);
+function FieldGroup({
+  children,
+  gap = 'xs'
+}) {
+  return /*#__PURE__*/React.createElement(FieldGroupCtx.Provider, {
+    value: true
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: 'max-content minmax(0, 1fr)',
+      columnGap: 'var(--space-xs)',
+      rowGap: spaceVal(gap),
+      alignItems: 'center'
+    }
+  }, children));
+}
 function Field({
   label,
-  labelWidth = 'var(--form-label-w)',
+  labelWidth,
   children,
   align = 'center'
 }) {
+  const inGroup = React.useContext(FieldGroupCtx);
+  const lbl = /*#__PURE__*/React.createElement("span", {
+    className: "t-info-label",
+    style: {
+      width: labelWidth || 'auto',
+      flex: 'none',
+      color: 'var(--text)',
+      alignSelf: align === 'flex-start' ? 'start' : undefined
+    }
+  }, label);
+  if (inGroup) return /*#__PURE__*/React.createElement(React.Fragment, null, lbl, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: align,
+      gap: 'var(--space-xs)',
+      minWidth: 0
+    }
+  }, children));
   return /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
@@ -1874,14 +4342,7 @@ function Field({
       gap: 'var(--space-xs)',
       padding: '3px 0'
     }
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "t-info-label",
-    style: {
-      width: labelWidth,
-      flex: 'none',
-      color: 'var(--text)'
-    }
-  }, label), children);
+  }, lbl, children);
 }
 function Checkbox({
   checked,
@@ -1906,14 +4367,20 @@ function Checkbox({
     }
   }, label) : null);
 }
+
+/* disabled: dimmed, not clickable (e.g. a plugin while it unloads). */
 function Toggle({
   on,
   status = false,
+  disabled = false,
   onClick
 }) {
   return /*#__PURE__*/React.createElement("span", {
-    className: `s-toggle ${status ? 's-toggle--status' : ''} ${on ? 'is-on' : ''}`,
-    onClick: onClick
+    className: `s-toggle ${status ? 's-toggle--status' : ''} ${on ? 'is-on' : ''} ${disabled ? 'is-disabled' : ''}`,
+    role: "switch",
+    "aria-checked": !!on,
+    "aria-disabled": disabled || undefined,
+    onClick: disabled ? undefined : onClick
   });
 }
 
@@ -1933,30 +4400,38 @@ function Spinner({
   }));
 }
 
-/* Card — the panel/surface recipe. tone 'surface' (default) | 'inset'. */
+/* Card — the panel/surface recipe. tone 'surface' (default) | 'inset'.
+   pad: l (default) | m | s | none. `corner` holds a pinned top-left action (e.g. remove). */
 function Card({
   tone = 'surface',
+  pad = 'l',
+  corner,
   className = '',
   style,
   children,
   ...rest
 }) {
   return /*#__PURE__*/React.createElement("div", _extends({
-    className: `s-card ${tone === 'inset' ? 's-card--inset' : ''} ${className}`,
+    className: `s-card ${tone === 'inset' ? 's-card--inset' : ''} ${pad !== 'l' ? 's-card--pad-' + pad : ''} ${className}`,
     style: style
-  }, rest), children);
+  }, rest), corner ? /*#__PURE__*/React.createElement("span", {
+    className: "s-card__corner"
+  }, corner) : null, children);
 }
 
-/* Badge — small status pill. tone: success | warning | error | neutral. */
+/* Badge — small status pill. tone: success | warning | error | neutral | off (unavailable, e.g. Offline). */
+/* `width` picks a PillWidth (M | L); omitted = content-sized. Label centred. */
 function Badge({
   tone = 'neutral',
   icon,
   iconSize = 14,
+  width,
   children,
   style
 }) {
+  const wc = width && width !== 'Auto' ? ' s-badge--w-' + width.toLowerCase() : '';
   return /*#__PURE__*/React.createElement("span", {
-    className: `s-badge s-badge--${tone}`,
+    className: `s-badge s-badge--${tone}${wc}`,
     style: style
   }, icon ? /*#__PURE__*/React.createElement(Icon, {
     name: icon,
@@ -1964,56 +4439,149 @@ function Badge({
   }) : null, children);
 }
 
-/* SelectRow — full-width pick-list row (icon · title · meta · chevron). */
+/* SelectRow — full-width pick-list row (icon · title/sub · status · meta · trailing · chevron).
+   States: default (clickable), `selected` (the current pick), `disabled` (cannot be
+   picked — put the reason in `sub`), static (no onClick: informational, no hover),
+   `current` (the active step of a step list: highlighted, not a choice — no check).
+   tone="error": the row is in a failed state (e.g. a plugin that failed to load) —
+   error-tinted, error icon; the reason goes in `sub`.
+   Lists: pass metaWidth / statusWidth / trailingWidth so every row's columns line up
+   (slots keep their width when empty; the chevron sits in the trailing slot).
+   `trailing` holds an action (e.g. a labelled Button); its clicks don't open the row.
+   Rendered as a div[role=button] so a trailing Button is valid markup.
+   Qt: a QFrame row with an HBox; selected/disabled are QSS dynamic properties. */
 function SelectRow({
   icon,
   iconSize = 18,
   title,
+  sub,
   meta,
+  status,
+  trailing,
   onClick,
-  chevron = true,
+  chevron,
+  selected,
+  current,
+  disabled,
+  tone,
+  metaWidth,
+  statusWidth,
+  trailingWidth,
   style
 }) {
-  return /*#__PURE__*/React.createElement("button", {
-    className: "s-select-row",
-    onClick: onClick,
-    style: style
+  const clickable = !!onClick && !disabled;
+  const showChev = chevron != null ? chevron : clickable && !trailing && selected == null;
+  const cls = 's-select-row' + (tone === 'error' ? ' s-select-row--error' : '') + (selected || current ? ' is-selected' : '') + (disabled ? ' is-disabled' : '') + (!onClick && !disabled && !selected && !current ? ' is-static' : '');
+  return /*#__PURE__*/React.createElement("div", {
+    className: cls,
+    style: style,
+    role: onClick ? 'button' : undefined,
+    tabIndex: clickable ? 0 : undefined,
+    "aria-disabled": disabled || undefined,
+    "aria-pressed": selected != null ? !!selected : undefined,
+    onClick: clickable ? onClick : undefined,
+    onKeyDown: clickable ? e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        onClick();
+      }
+    } : undefined
   }, icon ? /*#__PURE__*/React.createElement("span", {
-    style: {
-      flex: 'none',
-      display: 'inline-flex',
-      color: 'var(--accent)'
-    }
+    className: "s-select-row__icon"
   }, /*#__PURE__*/React.createElement(Icon, {
     name: icon,
     size: iconSize
   })) : null, /*#__PURE__*/React.createElement("span", {
-    style: {
-      flex: 1,
-      minWidth: 0,
-      font: '500 14px var(--font-sans)'
-    }
-  }, title), meta ? /*#__PURE__*/React.createElement("span", {
-    style: {
-      flex: 'none',
-      font: '12px var(--font-mono)',
-      color: 'var(--text-muted)'
-    }
-  }, meta) : null, chevron ? /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__body"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__title"
+  }, title), sub ? /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__sub"
+  }, sub) : null), meta || metaWidth ? /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__meta",
+    style: metaWidth ? {
+      width: metaWidth
+    } : undefined
+  }, meta) : null, status || statusWidth ? /*#__PURE__*/React.createElement("span", {
     style: {
       flex: 'none',
       display: 'inline-flex',
-      color: 'var(--text-muted)'
+      width: statusWidth
     }
+  }, status) : null, trailingWidth ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 'none',
+      width: trailingWidth,
+      display: 'inline-flex',
+      justifyContent: 'flex-end'
+    },
+    onClick: trailing ? e => e.stopPropagation() : undefined
+  }, trailing || (showChev ? /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__chev"
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "chevron_right",
     size: 16
+  })) : null)) : /*#__PURE__*/React.createElement(React.Fragment, null, trailing ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 'none',
+      display: 'inline-flex'
+    },
+    onClick: e => e.stopPropagation()
+  }, trailing) : null, showChev ? /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__chev"
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "chevron_right",
+    size: 16
+  })) : null), selected ? /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__icon"
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "circle_check",
+    size: iconSize
   })) : null);
 }
 
+/* Notice — inline message block: icon · optional title · text · optional action.
+   tone: error | warning | success | info. For errors reported in place, reasons
+   for a disabled action, and warnings (mnemonic reveal). Qt: QFrame + HBox. */
+const NOTICE_ICON = {
+  error: 'circle_x',
+  warning: 'alert',
+  success: 'circle_check',
+  info: 'info'
+};
+function Notice({
+  tone = 'info',
+  title,
+  children,
+  action,
+  icon,
+  style
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: `s-notice s-notice--${tone}`,
+    style: style,
+    role: tone === 'error' ? 'alert' : undefined
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "s-notice__icon"
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: icon || NOTICE_ICON[tone],
+    size: 16
+  })), /*#__PURE__*/React.createElement("span", {
+    className: "s-notice__body"
+  }, title ? /*#__PURE__*/React.createElement("span", {
+    className: "s-notice__title"
+  }, title) : null, children ? /*#__PURE__*/React.createElement("span", null, children) : null), action ? /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 'none',
+      display: 'inline-flex',
+      alignSelf: 'center'
+    }
+  }, action) : null);
+}
+
 /* ModalStatus — centered status column for "working…" / placeholder modals:
-   spinner OR icon, a title, an optional subtitle, plus any children (e.g. a
-   Cancel button). Used by the signing, SD-card and broadcasting modals. */
+   spinner OR icon, a title, an optional subtitle, plus optional children (extra
+   content, e.g. an empty-state lead). Modal buttons go in <ModalActions>, not here. */
 function ModalStatus({
   spinner,
   icon,
@@ -2076,6 +4644,10 @@ function Legend({
     }
   }), children);
 }
+
+/* The dropdown is portalled to <body> with fixed positioning, so it overlays
+   everything and is never clipped by a table cell, scroll area or modal body.
+   Qt: QComboBox popup (a top-level window). */
 function ComboBox({
   value,
   options,
@@ -2083,10 +4655,64 @@ function ComboBox({
   width = 200
 }) {
   const [open, setOpen] = React.useState(false);
+  const [rect, setRect] = React.useState(null);
+  const ref = React.useRef(null);
+  const toggle = () => {
+    if (!open && ref.current) setRect(ref.current.getBoundingClientRect());
+    setOpen(o => !o);
+  };
+  React.useEffect(() => {
+    if (!open) return;
+    const close = e => {
+      if (ref.current && ref.current.contains(e.target)) return;
+      setOpen(false);
+    };
+    const off = () => setOpen(false);
+    document.addEventListener('mousedown', close);
+    window.addEventListener('resize', off);
+    document.addEventListener('scroll', off, true);
+    return () => {
+      document.removeEventListener('mousedown', close);
+      window.removeEventListener('resize', off);
+      document.removeEventListener('scroll', off, true);
+    };
+  }, [open]);
+  const list = open && rect ? ReactDOM.createPortal(/*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'fixed',
+      top: rect.bottom + 2,
+      left: rect.left,
+      width: rect.width,
+      zIndex: 1000,
+      background: 'var(--input-bg)',
+      border: '1px solid var(--input-border)',
+      borderRadius: 'var(--radius-button)',
+      overflow: 'hidden',
+      boxSizing: 'border-box',
+      fontFamily: 'var(--font-sans)'
+    },
+    onMouseDown: e => e.stopPropagation()
+  }, options.map(opt => /*#__PURE__*/React.createElement("div", {
+    key: opt,
+    className: "combo-item",
+    style: {
+      padding: '6px 10px',
+      fontSize: 'var(--size-body)',
+      color: 'var(--text)',
+      cursor: 'pointer',
+      background: opt === value ? 'var(--surface-hover)' : 'transparent'
+    },
+    onMouseDown: () => {
+      onChange(opt);
+      setOpen(false);
+    }
+  }, opt))), document.body) : null;
   return /*#__PURE__*/React.createElement("div", {
+    ref: ref,
     style: {
       position: 'relative',
-      width
+      width,
+      flex: 'none'
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "s-combo",
@@ -2097,7 +4723,7 @@ function ComboBox({
       alignItems: 'center',
       paddingRight: 26
     },
-    onClick: () => setOpen(o => !o)
+    onClick: toggle
   }, /*#__PURE__*/React.createElement("span", {
     style: {
       flex: 1,
@@ -2119,35 +4745,7 @@ function ComboBox({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "chevron_down",
     size: 12
-  }))), open ? /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      top: '100%',
-      left: 0,
-      width: '100%',
-      marginTop: 2,
-      zIndex: 20,
-      background: 'var(--input-bg)',
-      border: '1px solid var(--input-border)',
-      borderRadius: 'var(--radius-button)',
-      overflow: 'hidden',
-      boxSizing: 'border-box'
-    }
-  }, options.map(opt => /*#__PURE__*/React.createElement("div", {
-    key: opt,
-    className: "combo-item",
-    style: {
-      padding: '6px 10px',
-      fontSize: 'var(--size-body)',
-      color: 'var(--text)',
-      cursor: 'pointer',
-      background: opt === value ? 'var(--surface-hover)' : 'transparent'
-    },
-    onMouseDown: () => {
-      onChange(opt);
-      setOpen(false);
-    }
-  }, opt))) : null);
+  }))), list);
 }
 
 /* ✓ / ✗ validation mark (Send.cpp setValidationIndicator) */
@@ -2266,12 +4864,14 @@ Object.assign(window, {
   TextArea,
   Display,
   Field,
+  FieldGroup,
   Checkbox,
   Toggle,
   Spinner,
   Card,
   Badge,
   SelectRow,
+  Notice,
   ModalStatus,
   Legend,
   ComboBox,
@@ -2280,6 +4880,30 @@ Object.assign(window, {
   Tab,
   useMeasure
 });
+
+/* File-level namespace (DS compiler indexes this file as `Primitives`). */
+const Primitives = {
+  Button,
+  Input,
+  TextArea,
+  Display,
+  Field,
+  FieldGroup,
+  Checkbox,
+  Toggle,
+  Spinner,
+  Card,
+  Badge,
+  SelectRow,
+  Notice,
+  ModalStatus,
+  Legend,
+  ComboBox,
+  ValidationMark,
+  BalanceHeader,
+  Tab
+};
+Object.assign(__ds_scope, { Button, Input, TextArea, Display, FieldGroup, Field, Checkbox, Toggle, Spinner, Card, Badge, SelectRow, Notice, ModalStatus, Legend, ComboBox, ValidationMark, BalanceHeader, Tab, Primitives });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Primitives.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/ScreensBasic.jsx
@@ -2339,8 +4963,10 @@ const LayoutInfo = React.createContext({
 });
 function DashboardLayout({
   title,
+  titleRight,
   primary,
-  secondary = null
+  secondary = null,
+  fixedWidth
 }) {
   const [ref, w] = useMeasure();
   const two = secondary != null && secondary !== false;
@@ -2348,8 +4974,9 @@ function DashboardLayout({
   const wide = w >= DASH_WIDE_AT;
   // One column caps at DASH_COL_MAX; a side-by-side pair caps at DASH_MAX_W in
   // total. A stacked two-column screen behaves like a single column.
-  const blockMin = sideBySide ? DASH_SPLIT_AT : DASH_MIN_W;
-  const blockMax = sideBySide ? DASH_MAX_W : DASH_COL_MAX;
+  // fixedWidth pins the content block to one width (e.g. the Keys tab, 700).
+  const blockMin = fixedWidth || (sideBySide ? DASH_SPLIT_AT : DASH_MIN_W);
+  const blockMax = fixedWidth || (sideBySide ? DASH_MAX_W : DASH_COL_MAX);
   const blockW = w > 0 ? Math.min(Math.max(w, blockMin), blockMax) : 0;
   const colWidth = Math.round(sideBySide ? (blockW - DASH_GUTTER) / 2 : blockW);
   const info = {
@@ -2380,13 +5007,15 @@ function DashboardLayout({
     }
   }, /*#__PURE__*/React.createElement(LayoutInfo.Provider, {
     value: info
-  }, title ? /*#__PURE__*/React.createElement(Text, {
-    as: "div",
-    variant: "title",
+  }, title ? /*#__PURE__*/React.createElement(Row, {
+    gap: "m",
     style: {
       marginBottom: 'var(--space-m)'
     }
-  }, title) : null, sideBySide ? /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "title"
+  }, title), titleRight ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Spacer, null), titleRight) : null) : null, sideBySide ? /*#__PURE__*/React.createElement("div", {
     style: {
       display: 'flex',
       alignItems: 'stretch',
@@ -2425,11 +5054,15 @@ function DashboardLayout({
 /* Single-column convenience wrapper — most panels render through this. */
 function ScreenWrap({
   title,
-  children
+  titleRight,
+  children,
+  fixedWidth
 }) {
   return /*#__PURE__*/React.createElement(DashboardLayout, {
     title: title,
-    primary: children
+    titleRight: titleRight,
+    primary: children,
+    fixedWidth: fixedWidth
   });
 }
 function Ruler() {
@@ -2516,10 +5149,7 @@ function CoinsScreen({
     render: (r, i) => editing === i ? /*#__PURE__*/React.createElement(Input, {
       value: draft,
       autoFocus: true,
-      style: {
-        width: '100%',
-        boxSizing: 'border-box'
-      },
+      width: "100%",
       onChange: e => setDraft(e.target.value),
       onBlur: () => commit(i),
       onKeyDown: e => {
@@ -2533,16 +5163,13 @@ function CoinsScreen({
     cellStyle: () => ({
       padding: '0 4px'
     }),
-    render: (r, i) => /*#__PURE__*/React.createElement(Button, {
-      role: "inline-icon",
+    render: (r, i) => /*#__PURE__*/React.createElement(Btn, {
+      id: "edit_label_row",
       onClick: () => {
         setEditing(i);
         setDraft(r.label);
       }
-    }, /*#__PURE__*/React.createElement(Icon, {
-      name: "pencil",
-      size: 15
-    }))
+    })
   }, {
     header: 'Value',
     width: 150,
@@ -2601,46 +5228,31 @@ function LabelRow({
       style: {
         width: 220
       }
-    }), /*#__PURE__*/React.createElement(Button, {
-      role: "inline-icon",
-      title: "Save",
+    }), /*#__PURE__*/React.createElement(Btn, {
+      id: "save_label",
       onClick: commit
-    }, /*#__PURE__*/React.createElement(Icon, {
-      name: "check",
-      size: 15
-    })));
+    }));
   }
   if (!label) {
-    return /*#__PURE__*/React.createElement(Button, {
-      role: "inline",
+    return /*#__PURE__*/React.createElement(Btn, {
+      id: "add_label",
       onClick: () => setEditing(true),
       style: {
         display: 'inline-flex',
         alignItems: 'center',
         gap: 'var(--space-xs)'
       }
-    }, /*#__PURE__*/React.createElement(Icon, {
-      name: "plus",
-      size: 14
-    }), " Add a label");
+    });
   }
   return /*#__PURE__*/React.createElement(Row, {
     gap: "s"
   }, /*#__PURE__*/React.createElement(Text, {
-    variant: "body",
-    weight: "demibold",
-    nowrap: true,
-    style: {
-      fontSize: 14
-    }
-  }, label), /*#__PURE__*/React.createElement(Button, {
-    role: "inline-icon",
-    title: "Edit label",
+    variant: "section",
+    nowrap: true
+  }, label), /*#__PURE__*/React.createElement(Btn, {
+    id: "edit_label",
     onClick: () => setEditing(true)
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "pencil",
-    size: 14
-  })));
+  }));
 }
 function AddressRow({
   address,
@@ -2653,9 +5265,10 @@ function AddressRow({
   onShowPrev,
   labelable,
   label = '',
-  onSetLabel
+  onSetLabel,
+  verifiable = true
 }) {
-  const [verify, setVerify] = React.useState(null); // null | {} (picking) | { device } (confirming)
+  const [verify, setVerify] = React.useState(false);
   if (!address) {
     return /*#__PURE__*/React.createElement(Stack, {
       align: "center",
@@ -2666,9 +5279,10 @@ function AddressRow({
     }, /*#__PURE__*/React.createElement(Text, {
       variant: "body",
       color: "muted"
-    }, placeholder), generatable ? /*#__PURE__*/React.createElement(Button, {
+    }, placeholder), generatable ? /*#__PURE__*/React.createElement(Btn, {
+      id: "generate",
       onClick: onGenerate
-    }, "Generate") : null);
+    }) : null);
   }
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Stack, {
     align: "center",
@@ -2686,92 +5300,53 @@ function AddressRow({
     style: {
       width: '100%'
     }
-  }, /*#__PURE__*/React.createElement(Tooltip, {
+  }, verifiable ? /*#__PURE__*/React.createElement(Tooltip, {
     label: "Verify on signing device"
-  }, /*#__PURE__*/React.createElement(Button, {
-    role: "icon",
-    onClick: () => setVerify({}),
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "verify_on_device",
+    onClick: () => setVerify(true),
     style: {
       flex: 'none'
     }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "usb",
-    size: 20
-  }))), /*#__PURE__*/React.createElement(ChunkedAddress, {
+  })) : null, /*#__PURE__*/React.createElement(ChunkedAddress, {
     text: address
-  }), /*#__PURE__*/React.createElement(Button, {
-    role: "icon",
-    title: "Copy address",
-    onClick: onCopy,
-    style: {
-      flex: 'none'
-    }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: copied ? 'check' : 'copy',
-    size: 20
-  }))), generatable ? /*#__PURE__*/React.createElement(Row, {
+  }), /*#__PURE__*/React.createElement(Btn, {
+    id: copied ? 'copied' : 'copy_address',
+    onClick: onCopy
+  })), generatable ? /*#__PURE__*/React.createElement(Row, {
     gap: "l"
-  }, /*#__PURE__*/React.createElement(Button, {
-    onClick: onGenerate,
-    style: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: 'var(--space-xs)'
-    }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "refresh",
-    size: 15
-  }), " Generate new"), prevCount > 0 ? /*#__PURE__*/React.createElement(Button, {
-    role: "inline",
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "generate_new",
+    onClick: onGenerate
+  }), prevCount > 0 ? /*#__PURE__*/React.createElement(Btn, {
+    id: "awaiting_payment",
+    args: prevCount,
     onClick: onShowPrev
-  }, "Addr. awaiting payment (", prevCount, ")") : null) : null), verify && !verify.device ? /*#__PURE__*/React.createElement(SelectSigner, {
-    title: "Verify on device",
-    devices: (window.SIGNER_DEVICES || []).filter(d => d.kind !== 'sd'),
-    onCancel: () => setVerify(null),
-    onPick: d => setVerify({
-      device: d
-    })
-  }) : null, verify && verify.device ? /*#__PURE__*/React.createElement(VerifyAddress, {
-    device: verify.device,
+  }) : null) : null, !verifiable ? /*#__PURE__*/React.createElement(SpVerifyNote, null) : null), verify ? /*#__PURE__*/React.createElement(SigningFlow, {
+    context: "verify",
+    plan: window.VERIFY_PLAN,
     address: address,
-    onCancel: () => setVerify(null)
+    onCancel: () => setVerify(false)
   }) : null);
 }
 
-/* Verify an address on a hardware signer — confirm-on-device step, mirrors
-   Send.jsx's UsbConfirm but for address verification rather than signing.
-   USB devices confirm on-screen; QR airgap devices scan the address QR. */
-function VerifyAddress({
-  device,
-  address,
-  onCancel
-}) {
-  const isQr = device.kind === 'qr';
-  return /*#__PURE__*/React.createElement(Modal, {
-    title: device.name,
-    width: 460,
-    onClose: onCancel
-  }, /*#__PURE__*/React.createElement(ModalStatus, {
-    spinner: !isQr,
-    title: isQr ? 'Scan the address on your device…' : 'Confirm the address on your device…',
-    subtitle: isQr ? `Scan this QR with ${device.name} and check the address it shows matches before sharing it.` : `Check that the address shown on ${device.name} matches the one below before sharing it.`,
-    pad: "var(--space-l) 0 var(--space-m)"
-  }, isQr ? /*#__PURE__*/React.createElement(QRCode, {
-    text: address,
-    size: 208,
-    zoom: true
-  }) : null, /*#__PURE__*/React.createElement(Card, {
-    tone: "inset",
+/* SP addresses can't be checked on a device yet (the QR protocol has no SP
+   address verification): an honest, non-clickable note instead of a button. */
+function SpVerifyNote() {
+  return /*#__PURE__*/React.createElement(Row, {
+    gap: "xs",
+    justify: "center",
     style: {
-      padding: 'var(--space-m)',
-      width: '100%',
-      boxSizing: 'border-box'
+      color: 'var(--text-muted)',
+      maxWidth: 520
     }
-  }, /*#__PURE__*/React.createElement(ChunkedAddress, {
-    text: address
-  })), /*#__PURE__*/React.createElement(Button, {
-    onClick: onCancel
-  }, "Cancel")));
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "info",
+    size: 14
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "caption",
+    align: "center"
+  }, "Silent payment addresses can't be checked on a signing device yet. No device protocol supports it."));
 }
 function PrevAddressesModal({
   title,
@@ -2781,13 +5356,19 @@ function PrevAddressesModal({
 }) {
   const [copied, setCopied] = React.useState(-1);
   const [qr, setQr] = React.useState(-1);
-  const [verify, setVerify] = React.useState(null); // null | { i } (picking signer) | { i, device } (confirming)
+  const [verify, setVerify] = React.useState(null); // null | { i } — the flow replaces this modal while it runs
   const copy = (text, i) => {
     copyToClipboard(text);
     setCopied(i);
     setTimeout(() => setCopied(-1), 1400);
   };
   const verifyAddr = verify ? (list[verify.i] || {}).addr || list[verify.i] || '' : '';
+  if (verify) return /*#__PURE__*/React.createElement(SigningFlow, {
+    context: "verify",
+    plan: window.VERIFY_PLAN,
+    address: verifyAddr,
+    onCancel: () => setVerify(null)
+  });
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Modal, {
     title: title,
     width: 620,
@@ -2797,15 +5378,15 @@ function PrevAddressesModal({
     style: {
       paddingBottom: 'var(--space-xs)'
     }
-  }, /*#__PURE__*/React.createElement(Eyebrow, {
-    color: "muted",
-    size: 10,
+  }, /*#__PURE__*/React.createElement("span", {
     style: {
       width: 60,
-      flex: 'none',
-      letterSpacing: '0.06em'
+      flex: 'none'
     }
-  }, "Index"), /*#__PURE__*/React.createElement(Spacer, null)), list.map((item, i) => {
+  }, /*#__PURE__*/React.createElement(Eyebrow, {
+    color: "muted",
+    size: 10
+  }, "Index")), /*#__PURE__*/React.createElement(Spacer, null)), list.map((item, i) => {
     const addr = item.addr || item;
     const label = item.label || '';
     const index = list.length - 1 - i; // BIP-style derivation index (newest highest)
@@ -2824,19 +5405,17 @@ function PrevAddressesModal({
       onClick: () => setQr(showQr ? -1 : i)
     }), /*#__PURE__*/React.createElement(Tooltip, {
       label: "Verify on signing device"
-    }, /*#__PURE__*/React.createElement(Button, {
-      role: "inline-icon",
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "verify_on_device_sm",
       onClick: () => setVerify({
         i
       }),
       style: {
         flex: 'none'
       }
-    }, /*#__PURE__*/React.createElement(Icon, {
-      name: "usb",
-      size: 15
-    }))), /*#__PURE__*/React.createElement(Stack, {
+    })), /*#__PURE__*/React.createElement(Stack, {
       grow: true,
+      gap: "xxs",
       style: {
         minWidth: 0
       }
@@ -2844,23 +5423,13 @@ function PrevAddressesModal({
       variant: "body",
       color: "secondary",
       weight: "demibold",
-      style: {
-        fontSize: 12,
-        marginBottom: 3
-      }
+      size: "sm"
     }, label) : null, /*#__PURE__*/React.createElement(ChunkedAddress, {
       text: addr
-    })), /*#__PURE__*/React.createElement(Button, {
-      role: "inline-icon",
-      title: "Copy",
-      onClick: () => copy(addr, i),
-      style: {
-        flex: 'none'
-      }
-    }, /*#__PURE__*/React.createElement(Icon, {
-      name: copied === i ? 'check' : 'copy',
-      size: 15
-    }))), showQr ? /*#__PURE__*/React.createElement(Stack, {
+    })), /*#__PURE__*/React.createElement(Btn, {
+      id: copied === i ? 'copied_sm' : 'copy_sm',
+      onClick: () => copy(addr, i)
+    })), showQr ? /*#__PURE__*/React.createElement(Stack, {
       align: "center",
       gap: "m",
       style: {
@@ -2874,19 +5443,7 @@ function PrevAddressesModal({
       label: label,
       onSetLabel: l => onSetLabel(i, l)
     }) : null) : null);
-  }))), verify && !verify.device ? /*#__PURE__*/React.createElement(SelectSigner, {
-    title: "Verify on device",
-    devices: (window.SIGNER_DEVICES || []).filter(d => d.kind !== 'sd'),
-    onCancel: () => setVerify(null),
-    onPick: d => setVerify(v => ({
-      i: v.i,
-      device: d
-    }))
-  }) : null, verify && verify.device ? /*#__PURE__*/React.createElement(VerifyAddress, {
-    device: verify.device,
-    address: verifyAddr,
-    onCancel: () => setVerify(null)
-  }) : null);
+  }))));
 }
 function ReceiveScreen({
   wallet
@@ -2926,6 +5483,7 @@ function ReceiveScreen({
     onToggle: toggle
   }, /*#__PURE__*/React.createElement(AddressRow, {
     address: SP_ADDRESS,
+    verifiable: false,
     onCopy: () => copy(SP_ADDRESS, 'sp'),
     copied: copied === 'sp'
   })), /*#__PURE__*/React.createElement(Ruler, null), /*#__PURE__*/React.createElement(FoldSection, {
@@ -2988,6 +5546,8 @@ Object.assign(window, {
   DashboardLayout,
   Ruler,
   AddressRow,
+  SpVerifyNote,
+  PrevAddressesModal,
   genAddr,
   DASH_MIN_W,
   DASH_COL_MAX,
@@ -3002,7 +5562,8 @@ Object.assign(window, {
 
 // ui_kits/silent/Send.jsx
 try { (() => {
-/* Silent UI Kit — Send screen (Send.cpp + signer/PSBT/broadcast modals).
+/* Silent UI Kit — Send screen (Send.cpp + broadcast modal). Signing runs
+   through SigningFlow (Signing.jsx): picker → route steps, in one modal.
    Two-pane layout: payments + coin selection on the left, a persistent
    transaction summary / send rail on the right (with a tx-shape diagram). */
 
@@ -3030,22 +5591,11 @@ function RecipientCard({
   const addrState = out.address === '' ? 'none' : looksLikeAddress(out.address) ? 'valid' : 'invalid';
   const amtState = out.max ? 'none' : out.amount === '' ? 'none' : looksLikeAmount(out.amount) ? 'valid' : 'invalid';
   return /*#__PURE__*/React.createElement(Card, {
-    style: {
-      position: 'relative'
-    }
-  }, deletable ? /*#__PURE__*/React.createElement(Button, {
-    role: "inline-icon",
-    onClick: onDelete,
-    title: "Remove payment",
-    style: {
-      position: 'absolute',
-      top: 8,
-      left: 8
-    }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "x",
-    size: 16
-  })) : null, /*#__PURE__*/React.createElement(PaymentRow, {
+    corner: deletable ? /*#__PURE__*/React.createElement(Btn, {
+      id: "remove_payment",
+      onClick: onDelete
+    }) : null
+  }, /*#__PURE__*/React.createElement(PaymentRow, {
     label: "Address"
   }, /*#__PURE__*/React.createElement(ValidatedInput, {
     mono: true,
@@ -3269,9 +5819,10 @@ function SendScreen({
       marginBottom: 'var(--space-s)',
       minHeight: 34
     }
-  }, /*#__PURE__*/React.createElement(SectionLabel, null, auto ? 'Coins selection' : selCount > 0 ? `Coins · ${selCount} selected` : 'Coins selection'), /*#__PURE__*/React.createElement(Spacer, null), !auto ? /*#__PURE__*/React.createElement(Button, {
+  }, /*#__PURE__*/React.createElement(SectionLabel, null, auto ? 'Coins selection' : selCount > 0 ? `Coins · ${selCount} selected` : 'Coins selection'), /*#__PURE__*/React.createElement(Spacer, null), !auto ? /*#__PURE__*/React.createElement(Btn, {
+    id: "clear",
     onClick: () => setSelected({})
-  }, "Clear") : null, /*#__PURE__*/React.createElement(Checkbox, {
+  }) : null, /*#__PURE__*/React.createElement(Checkbox, {
     checked: auto,
     onChange: setAuto,
     label: "Auto coin selection"
@@ -3280,19 +5831,16 @@ function SendScreen({
   // Fold to a one-line summary only when stacked + auto; otherwise show the full list.
   const coinsBodyFor = sideBySide => auto && !sideBySide ? /*#__PURE__*/React.createElement(Card, {
     tone: "inset",
-    style: {
-      display: 'flex',
-      alignItems: 'baseline',
-      gap: 'var(--space-s)',
-      borderRadius: 'var(--radius-input)',
-      padding: '11px var(--pad-m)'
-    }
+    pad: "m"
+  }, /*#__PURE__*/React.createElement(Row, {
+    align: "baseline",
+    gap: "s"
   }, /*#__PURE__*/React.createElement(Amount, {
     value: autoSel.amount.toFixed(8),
     size: "lg",
     unit: "BTC",
     count: `(${autoSel.count} coin${autoSel.count === 1 ? '' : 's'})`
-  })) : /*#__PURE__*/React.createElement(CoinTable, {
+  }))) : /*#__PURE__*/React.createElement(CoinTable, {
     coins: wallet.coins,
     readOnly: auto,
     isChecked: (c, i) => auto ? autoIdxSet.has(i) : !!selected[i],
@@ -3315,11 +5863,9 @@ function SendScreen({
     style: {
       margin: 'var(--space-l) 0 var(--space-m)'
     }
-  }), /*#__PURE__*/React.createElement(SectionLabel, {
-    style: {
-      marginBottom: 'var(--space-s)'
-    }
-  }, "Payments"), /*#__PURE__*/React.createElement(Stack, {
+  }), /*#__PURE__*/React.createElement(SectionHeader, {
+    label: "Payments"
+  }), /*#__PURE__*/React.createElement(Stack, {
     gap: "s"
   }, outputs.map((o, i) => /*#__PURE__*/React.createElement(RecipientCard, {
     key: i,
@@ -3334,23 +5880,13 @@ function SendScreen({
     style: {
       marginTop: 'var(--space-s)'
     }
-  }, /*#__PURE__*/React.createElement(Button, {
-    onClick: addOutput,
-    style: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: 6
-    }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "plus",
-    size: 16
-  }), "Add payment")));
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "add_payment",
+    onClick: addOutput
+  })));
   const txDiagram = /*#__PURE__*/React.createElement(Card, {
     tone: "inset",
-    style: {
-      borderRadius: 10,
-      padding: '10px 8px 6px'
-    }
+    pad: "s"
   }, /*#__PURE__*/React.createElement(TxFlow, {
     inputs: inItems,
     outputs: outItems
@@ -3428,30 +5964,27 @@ function SendScreen({
     style: {
       flex: 'none'
     }
-  }, signed ? /*#__PURE__*/React.createElement(Badge, {
-    tone: "success",
-    icon: "check"
-  }, "Signed") : null, /*#__PURE__*/React.createElement(Button, {
-    onClick: clearAll,
-    style: {
-      flex: 'none'
-    }
-  }, "Clear"), signed ? /*#__PURE__*/React.createElement(Button, {
-    role: "primary",
+  }, signed ? /*#__PURE__*/React.createElement(Pill, {
+    id: "tx_signed"
+  }) : null, /*#__PURE__*/React.createElement(Btn, {
+    id: "clear",
+    onClick: clearAll
+  }), signed ? /*#__PURE__*/React.createElement(Btn, {
+    id: "broadcast",
     onClick: () => setModal({
       type: 'broadcast'
     }),
     style: {
       flex: 'none'
     }
-  }, "Broadcast") : /*#__PURE__*/React.createElement(Button, {
-    role: "primary",
+  }) : /*#__PURE__*/React.createElement(Btn, {
+    id: "sign",
     disabled: !valid,
     onClick: () => setModal('signer'),
     style: {
       flex: 'none'
     }
-  }, "Sign")));
+  })));
   const renderSecondary = ({
     sideBySide
   }) => /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Row, {
@@ -3480,34 +6013,12 @@ function SendScreen({
     title: "Send",
     primary: renderPrimary,
     secondary: renderSecondary
-  }), modal === 'signer' ? /*#__PURE__*/React.createElement(SelectSigner, {
-    walletName: wallet.name,
+  }), modal === 'signer' ? /*#__PURE__*/React.createElement(SigningFlow, {
+    context: "sign",
+    plan: window.SIGNING_PLAN,
+    others: window.OTHER_DEVICES,
+    fileBase: wallet.name,
     onCancel: () => setModal(null),
-    onPick: d => setModal(d.kind === 'sd' ? {
-      type: 'sd',
-      device: d
-    } : d.kind === 'qr' ? {
-      type: 'qr'
-    } : {
-      type: 'usb',
-      device: d
-    })
-  }) : null, modal && modal.type === 'usb' ? /*#__PURE__*/React.createElement(UsbConfirm, {
-    device: modal.device,
-    onCancel: () => setModal(null)
-  }) : null, modal && modal.type === 'sd' ? /*#__PURE__*/React.createElement(SdPicker, {
-    device: modal.device,
-    onCancel: () => setModal(null)
-  }) : null, modal && modal.type === 'qr' ? /*#__PURE__*/React.createElement(ScanPsbt, {
-    onCancel: () => setModal(null),
-    onNext: () => setModal({
-      type: 'qr-scan'
-    })
-  }) : null, modal && modal.type === 'qr-scan' ? /*#__PURE__*/React.createElement(ScanCamera, {
-    onCancel: () => setModal(null),
-    onBack: () => setModal({
-      type: 'qr'
-    }),
     onDone: () => {
       setSigned(true);
       setModal(null);
@@ -3518,374 +6029,6 @@ function SendScreen({
       setModal(null);
     }
   }) : null);
-}
-const SIGNER_DEVICES = [{
-  name: 'Ledger Nano S Plus',
-  fp: '#a4f9c821',
-  icon: 'usb',
-  kind: 'usb'
-}, {
-  name: 'Coldcard Mk4',
-  fp: '#7e02da41',
-  icon: 'usb',
-  kind: 'usb'
-}, {
-  name: 'BitBox02',
-  fp: '#b1740c3e',
-  icon: 'usb',
-  kind: 'usb'
-}, {
-  name: 'SD card airgap device',
-  icon: 'sd_card',
-  kind: 'sd'
-}, {
-  name: 'QR Code airgap device',
-  icon: 'qr',
-  kind: 'qr'
-}];
-function SelectSigner({
-  walletName,
-  onCancel,
-  onPick,
-  devices = SIGNER_DEVICES,
-  title = 'Select a signer'
-}) {
-  return /*#__PURE__*/React.createElement(Modal, {
-    title: title,
-    width: 520,
-    onClose: onCancel
-  }, /*#__PURE__*/React.createElement(Stack, {
-    gap: "s"
-  }, devices.map((d, i) => /*#__PURE__*/React.createElement(SelectRow, {
-    key: i,
-    icon: d.icon,
-    title: d.name,
-    meta: d.fp,
-    onClick: () => onPick(d)
-  }))));
-}
-
-/* USB hardware-wallet: waiting for on-device confirmation. */
-function UsbConfirm({
-  device,
-  onCancel
-}) {
-  return /*#__PURE__*/React.createElement(Modal, {
-    title: device.name,
-    width: 460,
-    onClose: onCancel
-  }, /*#__PURE__*/React.createElement(ModalStatus, {
-    spinner: true,
-    title: "Confirm on your device\u2026",
-    subtitle: `Review the transaction details on ${device.name} and approve to sign.`,
-    pad: "var(--space-l) 0 var(--space-m)"
-  }, /*#__PURE__*/React.createElement(Button, {
-    onClick: onCancel
-  }, "Cancel")));
-}
-
-/* SD-card airgap: placeholder for the OS file picker. */
-function SdPicker({
-  device,
-  onCancel
-}) {
-  return /*#__PURE__*/React.createElement(Modal, {
-    title: device.name,
-    width: 460,
-    onClose: onCancel
-  }, /*#__PURE__*/React.createElement(ModalStatus, {
-    icon: "folder",
-    title: "Must open a file picker",
-    subtitle: "Save the unsigned PSBT to the SD card, sign it on the device, then load the signed file back."
-  }));
-}
-
-/* QR airgap: animated PSBT QR with display tuning. */
-const PSBT_PAYLOAD = 'cHNidP8BAHECAAAAAfwzq1kY2hVi9k3lQ8nT0pXrWb7mGv4Lh2Jd9sKfP1aoAAAAAAA' + 'D9____AoCWmAAAAAAAFgAUq3Zr8tN1dJ0hLmC4wVfYx2kPbT5AQg8AAAAAABYAFLuh' + '7cP2mZ9oXkqR3sVbTtMu1nQwAAAAAAEBH0BCDwAAAAAAFgAU8aQxk2nF0pZ7Lm3vBt' + 'WcYxRd9KsiBgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7mGv4Lh0Yz1a8tVAAAA' + 'gAAAAIAAAACAAAAAAAAAAAAAAQUiAgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7m';
-function ScanPsbt({
-  onCancel,
-  onNext
-}) {
-  const [contrast, setContrast] = React.useState(3); // 1–5
-  const [density, setDensity] = React.useState(3); // 1–5
-  const [speed, setSpeed] = React.useState(3); // 1–5
-
-  const parts = React.useMemo(() => {
-    const chunk = density * 24; // fewer chars at low density = less dense QR
-    const n = Math.max(2, Math.ceil(PSBT_PAYLOAD.length / chunk));
-    const out = [];
-    for (let i = 0; i < n; i++) {
-      const body = PSBT_PAYLOAD.slice(i * chunk, (i + 1) * chunk);
-      out.push(`UR:CRYPTO-PSBT/${i + 1}-${n}/${body}`);
-    }
-    return out;
-  }, [density]);
-  const [frame, setFrame] = React.useState(0);
-  const interval = 520 - speed * 80; // faster = shorter interval
-  React.useEffect(() => {
-    setFrame(0);
-    const id = setInterval(() => setFrame(f => (f + 1) % parts.length), interval);
-    return () => clearInterval(id);
-  }, [parts, interval]);
-  const svg = React.useMemo(() => qrSvg(parts[frame] || '', {
-    ecOrder: ['L', 'M']
-  }), [parts, frame]);
-  const bgL = 40 + (contrast - 1) * 15; // contrast 5 = white bg, 1 = dark grey bg (low contrast)
-  const bg = `hsl(220 14% ${bgL}%)`;
-  return /*#__PURE__*/React.createElement(Modal, {
-    title: "Show PSBT",
-    width: 860,
-    onClose: onCancel
-  }, /*#__PURE__*/React.createElement(Stack, {
-    align: "center",
-    gap: "m"
-  }, /*#__PURE__*/React.createElement(QRCard, {
-    size: 720,
-    pad: 20,
-    radius: 12,
-    bg: bg,
-    style: {
-      maxWidth: '100%'
-    }
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      width: '100%',
-      height: '100%'
-    },
-    dangerouslySetInnerHTML: {
-      __html: svg
-    }
-  })), /*#__PURE__*/React.createElement(Text, {
-    variant: "mono",
-    color: "secondary",
-    weight: "demibold",
-    style: {
-      fontSize: 12
-    }
-  }, "Part ", frame + 1, " / ", parts.length), /*#__PURE__*/React.createElement(Row, {
-    gap: "xl",
-    justify: "center",
-    align: "flex-end",
-    style: {
-      position: 'relative',
-      width: '100%',
-      borderTop: '1px solid var(--border-light)',
-      paddingTop: 'var(--space-m)'
-    }
-  }, /*#__PURE__*/React.createElement(Stepper, {
-    label: "Contrast",
-    value: contrast,
-    min: 1,
-    max: 5,
-    onChange: setContrast
-  }), /*#__PURE__*/React.createElement(Stepper, {
-    label: "Density",
-    value: density,
-    min: 1,
-    max: 5,
-    onChange: setDensity
-  }), /*#__PURE__*/React.createElement(Stepper, {
-    label: "Animation speed",
-    value: speed,
-    min: 1,
-    max: 5,
-    onChange: setSpeed
-  }), /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      right: 0,
-      bottom: 0
-    }
-  }, /*#__PURE__*/React.createElement(Button, {
-    role: "primary",
-    onClick: onNext,
-    style: {
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: 6
-    }
-  }, "Next ", /*#__PURE__*/React.createElement(Icon, {
-    name: "chevron_right",
-    size: 15
-  }))))));
-}
-function ScanCamera({
-  onCancel,
-  onBack,
-  onDone
-}) {
-  const videoRef = React.useRef(null);
-  const streamRef = React.useRef(null);
-  const [devices, setDevices] = React.useState([]);
-  const [deviceId, setDeviceId] = React.useState('');
-  const [contrast, setContrast] = React.useState(3); // 1–5
-  const [status, setStatus] = React.useState('starting'); // starting | live | denied
-
-  const start = React.useCallback(async id => {
-    if (streamRef.current) {
-      streamRef.current.getTracks().forEach(t => t.stop());
-      streamRef.current = null;
-    }
-    try {
-      const constraints = {
-        video: id ? {
-          deviceId: {
-            exact: id
-          }
-        } : {
-          facingMode: 'environment'
-        },
-        audio: false
-      };
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play().catch(() => {});
-      }
-      setStatus('live');
-      const all = await navigator.mediaDevices.enumerateDevices();
-      const cams = all.filter(d => d.kind === 'videoinput');
-      setDevices(cams);
-      if (!id && cams[0]) setDeviceId(cams[0].deviceId);
-    } catch (e) {
-      setStatus('denied');
-      try {
-        const all = await navigator.mediaDevices.enumerateDevices();
-        setDevices(all.filter(d => d.kind === 'videoinput'));
-      } catch (_) {}
-    }
-  }, []);
-  React.useEffect(() => {
-    start(undefined);
-    return () => {
-      if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
-    };
-    // eslint-disable-next-line
-  }, []);
-  const camLabels = devices.map((d, i) => d.label || `Camera ${i + 1}`);
-  const curLabel = (() => {
-    const idx = devices.findIndex(x => x.deviceId === deviceId);
-    return idx >= 0 ? camLabels[idx] : camLabels[0] || 'Default camera';
-  })();
-  const pickLabel = label => {
-    const idx = camLabels.indexOf(label);
-    const d = devices[idx];
-    if (d) {
-      setDeviceId(d.deviceId);
-      start(d.deviceId);
-    }
-  };
-  const filter = `contrast(${(0.55 + contrast * 0.28).toFixed(2)})`;
-  return /*#__PURE__*/React.createElement(Modal, {
-    title: "Scan PSBT",
-    width: 920,
-    onClose: onCancel
-  }, /*#__PURE__*/React.createElement(Stack, {
-    align: "center",
-    gap: "l"
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'relative',
-      width: '100%',
-      aspectRatio: '4 / 3',
-      borderRadius: 12,
-      overflow: 'hidden',
-      background: 'var(--camera-bg)',
-      border: '1px solid var(--border-light)'
-    }
-  }, /*#__PURE__*/React.createElement("video", {
-    ref: videoRef,
-    muted: true,
-    playsInline: true,
-    style: {
-      width: '100%',
-      height: '100%',
-      objectFit: 'cover',
-      filter,
-      display: status === 'live' ? 'block' : 'none'
-    }
-  }), status !== 'live' ? /*#__PURE__*/React.createElement(Stack, {
-    align: "center",
-    justify: "center",
-    gap: "s",
-    style: {
-      position: 'absolute',
-      inset: 0,
-      color: 'var(--text-muted)'
-    }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "qr",
-    size: 52
-  }), /*#__PURE__*/React.createElement(Text, {
-    variant: "body",
-    style: {
-      fontSize: 14
-    }
-  }, status === 'denied' ? 'Camera unavailable — grant access to scan' : 'Starting camera…')) : null, /*#__PURE__*/React.createElement("div", {
-    style: {
-      position: 'absolute',
-      inset: '16% 26%',
-      border: '2px solid rgba(255,255,255,0.85)',
-      borderRadius: 12,
-      boxShadow: '0 0 0 9999px rgba(0,0,0,0.28)',
-      pointerEvents: 'none',
-      display: status === 'live' ? 'block' : 'none'
-    }
-  })), /*#__PURE__*/React.createElement(Row, {
-    justify: "space-between",
-    align: "flex-end",
-    gap: "l",
-    style: {
-      width: '100%',
-      borderTop: '1px solid var(--border-light)',
-      paddingTop: 'var(--space-m)'
-    }
-  }, /*#__PURE__*/React.createElement(Button, {
-    onClick: onBack,
-    style: {
-      flex: 'none',
-      display: 'inline-flex',
-      alignItems: 'center',
-      gap: 6
-    }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "chevron_right",
-    size: 14,
-    style: {
-      transform: 'rotate(180deg)'
-    }
-  }), "Previous"), /*#__PURE__*/React.createElement(Stack, {
-    align: "flex-start",
-    gap: 6,
-    style: {
-      flex: 'none'
-    }
-  }, /*#__PURE__*/React.createElement(Text, {
-    variant: "body",
-    color: "secondary",
-    weight: "500",
-    style: {
-      fontSize: 13
-    }
-  }, "Camera source"), /*#__PURE__*/React.createElement(ComboBox, {
-    value: curLabel,
-    options: camLabels.length ? camLabels : ['Default camera'],
-    onChange: pickLabel,
-    width: 240
-  })), /*#__PURE__*/React.createElement(Stepper, {
-    label: "Contrast",
-    value: contrast,
-    min: 1,
-    max: 5,
-    onChange: setContrast
-  }), /*#__PURE__*/React.createElement(Button, {
-    role: "primary",
-    onClick: onDone,
-    style: {
-      flex: 'none'
-    }
-  }, "Done"))));
 }
 function BroadcastModal({
   onClose
@@ -3906,14 +6049,8 @@ function BroadcastModal({
 }
 Object.assign(window, {
   SendScreen,
-  SelectSigner,
-  UsbConfirm,
-  SdPicker,
-  ScanPsbt,
-  ScanCamera,
   BroadcastModal,
   RecipientCard,
-  SIGNER_DEVICES,
   looksLikeAmount,
   looksLikeAddress,
   btcToUsd,
@@ -3940,8 +6077,7 @@ function TestableRow({
     setTimeout(() => setState('ok'), 800);
   };
   return /*#__PURE__*/React.createElement(Field, {
-    label: label,
-    labelWidth: 130
+    label: label
   }, /*#__PURE__*/React.createElement(Input, {
     width: width,
     value: value,
@@ -3950,13 +6086,11 @@ function TestableRow({
       onChange(e.target.value);
       setState('idle');
     }
-  }), /*#__PURE__*/React.createElement(Button, {
+  }), /*#__PURE__*/React.createElement(Btn, {
+    id: state === 'testing' ? 'testing' : state === 'ok' ? 'test_ok' : 'test',
     onClick: test,
-    disabled: state === 'testing',
-    style: {
-      marginLeft: 'var(--space-xs)'
-    }
-  }, state === 'testing' ? 'Testing…' : state === 'ok' ? '✓ Test' : 'Test'));
+    disabled: state === 'testing'
+  }));
 }
 function SettingsScreen({
   wallet
@@ -3979,9 +6113,7 @@ function SettingsScreen({
     label: "Connection",
     open: open === 'conn',
     onToggle: toggle
-  }, /*#__PURE__*/React.createElement(Stack, {
-    gap: "xs"
-  }, /*#__PURE__*/React.createElement(TestableRow, {
+  }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(TestableRow, {
     label: "BlindBit URL:",
     value: blindbit,
     onChange: setBlindbit,
@@ -3992,8 +6124,7 @@ function SettingsScreen({
     onChange: setElectrum,
     placeholder: "host:port"
   }), /*#__PURE__*/React.createElement(Field, {
-    label: "Network:",
-    labelWidth: 130
+    label: "Network:"
   }, /*#__PURE__*/React.createElement(ComboBox, {
     value: network,
     options: NETWORKS,
@@ -4004,21 +6135,16 @@ function SettingsScreen({
     label: "Backend Info",
     open: open === 'info',
     onToggle: toggle
-  }, /*#__PURE__*/React.createElement(Stack, {
-    gap: "xs"
-  }, /*#__PURE__*/React.createElement(Field, {
-    label: "Network:",
-    labelWidth: 130
+  }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
+    label: "Network:"
   }, /*#__PURE__*/React.createElement(Text, {
     variant: "body"
   }, network)), /*#__PURE__*/React.createElement(Field, {
-    label: "Block Height:",
-    labelWidth: 130
+    label: "Block Height:"
   }, /*#__PURE__*/React.createElement(Text, {
     variant: "mono"
   }, "812519")), /*#__PURE__*/React.createElement(Field, {
     label: "Capabilities:",
-    labelWidth: 130,
     align: "flex-start"
   }, /*#__PURE__*/React.createElement(Stack, {
     gap: 2
@@ -4036,9 +6162,13 @@ function SettingsScreen({
     style: {
       marginTop: 'var(--space-l)'
     }
-  }, /*#__PURE__*/React.createElement(Button, null, "Connect Blindbit"), /*#__PURE__*/React.createElement(Button, null, "Connect Electrum"), /*#__PURE__*/React.createElement(Button, {
-    role: "primary"
-  }, "Save Settings"))));
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "connect_blindbit"
+  }), /*#__PURE__*/React.createElement(Btn, {
+    id: "connect_electrum"
+  }), /*#__PURE__*/React.createElement(Btn, {
+    id: "save_settings"
+  }))));
 }
 Object.assign(window, {
   SettingsScreen,
@@ -4159,6 +6289,808 @@ Object.assign(window, {
   NAV_ITEMS
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Sidebar.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/silent/Signing.jsx
+try { (() => {
+/* Silent UI Kit — Signer picker + route steps (issue #2 §3.7–3.10).
+   SigningFlow is ONE modal: picker → route step → (verify result) — each step
+   replaces the previous one. Three contexts set the copy: sign | verify | fetch.
+   Cancelling returns quietly; it is never reported as a failure. */
+
+const FLOW_COPY = {
+  sign: {
+    title: 'Sign Transaction',
+    pickerLead: 'Each key below must sign this transaction.',
+    usbTitle: 'Confirm on the Device',
+    usbWait: d => `Review the transaction on ${d} and approve it.`,
+    qrTitle: 'Show Transaction',
+    qrHint: 'Scan this code with the signing device.',
+    scanTitle: 'Scan Signed Transaction',
+    scanHint: 'Hold the signed transaction code from the device in front of the camera.',
+    sdTitle: 'Sign with SD Card',
+    hotPrompt: a => `Enter the password of “${a}” to sign the transaction.`,
+    hotBtn: 'sign_hot',
+    hotBusy: 'Signing the transaction…'
+  },
+  verify: {
+    title: 'Verify Address',
+    pickerLead: 'Pick the device to check this address on.',
+    usbTitle: 'Check on the Device',
+    usbWait: d => `Check that ${d} shows the same address as below, then confirm on the device.`,
+    qrTitle: 'Show Address Request',
+    qrHint: 'Scan this code with the device. It derives the address and shows it.',
+    scanTitle: 'Scan the Device Answer',
+    scanHint: 'Hold the answer code from the device in front of the camera.',
+    sdTitle: 'Verify with SD Card',
+    hotPrompt: a => `Enter the password of “${a}” to check this address.`,
+    hotBtn: 'check_address',
+    hotBusy: 'Checking the address…'
+  },
+  fetch: {
+    title: 'Get Descriptor',
+    pickerLead: '',
+    usbTitle: 'Confirm on the Device',
+    usbWait: d => `Approve the silent payment descriptor export on ${d}.`,
+    qrTitle: 'Show Descriptor Request',
+    qrHint: 'Scan this code with the device to request its silent payment descriptor.',
+    scanTitle: 'Scan Descriptor',
+    scanHint: 'Hold the descriptor code from the device in front of the camera.',
+    sdTitle: 'Descriptor from SD Card',
+    hotPrompt: a => `Enter the password of “${a}” to get its silent payment descriptor.`,
+    hotBtn: 'get_descriptor_hot',
+    hotBusy: 'Getting the descriptor…'
+  }
+};
+const SIGNER_STATUS = {
+  first: {
+    label: 'Signs First',
+    tone: 'success',
+    usable: true,
+    sub: () => 'Silent payment key. It signs before the other keys.'
+  },
+  ready: {
+    label: 'Ready',
+    tone: 'success',
+    usable: true,
+    sub: r => `Signs with ${ROUTE_KINDS[r.route].label}.`
+  },
+  signed: {
+    label: 'Signed',
+    tone: 'success',
+    usable: false,
+    done: true,
+    sub: () => 'Signature added.'
+  },
+  waiting: {
+    label: 'Waiting',
+    tone: 'off',
+    usable: false,
+    sub: () => 'Signs after the silent payment key.'
+  },
+  disconnected: {
+    label: 'Not Connected',
+    tone: 'warning',
+    usable: false,
+    sub: r => `Connect and unlock ${r.device || 'the device'}.`
+  },
+  no_hot: {
+    label: 'No Hot Secret',
+    tone: 'warning',
+    usable: false,
+    sub: () => 'The mnemonic of this key is not stored on this computer.'
+  },
+  no_route: {
+    label: 'No Usable Route',
+    tone: 'error',
+    usable: false,
+    sub: () => 'None of this key’s routes can sign. Add one in the Keys tab.'
+  },
+  unregistered: {
+    label: 'Not Registered',
+    tone: 'error',
+    usable: false,
+    sub: () => 'This fingerprint is not a key on this computer. Add it in the Keys tab.'
+  }
+};
+
+/* ---------------- 3.7 Signer picker ---------------- */
+
+function SignerPicker({
+  context = 'sign',
+  plan = [],
+  others = [],
+  onPick,
+  onCancel
+}) {
+  const c = FLOW_COPY[context];
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, plan.length ? /*#__PURE__*/React.createElement(React.Fragment, null, c.pickerLead ? /*#__PURE__*/React.createElement(Text, {
+    as: "div",
+    variant: "body",
+    color: "secondary"
+  }, c.pickerLead) : null, /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, plan.map(r => {
+    const s = SIGNER_STATUS[r.status];
+    return /*#__PURE__*/React.createElement(SelectRow, {
+      key: r.fp,
+      icon: r.route ? ROUTE_KINDS[r.route].icon : 'key',
+      title: r.alias || 'Unknown Key',
+      sub: s.sub(r),
+      meta: r.fp,
+      status: /*#__PURE__*/React.createElement(Pill, {
+        id: 'signer_' + r.status
+      }),
+      disabled: !s.usable && !s.done,
+      onClick: s.usable ? () => onPick(r) : undefined
+    });
+  }))) : /*#__PURE__*/React.createElement(EmptyState, {
+    icon: "key",
+    title: "No Signer Available",
+    subtitle: context === 'verify' ? 'No key of this account can show addresses. Add a USB or QR route in the Keys tab.' : 'No key of this account is registered on this computer. Add one in the Keys tab.'
+  }), others.length ? /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, /*#__PURE__*/React.createElement(SectionLabel, null, "Other Connected Devices"), others.map(d => /*#__PURE__*/React.createElement(SelectRow, {
+    key: d.fp,
+    icon: "usb",
+    title: d.name,
+    meta: d.fp,
+    sub: context === 'sign' ? 'Not needed for this transaction.' : 'Not a key of this account.',
+    disabled: true
+  }))) : null);
+}
+
+/* ---------------- 3.8 Route steps ---------------- */
+
+const USB_ERRORS = {
+  rejected: {
+    title: 'Rejected on the Device',
+    body: d => `${d} declined the request. Nothing was signed.`
+  },
+  disconnected: {
+    title: 'Device Disconnected',
+    body: d => `${d} was disconnected. Reconnect and unlock it, then try again.`
+  },
+  failed: {
+    title: 'The Device Did Not Answer',
+    body: d => `${d} stopped responding. Unplug it, plug it back in, then try again.`
+  }
+};
+function UsbStep({
+  context = 'sign',
+  device,
+  error,
+  onCancel,
+  onRetry,
+  onBack
+}) {
+  const c = FLOW_COPY[context];
+  if (error) {
+    const e = USB_ERRORS[error] || USB_ERRORS.failed;
+    return /*#__PURE__*/React.createElement(Stack, {
+      gap: "m"
+    }, /*#__PURE__*/React.createElement(ModalStatus, {
+      icon: "circle_x",
+      iconColor: "var(--error)",
+      title: e.title,
+      subtitle: e.body(device),
+      pad: "var(--space-m) 0 0"
+    }), /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: onBack,
+      backId: "other_signer"
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "try_again",
+      onClick: onRetry
+    })));
+  }
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(ModalStatus, {
+    spinner: true,
+    title: c.usbTitle,
+    subtitle: c.usbWait(device),
+    pad: "var(--space-m) 0 0"
+  }));
+}
+function SdStep({
+  context = 'sign',
+  fileBase = 'savings',
+  phase: initialPhase = 'save',
+  error: initialError = null,
+  onCancel,
+  onDone
+}) {
+  const [phase, setPhase] = React.useState(initialPhase); // save | load
+  const [error, setError] = React.useState(initialError); // null | 'write' | 'read'
+  const unsigned = `${fileBase}-unsigned.psbt`;
+  const signed = `${fileBase}-signed.psbt`;
+  const steps = [{
+    n: 1,
+    title: 'Save the unsigned transaction',
+    body: /*#__PURE__*/React.createElement(React.Fragment, null, "Silent saves ", /*#__PURE__*/React.createElement(Text, {
+      variant: "mono",
+      size: "inherit"
+    }, unsigned), ". Copy it to the SD card.")
+  }, {
+    n: 2,
+    title: 'Sign on the device, then load the signed file',
+    body: /*#__PURE__*/React.createElement(React.Fragment, null, "Insert the card in the device, sign, then load ", /*#__PURE__*/React.createElement(Text, {
+      variant: "mono",
+      size: "inherit"
+    }, signed), " back.")
+  }];
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, steps.map(s => {
+    const active = (phase === 'save' ? 1 : 2) === s.n;
+    const done = phase === 'load' && s.n === 1;
+    return /*#__PURE__*/React.createElement(SelectRow, {
+      key: s.n,
+      icon: done ? 'circle_check' : 'sd_card',
+      title: `${s.n}. ${s.title}`,
+      sub: s.body,
+      current: active,
+      status: done ? /*#__PURE__*/React.createElement(Pill, {
+        id: "sd_step_done"
+      }) : null,
+      disabled: !active && !done
+    });
+  }), error === 'write' ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "error",
+    title: "Could not save the file"
+  }, "The SD card is full or read-only. Check the card, then try again.") : null, error === 'read' ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "error",
+    title: "Could not read the signed file"
+  }, "The file is not a signed transaction for this wallet. Pick the file the device wrote.") : null, /*#__PURE__*/React.createElement(ModalActions, null, phase === 'save' ? /*#__PURE__*/React.createElement(Btn, {
+    id: error === 'write' ? 'try_again' : 'save_unsigned_psbt',
+    onClick: () => {
+      setError(null);
+      setPhase('load');
+    }
+  }) : /*#__PURE__*/React.createElement(Btn, {
+    id: error === 'read' ? 'pick_another_file' : 'load_signed_psbt',
+    onClick: () => {
+      setError(null);
+      onDone && onDone();
+    }
+  })));
+}
+const QR_PAYLOAD = 'cHNidP8BAHECAAAAAfwzq1kY2hVi9k3lQ8nT0pXrWb7mGv4Lh2Jd9sKfP1aoAAAAAAAD9____AoCWmAAAAAAAFgAUq3Zr8tN1dJ0hLmC4wVfYx2kPbT5AQg8AAAAAABYAFLuh7cP2mZ9oXkqR3sVbTtMu1nQwAAAAAAEBH0BCDwAAAAAAFgAU8aQxk2nF0pZ7Lm3vBtWcYxRd9KsiBgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7mGv4Lh0Yz1a8tVAAAA';
+function QrDisplayStep({
+  context = 'sign',
+  onNext,
+  onCancel,
+  initialRebuilding = false
+}) {
+  const c = FLOW_COPY[context];
+  const [contrast, setContrast] = React.useState(3);
+  const [density, setDensity] = React.useState(3);
+  const [speed, setSpeed] = React.useState(3);
+  const [rebuilding, setRebuilding] = React.useState(initialRebuilding);
+  const parts = React.useMemo(() => {
+    const chunk = density * 24,
+      n = Math.max(2, Math.ceil(QR_PAYLOAD.length / chunk));
+    return Array.from({
+      length: n
+    }, (_, i) => `UR:CRYPTO-PSBT/${i + 1}-${n}/${QR_PAYLOAD.slice(i * chunk, (i + 1) * chunk)}`);
+  }, [density]);
+  const [frame, setFrame] = React.useState(0);
+  React.useEffect(() => {
+    setFrame(0);
+    const id = setInterval(() => setFrame(f => (f + 1) % parts.length), 520 - speed * 80);
+    return () => clearInterval(id);
+  }, [parts, speed]);
+  const changeDensity = v => {
+    setDensity(v);
+    setRebuilding(true);
+    setTimeout(() => setRebuilding(false), 700);
+  };
+  const svg = React.useMemo(() => qrSvg(parts[frame] || '', {
+    ecOrder: ['L', 'M']
+  }), [parts, frame]);
+  const bg = `hsl(220 14% ${40 + (contrast - 1) * 15}%)`;
+  const tune = (label, hint, v, set) => /*#__PURE__*/React.createElement(Stack, {
+    align: "center",
+    gap: "xxs",
+    style: {
+      width: 150
+    }
+  }, /*#__PURE__*/React.createElement(Stepper, {
+    label: label,
+    value: v,
+    min: 1,
+    max: 5,
+    onChange: set
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "caption",
+    align: "center"
+  }, hint));
+  return /*#__PURE__*/React.createElement(Stack, {
+    align: "center",
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "body",
+    color: "secondary",
+    align: "center"
+  }, c.qrHint), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React.createElement(QRCard, {
+    size: 400,
+    pad: 16,
+    radius: 12,
+    bg: bg,
+    dim: rebuilding
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      width: '100%',
+      height: '100%'
+    },
+    dangerouslySetInnerHTML: {
+      __html: svg
+    }
+  })), rebuilding ? /*#__PURE__*/React.createElement(Stack, {
+    align: "center",
+    justify: "center",
+    gap: "s",
+    style: {
+      position: 'absolute',
+      inset: 0
+    }
+  }, /*#__PURE__*/React.createElement(Spinner, {
+    size: 28
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "body",
+    weight: "demibold"
+  }, "Rebuilding the code\u2026")) : null), /*#__PURE__*/React.createElement(Text, {
+    variant: "mono",
+    color: "secondary",
+    weight: "demibold"
+  }, rebuilding ? 'Part – / –' : `Part ${frame + 1} / ${parts.length}`), /*#__PURE__*/React.createElement(Row, {
+    gap: "l",
+    justify: "center",
+    align: "flex-start",
+    style: {
+      width: '100%',
+      borderTop: '1px solid var(--border-light)',
+      paddingTop: 'var(--space-m)'
+    }
+  }, tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, setContrast), tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, changeDensity), tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, setSpeed)), /*#__PURE__*/React.createElement(ModalActions, {
+    style: {
+      width: '100%'
+    },
+    reason: rebuilding ? 'Wait for the code to rebuild.' : null
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "next_scan_the_answer",
+    disabled: rebuilding,
+    onClick: onNext
+  })));
+}
+const CAMERA_STATES = {
+  starting: {
+    icon: 'qr',
+    title: 'Starting the camera…'
+  },
+  none: {
+    icon: 'alert',
+    title: 'No camera found',
+    body: 'Connect a camera, then pick it in Camera Source.'
+  },
+  denied: {
+    icon: 'lock',
+    title: 'Camera unavailable',
+    body: 'Silent has no permission to use the camera, or another app is using it. Allow access in the system settings.'
+  },
+  failed: {
+    icon: 'circle_x',
+    title: 'The camera failed to open',
+    body: 'Pick another source in Camera Source.'
+  }
+};
+const SCAN_ERRORS = {
+  'wrong-request': {
+    title: 'This code answers a different request',
+    body: 'Scan the code the device showed for this request. If the device still shows an older one, start again on the device.'
+  },
+  'bare-sigs': {
+    title: 'The device returned signatures only',
+    body: 'Silent needs the whole signed transaction (PSBT). On the device, choose to export the signed PSBT, then scan again.'
+  }
+};
+function CameraStep({
+  context = 'sign',
+  force,
+  progress,
+  scanError,
+  settings,
+  onBack,
+  onCancel,
+  onDone
+}) {
+  const c = FLOW_COPY[context];
+  const videoRef = React.useRef(null),
+    streamRef = React.useRef(null);
+  const [cams, setCams] = React.useState([]);
+  const [status, setStatus] = React.useState(force || 'starting'); // starting | live | none | denied | failed
+  const [got, setGot] = React.useState(progress ? progress[0] : 0);
+  const total = progress ? progress[1] : 6;
+  const [err, setErr] = React.useState(scanError || null);
+  const [showSettings, setShowSettings] = React.useState(!!settings);
+  const [camIdx, setCamIdx] = React.useState(0);
+  const [contrast, setContrast] = React.useState(3);
+  const start = React.useCallback(async id => {
+    if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
+    try {
+      if (!navigator.mediaDevices) throw new Error('none');
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: id ? {
+          deviceId: {
+            exact: id
+          }
+        } : true,
+        audio: false
+      });
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        videoRef.current.play().catch(() => {});
+      }
+      setStatus('live');
+      const all = await navigator.mediaDevices.enumerateDevices();
+      setCams(all.filter(d => d.kind === 'videoinput'));
+    } catch (e) {
+      setStatus(e && e.message === 'none' ? 'none' : id ? 'failed' : 'denied');
+    }
+  }, []);
+  React.useEffect(() => {
+    if (!force) start();
+    return () => {
+      if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
+    };
+  }, []);
+  React.useEffect(() => {
+    // demo: parts arrive while the preview is live
+    if (status !== 'live' || err || force || progress) return;
+    if (got >= total) {
+      const t = setTimeout(() => onDone && onDone(), 600);
+      return () => clearTimeout(t);
+    }
+    const t = setTimeout(() => setGot(g => g + 1), 650);
+    return () => clearTimeout(t);
+  }, [status, got, err]);
+  const labels = cams.length ? cams.map((d, i) => d.label || `Camera ${i + 1}`) : ['Default Camera'];
+  const st = CAMERA_STATES[status];
+  const e = err ? SCAN_ERRORS[err] : null;
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "body",
+    color: "secondary"
+  }, c.scanHint), /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      width: '100%',
+      aspectRatio: '4 / 3',
+      borderRadius: 'var(--radius-button)',
+      overflow: 'hidden',
+      background: 'var(--camera-bg)',
+      border: '1px solid var(--border-light)'
+    }
+  }, /*#__PURE__*/React.createElement("video", {
+    ref: videoRef,
+    muted: true,
+    playsInline: true,
+    style: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      display: status === 'live' ? 'block' : 'none',
+      filter: `contrast(${(0.55 + contrast * 0.28).toFixed(2)})`
+    }
+  }), st ? /*#__PURE__*/React.createElement(Stack, {
+    align: "center",
+    justify: "center",
+    gap: "s",
+    style: {
+      position: 'absolute',
+      inset: 0,
+      padding: 'var(--space-l)',
+      color: 'var(--gray-40)'
+    }
+  }, status === 'starting' ? /*#__PURE__*/React.createElement(Spinner, {
+    size: 40
+  }) : /*#__PURE__*/React.createElement(Icon, {
+    name: st.icon,
+    size: 40
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "section",
+    align: "center",
+    color: "inverse"
+  }, st.title), st.body ? /*#__PURE__*/React.createElement(Text, {
+    variant: "body",
+    align: "center",
+    color: "inverse-muted"
+  }, st.body) : null) : null), status === 'live' || progress ? /*#__PURE__*/React.createElement(ScanProgress, {
+    got: got,
+    total: total,
+    done: got >= total
+  }) : null, e ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "error",
+    title: e.title,
+    action: /*#__PURE__*/React.createElement(Btn, {
+      id: "scan_again",
+      onClick: () => {
+        setErr(null);
+        setGot(0);
+      }
+    })
+  }, e.body) : null, /*#__PURE__*/React.createElement(ModalActions, {
+    onBack: onBack,
+    backId: "previous"
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "camera_settings",
+    onClick: () => setShowSettings(true)
+  }), status !== 'live' || err ? /*#__PURE__*/React.createElement(Btn, {
+    id: "kit_skip_scan",
+    onClick: () => onDone && onDone()
+  }) : null), showSettings ?
+  /*#__PURE__*/
+  /* settings overlay: the one allowed modal-on-modal (see Modal.jsx) — small,
+     closes back to the live scan */
+  React.createElement(Modal, {
+    title: "Camera Settings",
+    width: 460,
+    onClose: () => setShowSettings(false)
+  }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
+    label: "Camera Source:"
+  }, /*#__PURE__*/React.createElement(ComboBox, {
+    value: labels[camIdx] || labels[0],
+    options: labels,
+    width: 220,
+    onChange: l => {
+      const n = labels.indexOf(l);
+      setCamIdx(n);
+      const d = cams[n];
+      if (d) start(d.deviceId);
+    }
+  })), /*#__PURE__*/React.createElement(Field, {
+    label: "Contrast:"
+  }, /*#__PURE__*/React.createElement(Stepper, {
+    value: contrast,
+    min: 1,
+    max: 5,
+    onChange: setContrast
+  })))) : null);
+}
+function HotStep({
+  context = 'sign',
+  keyAlias,
+  onCancel,
+  onDone,
+  initialBusy = false,
+  pwError
+}) {
+  const c = FLOW_COPY[context];
+  const [busy, setBusy] = React.useState(initialBusy);
+  React.useEffect(() => {
+    if (!busy || initialBusy) return;
+    const t = setTimeout(() => onDone && onDone(), 1400);
+    return () => clearTimeout(t);
+  }, [busy]);
+  if (busy) return /*#__PURE__*/React.createElement(ModalStatus, {
+    spinner: true,
+    title: c.hotBusy,
+    subtitle: `With “${keyAlias}”.`,
+    pad: "var(--space-m) 0"
+  });
+  return /*#__PURE__*/React.createElement(PasswordStep, {
+    prompt: c.hotPrompt(keyAlias),
+    proceedId: c.hotBtn,
+    error: pwError,
+    onCancel: onCancel,
+    onProceed: () => setBusy(true)
+  });
+}
+
+/* ---------------- 3.10 Verify result ---------------- */
+
+const VERIFY_RESULT = {
+  matched: {
+    icon: 'circle_check',
+    color: 'var(--success)',
+    title: 'Address Confirmed',
+    body: d => `${d} derived the same address. It belongs to this wallet.`
+  },
+  mismatch: {
+    icon: 'alert',
+    color: 'var(--error)',
+    title: 'Address Does Not Match',
+    body: d => `${d} did not confirm this address. Do not use it to receive coins.`
+  },
+  error: {
+    icon: 'circle_x',
+    color: 'var(--text-muted)',
+    title: 'Could Not Verify',
+    body: d => `${d} did not return an answer. The address was not checked.`
+  }
+};
+function VerifyResult({
+  result = 'matched',
+  device,
+  address,
+  onClose,
+  onRetry
+}) {
+  const r = VERIFY_RESULT[result];
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(ModalStatus, {
+    icon: r.icon,
+    iconColor: r.color,
+    title: r.title,
+    subtitle: r.body(device),
+    pad: "var(--space-s) 0 0"
+  }), address ? /*#__PURE__*/React.createElement(Card, {
+    tone: "inset",
+    pad: "m"
+  }, /*#__PURE__*/React.createElement(ChunkedAddress, {
+    text: address
+  })) : null, result !== 'matched' && onRetry ? /*#__PURE__*/React.createElement(ModalActions, null, /*#__PURE__*/React.createElement(Btn, {
+    id: "try_again",
+    onClick: onRetry
+  })) : null);
+}
+
+/* ---------------- Controller: one modal for the whole flow ---------------- */
+
+function SigningFlow({
+  context = 'sign',
+  plan = [],
+  others = [],
+  address,
+  fileBase,
+  keyRow,
+  onDone,
+  onCancel,
+  initial = {}
+}) {
+  const c = FLOW_COPY[context];
+  const [rows, setRows] = React.useState(plan);
+  const [step, setStep] = React.useState(initial.step || (keyRow ? {
+    row: keyRow
+  } : null)); // null = picker | { row, result? }
+  const [usbErr, setUsbErr] = React.useState(initial.usbError || null);
+  const [qrPhase, setQrPhase] = React.useState(initial.qrPhase || 'display');
+  const row = step && step.row;
+  const devLabel = row ? row.device || row.alias || 'the device' : '';
+  const pick = r => {
+    setUsbErr(null);
+    setQrPhase('display');
+    setStep({
+      row: r
+    });
+  };
+  const back = keyRow ? null : () => setStep(null);
+  const finished = r => {
+    if (context === 'verify') return setStep({
+      row: r,
+      result: 'matched'
+    });
+    if (context === 'fetch') return onDone && onDone(r);
+    const next = rows.map(x => x.fp === r.fp ? {
+      ...x,
+      status: 'signed'
+    } : x.status === 'waiting' && r.status === 'first' ? {
+      ...x,
+      status: 'ready'
+    } : x);
+    setRows(next);
+    setStep(null);
+    if (!next.some(x => ['first', 'ready', 'waiting'].includes(x.status))) onDone && onDone();
+  };
+  React.useEffect(() => {
+    // demo: a USB device answers after a moment
+    if (!row || row.route !== 'usb' || usbErr || step.result || initial.step) return;
+    const t = setTimeout(() => finished(row), 1800);
+    return () => clearTimeout(t);
+  }, [step, usbErr]);
+  let title = c.title,
+    width = 560,
+    body;
+  if (!step) body = /*#__PURE__*/React.createElement(SignerPicker, {
+    context: context,
+    plan: rows,
+    others: others,
+    onPick: pick,
+    onCancel: onCancel
+  });else if (step.result) {
+    width = 520;
+    body = /*#__PURE__*/React.createElement(VerifyResult, {
+      result: step.result,
+      device: devLabel,
+      address: address,
+      onClose: onCancel,
+      onRetry: () => pick(row)
+    });
+  } else if (row.route === 'usb') {
+    title = c.usbTitle;
+    width = 520;
+    body = /*#__PURE__*/React.createElement(UsbStep, {
+      context: context,
+      device: devLabel,
+      error: usbErr,
+      onCancel: onCancel,
+      onRetry: () => setUsbErr(null),
+      onBack: back
+    });
+  } else if (row.route === 'sd') {
+    title = c.sdTitle;
+    body = /*#__PURE__*/React.createElement(SdStep, {
+      context: context,
+      fileBase: fileBase,
+      phase: initial.sdPhase,
+      error: initial.sdError,
+      onCancel: onCancel,
+      onDone: () => finished(row)
+    });
+  } else if (row.route === 'hot') {
+    width = 520;
+    body = /*#__PURE__*/React.createElement(HotStep, {
+      context: context,
+      keyAlias: row.alias,
+      pwError: initial.pwError,
+      initialBusy: initial.hotBusy,
+      onCancel: onCancel,
+      onDone: () => finished(row)
+    });
+  } else if (qrPhase === 'display') {
+    title = c.qrTitle;
+    width = 640;
+    body = /*#__PURE__*/React.createElement(QrDisplayStep, {
+      context: context,
+      initialRebuilding: initial.rebuilding,
+      onCancel: onCancel,
+      onNext: () => setQrPhase('scan')
+    });
+  } else {
+    title = c.scanTitle;
+    width = 640;
+    body = /*#__PURE__*/React.createElement(CameraStep, {
+      context: context,
+      force: initial.camera,
+      progress: initial.progress,
+      scanError: initial.scanError,
+      settings: initial.settings,
+      onBack: () => setQrPhase('display'),
+      onCancel: onCancel,
+      onDone: () => finished(row)
+    });
+  }
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: title,
+    width: width,
+    onClose: onCancel
+  }, body);
+}
+Object.assign(window, {
+  FLOW_COPY,
+  SIGNER_STATUS,
+  SignerPicker,
+  UsbStep,
+  SdStep,
+  QrDisplayStep,
+  CameraStep,
+  HotStep,
+  VerifyResult,
+  SigningFlow,
+  CAMERA_STATES,
+  SCAN_ERRORS,
+  USB_ERRORS,
+  VERIFY_RESULT
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Signing.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/TxFlow.jsx
 try { (() => {
@@ -4423,33 +7355,735 @@ function TxFlow({
   }, /*#__PURE__*/React.createElement(Text, {
     as: "div",
     variant: "body",
-    weight: "demibold",
-    style: {
-      fontSize: 12
-    }
+    weight: "demibold"
   }, data.title), data.usd ? /*#__PURE__*/React.createElement(Text, {
     as: "div",
     variant: "mono",
-    color: "secondary",
-    style: {
-      fontSize: 13,
-      marginTop: 3
-    }
+    color: "secondary"
   }, data.usd) : null, data.addr ? /*#__PURE__*/React.createElement(Text, {
     as: "div",
     variant: "mono",
     color: "muted",
-    style: {
-      fontSize: 11,
-      marginTop: 3,
-      wordBreak: 'break-all'
-    }
+    size: "sm",
+    wrap: "anywhere"
   }, txMidAddr(data.addr)) : null) : null);
 }
 Object.assign(window, {
   TxFlow
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/TxFlow.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/silent/Variants.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* Silent UI Kit — Variant catalogs. EVERY button and pill the app shows is a
+   named entry here, hardcoded once (role/tone, label, icon, title). Screens only
+   pick an id: <Btn id="sign" onClick={…} /> · <Pill id="device_ready" />.
+   Qt: one helper per entry (btn_sign(), pill_device_ready()…).
+   Add a new usage = add an entry here + it appears on the preview cards. */
+
+/* BtnWidth — the ONLY button widths (px). Every BUTTONS entry names one in `w`.
+   Text buttons are M by default (Close, Check, Sign, Cancel… all the same width);
+   a label that cannot fit M steps up to L / XL / XXL. Icon roles use Icon / IconLg,
+   inline link buttons are Auto. Qt: setFixedWidth(btnWidth(w)). */
+const BTN_WIDTH = {
+  Icon: 30,
+  IconLg: 50,
+  Index: 60,
+  M: 120,
+  L: 160,
+  XL: 200,
+  XXL: 260,
+  LaunchEntry: 300,
+  LaunchAdd: 354,
+  Auto: null
+};
+const BUTTONS = {
+  /* component parts (Modal, ModalActions, Stepper, CopyField) */
+  modal_close: {
+    role: 'inline-icon',
+    icon: 'x',
+    iconSize: 16,
+    title: 'Close',
+    w: 'Icon'
+  },
+  back: {
+    role: 'default',
+    label: 'Back',
+    icon: 'chevron_left',
+    iconSize: 14,
+    w: 'M'
+  },
+  previous: {
+    role: 'default',
+    label: 'Previous',
+    icon: 'chevron_left',
+    iconSize: 14,
+    w: 'M'
+  },
+  other_signer: {
+    role: 'default',
+    label: 'Other Signer',
+    icon: 'chevron_left',
+    iconSize: 14,
+    w: 'L'
+  },
+  all_settings: {
+    role: 'default',
+    label: 'All Settings',
+    icon: 'chevron_left',
+    iconSize: 14,
+    w: 'L'
+  },
+  stepper_minus: {
+    role: 'inline-icon',
+    icon: 'minus',
+    iconSize: 14,
+    title: 'Less',
+    w: 'Icon'
+  },
+  stepper_plus: {
+    role: 'inline-icon',
+    icon: 'plus',
+    iconSize: 14,
+    title: 'More',
+    w: 'Icon'
+  },
+  save_alias: {
+    role: 'inline-icon',
+    icon: 'check',
+    iconSize: 16,
+    title: 'Save Alias',
+    w: 'Icon'
+  },
+  add_route_icon: {
+    role: 'inline-icon',
+    icon: 'plus',
+    iconSize: 14,
+    title: 'Add Route',
+    w: 'Icon'
+  },
+  confirm_add_route: {
+    role: 'inline-icon',
+    icon: 'check',
+    iconSize: 14,
+    title: 'Add This Route',
+    w: 'Icon'
+  },
+  cancel_add_route: {
+    role: 'inline-icon',
+    icon: 'x',
+    iconSize: 14,
+    title: 'Cancel',
+    w: 'Icon'
+  },
+  fetch_xpub: {
+    role: 'inline-icon',
+    icon: 'plus',
+    iconSize: 14,
+    title: 'Fetch Xpubs From the Device',
+    w: 'Icon'
+  },
+  register_account: {
+    role: 'default',
+    label: 'Register',
+    w: 'M'
+  },
+  fetch_this_xpub: {
+    role: 'primary',
+    label: 'Fetch Xpub',
+    w: 'M'
+  },
+  camera_settings: {
+    role: 'inline-icon',
+    icon: 'settings',
+    iconSize: 16,
+    title: 'Camera Settings',
+    w: 'Icon'
+  },
+  open_file: {
+    role: 'primary',
+    label: 'Open File…',
+    icon: 'folder',
+    iconSize: 16,
+    w: 'L'
+  },
+  copy_value: {
+    role: 'inline-icon',
+    icon: 'copy',
+    iconSize: 14,
+    title: 'Copy',
+    w: 'Icon'
+  },
+  copied_value: {
+    role: 'inline-icon',
+    icon: 'check',
+    iconSize: 14,
+    title: 'Copied',
+    w: 'Icon'
+  },
+  /* kit-only (dev chrome, not ported to Qt) */
+  kit_skip_scan: {
+    role: 'default',
+    label: 'Simulate Scan',
+    icon: 'chevron_right',
+    iconSize: 14,
+    w: 'L'
+  },
+  /* screens */
+  scan_plugins: {
+    role: 'default',
+    label: 'Scan for Plugins',
+    icon: 'refresh',
+    iconSize: 14,
+    w: 'XL'
+  },
+  scanning_plugins: {
+    role: 'default',
+    label: 'Scanning…',
+    icon: 'refresh',
+    iconSize: 14,
+    w: 'XL'
+  },
+  disable_plugin: {
+    role: 'destructive',
+    label: 'Disable Plugin',
+    w: 'L'
+  },
+  add_key: {
+    role: 'primary',
+    label: 'Add Key',
+    w: 'M'
+  },
+  broadcast: {
+    role: 'primary',
+    label: 'Broadcast',
+    w: 'M'
+  },
+  check_address: {
+    role: 'primary',
+    label: 'Check',
+    w: 'M'
+  },
+  continue: {
+    role: 'primary',
+    label: 'Continue',
+    w: 'M'
+  },
+  create: {
+    role: 'primary',
+    label: 'Create',
+    w: 'M'
+  },
+  done: {
+    role: 'primary',
+    label: 'Done',
+    w: 'M'
+  },
+  get_descriptor_hot: {
+    role: 'primary',
+    label: 'Get Descriptor',
+    w: 'L'
+  },
+  load_signed_psbt: {
+    role: 'primary',
+    label: 'Load Signed PSBT…',
+    icon: 'upload',
+    iconSize: 16,
+    w: 'XL'
+  },
+  next_scan_the_answer: {
+    role: 'primary',
+    label: 'Next: Scan the Answer',
+    w: 'XL'
+  },
+  ok: {
+    role: 'primary',
+    label: 'OK',
+    w: 'M'
+  },
+  pick_another_file: {
+    role: 'primary',
+    label: 'Pick Another File…',
+    icon: 'upload',
+    iconSize: 16,
+    w: 'XL'
+  },
+  proceed: {
+    role: 'primary',
+    label: 'Proceed',
+    w: 'M'
+  },
+  register: {
+    role: 'primary',
+    label: 'Register',
+    w: 'M'
+  },
+  save_settings: {
+    role: 'primary',
+    label: 'Save Settings',
+    w: 'L'
+  },
+  save_unsigned_psbt: {
+    role: 'primary',
+    label: 'Save Unsigned PSBT…',
+    icon: 'download',
+    iconSize: 16,
+    w: 'XL'
+  },
+  seal_key: {
+    role: 'primary',
+    label: 'Seal Key',
+    w: 'M'
+  },
+  show_mnemonic: {
+    role: 'primary',
+    label: 'Show Mnemonic',
+    w: 'L'
+  },
+  sign: {
+    role: 'primary',
+    label: 'Sign',
+    w: 'M'
+  },
+  sign_hot: {
+    role: 'primary',
+    label: 'Sign',
+    w: 'M'
+  },
+  try_again: {
+    role: 'primary',
+    label: 'Try Again',
+    w: 'M'
+  },
+  unlocking: {
+    role: 'primary',
+    label: 'Unlocking…',
+    w: 'M'
+  },
+  add_a_key: {
+    role: 'default',
+    label: '+ Add a Key',
+    w: 'M'
+  },
+  add_payment: {
+    role: 'default',
+    label: '+ Add Payment',
+    w: 'L'
+  },
+  clear: {
+    role: 'default',
+    label: 'Clear',
+    w: 'M'
+  },
+  connect_blindbit: {
+    role: 'default',
+    label: 'Connect Blindbit',
+    w: 'L'
+  },
+  connect_electrum: {
+    role: 'default',
+    label: 'Connect Electrum',
+    w: 'L'
+  },
+  generate: {
+    role: 'default',
+    label: 'Generate',
+    w: 'M'
+  },
+  generate_new: {
+    role: 'default',
+    label: 'Generate New',
+    icon: 'refresh',
+    iconSize: 15,
+    w: 'L'
+  },
+  get_again: {
+    role: 'default',
+    label: 'Get Again',
+    w: 'L'
+  },
+  get_descriptor: {
+    role: 'default',
+    label: 'Get Descriptor',
+    w: 'L'
+  },
+  open: {
+    role: 'default',
+    label: 'Open',
+    w: 'M'
+  },
+  open_keys_tab: {
+    role: 'default',
+    label: 'Open Keys Tab',
+    w: 'L'
+  },
+  reveal_mnemonic: {
+    role: 'default',
+    label: 'Reveal Mnemonic',
+    icon: 'eye',
+    iconSize: 16,
+    w: 'XL'
+  },
+  save: {
+    role: 'default',
+    label: 'Save',
+    w: 'M'
+  },
+  scan_again: {
+    role: 'default',
+    label: 'Scan Again',
+    w: 'M'
+  },
+  test: {
+    role: 'default',
+    label: 'Test',
+    w: 'M'
+  },
+  test_ok: {
+    role: 'default',
+    label: '✓ Test',
+    w: 'M'
+  },
+  testing: {
+    role: 'default',
+    label: 'Testing…',
+    w: 'M'
+  },
+  delete: {
+    role: 'destructive',
+    label: 'Delete',
+    w: 'M'
+  },
+  remove_key: {
+    role: 'destructive',
+    label: 'Remove Key',
+    w: 'M'
+  },
+  add_label: {
+    role: 'inline',
+    label: 'Add a Label',
+    icon: 'plus',
+    iconSize: 14,
+    w: 'Auto'
+  },
+  awaiting_payment: {
+    role: 'inline',
+    label: 'Addr. awaiting payment ({n})',
+    args: true,
+    w: 'Auto'
+  },
+  hide_words: {
+    role: 'inline',
+    label: 'Hide Words',
+    icon: 'eye_off',
+    iconSize: 14,
+    w: 'Auto'
+  },
+  show_words: {
+    role: 'inline',
+    label: 'Show Words',
+    icon: 'eye',
+    iconSize: 14,
+    w: 'Auto'
+  },
+  copied: {
+    role: 'icon',
+    icon: 'check',
+    iconSize: 20,
+    title: 'Copied',
+    w: 'IconLg'
+  },
+  copy_address: {
+    role: 'icon',
+    icon: 'copy',
+    iconSize: 20,
+    title: 'Copy Address',
+    w: 'IconLg'
+  },
+  delete_wallet: {
+    role: 'icon',
+    icon: 'trash',
+    iconSize: 20,
+    title: 'Delete wallet',
+    w: 'IconLg'
+  },
+  verify_on_device: {
+    role: 'icon',
+    icon: 'usb',
+    iconSize: 20,
+    w: 'IconLg'
+  },
+  settings_gear: {
+    role: 'inline-icon',
+    icon: 'settings',
+    iconSize: 16,
+    title: 'Settings',
+    w: 'Icon'
+  },
+  copied_sm: {
+    role: 'inline-icon',
+    icon: 'check',
+    iconSize: 15,
+    title: 'Copied',
+    w: 'Icon'
+  },
+  copy_sm: {
+    role: 'inline-icon',
+    icon: 'copy',
+    iconSize: 15,
+    title: 'Copy',
+    w: 'Icon'
+  },
+  dismiss_notice: {
+    role: 'inline-icon',
+    icon: 'x',
+    iconSize: 14,
+    title: 'Dismiss',
+    w: 'Icon'
+  },
+  edit_label: {
+    role: 'inline-icon',
+    icon: 'pencil',
+    iconSize: 14,
+    title: 'Edit label',
+    w: 'Icon'
+  },
+  edit_label_row: {
+    role: 'inline-icon',
+    icon: 'pencil',
+    iconSize: 15,
+    w: 'Icon'
+  },
+  move_down: {
+    role: 'inline-icon',
+    icon: 'arrow_down',
+    iconSize: 14,
+    title: 'Move Down',
+    w: 'Icon'
+  },
+  move_up: {
+    role: 'inline-icon',
+    icon: 'arrow_up',
+    iconSize: 14,
+    title: 'Move Up',
+    w: 'Icon'
+  },
+  remove_payment: {
+    role: 'inline-icon',
+    icon: 'x',
+    iconSize: 16,
+    title: 'Remove Payment',
+    w: 'Icon'
+  },
+  remove_route: {
+    role: 'inline-icon',
+    icon: 'trash',
+    iconSize: 14,
+    w: 'Icon'
+  },
+  save_label: {
+    role: 'inline-icon',
+    icon: 'check',
+    iconSize: 15,
+    title: 'Save',
+    w: 'Icon'
+  },
+  verify_on_device_sm: {
+    role: 'inline-icon',
+    icon: 'usb',
+    iconSize: 15,
+    w: 'Icon'
+  },
+  open_wallet: {
+    role: 'tab-open',
+    label: '(wallet name)',
+    dataLabel: true,
+    w: 'LaunchEntry'
+  },
+  create_new_wallet: {
+    role: 'tab-create',
+    label: '+ Create New Wallet',
+    w: 'LaunchAdd'
+  }
+};
+
+/* Btn — a catalog button. `label` only for entries marked dataLabel (the text is
+   data, e.g. a wallet name); `args` fills {n} in templated labels. */
+function Btn({
+  id,
+  label,
+  args,
+  ...rest
+}) {
+  const b = BUTTONS[id];
+  if (!b) {
+    console.warn('Btn: unknown id ' + id);
+    return null;
+  }
+  const text = b.dataLabel ? label : b.args ? String(b.label).replace('{n}', args) : b.label;
+  const wc = b.w && b.w !== 'Auto' ? 's-btn--w-' + b.w.toLowerCase() : '';
+  return /*#__PURE__*/React.createElement(Button, _extends({
+    role: b.role,
+    icon: b.icon,
+    iconSize: b.iconSize,
+    title: rest.title || b.title
+  }, rest, {
+    className: [wc, rest.className].filter(Boolean).join(' ')
+  }), text || null);
+}
+
+/* PillWidth — the ONLY pill widths (px). Every PILLS entry names one in `w`: M by
+   default; a label that cannot fit steps up to L. A family that shares a list
+   column (device_*, key_*, signer_*…) shares one width. Auto only for data labels. */
+const PILL_WIDTH = {
+  M: 110,
+  L: 140,
+  Auto: null
+};
+const PILLS = {
+  device_ready: {
+    tone: 'success',
+    label: 'Ready',
+    w: 'M'
+  },
+  device_locked: {
+    tone: 'warning',
+    label: 'Locked',
+    w: 'M'
+  },
+  device_unsupported: {
+    tone: 'error',
+    label: 'Unsupported',
+    w: 'M'
+  },
+  key_connected: {
+    tone: 'success',
+    label: 'Connected',
+    w: 'M'
+  },
+  key_hot: {
+    tone: 'success',
+    label: 'Hot Key',
+    w: 'M'
+  },
+  key_offline: {
+    tone: 'off',
+    label: 'Offline',
+    w: 'M'
+  },
+  account_registered: {
+    tone: 'success',
+    label: 'Registered',
+    w: 'M'
+  },
+  signer_first: {
+    tone: 'success',
+    label: 'Signs First',
+    w: 'L'
+  },
+  signer_ready: {
+    tone: 'success',
+    label: 'Ready',
+    w: 'L'
+  },
+  signer_signed: {
+    tone: 'success',
+    label: 'Signed',
+    icon: 'check',
+    w: 'L'
+  },
+  signer_waiting: {
+    tone: 'off',
+    label: 'Waiting',
+    w: 'L'
+  },
+  signer_disconnected: {
+    tone: 'warning',
+    label: 'Not Connected',
+    w: 'L'
+  },
+  signer_no_hot: {
+    tone: 'warning',
+    label: 'No Hot Secret',
+    w: 'L'
+  },
+  signer_no_route: {
+    tone: 'error',
+    label: 'No Usable Route',
+    w: 'L'
+  },
+  signer_unregistered: {
+    tone: 'error',
+    label: 'Not Registered',
+    w: 'L'
+  },
+  sd_step_done: {
+    tone: 'success',
+    label: 'Done',
+    w: 'M'
+  },
+  tx_signed: {
+    tone: 'success',
+    label: 'Signed',
+    icon: 'check',
+    w: 'M'
+  },
+  network: {
+    tone: 'neutral',
+    label: '(network)',
+    dataLabel: true,
+    w: 'Auto'
+  },
+  xpub_used: {
+    tone: 'success',
+    label: 'Used',
+    w: 'M'
+  },
+  xpub_unused: {
+    tone: 'off',
+    label: 'Not Used',
+    w: 'M'
+  },
+  plugin_unloading: {
+    tone: 'off',
+    label: 'Unloading…',
+    w: 'L'
+  }
+};
+
+/* Pill — a catalog status pill, always at its PillWidth (label centred). */
+function Pill({
+  id,
+  label
+}) {
+  const p = PILLS[id];
+  if (!p) {
+    console.warn('Pill: unknown id ' + id);
+    return null;
+  }
+  return /*#__PURE__*/React.createElement(Badge, {
+    tone: p.tone,
+    icon: p.icon,
+    width: p.w
+  }, p.dataLabel ? label : p.label);
+}
+Object.assign(window, {
+  BTN_WIDTH,
+  BUTTONS,
+  Btn,
+  PILL_WIDTH,
+  PILLS,
+  Pill
+});
+
+/* File-level namespace (DS compiler indexes this file as `Variants`). */
+const Variants = {
+  Btn,
+  Pill
+};
+Object.assign(__ds_scope, { BTN_WIDTH, BUTTONS, Btn, PILL_WIDTH, PILLS, Pill, Variants });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Variants.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/Widgets.jsx
 try { (() => {
@@ -4577,14 +8211,11 @@ function Stepper({
     nowrap: true
   }, label) : null, /*#__PURE__*/React.createElement(Row, {
     gap: "s"
-  }, /*#__PURE__*/React.createElement(Button, {
-    role: "inline-icon",
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "stepper_minus",
     disabled: value <= min,
     onClick: () => onChange(Math.max(min, value - 1))
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "minus",
-    size: 14
-  })), /*#__PURE__*/React.createElement("span", {
+  }), /*#__PURE__*/React.createElement("span", {
     style: {
       minWidth: 56,
       textAlign: 'center',
@@ -4592,14 +8223,11 @@ function Stepper({
       letterSpacing: '1px',
       color: 'var(--accent)'
     }
-  }, dots), /*#__PURE__*/React.createElement(Button, {
-    role: "inline-icon",
+  }, dots), /*#__PURE__*/React.createElement(Btn, {
+    id: "stepper_plus",
     disabled: value >= max,
     onClick: () => onChange(Math.min(max, value + 1))
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "plus",
-    size: 14
-  }))));
+  })));
 }
 
 /* Tooltip — hover bubble above its child. */
@@ -4667,18 +8295,9 @@ function FoldSection({
       textAlign: 'left',
       color: 'inherit'
     }
-  }, /*#__PURE__*/React.createElement("span", {
-    style: {
-      flex: 'none',
-      display: 'inline-flex',
-      color: 'var(--text-secondary)',
-      transform: open ? 'rotate(0deg)' : 'rotate(-90deg)',
-      transition: 'transform 0.15s ease'
-    }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "chevron_down",
-    size: 14
-  })), /*#__PURE__*/React.createElement("span", {
+  }, /*#__PURE__*/React.createElement(FoldChevron, {
+    open: open
+  }), /*#__PURE__*/React.createElement("span", {
     style: {
       whiteSpace: 'nowrap'
     }
@@ -4698,25 +8317,17 @@ function IndexPill({
   title = 'Show QR code'
 }) {
   return /*#__PURE__*/React.createElement(Button, {
+    role: "index",
+    className: active ? 'is-active' : '',
     onClick: onClick,
-    title: title,
-    style: {
-      flex: 'none',
-      width: 60,
-      height: 30,
-      minHeight: 0,
-      padding: '0 8px',
-      gap: 6,
-      background: active ? 'var(--bg)' : undefined
-    }
+    title: title
   }, /*#__PURE__*/React.createElement(Icon, {
     name: "qr",
     size: 13
-  }), /*#__PURE__*/React.createElement("span", {
-    style: {
-      font: '600 12px var(--font-mono)',
-      color: 'var(--text)'
-    }
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "mono",
+    weight: "demibold",
+    size: "sm"
   }, index));
 }
 
@@ -4927,6 +8538,442 @@ function CoinTable({
     }]
   });
 }
+
+/* SectionHeader — a list section's header row: eyebrow label · optional count ·
+   right-aligned action (e.g. "+ Add a Key"). Pass open + onToggle to make the
+   section foldable: a chevron leads the label and the label toggles it.
+   Qt: HBox(Label, Label, stretch, Button); foldable = QToolButton arrow. */
+/* dense: a tighter header row (icon-button height, small gap below) for stacked
+   sections inside a modal. */
+function SectionHeader({
+  label,
+  count,
+  action,
+  open,
+  onToggle,
+  dense = false,
+  style
+}) {
+  const foldable = typeof onToggle === 'function';
+  const head = /*#__PURE__*/React.createElement(React.Fragment, null, foldable ? /*#__PURE__*/React.createElement(FoldChevron, {
+    open: open
+  }) : null, /*#__PURE__*/React.createElement(SectionLabel, null, label), count != null ? /*#__PURE__*/React.createElement(Text, {
+    variant: "mono",
+    color: "muted",
+    style: {
+      fontSize: 'var(--size-caption)'
+    }
+  }, count) : null);
+  return /*#__PURE__*/React.createElement(Row, {
+    gap: "s",
+    style: {
+      minHeight: dense ? 'var(--btn-w-icon)' : 'var(--button-min-h)',
+      marginBottom: dense ? 'var(--space-xxs)' : 'var(--space-xs)',
+      ...style
+    }
+  }, foldable ? /*#__PURE__*/React.createElement("button", {
+    onClick: onToggle,
+    "aria-expanded": !!open,
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 'var(--space-s)',
+      background: 'none',
+      border: 'none',
+      padding: 0,
+      margin: 0,
+      cursor: 'pointer',
+      color: 'inherit'
+    }
+  }, head) : head, /*#__PURE__*/React.createElement(Spacer, null), action || null);
+}
+
+/* Section — a titled block: SectionHeader + its content. With open/onToggle it
+   folds (content hidden, the header's action hidden too). Qt: VBox(header, body). */
+function Section({
+  label,
+  count,
+  action,
+  open,
+  onToggle,
+  dense,
+  children
+}) {
+  const foldable = typeof onToggle === 'function';
+  const shown = !foldable || open;
+  return /*#__PURE__*/React.createElement(Stack, null, /*#__PURE__*/React.createElement(SectionHeader, {
+    label: label,
+    count: count,
+    open: open,
+    onToggle: onToggle,
+    dense: dense,
+    action: shown ? action : null
+  }), shown ? children : null);
+}
+
+/* CopyField — read-only mono value + copy action (xpub, descriptor, path).
+   `wrap` breaks long values over lines (descriptors); default truncates. The copy
+   glyph flips to a check for a moment after copying. */
+function CopyField({
+  value,
+  wrap = false,
+  grow = false,
+  title = 'Copy',
+  style
+}) {
+  const [copied, setCopied] = React.useState(false);
+  const copy = () => {
+    try {
+      navigator.clipboard && navigator.clipboard.writeText(value);
+    } catch (e) {}
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "s-copy-field",
+    style: grow ? {
+      flex: 1,
+      minWidth: 0,
+      ...style
+    } : style
+  }, /*#__PURE__*/React.createElement("span", {
+    className: 's-copy-field__v ' + (wrap ? 'is-wrap' : 'is-truncate'),
+    title: wrap ? undefined : value
+  }, value), /*#__PURE__*/React.createElement(Btn, {
+    id: copied ? 'copied_value' : 'copy_value',
+    title: copied ? 'Copied' : title,
+    onClick: copy
+  }));
+}
+
+/* ShortValue — a long mono value shown short (head…tail, e.g. tpubDCt…xPt1P) as
+   plain text with a copy button; the full value is the tooltip. Not an input.
+   Qt: QLabel (elided middle) + inline-icon copy QToolButton. */
+/* copy={false}: plain text only (read-only review). */
+function ShortValue({
+  value,
+  head = 8,
+  tail = 6,
+  title = 'Copy',
+  copy: canCopy = true
+}) {
+  const [copied, setCopied] = React.useState(false);
+  const short = value.length > head + tail + 1 ? value.slice(0, head) + '…' + value.slice(-tail) : value;
+  const copy = () => {
+    try {
+      navigator.clipboard && navigator.clipboard.writeText(value);
+    } catch (e) {}
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
+  };
+  return /*#__PURE__*/React.createElement(Row, {
+    gap: "xxs",
+    inline: true
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "mono",
+    title: value
+  }, short), canCopy ? /*#__PURE__*/React.createElement(Btn, {
+    id: copied ? 'copied_value' : 'copy_value',
+    title: copied ? 'Copied' : title,
+    onClick: copy
+  }) : null);
+}
+
+/* WordInputGrid — one numbered input per mnemonic word, each with a trailing
+   valid / invalid mark (checked against `isWord`; empty = no mark). Pasting a
+   whole phrase into any input spreads it across the cells. Read column-wise like
+   WordGrid. Qt: QGridLayout of (Label, QLineEdit, mark) cells. */
+function WordInputGrid({
+  words,
+  onChange,
+  isWord = () => true,
+  columns
+}) {
+  const n = words.length,
+    cols = columns || (n > 15 ? 4 : 3),
+    rows = Math.ceil(n / cols);
+  const set = (i, v) => {
+    const parts = v.trim().split(/\s+/);
+    const next = [...words];
+    if (parts.length > 1) parts.forEach((p, k) => {
+      if (i + k < n) next[i + k] = p.toLowerCase();
+    });else next[i] = v.replace(/\s/g, '').toLowerCase();
+    onChange(next);
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'grid',
+      gridAutoFlow: 'column',
+      gridTemplateRows: `repeat(${rows}, auto)`,
+      gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
+      gap: 'var(--space-xs) var(--space-s)'
+    }
+  }, words.map((wd, i) => /*#__PURE__*/React.createElement(Row, {
+    key: i,
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "mono",
+    color: "muted",
+    size: "sm",
+    align: "right",
+    style: {
+      width: 18,
+      flex: 'none'
+    }
+  }, i + 1), /*#__PURE__*/React.createElement(ValidatedInput, {
+    mono: true,
+    value: wd,
+    state: !wd ? 'none' : isWord(wd) ? 'valid' : 'invalid',
+    onChange: e => set(i, e.target.value),
+    wrapStyle: {
+      flex: 1,
+      minWidth: 0
+    }
+  }))));
+}
+
+/* WordGrid — numbered mnemonic words, read column-wise (1–4 down the first
+   column…). `hidden` masks the words but keeps the layout. 12 words → 3 cols,
+   24 → 4 cols. */
+function WordGrid({
+  words = [],
+  hidden = false,
+  columns
+}) {
+  const cols = columns || (words.length > 12 ? 4 : 3);
+  const rows = Math.ceil(words.length / cols);
+  return /*#__PURE__*/React.createElement("div", {
+    className: 's-word-grid' + (hidden ? ' is-hidden' : ''),
+    "aria-hidden": hidden || undefined,
+    style: {
+      gridTemplateRows: `repeat(${rows}, auto)`,
+      gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`
+    }
+  }, words.map((w, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "s-word"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "s-word__n"
+  }, i + 1), /*#__PURE__*/React.createElement("span", {
+    className: "s-word__w"
+  }, hidden ? '••••••' : w))));
+}
+
+/* Route kinds — ONE icon and ONE label per kind, used everywhere a route appears
+   (Keys list, key detail, signer picker, route steps). */
+const ROUTE_KINDS = {
+  hot: {
+    label: 'Hot Key',
+    icon: 'key'
+  },
+  usb: {
+    label: 'USB',
+    icon: 'usb'
+  },
+  qr: {
+    label: 'QR Code',
+    icon: 'qr'
+  },
+  sd: {
+    label: 'SD Card',
+    icon: 'sd_card'
+  }
+};
+
+/* RouteIcons — the route kinds of a key as a row of icons (first = primary),
+   each with its label as a tooltip. */
+function RouteIcons({
+  routes = [],
+  size = 16
+}) {
+  return /*#__PURE__*/React.createElement(Row, {
+    gap: "xs",
+    style: {
+      flex: 'none',
+      color: 'var(--text-secondary)'
+    }
+  }, routes.map((r, i) => {
+    const k = ROUTE_KINDS[r] || {
+      label: r,
+      icon: 'key'
+    };
+    return /*#__PURE__*/React.createElement(Tooltip, {
+      key: i,
+      label: k.label + (i === 0 ? ' · Primary' : '')
+    }, /*#__PURE__*/React.createElement("span", {
+      "aria-label": k.label,
+      style: {
+        display: 'inline-flex'
+      }
+    }, /*#__PURE__*/React.createElement(Icon, {
+      name: k.icon,
+      size: size
+    })));
+  }));
+}
+
+/* ScanProgress — multi-part QR scan progress: one segment per part, filled when
+   received, plus an "i of n parts" caption. Qt: HBox of QFrames + Label. */
+function ScanProgress({
+  got = 0,
+  total = 0,
+  done
+}) {
+  const parts = Array.from({
+    length: Math.max(total, 0)
+  });
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs",
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "s-scan-progress"
+  }, parts.map((_, i) => /*#__PURE__*/React.createElement("span", {
+    key: i,
+    className: 's-scan-progress__seg' + (i < got ? ' is-on' : '')
+  }))), /*#__PURE__*/React.createElement(Text, {
+    variant: "caption",
+    color: done ? 'success' : 'muted',
+    align: "center"
+  }, total ? done ? `All ${total} parts received` : `${got} of ${total} parts` : 'Waiting for the first part…'));
+}
+
+/* FieldNote — a one-line note under a <Field>; inside a FieldGroup it sits in the
+   control column, under its input. tone: muted (help) | error | success; optional leading icon. */
+function FieldNote({
+  tone = 'muted',
+  icon,
+  children,
+  style
+}) {
+  return /*#__PURE__*/React.createElement(Row, {
+    gap: "xs",
+    style: {
+      gridColumn: '2',
+      paddingLeft: 0,
+      color: tone === 'muted' ? 'var(--text-muted)' : `var(--${tone})`,
+      ...style
+    }
+  }, icon ? /*#__PURE__*/React.createElement(Icon, {
+    name: icon,
+    size: 14
+  }) : null, /*#__PURE__*/React.createElement(Text, {
+    variant: "caption",
+    color: tone
+  }, children));
+}
+
+/* EmptyState — the empty-list block: inset card, icon, title, subtitle and an
+   optional lead action. Use it for every empty list or section. */
+function EmptyState({
+  icon,
+  title,
+  subtitle,
+  action
+}) {
+  return /*#__PURE__*/React.createElement(Card, {
+    tone: "inset"
+  }, /*#__PURE__*/React.createElement(ModalStatus, {
+    icon: icon,
+    iconSize: 28,
+    title: title,
+    subtitle: subtitle,
+    pad: "var(--space-s) 0"
+  }, action || null));
+}
+
+/* FoldChevron — the disclosure chevron (down = open, right = folded). */
+function FoldChevron({
+  open
+}) {
+  return /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 'none',
+      display: 'inline-flex',
+      color: 'var(--text-secondary)',
+      transform: open ? 'rotate(0deg)' : 'rotate(-90deg)',
+      transition: 'transform 0.15s ease'
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "chevron_down",
+    size: 14
+  }));
+}
+
+/* ScrollArea — a vertically scrolling list region. A scrollbar-wide gutter is
+   reserved on both sides plus a small inset (--space-xs) so rows never touch the
+   scrollbar, and thin delimiter lines mark the top and bottom edges
+   only while the content actually overflows (transparent otherwise, so nothing
+   shifts). Qt: QScrollArea with a frame shown when the vertical bar is visible. */
+function ScrollArea({
+  children,
+  style
+}) {
+  const ref = React.useRef(null);
+  const [over, setOver] = React.useState(false);
+  React.useEffect(() => {
+    let raf;
+    const tick = () => {
+      const el = ref.current;
+      if (el) {
+        const o = el.scrollHeight - el.clientHeight > 1;
+        setOver(p => p === o ? p : o);
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+  const line = over ? 'var(--border-light)' : 'transparent';
+  return /*#__PURE__*/React.createElement("div", {
+    ref: ref,
+    style: {
+      minHeight: 0,
+      overflowY: 'auto',
+      scrollbarGutter: 'stable both-edges',
+      padding: 'var(--space-xs)',
+      borderTop: '1px solid ' + line,
+      borderBottom: '1px solid ' + line,
+      ...style
+    }
+  }, children);
+}
+
+/* ModalActions — a modal's footer: optional Back on the left, then the reason the
+   primary action is disabled (when it is), then the actions. Every disabled
+   primary says why. Qt: HBox(Button, stretch, Label, Button…). */
+function ModalActions({
+  onBack,
+  backId = 'back',
+  reason,
+  children,
+  style
+}) {
+  /* Sticky: stays pinned to the bottom of a scrolling modal, so the buttons are
+     always reachable. Qt: the footer sits outside the dialog's QScrollArea. */
+  return /*#__PURE__*/React.createElement(Row, {
+    gap: "s",
+    style: {
+      position: 'sticky',
+      bottom: 'calc(-1 * var(--space-m))',
+      zIndex: 2,
+      background: 'var(--bg)',
+      margin: '0 0 calc(-1 * var(--space-m))',
+      padding: 'var(--space-s) 0 var(--space-m)',
+      ...style
+    }
+  }, onBack ? /*#__PURE__*/React.createElement(Btn, {
+    id: backId,
+    onClick: onBack
+  }) : null, /*#__PURE__*/React.createElement(Spacer, null), reason ? /*#__PURE__*/React.createElement(Text, {
+    variant: "caption",
+    align: "right",
+    style: {
+      maxWidth: 260
+    }
+  }, reason) : null, children);
+}
 Object.assign(window, {
   SectionLabel,
   FieldLabel,
@@ -4939,8 +8986,192 @@ Object.assign(window, {
   KeyValue,
   Table,
   TransactionSummary,
-  CoinTable
+  CoinTable,
+  SectionHeader,
+  Section,
+  CopyField,
+  ShortValue,
+  WordGrid,
+  WordInputGrid,
+  ROUTE_KINDS,
+  RouteIcons,
+  ScanProgress,
+  ModalActions,
+  ScrollArea,
+  FieldNote,
+  EmptyState,
+  FoldChevron
 });
+
+/* File-level namespace (DS compiler indexes this file as `Widgets`). */
+const Widgets = {
+  SectionLabel,
+  FieldLabel,
+  PaymentRow,
+  ValidatedInput,
+  Stepper,
+  Tooltip,
+  FoldSection,
+  IndexPill,
+  KeyValue,
+  Table,
+  TransactionSummary,
+  CoinTable,
+  SectionHeader,
+  Section,
+  CopyField,
+  ShortValue,
+  WordGrid,
+  WordInputGrid,
+  RouteIcons,
+  ScanProgress,
+  ModalActions,
+  ScrollArea,
+  FieldNote,
+  EmptyState,
+  FoldChevron
+};
+Object.assign(__ds_scope, { SectionLabel, FieldLabel, PaymentRow, ValidatedInput, Stepper, Tooltip, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable, SectionHeader, Section, CopyField, ShortValue, WordInputGrid, WordGrid, ROUTE_KINDS, RouteIcons, ScanProgress, FieldNote, EmptyState, FoldChevron, ScrollArea, ModalActions, Widgets });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Widgets.jsx", error: String((e && e.message) || e) }); }
+
+__ds_ns.QRCard = __ds_scope.QRCard;
+
+__ds_ns.QRCode = __ds_scope.QRCode;
+
+__ds_ns.ChunkedAddress = __ds_scope.ChunkedAddress;
+
+__ds_ns.Address = __ds_scope.Address;
+
+__ds_ns.Icon = __ds_scope.Icon;
+
+__ds_ns.SilentMark = __ds_scope.SilentMark;
+
+__ds_ns.Icons = __ds_scope.Icons;
+
+__ds_ns.Stack = __ds_scope.Stack;
+
+__ds_ns.Row = __ds_scope.Row;
+
+__ds_ns.Spacer = __ds_scope.Spacer;
+
+__ds_ns.Divider = __ds_scope.Divider;
+
+__ds_ns.Text = __ds_scope.Text;
+
+__ds_ns.Eyebrow = __ds_scope.Eyebrow;
+
+__ds_ns.Amount = __ds_scope.Amount;
+
+__ds_ns.Layout = __ds_scope.Layout;
+
+__ds_ns.Modal = __ds_scope.Modal;
+
+__ds_ns.Button = __ds_scope.Button;
+
+__ds_ns.Input = __ds_scope.Input;
+
+__ds_ns.TextArea = __ds_scope.TextArea;
+
+__ds_ns.Display = __ds_scope.Display;
+
+__ds_ns.FieldGroup = __ds_scope.FieldGroup;
+
+__ds_ns.Field = __ds_scope.Field;
+
+__ds_ns.Checkbox = __ds_scope.Checkbox;
+
+__ds_ns.Toggle = __ds_scope.Toggle;
+
+__ds_ns.Spinner = __ds_scope.Spinner;
+
+__ds_ns.Card = __ds_scope.Card;
+
+__ds_ns.Badge = __ds_scope.Badge;
+
+__ds_ns.SelectRow = __ds_scope.SelectRow;
+
+__ds_ns.Notice = __ds_scope.Notice;
+
+__ds_ns.ModalStatus = __ds_scope.ModalStatus;
+
+__ds_ns.Legend = __ds_scope.Legend;
+
+__ds_ns.ComboBox = __ds_scope.ComboBox;
+
+__ds_ns.ValidationMark = __ds_scope.ValidationMark;
+
+__ds_ns.BalanceHeader = __ds_scope.BalanceHeader;
+
+__ds_ns.Tab = __ds_scope.Tab;
+
+__ds_ns.Primitives = __ds_scope.Primitives;
+
+__ds_ns.BTN_WIDTH = __ds_scope.BTN_WIDTH;
+
+__ds_ns.BUTTONS = __ds_scope.BUTTONS;
+
+__ds_ns.Btn = __ds_scope.Btn;
+
+__ds_ns.PILL_WIDTH = __ds_scope.PILL_WIDTH;
+
+__ds_ns.PILLS = __ds_scope.PILLS;
+
+__ds_ns.Pill = __ds_scope.Pill;
+
+__ds_ns.Variants = __ds_scope.Variants;
+
+__ds_ns.SectionLabel = __ds_scope.SectionLabel;
+
+__ds_ns.FieldLabel = __ds_scope.FieldLabel;
+
+__ds_ns.PaymentRow = __ds_scope.PaymentRow;
+
+__ds_ns.ValidatedInput = __ds_scope.ValidatedInput;
+
+__ds_ns.Stepper = __ds_scope.Stepper;
+
+__ds_ns.Tooltip = __ds_scope.Tooltip;
+
+__ds_ns.FoldSection = __ds_scope.FoldSection;
+
+__ds_ns.IndexPill = __ds_scope.IndexPill;
+
+__ds_ns.KeyValue = __ds_scope.KeyValue;
+
+__ds_ns.Table = __ds_scope.Table;
+
+__ds_ns.TransactionSummary = __ds_scope.TransactionSummary;
+
+__ds_ns.CoinTable = __ds_scope.CoinTable;
+
+__ds_ns.SectionHeader = __ds_scope.SectionHeader;
+
+__ds_ns.Section = __ds_scope.Section;
+
+__ds_ns.CopyField = __ds_scope.CopyField;
+
+__ds_ns.ShortValue = __ds_scope.ShortValue;
+
+__ds_ns.WordInputGrid = __ds_scope.WordInputGrid;
+
+__ds_ns.WordGrid = __ds_scope.WordGrid;
+
+__ds_ns.ROUTE_KINDS = __ds_scope.ROUTE_KINDS;
+
+__ds_ns.RouteIcons = __ds_scope.RouteIcons;
+
+__ds_ns.ScanProgress = __ds_scope.ScanProgress;
+
+__ds_ns.FieldNote = __ds_scope.FieldNote;
+
+__ds_ns.EmptyState = __ds_scope.EmptyState;
+
+__ds_ns.FoldChevron = __ds_scope.FoldChevron;
+
+__ds_ns.ScrollArea = __ds_scope.ScrollArea;
+
+__ds_ns.ModalActions = __ds_scope.ModalActions;
+
+__ds_ns.Widgets = __ds_scope.Widgets;
 
 })();

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Word Grid" subtitle="Numbered mnemonic, read down each column — shown · hidden" viewport="700x400" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+  .wrap { padding: 22px 26px; display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
+  .lbl { font: 600 10px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+  
+</style>
+<link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="lbl">Shown</div>
+    <div class="s-word-grid" style="grid-template-rows: repeat(4, auto); grid-template-columns: repeat(3, minmax(0, 1fr));"><div class="s-word"><span class="s-word__n">1</span><span class="s-word__w">vault</span></div><div class="s-word"><span class="s-word__n">2</span><span class="s-word__w">echo</span></div><div class="s-word"><span class="s-word__n">3</span><span class="s-word__w">silent</span></div><div class="s-word"><span class="s-word__n">4</span><span class="s-word__w">ridge</span></div><div class="s-word"><span class="s-word__n">5</span><span class="s-word__w">amber</span></div><div class="s-word"><span class="s-word__n">6</span><span class="s-word__w">cosmic</span></div><div class="s-word"><span class="s-word__n">7</span><span class="s-word__w">pledge</span></div><div class="s-word"><span class="s-word__n">8</span><span class="s-word__w">orbit</span></div><div class="s-word"><span class="s-word__n">9</span><span class="s-word__w">timber</span></div><div class="s-word"><span class="s-word__n">10</span><span class="s-word__w">walnut</span></div><div class="s-word"><span class="s-word__n">11</span><span class="s-word__w">velvet</span></div><div class="s-word"><span class="s-word__n">12</span><span class="s-word__w">jungle</span></div></div>
+    <div class="lbl">Hidden</div>
+    <div class="s-word-grid is-hidden" style="grid-template-rows: repeat(4, auto); grid-template-columns: repeat(3, minmax(0, 1fr));"><div class="s-word"><span class="s-word__n">1</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">2</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">3</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">4</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">5</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">6</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">7</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">8</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">9</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">10</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">11</span><span class="s-word__w">••••••</span></div><div class="s-word"><span class="s-word__n">12</span><span class="s-word__w">••••••</span></div></div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

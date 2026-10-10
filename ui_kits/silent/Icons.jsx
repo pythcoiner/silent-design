@@ -16,6 +16,7 @@ const ICON_PATHS = {
   folder: '<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
   chevron_down: '<path d="m6 9 6 6 6-6"/>',
   chevron_right: '<path d="m9 18 6-6-6-6"/>',
+  chevron_left: '<path d="m15 18-6-6 6-6"/>',
   sd_card: '<path d="M4 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.4.6l4.5 4.5a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M11 7v3"/><path d="M14 7v3"/><path d="M17 7v3"/>',
   shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
   wallet: '<path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>',
@@ -25,9 +26,23 @@ const ICON_PATHS = {
   usb: '<circle cx="10" cy="7" r="1"/><circle cx="4" cy="20" r="1"/><path d="M4.7 19.3 19 5"/><path d="m21 3-3 1 2 2Z"/><path d="M9.26 7.68 5 12l2 5"/><path d="m10 14 5 2 3.5-3.5"/><path d="m18 12 1-1 1 1-1 1Z"/>',
   bitcoin: '<path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-3.94-.694m5.155-6.2L8.29 4.26m5.908 1.042.348-1.97M7.48 20.364l3.126-17.727"/>',
   layout: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>',
+  /* keys, signer and device flows (issue #2) */
+  key: '<path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/>',
+  puzzle: '<path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/>',
+  arrow_up: '<path d="m5 12 7-7 7 7"/><path d="M12 19V5"/>',
+  arrow_down: '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+  eye: '<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/>',
+  eye_off: '<path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/>',
+  alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+  info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  lock: '<rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  circle_check: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  circle_x: '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>',
 };
 
-function Icon({ name, size = 24, stroke = 2, className = '', style = {} }) {
+/* tone colours the glyph with a role token: accent | muted | secondary | success | warning | error. */
+const ICON_TONE = { accent: 'var(--accent)', muted: 'var(--text-muted)', secondary: 'var(--text-secondary)', success: 'var(--success)', warning: 'var(--warning)', error: 'var(--error)' };
+export function Icon({ name, size = 24, stroke = 2, tone, className = '', style = {} }) {
   const inner = ICON_PATHS[name] || '';
   return (
     <svg
@@ -40,7 +55,7 @@ function Icon({ name, size = 24, stroke = 2, className = '', style = {} }) {
       strokeWidth={stroke}
       strokeLinecap="round"
       strokeLinejoin="round"
-      style={{ display: 'block', flex: 'none', ...style }}
+      style={{ display: 'block', flex: 'none', color: tone ? ICON_TONE[tone] : undefined, ...style }}
       dangerouslySetInnerHTML={{ __html: inner }}
     />
   );
@@ -48,7 +63,7 @@ function Icon({ name, size = 24, stroke = 2, className = '', style = {} }) {
 
 Object.assign(window, { Icon, ICON_PATHS, SilentMark });
 
-function SilentMark({ size = 24, className = '', style = {} }) {
+export function SilentMark({ size = 24, className = '', style = {} }) {
   return (
     <svg className={className} width={size} height={size} viewBox="0 0 48 48" fill="none"
       style={{ display: 'block', flex: 'none', ...style }}>
@@ -58,3 +73,6 @@ function SilentMark({ size = 24, className = '', style = {} }) {
     </svg>
   );
 }
+
+/* File-level namespace (DS compiler indexes this file as `Icons`). */
+export const Icons = { Icon, SilentMark };

@@ -55,4 +55,96 @@ function fakeMnemonic() {
   return w.slice(0, 12).join(' ');
 }
 
-Object.assign(window, { SP_ADDRESS, WALLETS, KNOWN_WALLETS, NETWORKS, fakeMnemonic });
+/* ---------------- Keys, devices (issue #2) ----------------
+   Keys are per network. `routes` is ordered (first = primary). `hasHot` = a sealed
+   mnemonic is stored on this computer. Devices are the hardware wallets connected
+   right now; `fp` is null when the device can't report it (locked / unsupported). */
+const DEMO_XPUB_T = 'tpubDCtKfsNyRhULjZ9XMS4VKKtVcPdVDi8MKUbcSD9MJDyjRu1A2ND5MiipozyyspBT9bg8upEp7a8EAgFxNxXn1d7QkdbL52Ty5jiSLcxPt1P';
+const DEMO_XPUB_M = 'xpub6CUGRUonZSQ4TWtTMmzXdrXDtypWKiKrhko4egpiMZbpiaQL2jkwSB1icqYh2cfDfVxdx4df189oLKnC5fSwqPfgyP3hooxujYzAu3fDVmz';
+const desc = (fp, path, xpub) => `sp([${fp}/${path.replace(/^m\//, '')}]${xpub}/<0;1>/*)#7q9zr3kd`;
+
+const KEYS = [
+  { fp: '73c5da0a', alias: 'Daily Ledger', network: 'Signet', routes: ['usb', 'qr'], hasHot: false,
+    devicesSeen: [{ brand: 'Ledger', model: 'Nano S Plus', module: 'Ledger' }],
+    xpubs: [{ path: "m/84'/1'/0'", xpub: DEMO_XPUB_T, used: true }, { path: "m/86'/1'/0'", xpub: DEMO_XPUB_T.replace('CtK', 'Rw8'), used: false }],
+    descriptors: [
+      { desc: desc('73c5da0a', "m/352'/1'/0'", DEMO_XPUB_T), registered: true, account: 'savings', module: 'SP Accounts' },
+      { desc: desc('73c5da0a', "m/352'/1'/1'", DEMO_XPUB_T.replace('Lj', 'Qm')), registered: false, account: 'testing', module: 'SP Accounts' },
+    ] },
+  { fp: 'f23a9e01', alias: 'Laptop Hot Key', network: 'Signet', routes: ['hot'], hasHot: true,
+    devicesSeen: [], xpubs: [{ path: "m/84'/1'/0'", xpub: DEMO_XPUB_T.replace('Ctk', 'Hk2'), used: false }], descriptors: [] },
+  { fp: '5be0c7d2', alias: 'Vault Coldcard', network: 'Signet', routes: ['sd', 'qr'], hasHot: false,
+    devicesSeen: [{ brand: 'Coldcard', model: 'Q', module: 'Coldcard' }],
+    xpubs: [], descriptors: [{ desc: desc('5be0c7d2', "m/352'/1'/0'", DEMO_XPUB_T.replace('ULj', 'Vv3')), registered: true, account: 'savings' }] },
+  { fp: '9a41e6b3', alias: 'Backup Key', network: 'Signet', routes: ['hot', 'usb', 'sd'], hasHot: true,
+    devicesSeen: [{ brand: 'BitBox', model: 'BitBox02', module: 'BitBox' }], xpubs: [], descriptors: [] },
+  { fp: '0d6f2c88', alias: 'Cold Ledger', network: 'Bitcoin', routes: ['usb'], hasHot: false,
+    devicesSeen: [{ brand: 'Ledger', model: 'Nano X', module: 'Ledger' }],
+    xpubs: [{ path: "m/84'/0'/0'", xpub: DEMO_XPUB_M, used: true }],
+    descriptors: [{ desc: desc('0d6f2c88', "m/352'/0'/0'", DEMO_XPUB_M), registered: true, account: 'cold-storage' }] },
+];
+
+const DEVICES = [
+  { id: 'hid-0001', brand: 'Ledger', model: 'Nano S Plus', fp: '73c5da0a', state: 'ready', network: 'Signet', kind: 'Ledger', firmware: '1.4.1' },
+  { id: 'hid-0002', brand: 'Coldcard', model: 'Mk4', fp: '7e02da41', state: 'ready', network: 'Signet', kind: 'Coldcard', firmware: '5.4.0' },
+  { id: 'hid-0003', brand: 'Blockstream', model: 'Jade', fp: 'c0e1a7f4', state: 'ready', network: 'Signet', kind: 'Jade', firmware: '1.0.31',
+    registerError: 'The device disconnected before it returned its xpub. Reconnect it and try again.' },
+  { id: 'hid-0004', brand: 'BitBox', model: 'BitBox02', fp: null, state: 'locked', network: 'Signet', kind: 'BitBox',
+    detail: 'Enter the PIN on the device to unlock it.' },
+  { id: 'hid-0005', brand: 'Trezor', model: 'Model One', fp: null, state: 'unsupported', network: 'Signet', kind: 'Trezor',
+    detail: 'This model does not support silent payments.' },
+];
+
+const DEVICE_STATE = {
+  ready: { label: 'Ready', tone: 'success' },
+  locked: { label: 'Locked', tone: 'warning' },
+  unsupported: { label: 'Unsupported', tone: 'error' },
+};
+
+/* Signing plans: one row per key the transaction needs. `status` is the plan's
+   verdict for that key; `route` is the route it will use (null when none). */
+/* ---------------- Global settings (issue #4) ---------------- */
+const LANGUAGES = ['English', 'Français', 'Italiano', 'Deutsch', 'Português', 'Español'];
+/* External plugins found in ~/.silent/plugins/ (built-in modules are never listed). */
+const PLUGINS = [
+  { id: 'atomic-swaps', name: 'Atomic Swaps', version: '0.3.0', desc: 'Swap accounts and two extra themes.', enabled: true,
+    themes: ['Midnight', 'Paper'], accounts: ['swaps'] },
+  { id: 'payjoin', name: 'Payjoin', version: '1.2.3', desc: 'Payjoin sending and receiving.', enabled: false },
+  { id: 'nostr-backup', name: 'Nostr Backup', version: '0.1.4', enabled: true,
+    error: 'Could not load: the plugin was built for a newer Silent (needs 0.9, this is 0.8).' },
+];
+const EXTENSION_SECTIONS = [
+  { id: 'hw', title: 'Hardware Wallets', module: 'Hardware Wallets', icon: 'usb' },
+  { id: 'swaps', title: 'Atomic Swaps', module: 'Atomic Swaps', icon: 'puzzle' },
+];
+/* Demo stand-in for the BIP39 English list (the app checks the real 2048 words). */
+const BIP39_DEMO = new Set([...MNEMONIC_WORDS, 'lumber', 'quarter', 'solar', 'tiny', 'wisdom', 'zebra', 'abandon', 'ability', 'able', 'about', 'above', 'absent', 'absorb', 'abstract', 'absurd', 'abuse', 'access', 'accident', 'account', 'zoo']);
+const isBip39 = (w) => BIP39_DEMO.has(w);
+Object.assign(window, { BIP39_DEMO, isBip39, LANGUAGES, PLUGINS, EXTENSION_SECTIONS });
+
+const SIGNING_PLAN = [
+  { fp: '73c5da0a', alias: 'Daily Ledger', route: 'usb', status: 'first', device: 'Ledger Nano S Plus' },
+  { fp: 'f23a9e01', alias: 'Laptop Hot Key', route: 'hot', status: 'waiting' },
+];
+const SIGNING_PLAN_ALL = [
+  { fp: '73c5da0a', alias: 'Daily Ledger', route: 'usb', status: 'first', device: 'Ledger Nano S Plus' },
+  { fp: '5be0c7d2', alias: 'Vault Coldcard', route: 'qr', status: 'ready' },
+  { fp: 'f23a9e01', alias: 'Laptop Hot Key', route: 'hot', status: 'waiting' },
+  { fp: '9a41e6b3', alias: 'Backup Key', route: 'usb', status: 'disconnected', device: 'BitBox02' },
+  { fp: '3e8d1f20', alias: 'Old Hot Key', route: null, status: 'no_hot' },
+  { fp: '6c2a90bd', alias: 'Spare Key', route: null, status: 'no_route' },
+  { fp: 'e4b27a19', alias: null, route: null, status: 'unregistered' },
+];
+const VERIFY_PLAN = [
+  { fp: '73c5da0a', alias: 'Daily Ledger', route: 'usb', status: 'ready', device: 'Ledger Nano S Plus' },
+  { fp: '5be0c7d2', alias: 'Vault Coldcard', route: 'qr', status: 'ready' },
+];
+const OTHER_DEVICES = [{ name: 'Coldcard Mk4', fp: '7e02da41' }];
+
+Object.assign(window, { SIGNING_PLAN, SIGNING_PLAN_ALL, VERIFY_PLAN, OTHER_DEVICES });
+
+const defaultXpubPath = (network) => (network === 'Bitcoin' ? "m/84'/0'/0'" : "m/84'/1'/0'");
+const deviceName = (d) => (d.brand && d.model && !d.model.startsWith(d.brand) ? `${d.brand} ${d.model}` : d.model || d.brand);
+
+Object.assign(window, { SP_ADDRESS, WALLETS, KNOWN_WALLETS, NETWORKS, fakeMnemonic, MNEMONIC_WORDS,
+  KEYS, DEVICES, DEVICE_STATE, defaultXpubPath, deviceName, DEMO_XPUB_T, DEMO_XPUB_M });

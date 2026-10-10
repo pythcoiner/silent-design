@@ -1,189 +1,129 @@
 <!DOCTYPE html>
-<!-- @dsCard group="Generic Components" name="Generic — Buttons" subtitle="Button helper catalog — every usage is a hardcoded variant" viewport="980x760" -->
-<html lang="en" data-theme="light">
+<!-- @dsCard group="Generic Components" name="Generic — Buttons" subtitle="Every button usage as a hardcoded catalog entry (79) — BtnWidth enum · enabled · disabled" viewport="980x2700" -->
+<html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Silent — Button</title>
-<link rel="stylesheet" href="../colors_and_type.css" />
-<link rel="stylesheet" href="../components.css" />
-<script>
-  (function(){ try { document.documentElement.setAttribute('data-theme', localStorage.getItem('silent-ds-theme') || 'light'); } catch(e){} })();
-</script>
+<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
 <style>
-  * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); transition: background .2s, color .2s; }
-  a { text-decoration: none; color: inherit; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 36px 32px 72px; }
-  .bar { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
-  .pill { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); border-radius: 999px;
-    padding: 7px 14px; font: 500 13px var(--font-sans); color: var(--text-secondary); background: var(--surface);
-    cursor: pointer; text-decoration: none; white-space: nowrap; transition: border-color .15s, color .15s; }
-  .pill:hover { border-color: var(--accent); color: var(--text); }
-  .toggle { margin-left: auto; } .ic { width: 15px; height: 15px; display: inline-flex; }
-  .eyebrow { font: 600 11px var(--font-mono); letter-spacing: .18em; text-transform: uppercase; color: var(--accent); }
-  h1 { font: 700 30px var(--font-sans); letter-spacing: -0.02em; margin: 8px 0 6px; }
-  .sub { color: var(--text-secondary); font-size: 14px; line-height: 1.6; max-width: 660px; margin: 0; }
-  .sub code { font-family: var(--font-mono); font-size: 12px; background: var(--bg-secondary); border: 1px solid var(--border-light); border-radius: 5px; padding: 1px 6px; color: var(--text); }
-
-  .panel { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 22px; background: var(--surface); }
-  .panel .hd { padding: 13px 18px; font: 600 12px var(--font-mono); letter-spacing: .04em; color: var(--text-secondary); border-bottom: 1px solid var(--border-light); background: var(--bg-secondary); }
-  .row { display: grid; grid-template-columns: 230px 1fr 120px; align-items: center; gap: 16px; padding: 13px 18px; border-bottom: 1px solid var(--border-light); }
-  .row:last-child { border-bottom: none; }
-  .helper { font: 12px var(--font-mono); color: var(--text); }
-  .cell { display: flex; align-items: center; }
-  .tipwrap { position: relative; display: inline-flex; }
-  .tipwrap::after { content: attr(data-tip); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-    white-space: nowrap; background: var(--text); color: var(--bg); font: 500 11px var(--font-sans); padding: 5px 9px;
-    border-radius: var(--radius-inline-icon); box-shadow: 0 2px 8px rgba(0,0,0,0.25); opacity: 0; pointer-events: none;
-    transition: opacity .12s; z-index: 60; }
-  .tipwrap::before { content: ''; position: absolute; bottom: calc(100% + 4px); left: 50%; transform: translateX(-50%);
-    border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid var(--text);
-    opacity: 0; pointer-events: none; transition: opacity .12s; z-index: 60; }
-  .tipwrap:hover::after, .tipwrap:hover::before { opacity: 1; }
-  .sz { font: 11px var(--font-mono); color: var(--text-muted); text-align: right; }
-
-  details.dep { margin-top: 22px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; background: var(--surface); }
-  details.dep > summary { padding: 13px 18px; font: 600 12px var(--font-mono); color: var(--text-secondary); background: var(--bg-secondary);
-    cursor: pointer; user-select: none; list-style: none; display: flex; align-items: center; justify-content: space-between; }
-  details.dep > summary::after { content: '▸'; color: var(--text-muted); }
-  details.dep[open] > summary::after { content: '▾'; }
-  details.dep .note { padding: 12px 18px; color: var(--text-muted); font-size: 12px; line-height: 1.6; border-top: 1px solid var(--border-light); }
-  .dep-row { display: grid; grid-template-columns: 230px 1fr; align-items: center; gap: 16px; padding: 13px 18px; border-bottom: 1px solid var(--border-light); }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+  .wrap { padding: 22px 26px; display: flex; flex-direction: column; gap: 6px; }
+  .lbl { font: 600 10px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin: 14px 0 4px; }
+  .tbl { display: grid; grid-template-columns: 210px 110px minmax(0, 1fr) minmax(0, 1fr); gap: 8px 16px; align-items: center; }
+  .tbl .h { font: 600 10px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .id { font: 12px var(--font-mono); color: var(--text); }
+  .role { font: 11px var(--font-mono); color: var(--text-muted); }
+  .cell { display: flex; align-items: center; min-width: 0; }
+  
 </style>
+<link rel="stylesheet" href="specimen-shell.css" />
 </head>
 <body>
-<div class="wrap">
-  <div class="bar">
-    <a class="pill" id="back" href="category.html?g=generic-components">← Generic Components</a>
-    <button class="pill toggle" id="themeToggle"><span class="ic" id="themeIcon"></span><span id="themeLabel">Light</span></button>
+  <div class="wrap">
+    <div class="t-body" style="color:var(--text-secondary)">Every button is a named entry of <code>BUTTONS</code> (Variants.jsx): <code>&lt;Btn id="…" /&gt;</code>. Qt: one <code>btn_&lt;id&gt;()</code> helper each. Widths come only from the <code>BtnWidth</code> enum; text buttons are <b>M</b> unless the label cannot fit.</div>
+    <div class="lbl">BtnWidth enum</div>
+    <div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">Icon</span><span class="role" style="width:60px">30px</span><span style="height:8px;width:30px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">IconLg</span><span class="role" style="width:60px">50px</span><span style="height:8px;width:50px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">Index</span><span class="role" style="width:60px">60px</span><span style="height:8px;width:60px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">M</span><span class="role" style="width:60px">120px</span><span style="height:8px;width:120px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">L</span><span class="role" style="width:60px">160px</span><span style="height:8px;width:160px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">XL</span><span class="role" style="width:60px">200px</span><span style="height:8px;width:200px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">XXL</span><span class="role" style="width:60px">260px</span><span style="height:8px;width:260px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">LaunchEntry</span><span class="role" style="width:60px">300px</span><span style="height:8px;width:300px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">LaunchAdd</span><span class="role" style="width:60px">354px</span><span style="height:8px;width:354px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">Auto</span><span class="role" style="width:60px">content</span></div></div>
+    <div class="lbl">inline-icon · 17</div>
+    <div class="tbl"><span class="h">id</span><span class="h">width</span><span class="h">enabled</span><span class="h">disabled</span>
+      <span class="id">btn_modal_close</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></span>
+      <span class="id">btn_stepper_minus</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Less"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Less"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg></button></span>
+      <span class="id">btn_stepper_plus</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="More"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="More"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button></span>
+      <span class="id">btn_save_alias</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Save Alias"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Save Alias"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span>
+      <span class="id">btn_add_route_icon</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Add Route"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Add Route"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button></span>
+      <span class="id">btn_confirm_add_route</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Add This Route"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Add This Route"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span>
+      <span class="id">btn_cancel_add_route</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Cancel"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Cancel"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></span>
+      <span class="id">btn_copy_value</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Copy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Copy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button></span>
+      <span class="id">btn_copied_value</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Copied"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Copied"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span>
+      <span class="id">btn_app_settings</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="App Settings"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="App Settings"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/></svg></button></span>
+      <span class="id">btn_copied_sm</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Copied"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Copied"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span>
+      <span class="id">btn_copy_sm</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Copy"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Copy"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button></span>
+      <span class="id">btn_dismiss_notice</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Dismiss"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Dismiss"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></span>
+      <span class="id">btn_edit_label</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Edit label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Edit label"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></span>
+      <span class="id">btn_edit_label_row</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></span>
+      <span class="id">btn_move_down</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Move Down"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Move Down"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></button></span>
+      <span class="id">btn_move_up</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Move Up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Move Up"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></button></span>
+      <span class="id">btn_remove_payment</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Remove Payment"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Remove Payment"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></span>
+      <span class="id">btn_remove_route</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></span>
+      <span class="id">btn_save_label</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" title="Save"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled title="Save"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span>
+      <span class="id">btn_verify_on_device_sm</span><span class="role">Icon</span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="1"/><circle cx="4" cy="20" r="1"/><path d="M4.7 19.3 19 5"/><path d="m21 3-3 1 2 2Z"/><path d="M9.26 7.68 5 12l2 5"/><path d="m10 14 5 2 3.5-3.5"/><path d="m18 12 1-1 1 1-1 1Z"/></svg></button></span><span class="cell"><button class="s-btn s-btn--inline-icon s-btn--w-icon" disabled><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="1"/><circle cx="4" cy="20" r="1"/><path d="M4.7 19.3 19 5"/><path d="m21 3-3 1 2 2Z"/><path d="M9.26 7.68 5 12l2 5"/><path d="m10 14 5 2 3.5-3.5"/><path d="m18 12 1-1 1 1-1 1Z"/></svg></button></span>
+    </div>
+    <div class="lbl">default · 27</div>
+    <div class="tbl"><span class="h">id</span><span class="h">width</span><span class="h">enabled</span><span class="h">disabled</span>
+      <span class="id">btn_back</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Back</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Back</button></span>
+      <span class="id">btn_previous</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Previous</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Previous</button></span>
+      <span class="id">btn_other_signer</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--w-l"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Other Signer</button></span><span class="cell"><button class="s-btn s-btn--w-l" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>Other Signer</button></span>
+      <span class="id">btn_all_settings</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--w-l"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>All Settings</button></span><span class="cell"><button class="s-btn s-btn--w-l" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>All Settings</button></span>
+      <span class="id">btn_add_a_key</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m">+ Add a Key</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled>+ Add a Key</button></span>
+      <span class="id">btn_add_payment</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--w-l">+ Add Payment</button></span><span class="cell"><button class="s-btn s-btn--w-l" disabled>+ Add Payment</button></span>
+      <span class="id">btn_clear</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m">Clear</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled>Clear</button></span>
+      <span class="id">btn_connect_blindbit</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--w-l">Connect Blindbit</button></span><span class="cell"><button class="s-btn s-btn--w-l" disabled>Connect Blindbit</button></span>
+      <span class="id">btn_connect_electrum</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--w-l">Connect Electrum</button></span><span class="cell"><button class="s-btn s-btn--w-l" disabled>Connect Electrum</button></span>
+      <span class="id">btn_generate</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m">Generate</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled>Generate</button></span>
+      <span class="id">btn_generate_new</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--w-l"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>Generate New</button></span><span class="cell"><button class="s-btn s-btn--w-l" disabled><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>Generate New</button></span>
+      <span class="id">btn_get_again</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--w-l">Get Again</button></span><span class="cell"><button class="s-btn s-btn--w-l" disabled>Get Again</button></span>
+      <span class="id">btn_get_descriptor</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--w-l">Get Descriptor</button></span><span class="cell"><button class="s-btn s-btn--w-l" disabled>Get Descriptor</button></span>
+      <span class="id">btn_load_export_file</span><span class="role">XL</span><span class="cell"><button class="s-btn s-btn--w-xl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Load Export File…</button></span><span class="cell"><button class="s-btn s-btn--w-xl" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Load Export File…</button></span>
+      <span class="id">btn_open</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m">Open</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled>Open</button></span>
+      <span class="id">btn_open_keys_tab</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--w-l">Open Keys Tab</button></span><span class="cell"><button class="s-btn s-btn--w-l" disabled>Open Keys Tab</button></span>
+      <span class="id">btn_reveal_mnemonic</span><span class="role">XL</span><span class="cell"><button class="s-btn s-btn--w-xl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>Reveal Mnemonic</button></span><span class="cell"><button class="s-btn s-btn--w-xl" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>Reveal Mnemonic</button></span>
+      <span class="id">btn_save</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m">Save</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled>Save</button></span>
+      <span class="id">btn_scan_again</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m">Scan Again</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled>Scan Again</button></span>
+      <span class="id">btn_test</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m">Test</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled>Test</button></span>
+      <span class="id">btn_test_ok</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m">✓ Test</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled>✓ Test</button></span>
+      <span class="id">btn_testing</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--w-m">Testing…</button></span><span class="cell"><button class="s-btn s-btn--w-m" disabled>Testing…</button></span>
+    </div>
+    <div class="lbl">primary · 23</div>
+    <div class="tbl"><span class="h">id</span><span class="h">width</span><span class="h">enabled</span><span class="h">disabled</span>
+      <span class="id">btn_add_key</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Add Key</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Add Key</button></span>
+      <span class="id">btn_broadcast</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Broadcast</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Broadcast</button></span>
+      <span class="id">btn_check_address</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Check</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Check</button></span>
+      <span class="id">btn_continue</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Continue</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Continue</button></span>
+      <span class="id">btn_create</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Create</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Create</button></span>
+      <span class="id">btn_done</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Done</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Done</button></span>
+      <span class="id">btn_get_descriptor_hot</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-l">Get Descriptor</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-l" disabled>Get Descriptor</button></span>
+      <span class="id">btn_load_signed_psbt</span><span class="role">XL</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-xl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Load Signed PSBT…</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-xl" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Load Signed PSBT…</button></span>
+      <span class="id">btn_next_scan_the_answer</span><span class="role">XL</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-xl">Next: Scan the Answer</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-xl" disabled>Next: Scan the Answer</button></span>
+      <span class="id">btn_ok</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">OK</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>OK</button></span>
+      <span class="id">btn_pick_another_file</span><span class="role">XL</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-xl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Pick Another File…</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-xl" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>Pick Another File…</button></span>
+      <span class="id">btn_proceed</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Proceed</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Proceed</button></span>
+      <span class="id">btn_register</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Register</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Register</button></span>
+      <span class="id">btn_save_settings</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-l">Save Settings</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-l" disabled>Save Settings</button></span>
+      <span class="id">btn_save_unsigned_psbt</span><span class="role">XL</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-xl"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>Save Unsigned PSBT…</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-xl" disabled><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg>Save Unsigned PSBT…</button></span>
+      <span class="id">btn_seal_key</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Seal Key</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Seal Key</button></span>
+      <span class="id">btn_show_mnemonic</span><span class="role">L</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-l">Show Mnemonic</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-l" disabled>Show Mnemonic</button></span>
+      <span class="id">btn_sign</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Sign</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Sign</button></span>
+      <span class="id">btn_sign_hot</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Sign</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Sign</button></span>
+      <span class="id">btn_try_again</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Try Again</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Try Again</button></span>
+      <span class="id">btn_unlocking</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m">Unlocking…</button></span><span class="cell"><button class="s-btn s-btn--primary s-btn--w-m" disabled>Unlocking…</button></span>
+    </div>
+    <div class="lbl">destructive · 2</div>
+    <div class="tbl"><span class="h">id</span><span class="h">width</span><span class="h">enabled</span><span class="h">disabled</span>
+      <span class="id">btn_delete</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--destructive s-btn--w-m">Delete</button></span><span class="cell"><button class="s-btn s-btn--destructive s-btn--w-m" disabled>Delete</button></span>
+      <span class="id">btn_remove_key</span><span class="role">M</span><span class="cell"><button class="s-btn s-btn--destructive s-btn--w-m">Remove Key</button></span><span class="cell"><button class="s-btn s-btn--destructive s-btn--w-m" disabled>Remove Key</button></span>
+    </div>
+    <div class="lbl">inline · 4</div>
+    <div class="tbl"><span class="h">id</span><span class="h">width</span><span class="h">enabled</span><span class="h">disabled</span>
+      <span class="id">btn_add_label</span><span class="role">Auto</span><span class="cell"><button class="s-btn s-btn--inline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Add a Label</button></span><span class="cell"><button class="s-btn s-btn--inline" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Add a Label</button></span>
+      <span class="id">btn_awaiting_payment</span><span class="role">Auto</span><span class="cell"><button class="s-btn s-btn--inline">Addr. awaiting payment (3)</button></span><span class="cell"><button class="s-btn s-btn--inline" disabled>Addr. awaiting payment (3)</button></span>
+      <span class="id">btn_hide_words</span><span class="role">Auto</span><span class="cell"><button class="s-btn s-btn--inline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>Hide Words</button></span><span class="cell"><button class="s-btn s-btn--inline" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>Hide Words</button></span>
+      <span class="id">btn_show_words</span><span class="role">Auto</span><span class="cell"><button class="s-btn s-btn--inline"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>Show Words</button></span><span class="cell"><button class="s-btn s-btn--inline" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>Show Words</button></span>
+    </div>
+    <div class="lbl">icon · 4</div>
+    <div class="tbl"><span class="h">id</span><span class="h">width</span><span class="h">enabled</span><span class="h">disabled</span>
+      <span class="id">btn_copied</span><span class="role">IconLg</span><span class="cell"><button class="s-btn s-btn--icon s-btn--w-iconlg" title="Copied"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span><span class="cell"><button class="s-btn s-btn--icon s-btn--w-iconlg" disabled title="Copied"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button></span>
+      <span class="id">btn_copy_address</span><span class="role">IconLg</span><span class="cell"><button class="s-btn s-btn--icon s-btn--w-iconlg" title="Copy Address"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button></span><span class="cell"><button class="s-btn s-btn--icon s-btn--w-iconlg" disabled title="Copy Address"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button></span>
+      <span class="id">btn_delete_wallet</span><span class="role">IconLg</span><span class="cell"><button class="s-btn s-btn--icon s-btn--w-iconlg" title="Delete wallet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></span><span class="cell"><button class="s-btn s-btn--icon s-btn--w-iconlg" disabled title="Delete wallet"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></span>
+      <span class="id">btn_verify_on_device</span><span class="role">IconLg</span><span class="cell"><button class="s-btn s-btn--icon s-btn--w-iconlg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="1"/><circle cx="4" cy="20" r="1"/><path d="M4.7 19.3 19 5"/><path d="m21 3-3 1 2 2Z"/><path d="M9.26 7.68 5 12l2 5"/><path d="m10 14 5 2 3.5-3.5"/><path d="m18 12 1-1 1 1-1 1Z"/></svg></button></span><span class="cell"><button class="s-btn s-btn--icon s-btn--w-iconlg" disabled><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="1"/><circle cx="4" cy="20" r="1"/><path d="M4.7 19.3 19 5"/><path d="m21 3-3 1 2 2Z"/><path d="M9.26 7.68 5 12l2 5"/><path d="m10 14 5 2 3.5-3.5"/><path d="m18 12 1-1 1 1-1 1Z"/></svg></button></span>
+    </div>
+    <div class="lbl">tab-open · 1</div>
+    <div class="tbl"><span class="h">id</span><span class="h">width</span><span class="h">enabled</span><span class="h">disabled</span>
+      <span class="id">btn_open_wallet</span><span class="role">LaunchEntry</span><span class="cell"><button class="s-btn s-btn--tab-open s-btn--w-launchentry">savings</button></span><span class="cell"><button class="s-btn s-btn--tab-open s-btn--w-launchentry" disabled>savings</button></span>
+    </div>
+    <div class="lbl">tab-create · 1</div>
+    <div class="tbl"><span class="h">id</span><span class="h">width</span><span class="h">enabled</span><span class="h">disabled</span>
+      <span class="id">btn_create_new_wallet</span><span class="role">LaunchAdd</span><span class="cell"><button class="s-btn s-btn--tab-create s-btn--w-launchadd">+ Create New Wallet</button></span><span class="cell"><button class="s-btn s-btn--tab-create s-btn--w-launchadd" disabled>+ Create New Wallet</button></span>
+    </div>
   </div>
-  <div class="eyebrow">Silent · Component</div>
-  <h1>Button</h1>
-  <p class="sub">Consume <code>window.Silent.Button</code> through a <b>named helper per usage</b> — each helper hardcodes its
-    label, role and width so call sites stay declarative. The raw role/size classes below are <b>deprecated for direct use</b>.</p>
-  <p class="sub" style="margin-top:10px">Sizes are <b>enum-only</b>. <code>BtnWidth</code> — <code>Icon</code> 30 · <code>IconLg</code> 50 · <code>Index</code> 60 · <code>S</code> 100 · <code>M</code> 120 · <code>L</code> 160 · <code>XL</code> 200 · <code>XXL</code> 260 · <code>LaunchEntry</code> 300 · <code>LaunchAdd</code> 354 · <code>Auto</code>; <code>BtnHeight</code> — <code>Icon</code> 30 · <code>IconLg</code> 50 · <code>S</code> 30 · <code>M</code> 36 · <code>L</code> 46 · <code>XL</code> 50. Each row shows <code>width × height</code> as enum names.</p>
-
-  <div class="panel">
-    <div class="hd">Button helpers — one hardcoded variant per usage</div>
-    <div id="helperRows"></div>
-  </div>
-
-  <details class="dep">
-    <summary>Deprecated / local use only</summary>
-    <div id="depRows"></div>
-    <div class="note">Raw <code>.s-btn*</code> role &amp; size classes. Don't apply them directly downstream — call the semantic
-      <code>btn_*</code> helpers above (they map to these). Mirrored here only for parity with existing call sites.</div>
-  </details>
-</div>
-
-<script>
-  // BtnWidth enum — fixed widths in px (Auto = content-sized).
-  const BTN_WIDTH = { Icon: 30, IconLg: 50, Index: 60, S: 100, M: 120, L: 160, XL: 200, XXL: 260, LaunchEntry: 300, LaunchAdd: 354, Auto: null };
-  // BtnHeight enum — fixed control heights in px.
-  const BTN_HEIGHT = { Icon: 30, IconLg: 50, S: 30, M: 36, L: 46, XL: 50 };
-  // These classes carry their own control size from CSS; don't apply an inline width.
-  const CSS_SIZED = new Set(['s-btn--inline-icon', 's-btn--icon', 's-btn--tab-open', 's-btn--tab-create', 's-index']);
-  // [helper, roleClass, label, BtnWidth, BtnHeight, icon]
-  const HELPERS = [
-    ['btn_sign', 's-btn--primary', 'Sign', 'M', 'M'],
-    ['btn_broadcast', 's-btn--primary', 'Broadcast', 'M', 'M'],
-    ['btn_confirm', 's-btn--primary', 'Confirm', 'M', 'M'],
-    ['btn_save_settings', 's-btn--primary', 'Save Settings', 'L', 'M'],
-    ['btn_create', 's-btn--primary', 'Create', 'M', 'M'],
-    ['btn_clear', 's-btn', 'Clear', 'M', 'M'],
-    ['btn_cancel', 's-btn', 'Cancel', 'M', 'M'],
-    ['btn_connect', 's-btn', 'Connect Electrum', 'L', 'M'],
-    ['btn_test', 's-btn', 'Test', 'S', 'M'],
-    ['btn_generate', 's-btn', 'Generate new', 'L', 'M', 'refresh'],
-    ['btn_delete', 's-btn--destructive', 'Delete', 'M', 'M'],
-    ['btn_add_payment', 's-btn', 'Add payment', 'L', 'M', 'plus'],
-    ['btn_add_label', 's-btn--inline', 'Add a label', 'L', 'M', 'plus'],
-    ['btn_awaiting_payment', 's-btn--inline', 'Addr. awaiting payment (3)', 'Auto', 'M'],
-    ['btn_remove', 's-btn--inline-icon', '', 'Icon', 'Icon', 'x', 'Remove payment'],
-    ['btn_save', 's-btn--inline-icon', '', 'Icon', 'Icon', 'check', 'Save'],
-    ['btn_verify', 's-btn--inline-icon', '', 'Icon', 'Icon', 'usb', 'Verify on signing device'],
-    ['btn_copy', 's-btn--inline-icon', '', 'Icon', 'Icon', 'copy', 'Copy'],
-    ['btn_add_account', 's-btn--icon', '', 'IconLg', 'IconLg', 'plus'],
-    ['btn_copy_lg', 's-btn--icon', '', 'IconLg', 'IconLg', 'copy', 'Copy address'],
-    ['btn_verify_lg', 's-btn--icon', '', 'IconLg', 'IconLg', 'usb', 'Verify on signing device'],
-    ['btn_index', 's-index', '9', 'Index', 'Icon', 'qr'],
-    ['btn_open_wallet', 's-btn--tab-open', 'savings', 'LaunchEntry', 'XL'],
-    ['btn_create_wallet', 's-btn--tab-create', '+ Create New Wallet', 'LaunchAdd', 'XL'],
-  ];
-  const DEPRECATED = [
-    ['.s-btn', 's-btn', 'Default'],
-    ['.s-btn--primary', 's-btn--primary', 'Send'],
-    ['.s-btn--destructive', 's-btn--destructive', 'Delete'],
-    ['.s-btn--inline', 's-btn--inline', '+ Add'],
-    ['.s-btn--icon', 's-btn--icon', '', 'plus'],
-    ['.s-btn--inline-icon', 's-btn--inline-icon', '', 'pencil'],
-    ['.s-btn--menu', 's-btn--menu', 'History', 'menu'],
-  ];
-  const ICONS = {
-    plus: '<path d="M5 12h14M12 5v14"/>',
-    qr: '<rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>',
-    x: '<path d="M18 6 6 18M6 6l12 12"/>',
-    check: '<path d="M20 6 9 17l-5-5"/>',
-    copy: '<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
-    refresh: '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/>',
-    usb: '<circle cx="10" cy="7" r="1"/><circle cx="4" cy="20" r="1"/><path d="M4.7 19.3 19 5"/><path d="m21 3-3 1 2 2Z"/><path d="M9.26 7.68 5 12l2 5"/><path d="m10 14 5 2 3.5-3.5"/><path d="m18 12 1-1 1 1-1 1Z"/>',
-    pencil: '<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
-    menu: '<path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0M3 12h6m6 0h6"/>',
-  };
-  function icon(name, sz) { return name ? `<svg width="${sz||16}" height="${sz||16}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>` : ''; }
-  function btn(cls, label, ic, wpx) {
-    if (cls === 's-index') {
-      return `<button class="s-btn" style="width:60px;height:30px;min-height:0;padding:0 8px;gap:6px">${icon('qr', 13)}<span style="font:600 12px var(--font-mono);color:var(--text)">${label}</span></button>`;
-    }
-    const isIcon = cls.indexOf('icon') !== -1;
-    const sz = isIcon ? (cls.indexOf('inline') !== -1 ? 15 : 20) : 16;
-    const ig = icon(ic, sz);
-    const inner = isIcon ? ig : (ig ? ig : '') + label;
-    const st = wpx ? ` style="width:${wpx}px"` : '';
-    const copyAttr = ic === 'copy' ? ` data-copy-demo="${sz}"` : '';
-    return `<button class="s-btn ${cls === 's-btn' ? '' : cls}"${st}${copyAttr}>${inner}</button>`;
-  }
-  document.getElementById('helperRows').innerHTML = HELPERS.map(function (h) {
-    const w = h[3], px = (!CSS_SIZED.has(h[1]) && w && BTN_WIDTH[w]) ? BTN_WIDTH[w] : null;
-    const size = w + ' × ' + h[4];
-    const tip = h[6];
-    const cell = tip
-      ? `<span class="tipwrap" data-tip="${tip}">${btn(h[1], h[2], h[5], px)}</span>`
-      : btn(h[1], h[2], h[5], px);
-    return `<div class="row"><span class="helper">${h[0]}</span><span class="cell">${cell}</span><span class="sz">${size}</span></div>`;
-  }).join('');
-  document.getElementById('depRows').innerHTML = DEPRECATED.map(function (d) {
-    return `<div class="dep-row"><span class="helper">${d[0]}</span><span class="cell">${btn(d[1], d[2], d[3])}</span></div>`;
-  }).join('');
-
-  // Copy buttons demo their copy→check feedback on click, mirroring the real app.
-  function svgWrap(name, sz) {
-    return `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]}</svg>`;
-  }
-  document.addEventListener('click', function (e) {
-    const b = e.target.closest('[data-copy-demo]');
-    if (!b || b.dataset.copied === '1') return;
-    const sz = b.dataset.copyDemo;
-    b.dataset.copied = '1';
-    b.innerHTML = svgWrap('check', sz);
-    b.firstChild.style.transition = 'transform .15s ease';
-    b.firstChild.style.transform = 'scale(0)';
-    requestAnimationFrame(() => { b.firstChild.style.transform = 'scale(1)'; });
-    setTimeout(function () {
-      b.innerHTML = svgWrap('copy', sz);
-      delete b.dataset.copied;
-    }, 1400);
-  });
-
-  var g = new URLSearchParams(location.search).get('g');
-  if (g) { var b = document.getElementById('back'); b.href = 'category.html?g=' + encodeURIComponent(g); b.textContent = '← ' + g.replace(/-/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); }); }
-  const SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="15" height="15"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
-  const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
-  const r = document.documentElement, ti = document.getElementById('themeIcon'), tl = document.getElementById('themeLabel');
-  function apply(t){ r.setAttribute('data-theme', t); try { localStorage.setItem('silent-ds-theme', t); } catch(e){} ti.innerHTML = t === 'dark' ? MOON : SUN; tl.textContent = t === 'dark' ? 'Dark' : 'Light'; }
-  apply(r.getAttribute('data-theme') || 'light');
-  document.getElementById('themeToggle').addEventListener('click', () => apply(r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
-</script>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
 </body>
 </html>

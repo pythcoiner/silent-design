@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- @dsCard group="Generic Components" name="Generic — Toggle" subtitle="40×20 switch · plain (accent) + status (green/red)" viewport="700x180" -->
+<!-- @dsCard group="Generic Components" name="Generic — Toggle" subtitle="40×20 switch · plain (accent) · status (green/red) · disabled" viewport="700x180" -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -26,6 +26,11 @@
       <div class="pair"><span class="s-toggle s-toggle--status is-on"></span><span class="t">Scanning…</span></div>
       <div class="pair"><span class="s-toggle s-toggle--status"></span><span class="t">Disconnected</span></div>
       <div class="lbl">Status · green / red</div>
+    </div>
+    <div class="col">
+      <div class="pair"><span class="s-toggle is-on is-disabled"></span><span class="t">Unloading…</span></div>
+      <div class="pair"><span class="s-toggle is-disabled"></span><span class="t">Unavailable</span></div>
+      <div class="lbl">Disabled</div>
     </div>
   </div>
   <script src="catalog-data.js"></script>

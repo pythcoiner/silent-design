@@ -148,9 +148,9 @@ function TxFlow({ inputs, outputs, width = 300, height = 188 }) {
           background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 8, padding: '9px 11px',
           boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
         }}>
-          <Text as="div" variant="body" weight="demibold" style={{ fontSize: 12 }}>{data.title}</Text>
-          {data.usd ? <Text as="div" variant="mono" color="secondary" style={{ fontSize: 13, marginTop: 3 }}>{data.usd}</Text> : null}
-          {data.addr ? <Text as="div" variant="mono" color="muted" style={{ fontSize: 11, marginTop: 3, wordBreak: 'break-all' }}>{txMidAddr(data.addr)}</Text> : null}
+          <Text as="div" variant="body" weight="demibold">{data.title}</Text>
+          {data.usd ? <Text as="div" variant="mono" color="secondary">{data.usd}</Text> : null}
+          {data.addr ? <Text as="div" variant="mono" color="muted" size="sm" wrap="anywhere">{txMidAddr(data.addr)}</Text> : null}
         </div>
       ) : null}
     </div>

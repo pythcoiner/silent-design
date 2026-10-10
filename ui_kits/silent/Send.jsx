@@ -1,4 +1,5 @@
-/* Silent UI Kit — Send screen (Send.cpp + signer/PSBT/broadcast modals).
+/* Silent UI Kit — Send screen (Send.cpp + broadcast modal). Signing runs
+   through SigningFlow (Signing.jsx): picker → route steps, in one modal.
    Two-pane layout: payments + coin selection on the left, a persistent
    transaction summary / send rail on the right (with a tx-shape diagram). */
 
@@ -15,11 +16,9 @@ function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete }) {
   const addrState = out.address === '' ? 'none' : looksLikeAddress(out.address) ? 'valid' : 'invalid';
   const amtState = out.max ? 'none' : out.amount === '' ? 'none' : looksLikeAmount(out.amount) ? 'valid' : 'invalid';
   return (
-    <Card style={{ position: 'relative' }}>
-      {deletable ? (
-        <Button role="inline-icon" onClick={onDelete} title="Remove payment"
-          style={{ position: 'absolute', top: 8, left: 8 }}><Icon name="x" size={16} /></Button>
-      ) : null}
+    <Card corner={deletable ? (
+      <Btn id="remove_payment" onClick={onDelete} />
+    ) : null}>
 
       <PaymentRow label="Address">
         <ValidatedInput mono state={addrState} placeholder="sp1q… / bc1q…"
@@ -139,17 +138,18 @@ function SendScreen({ wallet }) {
     <Row gap="s" style={{ marginBottom: 'var(--space-s)', minHeight: 34 }}>
       <SectionLabel>{auto ? 'Coins selection' : selCount > 0 ? `Coins · ${selCount} selected` : 'Coins selection'}</SectionLabel>
       <Spacer />
-      {!auto ? <Button onClick={() => setSelected({})}>Clear</Button> : null}
+      {!auto ? <Btn id="clear" onClick={() => setSelected({})} /> : null}
       <Checkbox checked={auto} onChange={setAuto} label="Auto coin selection" />
     </Row>
   );
 
   // Fold to a one-line summary only when stacked + auto; otherwise show the full list.
   const coinsBodyFor = (sideBySide) => (auto && !sideBySide) ? (
-    <Card tone="inset" style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--space-s)',
-      borderRadius: 'var(--radius-input)', padding: '11px var(--pad-m)' }}>
+    <Card tone="inset" pad="m">
+      <Row align="baseline" gap="s">
       <Amount value={autoSel.amount.toFixed(8)} size="lg" unit="BTC"
         count={`(${autoSel.count} coin${autoSel.count === 1 ? '' : 's'})`} />
+          </Row>
     </Card>
   ) : (
     <CoinTable coins={wallet.coins} readOnly={auto}
@@ -167,7 +167,7 @@ function SendScreen({ wallet }) {
       <Divider space="0" style={{ margin: 'var(--space-l) 0 var(--space-m)' }} />
 
       {/* Payments */}
-      <SectionLabel style={{ marginBottom: 'var(--space-s)' }}>Payments</SectionLabel>
+      <SectionHeader label="Payments" />
       <Stack gap="s">
         {outputs.map((o, i) => (
           <RecipientCard key={i} out={o} idx={i} deletable={outputs.length > 1}
@@ -175,15 +175,13 @@ function SendScreen({ wallet }) {
         ))}
       </Stack>
       <Row justify="flex-end" style={{ marginTop: 'var(--space-s)' }}>
-        <Button onClick={addOutput} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-          <Icon name="plus" size={16} />Add payment
-        </Button>
+        <Btn id="add_payment" onClick={addOutput} />
       </Row>
     </div>
   );
 
   const txDiagram = (
-    <Card tone="inset" style={{ borderRadius: 10, padding: '10px 8px 6px' }}>
+    <Card tone="inset" pad="s">
       <TxFlow inputs={inItems} outputs={outItems} />
       {inItems.length && outItems.length ? (
         <Row justify="space-between" style={{ padding: '6px 6px 2px' }}>
@@ -228,13 +226,13 @@ function SendScreen({ wallet }) {
       <Spacer />
       <Row gap="s" style={{ flex: 'none' }}>
         {signed ? (
-          <Badge tone="success" icon="check">Signed</Badge>
+          <Pill id="tx_signed" />
         ) : null}
-        <Button onClick={clearAll} style={{ flex: 'none' }}>Clear</Button>
+        <Btn id="clear" onClick={clearAll} />
         {signed ? (
-          <Button role="primary" onClick={() => setModal({ type: 'broadcast' })} style={{ flex: 'none' }}>Broadcast</Button>
+          <Btn id="broadcast" onClick={() => setModal({ type: 'broadcast' })} style={{ flex: 'none' }} />
         ) : (
-          <Button role="primary" disabled={!valid} onClick={() => setModal('signer')} style={{ flex: 'none' }}>Sign</Button>
+          <Btn id="sign" disabled={!valid} onClick={() => setModal('signer')} style={{ flex: 'none' }} />
         )}
       </Row>
     </Row>
@@ -269,225 +267,13 @@ function SendScreen({ wallet }) {
     <React.Fragment>
       <DashboardLayout title="Send" primary={renderPrimary} secondary={renderSecondary} />
       {modal === 'signer' ? (
-        <SelectSigner walletName={wallet.name}
-          onCancel={() => setModal(null)}
-          onPick={(d) => setModal(d.kind === 'sd' ? { type: 'sd', device: d }
-            : d.kind === 'qr' ? { type: 'qr' }
-            : { type: 'usb', device: d })} />
-      ) : null}
-      {modal && modal.type === 'usb' ? (
-        <UsbConfirm device={modal.device} onCancel={() => setModal(null)} />
-      ) : null}
-      {modal && modal.type === 'sd' ? (
-        <SdPicker device={modal.device} onCancel={() => setModal(null)} />
-      ) : null}
-      {modal && modal.type === 'qr' ? (
-        <ScanPsbt onCancel={() => setModal(null)} onNext={() => setModal({ type: 'qr-scan' })} />
-      ) : null}
-      {modal && modal.type === 'qr-scan' ? (
-        <ScanCamera onCancel={() => setModal(null)} onBack={() => setModal({ type: 'qr' })}
-          onDone={() => { setSigned(true); setModal(null); }} />
+        <SigningFlow context="sign" plan={window.SIGNING_PLAN} others={window.OTHER_DEVICES} fileBase={wallet.name}
+          onCancel={() => setModal(null)} onDone={() => { setSigned(true); setModal(null); }} />
       ) : null}
       {modal && modal.type === 'broadcast' ? (
         <BroadcastModal onClose={() => { clearAll(); setModal(null); }} />
       ) : null}
     </React.Fragment>
-  );
-}
-
-const SIGNER_DEVICES = [
-  { name: 'Ledger Nano S Plus', fp: '#a4f9c821', icon: 'usb', kind: 'usb' },
-  { name: 'Coldcard Mk4', fp: '#7e02da41', icon: 'usb', kind: 'usb' },
-  { name: 'BitBox02', fp: '#b1740c3e', icon: 'usb', kind: 'usb' },
-  { name: 'SD card airgap device', icon: 'sd_card', kind: 'sd' },
-  { name: 'QR Code airgap device', icon: 'qr', kind: 'qr' },
-];
-
-function SelectSigner({ walletName, onCancel, onPick, devices = SIGNER_DEVICES, title = 'Select a signer' }) {
-  return (
-    <Modal title={title} width={520} onClose={onCancel}>
-      <Stack gap="s">
-        {devices.map((d, i) => (
-          <SelectRow key={i} icon={d.icon} title={d.name} meta={d.fp} onClick={() => onPick(d)} />
-        ))}
-      </Stack>
-    </Modal>
-  );
-}
-
-/* USB hardware-wallet: waiting for on-device confirmation. */
-function UsbConfirm({ device, onCancel }) {
-  return (
-    <Modal title={device.name} width={460} onClose={onCancel}>
-      <ModalStatus spinner title="Confirm on your device…"
-        subtitle={`Review the transaction details on ${device.name} and approve to sign.`}
-        pad="var(--space-l) 0 var(--space-m)">
-        <Button onClick={onCancel}>Cancel</Button>
-      </ModalStatus>
-    </Modal>
-  );
-}
-
-/* SD-card airgap: placeholder for the OS file picker. */
-function SdPicker({ device, onCancel }) {
-  return (
-    <Modal title={device.name} width={460} onClose={onCancel}>
-      <ModalStatus icon="folder" title="Must open a file picker"
-        subtitle="Save the unsigned PSBT to the SD card, sign it on the device, then load the signed file back." />
-    </Modal>
-  );
-}
-
-/* QR airgap: animated PSBT QR with display tuning. */
-const PSBT_PAYLOAD = (
-  'cHNidP8BAHECAAAAAfwzq1kY2hVi9k3lQ8nT0pXrWb7mGv4Lh2Jd9sKfP1aoAAAAAAA' +
-  'D9____AoCWmAAAAAAAFgAUq3Zr8tN1dJ0hLmC4wVfYx2kPbT5AQg8AAAAAABYAFLuh' +
-  '7cP2mZ9oXkqR3sVbTtMu1nQwAAAAAAEBH0BCDwAAAAAAFgAU8aQxk2nF0pZ7Lm3vBt' +
-  'WcYxRd9KsiBgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7mGv4Lh0Yz1a8tVAAAA' +
-  'gAAAAIAAAACAAAAAAAAAAAAAAQUiAgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7m'
-);
-
-function ScanPsbt({ onCancel, onNext }) {
-  const [contrast, setContrast] = React.useState(3);   // 1–5
-  const [density, setDensity] = React.useState(3);     // 1–5
-  const [speed, setSpeed] = React.useState(3);         // 1–5
-
-  const parts = React.useMemo(() => {
-    const chunk = density * 24;                         // fewer chars at low density = less dense QR
-    const n = Math.max(2, Math.ceil(PSBT_PAYLOAD.length / chunk));
-    const out = [];
-    for (let i = 0; i < n; i++) {
-      const body = PSBT_PAYLOAD.slice(i * chunk, (i + 1) * chunk);
-      out.push(`UR:CRYPTO-PSBT/${i + 1}-${n}/${body}`);
-    }
-    return out;
-  }, [density]);
-
-  const [frame, setFrame] = React.useState(0);
-  const interval = 520 - speed * 80;                    // faster = shorter interval
-  React.useEffect(() => {
-    setFrame(0);
-    const id = setInterval(() => setFrame((f) => (f + 1) % parts.length), interval);
-    return () => clearInterval(id);
-  }, [parts, interval]);
-
-  const svg = React.useMemo(() => qrSvg(parts[frame] || '', { ecOrder: ['L', 'M'] }), [parts, frame]);
-
-  const bgL = 40 + (contrast - 1) * 15;                // contrast 5 = white bg, 1 = dark grey bg (low contrast)
-  const bg = `hsl(220 14% ${bgL}%)`;
-
-  return (
-    <Modal title="Show PSBT" width={860} onClose={onCancel}>
-      <Stack align="center" gap="m">
-        <QRCard size={720} pad={20} radius={12} bg={bg} style={{ maxWidth: '100%' }}>
-          <div style={{ width: '100%', height: '100%' }} dangerouslySetInnerHTML={{ __html: svg }} />
-        </QRCard>
-        <Text variant="mono" color="secondary" weight="demibold" style={{ fontSize: 12 }}>
-          Part {frame + 1} / {parts.length}
-        </Text>
-
-        <Row gap="xl" justify="center" align="flex-end" style={{ position: 'relative', width: '100%',
-          borderTop: '1px solid var(--border-light)', paddingTop: 'var(--space-m)' }}>
-          <Stepper label="Contrast" value={contrast} min={1} max={5} onChange={setContrast} />
-          <Stepper label="Density" value={density} min={1} max={5} onChange={setDensity} />
-          <Stepper label="Animation speed" value={speed} min={1} max={5} onChange={setSpeed} />
-          <div style={{ position: 'absolute', right: 0, bottom: 0 }}>
-            <Button role="primary" onClick={onNext}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-              Next <Icon name="chevron_right" size={15} />
-            </Button>
-          </div>
-        </Row>
-      </Stack>
-    </Modal>
-  );
-}
-
-function ScanCamera({ onCancel, onBack, onDone }) {
-  const videoRef = React.useRef(null);
-  const streamRef = React.useRef(null);
-  const [devices, setDevices] = React.useState([]);
-  const [deviceId, setDeviceId] = React.useState('');
-  const [contrast, setContrast] = React.useState(3);   // 1–5
-  const [status, setStatus] = React.useState('starting'); // starting | live | denied
-
-  const start = React.useCallback(async (id) => {
-    if (streamRef.current) { streamRef.current.getTracks().forEach(t => t.stop()); streamRef.current = null; }
-    try {
-      const constraints = { video: id ? { deviceId: { exact: id } } : { facingMode: 'environment' }, audio: false };
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      streamRef.current = stream;
-      if (videoRef.current) { videoRef.current.srcObject = stream; videoRef.current.play().catch(() => {}); }
-      setStatus('live');
-      const all = await navigator.mediaDevices.enumerateDevices();
-      const cams = all.filter(d => d.kind === 'videoinput');
-      setDevices(cams);
-      if (!id && cams[0]) setDeviceId(cams[0].deviceId);
-    } catch (e) {
-      setStatus('denied');
-      try {
-        const all = await navigator.mediaDevices.enumerateDevices();
-        setDevices(all.filter(d => d.kind === 'videoinput'));
-      } catch (_) {}
-    }
-  }, []);
-
-  React.useEffect(() => {
-    start(undefined);
-    return () => { if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop()); };
-    // eslint-disable-next-line
-  }, []);
-
-  const camLabels = devices.map((d, i) => d.label || `Camera ${i + 1}`);
-  const curLabel = (() => {
-    const idx = devices.findIndex(x => x.deviceId === deviceId);
-    return idx >= 0 ? camLabels[idx] : (camLabels[0] || 'Default camera');
-  })();
-  const pickLabel = (label) => {
-    const idx = camLabels.indexOf(label);
-    const d = devices[idx];
-    if (d) { setDeviceId(d.deviceId); start(d.deviceId); }
-  };
-
-  const filter = `contrast(${(0.55 + contrast * 0.28).toFixed(2)})`;
-
-  return (
-    <Modal title="Scan PSBT" width={920} onClose={onCancel}>
-      <Stack align="center" gap="l">
-        <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 3', borderRadius: 12,
-          overflow: 'hidden', background: 'var(--camera-bg)', border: '1px solid var(--border-light)' }}>
-          <video ref={videoRef} muted playsInline
-            style={{ width: '100%', height: '100%', objectFit: 'cover', filter,
-              display: status === 'live' ? 'block' : 'none' }} />
-          {status !== 'live' ? (
-            <Stack align="center" justify="center" gap="s" style={{ position: 'absolute', inset: 0, color: 'var(--text-muted)' }}>
-              <Icon name="qr" size={52} />
-              <Text variant="body" style={{ fontSize: 14 }}>
-                {status === 'denied' ? 'Camera unavailable — grant access to scan' : 'Starting camera…'}
-              </Text>
-            </Stack>
-          ) : null}
-          <div style={{ position: 'absolute', inset: '16% 26%', border: '2px solid rgba(255,255,255,0.85)',
-            borderRadius: 12, boxShadow: '0 0 0 9999px rgba(0,0,0,0.28)', pointerEvents: 'none',
-            display: status === 'live' ? 'block' : 'none' }} />
-        </div>
-
-        {/* single control row: [‹ Previous] [Camera source] [Contrast] [Done] — equal spacing */}
-        <Row justify="space-between" align="flex-end" gap="l" style={{ width: '100%',
-          borderTop: '1px solid var(--border-light)', paddingTop: 'var(--space-m)' }}>
-          <Button onClick={onBack} style={{ flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-            <Icon name="chevron_right" size={14} style={{ transform: 'rotate(180deg)' }} />Previous
-          </Button>
-          <Stack align="flex-start" gap={6} style={{ flex: 'none' }}>
-            <Text variant="body" color="secondary" weight="500" style={{ fontSize: 13 }}>Camera source</Text>
-            <ComboBox value={curLabel} options={camLabels.length ? camLabels : ['Default camera']}
-              onChange={pickLabel} width={240} />
-          </Stack>
-          <Stepper label="Contrast" value={contrast} min={1} max={5} onChange={setContrast} />
-          <Button role="primary" onClick={onDone} style={{ flex: 'none' }}>Done</Button>
-        </Row>
-      </Stack>
-    </Modal>
   );
 }
 
@@ -503,6 +289,6 @@ function BroadcastModal({ onClose }) {
   );
 }
 
-Object.assign(window, { SendScreen, SelectSigner, UsbConfirm, SdPicker, ScanPsbt, ScanCamera, BroadcastModal,
-  RecipientCard, SIGNER_DEVICES,
+Object.assign(window, { SendScreen, BroadcastModal,
+  RecipientCard,
   looksLikeAmount, looksLikeAddress, btcToUsd, usdToBtc, USD_RATE });

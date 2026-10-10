@@ -45,15 +45,16 @@ const DASH_TOP_GAP  = 'var(--space-xxl)';           // 120px — ≈ the old one
 /* Live layout state, exposed so a screen can document or adapt to it. */
 const LayoutInfo = React.createContext({ available: 0, columns: 1, sideBySide: false, colWidth: 0, wide: false });
 
-function DashboardLayout({ title, primary, secondary = null }) {
+function DashboardLayout({ title, titleRight, primary, secondary = null, fixedWidth }) {
   const [ref, w] = useMeasure();
   const two = secondary != null && secondary !== false;
   const sideBySide = two && w >= DASH_SPLIT_AT;
   const wide = w >= DASH_WIDE_AT;
   // One column caps at DASH_COL_MAX; a side-by-side pair caps at DASH_MAX_W in
   // total. A stacked two-column screen behaves like a single column.
-  const blockMin = sideBySide ? DASH_SPLIT_AT : DASH_MIN_W;
-  const blockMax = sideBySide ? DASH_MAX_W : DASH_COL_MAX;
+  // fixedWidth pins the content block to one width (e.g. the Keys tab, 700).
+  const blockMin = fixedWidth || (sideBySide ? DASH_SPLIT_AT : DASH_MIN_W);
+  const blockMax = fixedWidth || (sideBySide ? DASH_MAX_W : DASH_COL_MAX);
   const blockW = w > 0 ? Math.min(Math.max(w, blockMin), blockMax) : 0;
   const colWidth = Math.round(sideBySide ? (blockW - DASH_GUTTER) / 2 : blockW);
 
@@ -65,7 +66,12 @@ function DashboardLayout({ title, primary, secondary = null }) {
       <div style={{ boxSizing: 'border-box', minWidth: blockMin, maxWidth: blockMax,
         margin: '0 auto', marginTop: wide ? DASH_TOP_GAP : 0, padding: 'var(--space-s)' }}>
         <LayoutInfo.Provider value={info}>
-          {title ? <Text as="div" variant="title" style={{ marginBottom: 'var(--space-m)' }}>{title}</Text> : null}
+          {title ? (
+            <Row gap="m" style={{ marginBottom: 'var(--space-m)' }}>
+              <Text as="div" variant="title">{title}</Text>
+              {titleRight ? <React.Fragment><Spacer />{titleRight}</React.Fragment> : null}
+            </Row>
+          ) : null}
           {sideBySide ? (
             <div style={{ display: 'flex', alignItems: 'stretch', width: '100%' }}>
               <div style={{ flex: '1 1 0', minWidth: 0, maxWidth: DASH_COL_MAX, display: 'flex', flexDirection: 'column' }}>
@@ -94,8 +100,8 @@ function DashboardLayout({ title, primary, secondary = null }) {
 }
 
 /* Single-column convenience wrapper — most panels render through this. */
-function ScreenWrap({ title, children }) {
-  return <DashboardLayout title={title} primary={children} />;
+function ScreenWrap({ title, titleRight, children, fixedWidth }) {
+  return <DashboardLayout title={title} titleRight={titleRight} primary={children} fixedWidth={fixedWidth} />;
 }
 
 function Ruler() {
@@ -134,16 +140,14 @@ function CoinsScreen({ wallet }) {
       muted: (r, i) => editing !== i && !r.label,
       cellStyle: (r, i) => editing === i ? { padding: '3px 6px' } : null,
       render: (r, i) => editing === i
-        ? <Input value={draft} autoFocus style={{ width: '100%', boxSizing: 'border-box' }}
+        ? <Input value={draft} autoFocus width="100%"
             onChange={e => setDraft(e.target.value)}
             onBlur={() => commit(i)}
             onKeyDown={e => { if (e.key === 'Enter') commit(i); if (e.key === 'Escape') setEditing(null); }} />
         : (r.label || '—') },
     { header: '', width: 34, cellStyle: () => ({ padding: '0 4px' }),
       render: (r, i) => (
-        <Button role="inline-icon" onClick={() => { setEditing(i); setDraft(r.label); }}>
-          <Icon name="pencil" size={15} />
-        </Button>) },
+        <Btn id="edit_label_row" onClick={() => { setEditing(i); setDraft(r.label); }} />) },
     { header: 'Value', width: 150, align: 'right', render: (r) => `${r.value} BTC` },
   ];
 
@@ -180,35 +184,31 @@ function LabelRow({ label, onSetLabel }) {
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter') commit(); if (e.key === 'Escape') setEditing(false); }}
           style={{ width: 220 }} />
-        <Button role="inline-icon" title="Save" onClick={commit}><Icon name="check" size={15} /></Button>
+        <Btn id="save_label" onClick={commit} />
       </Row>
     );
   }
   if (!label) {
     return (
-      <Button role="inline" onClick={() => setEditing(true)}
-        style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-        <Icon name="plus" size={14} /> Add a label
-      </Button>
+      <Btn id="add_label" onClick={() => setEditing(true)}
+        style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-xs)' }} />
     );
   }
   return (
     <Row gap="s">
-      <Text variant="body" weight="demibold" nowrap style={{ fontSize: 14 }}>{label}</Text>
-      <Button role="inline-icon" title="Edit label" onClick={() => setEditing(true)}>
-        <Icon name="pencil" size={14} />
-      </Button>
+      <Text variant="section" nowrap>{label}</Text>
+      <Btn id="edit_label" onClick={() => setEditing(true)} />
     </Row>
   );
 }
 
-function AddressRow({ address, placeholder, generatable, onGenerate, onCopy, copied, prevCount = 0, onShowPrev, labelable, label = '', onSetLabel }) {
-  const [verify, setVerify] = React.useState(null);   // null | {} (picking) | { device } (confirming)
+function AddressRow({ address, placeholder, generatable, onGenerate, onCopy, copied, prevCount = 0, onShowPrev, labelable, label = '', onSetLabel, verifiable = true }) {
+  const [verify, setVerify] = React.useState(false);
   if (!address) {
     return (
       <Stack align="center" gap="m" style={{ padding: 'var(--space-l) 0' }}>
         <Text variant="body" color="muted">{placeholder}</Text>
-        {generatable ? <Button onClick={onGenerate}>Generate</Button> : null}
+        {generatable ? <Btn id="generate" onClick={onGenerate} /> : null}
       </Stack>
     );
   }
@@ -218,78 +218,56 @@ function AddressRow({ address, placeholder, generatable, onGenerate, onCopy, cop
       <QRCode text={address} size={256} zoom />
       {labelable ? <LabelRow label={label} onSetLabel={onSetLabel} /> : null}
       <Row justify="center" gap="m" style={{ width: '100%' }}>
-        <Tooltip label="Verify on signing device">
-          <Button role="icon" onClick={() => setVerify({})} style={{ flex: 'none' }}>
-            <Icon name="usb" size={20} />
-          </Button>
-        </Tooltip>
+        {verifiable ? (
+          <Tooltip label="Verify on signing device">
+            <Btn id="verify_on_device" onClick={() => setVerify(true)} style={{ flex: 'none' }} />
+          </Tooltip>
+        ) : null}
         <ChunkedAddress text={address} />
-        <Button role="icon" title="Copy address" onClick={onCopy} style={{ flex: 'none' }}>
-          <Icon name={copied ? 'check' : 'copy'} size={20} />
-        </Button>
+        <Btn id={copied ? 'copied' : 'copy_address'} onClick={onCopy} />
       </Row>
       {generatable ? (
         <Row gap="l">
-          <Button onClick={onGenerate} style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-xs)' }}>
-            <Icon name="refresh" size={15} /> Generate new
-          </Button>
+          <Btn id="generate_new" onClick={onGenerate} />
           {prevCount > 0 ? (
-            <Button role="inline" onClick={onShowPrev}>Addr. awaiting payment ({prevCount})</Button>
+            <Btn id="awaiting_payment" args={prevCount} onClick={onShowPrev} />
           ) : null}
         </Row>
       ) : null}
+      {!verifiable ? <SpVerifyNote /> : null}
     </Stack>
-    {verify && !verify.device ? (
-      <SelectSigner title="Verify on device"
-        devices={(window.SIGNER_DEVICES || []).filter((d) => d.kind !== 'sd')}
-        onCancel={() => setVerify(null)}
-        onPick={(d) => setVerify({ device: d })} />
-    ) : null}
-    {verify && verify.device ? (
-      <VerifyAddress device={verify.device} address={address} onCancel={() => setVerify(null)} />
-    ) : null}
+    {verify ? <SigningFlow context="verify" plan={window.VERIFY_PLAN} address={address} onCancel={() => setVerify(false)} /> : null}
     </React.Fragment>
   );
 }
 
-/* Verify an address on a hardware signer — confirm-on-device step, mirrors
-   Send.jsx's UsbConfirm but for address verification rather than signing.
-   USB devices confirm on-screen; QR airgap devices scan the address QR. */
-function VerifyAddress({ device, address, onCancel }) {
-  const isQr = device.kind === 'qr';
+/* SP addresses can't be checked on a device yet (the QR protocol has no SP
+   address verification): an honest, non-clickable note instead of a button. */
+function SpVerifyNote() {
   return (
-    <Modal title={device.name} width={460} onClose={onCancel}>
-      <ModalStatus spinner={!isQr}
-        title={isQr ? 'Scan the address on your device…' : 'Confirm the address on your device…'}
-        subtitle={isQr
-          ? `Scan this QR with ${device.name} and check the address it shows matches before sharing it.`
-          : `Check that the address shown on ${device.name} matches the one below before sharing it.`}
-        pad="var(--space-l) 0 var(--space-m)">
-        {isQr ? <QRCode text={address} size={208} zoom /> : null}
-        <Card tone="inset" style={{ padding: 'var(--space-m)', width: '100%', boxSizing: 'border-box' }}>
-          <ChunkedAddress text={address} />
-        </Card>
-        <Button onClick={onCancel}>Cancel</Button>
-      </ModalStatus>
-    </Modal>
+    <Row gap="xs" justify="center" style={{ color: 'var(--text-muted)', maxWidth: 520 }}>
+      <Icon name="info" size={14} />
+      <Text variant="caption" align="center">Silent payment addresses can't be checked on a signing device yet. No device protocol supports it.</Text>
+    </Row>
   );
 }
 
 function PrevAddressesModal({ title, list, onClose, onSetLabel }) {
   const [copied, setCopied] = React.useState(-1);
   const [qr, setQr] = React.useState(-1);
-  const [verify, setVerify] = React.useState(null);   // null | { i } (picking signer) | { i, device } (confirming)
+  const [verify, setVerify] = React.useState(null);   // null | { i } — the flow replaces this modal while it runs
   const copy = (text, i) => {
     copyToClipboard(text);
     setCopied(i); setTimeout(() => setCopied(-1), 1400);
   };
   const verifyAddr = verify ? ((list[verify.i] || {}).addr || list[verify.i] || '') : '';
+  if (verify) return <SigningFlow context="verify" plan={window.VERIFY_PLAN} address={verifyAddr} onCancel={() => setVerify(null)} />;
   return (
     <React.Fragment>
     <Modal title={title} width={620} onClose={onClose}>
       <Stack>
         <Row gap="m" style={{ paddingBottom: 'var(--space-xs)' }}>
-          <Eyebrow color="muted" size={10} style={{ width: 60, flex: 'none', letterSpacing: '0.06em' }}>Index</Eyebrow>
+          <span style={{ width: 60, flex: 'none' }}><Eyebrow color="muted" size={10}>Index</Eyebrow></span>
           <Spacer />
         </Row>
         {list.map((item, i) => {
@@ -302,17 +280,13 @@ function PrevAddressesModal({ title, list, onClose, onSetLabel }) {
               <Row gap="m">
                 <IndexPill index={index} active={showQr} onClick={() => setQr(showQr ? -1 : i)} />
                 <Tooltip label="Verify on signing device">
-                  <Button role="inline-icon" onClick={() => setVerify({ i })} style={{ flex: 'none' }}>
-                    <Icon name="usb" size={15} />
-                  </Button>
+                  <Btn id="verify_on_device_sm" onClick={() => setVerify({ i })} style={{ flex: 'none' }} />
                 </Tooltip>
-                <Stack grow style={{ minWidth: 0 }}>
-                  {label ? <Text variant="body" color="secondary" weight="demibold" style={{ fontSize: 12, marginBottom: 3 }}>{label}</Text> : null}
+                <Stack grow gap="xxs" style={{ minWidth: 0 }}>
+                  {label ? <Text variant="body" color="secondary" weight="demibold" size="sm">{label}</Text> : null}
                   <ChunkedAddress text={addr} />
                 </Stack>
-                <Button role="inline-icon" title="Copy" onClick={() => copy(addr, i)} style={{ flex: 'none' }}>
-                  <Icon name={copied === i ? 'check' : 'copy'} size={15} />
-                </Button>
+                <Btn id={copied === i ? 'copied_sm' : 'copy_sm'} onClick={() => copy(addr, i)} />
               </Row>
               {showQr ? (
                 <Stack align="center" gap="m" style={{ paddingTop: 'var(--space-m)' }}>
@@ -325,15 +299,6 @@ function PrevAddressesModal({ title, list, onClose, onSetLabel }) {
         })}
       </Stack>
     </Modal>
-    {verify && !verify.device ? (
-      <SelectSigner title="Verify on device"
-        devices={(window.SIGNER_DEVICES || []).filter((d) => d.kind !== 'sd')}
-        onCancel={() => setVerify(null)}
-        onPick={(d) => setVerify((v) => ({ i: v.i, device: d }))} />
-    ) : null}
-    {verify && verify.device ? (
-      <VerifyAddress device={verify.device} address={verifyAddr} onCancel={() => setVerify(null)} />
-    ) : null}
     </React.Fragment>
   );
 }
@@ -357,7 +322,7 @@ function ReceiveScreen({ wallet }) {
     <ScreenWrap title="Receive">
       <Stack>
         <FoldSection id="sp" label="Silent Payment Address" open={open === 'sp'} onToggle={toggle}>
-          <AddressRow address={SP_ADDRESS} onCopy={() => copy(SP_ADDRESS, 'sp')} copied={copied === 'sp'} />
+          <AddressRow address={SP_ADDRESS} verifiable={false} onCopy={() => copy(SP_ADDRESS, 'sp')} copied={copied === 'sp'} />
         </FoldSection>
 
         <Ruler />
@@ -388,5 +353,5 @@ function ReceiveScreen({ wallet }) {
   );
 }
 
-Object.assign(window, { HistoryScreen, CoinsScreen, ReceiveScreen, ScreenWrap, DashboardLayout, Ruler, AddressRow, genAddr,
+Object.assign(window, { HistoryScreen, CoinsScreen, ReceiveScreen, ScreenWrap, DashboardLayout, Ruler, AddressRow, SpVerifyNote, PrevAddressesModal, genAddr,
   DASH_MIN_W, DASH_COL_MAX, DASH_MAX_W, DASH_GUTTER, DASH_SPLIT_AT, DASH_WIDE_AT, DASH_TOP_GAP, LayoutInfo });

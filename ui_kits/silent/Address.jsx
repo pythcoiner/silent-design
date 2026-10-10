@@ -27,10 +27,11 @@ function qrSvg(text, { ecOrder = ['M', 'L'], cellSize = 2, margin = 0 } = {}) {
 
 /* QRCard — the white framed tile that holds a QR (or any square glyph).
    `bg`/`color` let the airgap scanner tune contrast; `onClick` makes it tappable. */
-function QRCard({ size = 132, pad = 12, bg = '#ffffff', color, radius = 8, onClick, title, style, children }) {
+/* `dim` fades the code while it is being rebuilt. */
+export function QRCard({ size = 132, pad = 12, bg = '#ffffff', color, radius = 8, dim, onClick, title, style, children }) {
   return (
     <div className="s-qr" onClick={onClick} title={title}
-      style={{ flex: 'none', width: size, height: size, padding: pad, background: bg, color,
+      style={{ flex: 'none', width: size, height: size, maxWidth: '100%', opacity: dim ? 0.25 : 1, padding: pad, background: bg, color,
         border: '1px solid var(--border-light)', borderRadius: radius, boxSizing: 'border-box',
         cursor: onClick ? 'pointer' : 'default', ...style }}>
       {children}
@@ -40,7 +41,7 @@ function QRCard({ size = 132, pad = 12, bg = '#ffffff', color, radius = 8, onCli
 
 /* QRCode — a QR for `text`, framed by QRCard. `zoom` makes it click-to-enlarge
    into a Modal that also shows the chunked address. */
-function QRCode({ text, size = 132, zoom }) {
+export function QRCode({ text, size = 132, zoom }) {
   const [open, setOpen] = React.useState(false);
   const html = React.useMemo(() => qrSvg(text), [text]);
   if (!html) return null;
@@ -54,7 +55,7 @@ function QRCode({ text, size = 132, zoom }) {
       {open ? (
         <Modal title="QR Code" width={680} onClose={() => setOpen(false)}>
           <Stack align="center" gap="l">
-            <QRCard size={560} pad={20} radius={12} style={{ maxWidth: '100%' }}>{svg}</QRCard>
+            <QRCard size={560} pad={20} radius={12}>{svg}</QRCard>
             <ChunkedAddress text={text} />
           </Stack>
         </Modal>
@@ -66,7 +67,7 @@ function QRCode({ text, size = 132, zoom }) {
 /* ChunkedAddress — an address/txid shown as alternating-dimmed 4-char mono
    groups; click to toggle to one unbroken string. Long silent-payment strings
    wrap to two centered rows. */
-function ChunkedAddress({ text }) {
+export function ChunkedAddress({ text }) {
   const [chunked, setChunked] = React.useState(true);
   const lines = React.useMemo(() => {
     const chunks = text.match(/.{1,4}/g) || [];
@@ -104,3 +105,6 @@ function ChunkedAddress({ text }) {
 }
 
 Object.assign(window, { qrSvg, QRCard, QRCode, ChunkedAddress });
+
+/* File-level namespace (DS compiler indexes this file as `Address`). */
+export const Address = { QRCard, QRCode, ChunkedAddress };

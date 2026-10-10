@@ -6,6 +6,21 @@
    ===================================================================== */
 
 /* ---------------- Button (theme/Button.cpp) ---------------- */
+.s-btn { flex: none; }
+/* BtnWidth enum (Variants.jsx BTN_WIDTH) — fixed widths; label centred, never wraps. */
+.s-btn[class*="s-btn--w-"] { justify-content: center; white-space: nowrap; box-sizing: border-box; }
+.s-btn--w-icon { width: var(--btn-w-icon); }
+.s-btn--w-iconlg { width: var(--btn-w-icon-lg); }
+.s-btn--w-index { width: var(--btn-w-index); }
+.s-btn--w-m { width: var(--btn-w-m); }
+.s-btn--w-l { width: var(--btn-w-l); }
+.s-btn--w-xl { width: var(--btn-w-xl); }
+.s-btn--w-xxl { width: var(--btn-w-xxl); }
+.s-btn--w-launchentry { width: var(--btn-w-launch-entry); }
+.s-btn--w-launchadd { width: var(--btn-w-launch-add); }
+/* index: the QR-glyph + derivation index handle of an address row */
+.s-btn--index { width: var(--btn-w-index); height: 30px; min-height: 0; padding: 0 8px; gap: 6px; }
+.s-btn--index.is-active { background: var(--bg); }
 .s-btn {
   font: var(--weight-normal) var(--size-body) var(--font-sans);
   color: var(--text);
@@ -74,19 +89,19 @@
 
 /* Square icon button (50×50) and inline icon (30×30, radius 4) */
 .s-btn--icon {
-  width: 50px; height: 50px; padding: 0;
+  width: var(--btn-w-icon-lg); height: 50px; padding: 0;
   display: inline-flex; align-items: center; justify-content: center;
 }
 .s-btn--inline-icon {
-  width: 30px; height: 30px; padding: 0;
+  width: var(--btn-w-icon); height: 30px; padding: 0;
   min-height: 0;
   border-radius: var(--radius-inline-icon);
   display: inline-flex; align-items: center; justify-content: center;
 }
 
 /* Tab-open / tab-create buttons (Menu tab wallet list) */
-.s-btn--tab-open   { width: 300px; height: 50px; font-size: var(--size-h3); }
-.s-btn--tab-create { width: 354px; height: 50px; font: var(--weight-demibold) var(--size-h3) var(--font-sans); }
+.s-btn--tab-open   { width: var(--btn-w-launch-entry); height: 50px; font-size: var(--size-h3); }
+.s-btn--tab-create { width: var(--btn-w-launch-add); height: 50px; font: var(--weight-demibold) var(--size-h3) var(--font-sans); }
 
 /* ---------------- Input (theme/Input.cpp) ---------------- */
 .s-input {
@@ -137,8 +152,8 @@
 .s-combo > .chev {
   position: absolute; right: 9px; top: 50%; transform: translateY(-50%);
   width: var(--combo-arrow); height: var(--combo-arrow); background: var(--text); z-index: 1;
-  -webkit-mask: var(--chevron) center/contain no-repeat;
-  mask: var(--chevron) center/contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 
 /* ---------------- Checkbox (theme/Checkbox.cpp, paint-based) ---------------- */
@@ -171,6 +186,7 @@
 /* Status role: green on / red off */
 .s-toggle--status { background: var(--error); }
 .s-toggle--status.is-on { background: var(--success); }
+.s-toggle.is-disabled { opacity: 0.45; cursor: default; }
 
 /* ---------------- Validation marks (Send.cpp) ---------------- */
 .s-valid { color: var(--success); font-weight: 700; }
@@ -189,6 +205,8 @@
 .s-tbl__body .s-tbl__row:nth-child(odd) { background: var(--bg-secondary); }
 .s-tbl__body .s-tbl__row.is-selected { background: var(--bg-secondary); box-shadow: inset 2px 0 0 var(--accent); }
 .s-tbl__body .s-tbl__row:hover { background: var(--surface-hover); }
+/* is-bare: an action row with no data yet (e.g. the + of an add-row) — no fill, no hover. */
+.s-tbl__body .s-tbl__row.is-bare, .s-tbl__body .s-tbl__row.is-bare:hover { background: transparent; }
 .s-tbl__cell { padding: var(--table-cell-pad) var(--pad-s); color: var(--text); flex: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .s-tbl__cell--grow { flex: 1; min-width: 0; }
 .s-tbl__cell--mono { font-family: var(--font-mono); color: var(--text-secondary); }
@@ -218,6 +236,11 @@
   padding: var(--pad-l);
   box-sizing: border-box;
 }
+.s-card { position: relative; }
+.s-card--pad-m { padding: var(--pad-m); }
+.s-card--pad-s { padding: var(--pad-s); }
+.s-card--pad-none { padding: 0; }
+.s-card__corner { position: absolute; top: var(--pad-xs); left: var(--pad-xs); }
 .s-card--inset { background: var(--bg-secondary); }
 
 /* ---------------- Badge / status pill ----------------
@@ -231,7 +254,16 @@
 .s-badge--success { background: color-mix(in srgb, var(--success) 14%, transparent); border-color: color-mix(in srgb, var(--success) 45%, transparent); color: var(--success); }
 .s-badge--warning { background: color-mix(in srgb, var(--warning) 16%, transparent); border-color: color-mix(in srgb, var(--warning) 48%, transparent); color: var(--warning); }
 .s-badge--error   { background: color-mix(in srgb, var(--error) 14%, transparent);   border-color: color-mix(in srgb, var(--error) 45%, transparent);   color: var(--error); }
+/* PillWidth enum (Variants.jsx PILL_WIDTH) */
+.s-badge[class*="s-badge--w-"] { justify-content: center; box-sizing: border-box; }
+.s-badge--w-m { width: var(--pill-w-m); }
+.s-badge--w-l { width: var(--pill-w-l); }
 .s-badge--neutral { background: var(--bg-secondary); border-color: var(--border-light); color: var(--text-secondary); }
+/* off: an unavailable / disabled state (Offline). Outline only, muted text. */
+.s-badge--off { background: transparent; border-color: var(--border-light); color: var(--text-muted); }
+.s-badge--off { color: color-mix(in srgb, var(--text-muted) 60%, var(--bg)); }
+/* Any pill inside a disabled row reads as off, whatever its tone. */
+.s-select-row.is-disabled .s-badge { background: transparent; border-color: var(--border-light); color: color-mix(in srgb, var(--text-muted) 60%, var(--bg)); }
 
 /* ---------------- Select row (modal pick-list) ----------------
    Full-width tappable row: leading accent icon, title, optional mono meta,
@@ -244,6 +276,74 @@
   border-radius: var(--radius-button);
 }
 .s-select-row:hover { background: var(--surface-hover); border-color: var(--border); }
+.s-select-row:focus-visible { outline: 2px solid var(--input-focus); outline-offset: 1px; }
+/* Selected: a choice row that is the current pick (Add a Key modes, tabs-as-rows). */
+.s-select-row.is-selected { background: color-mix(in srgb, var(--accent) 10%, var(--surface)); border-color: var(--accent); }
+.s-select-row.is-selected:hover { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+/* Disabled: cannot be picked; the reason goes in `sub`. Icon and title go muted. */
+.s-select-row.is-disabled, .s-select-row.is-disabled:hover { cursor: default; background: var(--bg-secondary); border-color: var(--border-light); color: var(--text-muted); }
+.s-select-row.is-disabled .s-select-row__icon { color: var(--text-muted); }
+/* Static: an informational row (no onClick) — no hover lift, no pointer. */
+.s-select-row.is-static, .s-select-row.is-static:hover { cursor: default; background: var(--surface); border-color: var(--border-light); }
+.s-select-row--error, .s-select-row--error.is-static, .s-select-row--error.is-static:hover { background: color-mix(in srgb, var(--error) 8%, var(--surface)); border-color: color-mix(in srgb, var(--error) 45%, transparent); }
+.s-select-row--error .s-select-row__icon, .s-select-row--error .s-select-row__sub { color: var(--error); }
+.s-select-row__icon { flex: none; display: inline-flex; color: var(--accent); }
+.s-select-row__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-xxs); }
+.s-select-row__title { font: var(--weight-demibold) var(--size-body) var(--font-sans); }
+.s-select-row__sub { font-size: var(--size-caption); color: var(--text-muted); line-height: 1.45; }
+.s-select-row__meta { flex: none; font: var(--size-caption) var(--font-mono); color: var(--text-muted); }
+.s-select-row__chev { flex: none; display: inline-flex; color: var(--text-muted); }
+
+/* ---------------- Notice (inline message block) ----------------
+   Flat tinted block for in-place errors, warnings and explanations (failed
+   registration, disabled-action reasons, mnemonic warning). Same tints as Badge. */
+.s-notice {
+  flex: none; display: flex; align-items: flex-start; gap: var(--space-s);
+  padding: var(--pad-s) var(--pad-m); border-radius: var(--radius-button);
+  border: 1px solid transparent; font-size: var(--size-body); line-height: 1.55; color: var(--text);
+}
+.s-notice__icon { flex: none; display: inline-flex; padding-top: 2px; }
+.s-notice__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-xxs); }
+.s-notice__title { font-weight: var(--weight-demibold); }
+.s-notice--error   { background: color-mix(in srgb, var(--error) 10%, transparent);   border-color: color-mix(in srgb, var(--error) 45%, transparent); }
+.s-notice--error .s-notice__icon { color: var(--error); }
+.s-notice--warning { background: color-mix(in srgb, var(--warning) 12%, transparent); border-color: color-mix(in srgb, var(--warning) 48%, transparent); }
+.s-notice--warning .s-notice__icon { color: var(--warning); }
+.s-notice--success { background: color-mix(in srgb, var(--success) 10%, transparent); border-color: color-mix(in srgb, var(--success) 45%, transparent); }
+.s-notice--success .s-notice__icon { color: var(--success); }
+.s-notice--info    { background: var(--bg-secondary); border-color: var(--border-light); color: var(--text-secondary); }
+.s-notice--info .s-notice__icon { color: var(--text-muted); }
+
+/* ---------------- Word grid (numbered mnemonic) ----------------
+   Backup and reveal of a mnemonic: numbered cells, read column-wise. */
+.s-word-grid { display: grid; grid-auto-flow: column; gap: var(--space-xs) var(--space-s); }
+.s-word { display: flex; align-items: baseline; gap: var(--space-s); padding: var(--pad-xs) var(--pad-s);
+  background: var(--surface); border: 1px solid var(--border-light); border-radius: var(--radius-input); }
+.s-word__n { flex: none; min-width: 18px; text-align: right; font: var(--size-caption) var(--font-mono); color: var(--text-muted); }
+.s-word__w { font: var(--weight-demibold) var(--size-body) var(--font-mono); color: var(--text); }
+.s-word-grid.is-hidden .s-word__w { color: transparent; text-shadow: none; background: var(--bg-secondary); border-radius: var(--radius-inline-icon); }
+
+/* ---------------- Copy field (mono value + copy) ----------------
+   Read-only xpub / descriptor / path value with a copy action. */
+.s-copy-field { display: flex; align-items: flex-start; gap: var(--space-xs);
+  padding: var(--pad-xs) var(--pad-xs) var(--pad-xs) var(--pad-s);
+  background: var(--input-bg); border: 1px solid var(--input-border); border-radius: var(--radius-input); }
+.s-copy-field__v { flex: 1; min-width: 0; padding: 4px 0; font: var(--size-caption) var(--font-mono); color: var(--text); line-height: 1.5; }
+.s-copy-field__v.is-wrap { word-break: break-all; }
+.s-copy-field__v.is-truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------------- Scan progress (multi-part QR) ---------------- */
+.s-scan-progress { display: flex; gap: var(--space-xxs); width: 100%; }
+.s-scan-progress__seg { flex: 1; height: 6px; border-radius: var(--radius-inline-icon); background: var(--border-light); }
+.s-scan-progress__seg.is-on { background: var(--accent); }
+
+/* ---------------- Tab strip end slot ----------------
+   The app-settings gear sits in a fixed slot at the right end of the tab strip;
+   the tabs scroll in their own area, so they never slide under it. */
+.s-tabstrip { display: flex; align-items: flex-end; min-width: 0; }
+.s-tabstrip__tabs { flex: 1; min-width: 0; display: flex; align-items: flex-end; overflow-x: auto; scrollbar-width: none; }
+.s-tabstrip__tabs::-webkit-scrollbar { display: none; }
+.s-tabstrip__end { flex: none; display: flex; align-items: center; padding: 0 0 var(--pad-xxs) var(--pad-s); border-left: 1px solid var(--border-light); margin-left: var(--space-xs); }
 
 /* ---------------- Tab (catalog/containers/Tab.cpp, QTabBar::tab) ----------------
    Window tab: label + optional close. The selected tab takes the page bg and full
