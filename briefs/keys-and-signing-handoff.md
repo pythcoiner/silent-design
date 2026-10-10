@@ -69,7 +69,7 @@ opens a kind picker in the row and becomes ✓ to confirm, × cancels.
 
 Each row: path (mono), the xpub shortened as plain text (`tpubDCtK…xPt1P`, full value
 as tooltip) with a copy button (`ShortValue`), and a Used / Not Used pill. A last `+` row (like Routes)
-opens **Fetch Xpub** — a step of the same modal: path type (BIP84 / 86 / 49 /
+opens **Fetch Xpub** in its own modal over the key detail: path type (BIP84 / 86 / 49 /
 48 / 87 / custom) and the path with the account index as its only input
 (`m/84'/1'/[ ]'`, 0–99); BIP48 also picks the script type, the last level
 (`2'` P2WSH, `1'` P2SH-P2WSH, or `3'` P2TR — not in BIP48, but the convention

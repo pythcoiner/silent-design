@@ -413,15 +413,15 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
     onSave && onSave({ ...k, alias: a }); setAliasMsg(null);
   };
   const addXpub = (path) => { setXpubs(xs => [...xs, { path, xpub: (k.network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T).replace('Lj', path.slice(2, 4)), used: false }]); setStep('detail'); };
-  const title = { detail: k.alias, 'fetch-xpub': 'Fetch Xpub', password: 'Reveal Mnemonic', reveal: 'Reveal Mnemonic', remove: 'Remove Key' }[step];
+  const title = { detail: k.alias, 'fetch-xpub': k.alias, password: 'Reveal Mnemonic', reveal: 'Reveal Mnemonic', remove: 'Remove Key' }[step];
+  // Fetch Xpub opens its own modal over the key detail, which stays underneath.
+  const fetchOpen = step === 'fetch-xpub' && device;
 
   return (
+    <>
     <Modal title={title} width={600} onClose={onClose}
       headerRight={<Row gap="s"><Text variant="mono" color="secondary" size="sm">{k.fp}</Text><Pill id={st} /></Row>}>
-      {step === 'fetch-xpub' && device ? (
-        <FetchXpubStep network={k.network} device={device} existing={xpubs} initial={initial.fetch || {}}
-          onBack={() => setStep('detail')} onFetched={addXpub} />
-      ) : step === 'password' ? (
+      {step === 'password' ? (
         <PasswordStep proceedId="show_mnemonic"
           error={initial.pwError || null} onBack={() => setStep('detail')} onProceed={() => setStep('reveal')} />
       ) : step === 'reveal' ? (
@@ -480,6 +480,13 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
         </Stack>
       )}
     </Modal>
+    {fetchOpen ? (
+      <Modal title="Fetch Xpub" width={600} onClose={() => setStep('detail')}>
+        <FetchXpubStep network={k.network} device={device} existing={xpubs} initial={initial.fetch || {}}
+          onBack={() => setStep('detail')} onFetched={addXpub} />
+      </Modal>
+    ) : null}
+    </>
   );
 }
 
