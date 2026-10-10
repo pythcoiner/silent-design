@@ -271,6 +271,25 @@ exact embedded SemiBold face, supply that `.ttf` and add a 600-weight `@font-fac
 
 ---
 
+## Components
+
+Catalog components, exposed on the design-system namespace (source in `ui_kits/silent/`):
+
+**Hard rules** (see `CLAUDE.md`): screens only compose catalog components; every
+variant is a named option defined once in the catalog (no `style` overrides on catalog
+components); every variant has a specimen on its preview card.
+
+- **Variants** — Btn, Pill (and the `BUTTONS` / `PILLS` tables: every button and pill usage as a named entry)
+- **Primitives** — Button, Input, TextArea, Display, Field, FieldGroup, Checkbox, Toggle, Spinner, Card, Badge, SelectRow, Notice, ModalStatus, Legend, ComboBox, ValidationMark, BalanceHeader, Tab
+- **Layout** — Stack, Row, Spacer, Divider, Text, Eyebrow, Amount
+- **Widgets** — SectionLabel, FieldLabel, PaymentRow, ValidatedInput, Stepper, Tooltip, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable, SectionHeader, Section, CopyField, ShortValue, WordGrid, WordInputGrid, RouteIcons, ScanProgress, ModalActions, ScrollArea, FieldNote, EmptyState, FoldChevron
+- **Address** — QRCard, QRCode, ChunkedAddress
+- **Modal** — Modal
+- **GlobalSettings** — SettingsGear, GlobalSettingsModal, PluginRow
+- **Icons** — Icon, SilentMark
+
+---
+
 ## Index / manifest
 
 Root files:

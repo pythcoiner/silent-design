@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Silent — Signing · components</title>
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="gallery.css" />
+<style>.s-qr svg { width: 100%; height: 100%; display: block; } @keyframes s-spin { to { transform: rotate(360deg); } } .s-spin { animation: s-spin 1s linear infinite; }</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="harness.js"></script>
+</head>
+<body>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=11"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=13"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=18"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=11"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=23"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=13"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=21"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
+    const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
+    const noop = () => {};
+
+    const SF = (props, h = 560) => ({ span: 'span2', ...F(<SigningFlow onCancel={noop} onDone={noop} {...props} />, h) });
+    const usb = { fp: '73c5da0a', alias: 'Daily Ledger', route: 'usb', status: 'first', device: 'Ledger Nano S Plus' };
+    const qr = { fp: '5be0c7d2', alias: 'Vault Coldcard', route: 'qr', status: 'ready' };
+    const sd = { fp: '9a41e6b3', alias: 'Backup Key', route: 'sd', status: 'ready' };
+    const hot = { fp: 'f23a9e01', alias: 'Laptop Hot Key', route: 'hot', status: 'ready' };
+    const ADDR = 'tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx';
+    const afterFirst = [{ ...SIGNING_PLAN[0], status: 'signed' }, { ...SIGNING_PLAN[1], status: 'ready' }];
+
+    Gallery.render({
+      kicker: 'Signing · components',
+      title: 'Signer picker, route steps & verify',
+      lede: 'Issue #2 §3.7–3.10. One modal per flow: the picker and every route step replace each other. Three contexts set the copy — sign a transaction, verify an address, fetch a silent payment descriptor. Cancel returns quietly.',
+      groups: [
+        { name: '3.7 Signer picker', items: [
+          { title: 'Sign — every candidate status', tag: 'SignerPicker', ...SF({ plan: SIGNING_PLAN_ALL, others: OTHER_DEVICES }, 820) },
+          { title: 'Sign — SP key signed, next ready', tag: 'SignerPicker', ...SF({ plan: afterFirst }, 360) },
+          { title: 'Verify — no transaction wording', tag: 'SignerPicker', ...SF({ context: 'verify', plan: VERIFY_PLAN, others: OTHER_DEVICES, address: ADDR }, 440) },
+          { title: 'Empty', tag: 'SignerPicker', ...SF({ plan: [] }, 340) },
+        ]},
+        { name: '3.8 USB', items: [
+          { title: 'Waiting — sign', tag: 'UsbStep', ...SF({ initial: { step: { row: usb } } }, 360) },
+          { title: 'Waiting — verify', tag: 'UsbStep', ...SF({ context: 'verify', initial: { step: { row: usb } } }, 360) },
+          { title: 'Waiting — fetch descriptor', tag: 'UsbStep', ...SF({ context: 'fetch', initial: { step: { row: usb } } }, 360) },
+          { title: 'Rejected', tag: 'UsbStep', ...SF({ initial: { step: { row: usb }, usbError: 'rejected' } }, 360) },
+          { title: 'Disconnected', tag: 'UsbStep', ...SF({ initial: { step: { row: usb }, usbError: 'disconnected' } }, 360) },
+          { title: 'Failed', tag: 'UsbStep', ...SF({ initial: { step: { row: usb }, usbError: 'failed' } }, 360) },
+        ]},
+        { name: '3.8 SD card', items: [
+          { title: 'Step 1 — save unsigned PSBT', tag: 'SdStep', ...SF({ fileBase: 'savings', initial: { step: { row: sd } } }, 400) },
+          { title: 'Step 2 — load signed PSBT', tag: 'SdStep', ...SF({ fileBase: 'savings', initial: { step: { row: sd }, sdPhase: 'load' } }, 400) },
+          { title: 'Write failure', tag: 'SdStep', ...SF({ fileBase: 'savings', initial: { step: { row: sd }, sdError: 'write' } }, 460) },
+          { title: 'Read failure', tag: 'SdStep', ...SF({ fileBase: 'savings', initial: { step: { row: sd }, sdPhase: 'load', sdError: 'read' } }, 460) },
+        ]},
+        { name: '3.8 QR display', items: [
+          { title: 'Animated code — sign', tag: 'QrDisplayStep', ...SF({ initial: { step: { row: qr } } }, 820) },
+          { title: 'Rebuilding (density changed)', tag: 'QrDisplayStep', ...SF({ context: 'verify', initial: { step: { row: qr }, rebuilding: true } }, 820) },
+        ]},
+        { name: '3.8 Camera scan', items: [
+          ...['starting', 'none', 'denied', 'failed'].map(c => ({ title: 'Camera — ' + CAMERA_STATES[c].title, tag: 'CameraStep', ...SF({ initial: { step: { row: qr }, qrPhase: 'scan', camera: c } }, 720) })),
+          { title: 'Progress — 4 of 6 parts', tag: 'CameraStep', ...SF({ initial: { step: { row: qr }, qrPhase: 'scan', camera: 'live', progress: [4, 6] } }, 760) },
+          { title: 'Camera settings overlay', tag: 'CameraStep', ...SF({ initial: { step: { row: qr }, qrPhase: 'scan', camera: 'live', progress: [2, 6], settings: true } }, 760) },
+          { title: 'Error — answers a different request', tag: 'CameraStep', ...SF({ initial: { step: { row: qr }, qrPhase: 'scan', camera: 'live', progress: [2, 6], scanError: 'wrong-request' } }, 860) },
+          { title: 'Error — bare signatures', tag: 'CameraStep', ...SF({ initial: { step: { row: qr }, qrPhase: 'scan', camera: 'live', progress: [6, 6], scanError: 'bare-sigs' } }, 860) },
+        ]},
+        { name: '3.8 Hot key', items: [
+          { title: 'Password — sign', tag: 'HotStep', ...SF({ initial: { step: { row: hot } } }, 320) },
+          { title: 'Wrong password', tag: 'HotStep', ...SF({ initial: { step: { row: hot }, pwError: 'Wrong password. Try again.' } }, 360) },
+          { title: 'Password — fetch descriptor', tag: 'HotStep', ...SF({ context: 'fetch', initial: { step: { row: hot } } }, 320) },
+          { title: 'Signing in progress', tag: 'HotStep', ...SF({ initial: { step: { row: hot }, hotBusy: true } }, 320) },
+        ]},
+        { name: '3.10 Verify result', items: [
+          { title: 'Matched', tag: 'VerifyResult', ...SF({ context: 'verify', address: ADDR, initial: { step: { row: usb, result: 'matched' } } }, 420) },
+          { title: 'Mismatch', tag: 'VerifyResult', ...SF({ context: 'verify', address: ADDR, initial: { step: { row: usb, result: 'mismatch' } } }, 420) },
+          { title: 'Error', tag: 'VerifyResult', ...SF({ context: 'verify', address: ADDR, initial: { step: { row: qr, result: 'error' } } }, 420) },
+          { title: 'SP address — cannot be verified (non-clickable)', tag: 'SpVerifyNote', span: 'span2', el: <AddressRow address={SP_ADDRESS} verifiable={false} onCopy={noop} /> },
+        ]},
+        { name: '3.9 Send integration', items: [
+          { title: 'Send — Sign opens the signing flow', tag: 'SendScreen', span: 'full', frame: true, height: 660, el: <SendScreen wallet={WALLETS.savings} /> },
+        ]},
+      ],
+    });
+  </script>
+</body>
+</html>

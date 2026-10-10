@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Scan Progress" subtitle="Multi-part QR progress — i of n parts · complete" viewport="700x220" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+  .wrap { padding: 22px 26px; display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
+  .lbl { font: 600 10px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+  
+</style>
+<link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="lbl">In progress</div>
+    <div class="s-scan-progress"><span class="s-scan-progress__seg is-on"></span><span class="s-scan-progress__seg is-on"></span><span class="s-scan-progress__seg is-on"></span><span class="s-scan-progress__seg is-on"></span><span class="s-scan-progress__seg"></span><span class="s-scan-progress__seg"></span></div><div class="t-caption" style="text-align:center">4 of 6 parts</div>
+    <div class="lbl">Complete</div>
+    <div class="s-scan-progress"><span class="s-scan-progress__seg is-on"></span><span class="s-scan-progress__seg is-on"></span><span class="s-scan-progress__seg is-on"></span><span class="s-scan-progress__seg is-on"></span><span class="s-scan-progress__seg is-on"></span><span class="s-scan-progress__seg is-on"></span></div><div class="t-caption" style="text-align:center;color:var(--success)">All 6 parts received</div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

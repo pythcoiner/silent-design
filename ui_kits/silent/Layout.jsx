@@ -19,7 +19,7 @@ function spaceVal(v) {
 }
 
 /* Stack — vertical flex (QVBoxLayout). gap/align/justify are the layout knobs. */
-function Stack({ gap, align, justify, grow, wrap, inline, className = '', style, children, ...rest }) {
+export function Stack({ gap, align, justify, grow, wrap, inline, className = '', style, children, ...rest }) {
   const dom = { ...rest }; ['gap', 'align', 'justify', 'grow', 'wrap', 'inline'].forEach(k => delete dom[k]);
   return (
     <div className={className} style={{
@@ -33,7 +33,7 @@ function Stack({ gap, align, justify, grow, wrap, inline, className = '', style,
 }
 
 /* Row — horizontal flex (QHBoxLayout). Defaults to vertically-centered items. */
-function Row({ gap, align = 'center', justify, grow, wrap, inline, className = '', style, children, ...rest }) {
+export function Row({ gap, align = 'center', justify, grow, wrap, inline, className = '', style, children, ...rest }) {
   const dom = { ...rest }; ['gap', 'align', 'justify', 'grow', 'wrap', 'inline'].forEach(k => delete dom[k]);
   return (
     <div className={className} style={{
@@ -47,14 +47,14 @@ function Row({ gap, align = 'center', justify, grow, wrap, inline, className = '
 }
 
 /* Spacer — eats free space (addStretch) or holds a fixed gap. */
-function Spacer({ size }) {
+export function Spacer({ size }) {
   return <span style={{ flex: size == null ? 1 : 'none', width: size != null ? spaceVal(size) : undefined,
     height: size != null ? spaceVal(size) : undefined }} />;
 }
 
 /* Divider — a hair rule. Horizontal by default; `vertical` for column splits.
    `space` sets the margin along the flow axis. */
-function Divider({ vertical = false, space = 'm', style }) {
+export function Divider({ vertical = false, space = 'm', style }) {
   const m = spaceVal(space);
   return vertical
     ? <div style={{ flex: 'none', alignSelf: 'stretch', width: 1, background: 'var(--border-light)', margin: `0 ${m}`, ...style }} />
@@ -73,9 +73,13 @@ const TEXT_COLOR = {
   text: 'var(--text)', secondary: 'var(--text-secondary)', muted: 'var(--text-muted)',
   accent: 'var(--accent)', success: 'var(--success)', error: 'var(--error)',
   warning: 'var(--warning)', 'on-accent': 'var(--on-accent)',
+  /* on a fixed dark surface (camera viewport), whatever the theme */
+  inverse: 'var(--gray-10)', 'inverse-muted': 'var(--gray-40)',
 };
-function Text(props) {
-  const { as = 'span', variant = 'body', color, weight, mono, caps, align, nowrap,
+/* size overrides the variant's font size with a token step: sm (caption) | md (body) | lg (section) | inherit. */
+const TEXT_SIZE = { sm: 'var(--size-caption)', md: 'var(--size-body)', lg: 'var(--size-section)', inherit: 'inherit' };
+export function Text(props) {
+  const { as = 'span', variant = 'body', color, weight, mono, caps, align, nowrap, size, wrap,
     truncate, className = '', style, children, ...rest } = props;
   const As = as;
   const cls = `${TEXT_CLASS[variant] || 't-body'}${mono && variant !== 'mono' ? ' t-mono' : ''} ${className}`;
@@ -83,6 +87,8 @@ function Text(props) {
     color: color ? (TEXT_COLOR[color] || color) : undefined,
     fontWeight: weight === 'demibold' ? 600 : weight === 'normal' ? 400 : weight,
     textAlign: align,
+    fontSize: size ? TEXT_SIZE[size] : undefined,
+    wordBreak: wrap === 'anywhere' ? 'break-all' : undefined,
     textTransform: caps ? 'uppercase' : undefined,
     letterSpacing: caps ? '0.08em' : undefined,
     whiteSpace: nowrap || truncate ? 'nowrap' : undefined,
@@ -91,12 +97,12 @@ function Text(props) {
     ...style,
   };
   const dom = { ...rest };
-  ['as', 'variant', 'color', 'weight', 'mono', 'caps', 'align', 'nowrap', 'truncate'].forEach(k => delete dom[k]);
+  ['as', 'variant', 'color', 'weight', 'mono', 'caps', 'align', 'nowrap', 'truncate', 'size', 'wrap'].forEach(k => delete dom[k]);
   return <As className={cls.trim()} style={st} {...dom}>{children}</As>;
 }
 
 /* Eyebrow — the uppercase mono section caption (was SectionLabel). */
-function Eyebrow({ size = 11, color = 'secondary', className = '', style, children, ...rest }) {
+export function Eyebrow({ size = 11, color = 'secondary', className = '', style, children, ...rest }) {
   return (
     <Text as="div" variant="mono" color={color} className={className} {...rest}
       style={{ fontSize: size, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', lineHeight: 1.4, ...style }}>
@@ -108,7 +114,7 @@ function Eyebrow({ size = 11, color = 'secondary', className = '', style, childr
 /* Amount — a Bitcoin amount: mono number + unit, with optional sign and coin count.
    size: sm | md | lg | hero. tone tints the number (e.g. 'muted' for change). */
 const AMOUNT_SIZE = { sm: 13, md: 15, lg: 19, hero: 30 };
-function Amount({ value, unit = 'BTC', size = 'md', sign, tone, count, nowrap = true, style }) {
+export function Amount({ value, unit = 'BTC', size = 'md', sign, tone, count, nowrap = true, style }) {
   const px = AMOUNT_SIZE[size] || AMOUNT_SIZE.md;
   const col = tone ? (TEXT_COLOR[tone] || tone) : 'var(--text)';
   return (
@@ -122,3 +128,6 @@ function Amount({ value, unit = 'BTC', size = 'md', sign, tone, count, nowrap = 
 }
 
 Object.assign(window, { Stack, Row, Spacer, Divider, Text, Eyebrow, Amount, spaceVal });
+
+/* File-level namespace (DS compiler indexes this file as `Layout`). */
+export const Layout = { Stack, Row, Spacer, Divider, Text, Eyebrow, Amount };

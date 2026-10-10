@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Silent — Global Settings · components</title>
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="gallery.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="harness.js"></script>
+</head>
+<body>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=3"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=9"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=3"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=10"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=18"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=4"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=3"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=19"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=11"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=19"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=4"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=3"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=3"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=4"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=16"></script>
+
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
+    const noop = () => {};
+    const F = (el, h = 640) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
+    const GS = (props, h) => ({ span: 'full', ...F(<GlobalSettingsModal onClose={noop} onTheme={noop} {...props} />, h) });
+    const P = (id) => PLUGINS.find(p => p.id === id);
+    const enabledOnly = [P('atomic-swaps')];
+    const refusing = PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, refuseUnload: true } : p);
+
+    Gallery.render({
+      kicker: 'Settings · components',
+      title: 'Global Settings',
+      lede: 'Issue #4. One modal, titled once. Opening a section or confirming a plugin disable replaces the content inside the same modal, with a way back. Every state is its own item.',
+      groups: [
+        { name: '1 · Entry point', items: [
+          { title: 'Settings gear in the tab strip end slot — tabs scroll, never under it', tag: 'SettingsGear', span: 'full', el: (
+            <div className="s-tabstrip" style={{ padding: 'var(--pad-xs) var(--pad-xs) 0', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)', maxWidth: 620 }}>
+              <div className="s-tabstrip__tabs">
+                <Tab label="Keys" active closable={false} />
+                {['savings', 'cold-storage', 'testing', 'business', 'donations', 'swaps'].map(n => <Tab key={n} label={n} closable />)}
+                <Tab label="+" closable={false} />
+              </div>
+              <div className="s-tabstrip__end"><SettingsGear onClick={noop} /></div>
+            </div>) },
+        ]},
+        { name: '2.1 · General', items: [
+          { title: 'Default — Light, three plugins, two extension sections', tag: 'GlobalSettingsModal', ...GS({}, 900) },
+          { title: 'Module theme selected', tag: 'GeneralSection', ...GS({ initial: { theme: 'Midnight' } }, 900) },
+          { title: 'Language changed — saved, restart note', tag: 'GeneralSection', ...GS({ initial: { language: 'Français', langSaved: true } }, 900) },
+        ]},
+        { name: '2.2 · Plugin Manager', items: [
+          { title: 'No plugin found', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 520) },
+          { title: 'Registry unavailable', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { registry: false } }, 520) },
+          { title: 'Scanning (empty list)', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { scan: 'scanning' } }, 560) },
+          { title: 'Scanning (existing list)', tag: 'PluginSection', ...GS({ sections: [], initial: { scan: 'scanning' } }, 660) },
+          { title: 'Scan result — 2 found', tag: 'PluginSection', ...GS({ sections: [], initial: { scan: { found: 2 } } }, 660) },
+          { title: 'Disable — confirm (an account closes)', tag: 'DisablePluginConfirm', ...GS({ initial: { view: { disable: 'atomic-swaps' } } }, 460) },
+          { title: 'Disable — confirm (nothing uses it)', tag: 'DisablePluginConfirm', ...GS({ plugins: PLUGINS.map(p => p.id === 'payjoin' ? { ...p, enabled: true } : p), initial: { view: { disable: 'payjoin' } } }, 380) },
+          { title: 'Disable — unloading', tag: 'PluginRow', ...GS({ sections: [], initial: { busyId: 'atomic-swaps' } }, 640) },
+          { title: 'Disable refused — stays enabled', tag: 'PluginSection', ...GS({ plugins: refusing, sections: [], initial: { notice: { tone: 'error', title: 'Could not disable Atomic Swaps', body: 'The plugin refused to unload. It stays enabled. Close its accounts, then try again.' } } }, 700) },
+        ]},
+        { name: '2.3 · Extension Settings', items: [
+          { title: 'No extension section — the section is hidden', tag: 'ExtensionSection', ...GS({ plugins: enabledOnly, sections: [] }, 560) },
+          { title: 'All sections folded', tag: 'SectionHeader', ...GS({ initial: { folds: { general: false, plugins: false, extensions: false } } }, 340) },
+          { title: 'Section open — replaces the list, Back returns', tag: 'ExtensionFrame', ...GS({ initial: { view: { section: 'hw' } } }, 440) },
+        ]},
+        { name: 'Plugin rows', items: PLUGINS.map(p => ({ title: p.error ? 'Failed to load' : p.enabled ? 'Enabled' : 'Disabled', tag: 'PluginRow', span: 'span2', el: <PluginRow plugin={p} onToggle={noop} /> }))
+          .concat([{ title: 'Unloading', tag: 'PluginRow', span: 'span2', el: <PluginRow plugin={P('atomic-swaps')} busy onToggle={noop} /> }]) },
+      ],
+    });
+  </script>
+</body>
+</html>

@@ -38,6 +38,34 @@
       {
         "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Noto Sans|Noto Sans Mono))/i]",
         "message": "Font not provided by the design system. Available: Noto Sans, Noto Sans Mono."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='QRCard'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|style|key|ref|className|style|children)$/]",
+        "message": "<QRCard> doesn't accept that prop. Declared props: children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Icon'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|style|key|ref|className|style|children)$/]",
+        "message": "<Icon> doesn't accept that prop. Declared props: children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Stack'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|style|key|ref|className|style|children)$/]",
+        "message": "<Stack> doesn't accept that prop. Declared props: children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Modal'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|style|key|ref|className|style|children)$/]",
+        "message": "<Modal> doesn't accept that prop. Declared props: children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PrimitivesNamespace'] > JSXAttribute > JSXIdentifier[name!=/^(?:Button|Input|TextArea|Display|Field|FieldGroup|Checkbox|Toggle|Spinner|Card|Badge|SelectRow|Notice|ModalStatus|Legend|ComboBox|ValidationMark|BalanceHeader|Tab|key|ref|className|style|children)$/]",
+        "message": "<PrimitivesNamespace> doesn't accept that prop. Declared props: Button, Input, TextArea, Display, Field, FieldGroup, Checkbox, Toggle, Spinner, Card, Badge, SelectRow, Notice, ModalStatus, Legend, ComboBox, ValidationMark, BalanceHeader, Tab."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='VariantsNamespace'] > JSXAttribute > JSXIdentifier[name!=/^(?:Btn|Pill|key|ref|className|style|children)$/]",
+        "message": "<VariantsNamespace> doesn't accept that prop. Declared props: Btn, Pill."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SectionLabel'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|style|key|ref|className|style|children)$/]",
+        "message": "<SectionLabel> doesn't accept that prop. Declared props: children, style."
       }
     ]
   },
@@ -52,7 +80,29 @@
     }
   ],
   "x-omelette": {
-    "components": {},
+    "components": {
+      "QRCard": {
+        "replaces": []
+      },
+      "Icon": {
+        "replaces": []
+      },
+      "Stack": {
+        "replaces": []
+      },
+      "Modal": {
+        "replaces": []
+      },
+      "PrimitivesNamespace": {
+        "replaces": []
+      },
+      "VariantsNamespace": {
+        "replaces": []
+      },
+      "SectionLabel": {
+        "replaces": []
+      }
+    },
     "tokens": [
       "--accent",
       "--accent-hover",
@@ -64,11 +114,25 @@
       "--blue-light",
       "--border",
       "--border-light",
+      "--btn-w-icon",
+      "--btn-w-icon-lg",
+      "--btn-w-index",
+      "--btn-w-l",
+      "--btn-w-launch-add",
+      "--btn-w-launch-entry",
+      "--btn-w-m",
+      "--btn-w-xl",
+      "--btn-w-xxl",
+      "--button-min-h",
+      "--camera-bg",
       "--checkbox-box",
+      "--combo-arrow",
+      "--combo-dropdown-w",
       "--error",
       "--error-hover",
       "--font-mono",
       "--font-sans",
+      "--form-label-w",
       "--gray-10",
       "--gray-15",
       "--gray-20",
@@ -91,6 +155,7 @@
       "--input-border",
       "--input-focus",
       "--light-gray-65",
+      "--modal-status-icon",
       "--on-accent",
       "--pad-l",
       "--pad-m",
@@ -99,12 +164,18 @@
       "--pad-xs",
       "--pad-xxl",
       "--pad-xxs",
+      "--pill-w-l",
+      "--pill-w-m",
+      "--radius-badge",
       "--radius-button",
       "--radius-checkbox",
       "--radius-inline-icon",
       "--radius-input",
       "--red",
       "--red-dark",
+      "--select-row-icon",
+      "--select-row-pad-h",
+      "--select-row-pad-v",
       "--sidebar-w",
       "--size-body",
       "--size-caption",
@@ -124,11 +195,21 @@
       "--success",
       "--surface",
       "--surface-hover",
+      "--table-cell-pad",
+      "--table-row-h",
+      "--teal",
+      "--teal-dark",
       "--text",
       "--text-muted",
       "--text-secondary",
       "--toggle-h",
       "--toggle-w",
+      "--tx-fee-label",
+      "--tx-recipient-label",
+      "--tx-self",
+      "--tx-self-label",
+      "--tx-warning",
+      "--validation-mark-w",
       "--w-l",
       "--w-m",
       "--w-s",
@@ -171,6 +252,13 @@
       "--red-dark": "color",
       "--yellow": "color",
       "--yellow-dark": "color",
+      "--teal": "color",
+      "--teal-dark": "color",
+      "--tx-self": "color",
+      "--tx-self-label": "color",
+      "--tx-fee-label": "color",
+      "--tx-recipient-label": "color",
+      "--camera-bg": "color",
       "--bg": "color",
       "--bg-secondary": "color",
       "--surface": "color",
@@ -185,6 +273,7 @@
       "--error": "color",
       "--error-hover": "color",
       "--warning": "color",
+      "--tx-warning": "color",
       "--border": "color",
       "--border-light": "color",
       "--input-bg": "color",
@@ -227,6 +316,7 @@
       "--radius-button": "radius",
       "--radius-inline-icon": "radius",
       "--radius-checkbox": "radius",
+      "--radius-badge": "radius",
       "--sidebar-w": "spacing",
       "--statusbar-h": "spacing",
       "--toggle-w": "spacing",
@@ -234,19 +324,23 @@
       "--checkbox-box": "spacing",
       "--icon-size": "spacing",
       "--icon-stroke": "color",
-      "--tx-self": "color",
-      "--tx-self-label": "color",
-      "--tx-fee-label": "color",
-      "--tx-recipient-label": "color",
-      "--camera-bg": "color",
-      "--tx-warning": "color",
-      "--radius-badge": "radius",
       "--button-min-h": "spacing",
       "--form-label-w": "spacing",
       "--select-row-icon": "spacing",
       "--select-row-pad-h": "spacing",
       "--select-row-pad-v": "spacing",
       "--modal-status-icon": "spacing",
+      "--btn-w-icon": "spacing",
+      "--btn-w-icon-lg": "spacing",
+      "--btn-w-index": "spacing",
+      "--btn-w-m": "spacing",
+      "--btn-w-l": "spacing",
+      "--btn-w-xl": "spacing",
+      "--btn-w-xxl": "spacing",
+      "--btn-w-launch-entry": "spacing",
+      "--btn-w-launch-add": "spacing",
+      "--pill-w-m": "spacing",
+      "--pill-w-l": "spacing",
       "--table-row-h": "spacing",
       "--table-cell-pad": "spacing",
       "--combo-dropdown-w": "spacing",

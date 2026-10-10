@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Silent — Keys · components</title>
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="gallery.css" />
+<style>.s-qr svg { width: 100%; height: 100%; display: block; } @keyframes s-spin { to { transform: rotate(360deg); } } .s-spin { animation: s-spin 1s linear infinite; }</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="harness.js"></script>
+</head>
+<body>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=12"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=13"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=18"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=11"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=39"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=13"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=21"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
+    const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
+    const noop = () => {};
+
+    const dev = (id) => DEVICES.find(d => d.id === id);
+    const key = (fp) => KEYS.find(k => k.fp === fp);
+    const others = (fp) => KEYS.filter(k => k.network === 'Signet' && k.fp !== fp);
+    const KD = (fp, initial, h = 640) => ({ span: 'span2', ...F(<KeyDetail k={key(fp)} devices={DEVICES} others={others(fp)} onClose={noop} onSave={noop} onRemove={noop} initial={initial || {}} />, h) });
+    const AK = (initial, h = 620) => ({ span: 'span2', ...F(<AddKeyModal network="Signet" existing={KEYS.filter(k => k.network === 'Signet')} onClose={noop} onAdd={noop} initial={initial || {}} />, h) });
+    const QRRES = { origin: "[7e02da41/84'/1'/0']", xpub: DEMO_XPUB_T };
+    const DUPRES = { origin: "[73c5da0a/84'/1'/0']", xpub: DEMO_XPUB_T };
+    const CA = (props, h = 760) => ({ span: 'span2', ...F(<CreateAccount existing={KNOWN_WALLETS} onCancel={noop} onCreate={noop} onOpenKeys={noop} {...props} />, h) });
+    const row = (el) => ({ el: <div style={{ maxWidth: 640 }}>{el}</div>, span: 'span2' });
+
+    Gallery.render({
+      kicker: 'Keys · components',
+      title: 'Keys, devices & accounts',
+      lede: 'Issue #2 §3.1, 3.3–3.6, 3.11 (no device detail; settings moved to #4 — see Settings gallery). Every state is its own item. Modals are one at a time: steps replace each other inside the same modal.',
+      groups: [
+        { name: '3.1 Keys tab', items: [
+          { title: 'Keys tab — Signet', tag: 'KeysScreen', span: 'full', ...F(<KeysScreen />, 760) },
+          { title: 'Registration failed', tag: 'KeysScreen', span: 'full', ...F(<KeysScreen initialError={{ device: 'Blockstream Jade', message: dev('hid-0003').registerError }} />, 420) },
+          { title: 'Empty — no device, no key (Regtest)', tag: 'KeysScreen', span: 'full', ...F(<KeysScreen initialNetwork="Regtest" />, 520) },
+          { title: 'Keys, no device connected (Bitcoin)', tag: 'KeysScreen', span: 'full', ...F(<KeysScreen initialNetwork="Bitcoin" />, 420) },
+        ]},
+        { name: 'Device rows', items: [
+          { title: 'Registered — disabled', tag: 'DeviceRow', ...row(<DeviceRow device={dev('hid-0001')} keyAlias="Daily Ledger" />) },
+          { title: 'Not registered — click to register', tag: 'DeviceRow', ...row(<DeviceRow device={dev('hid-0002')} onRegister={noop} />) },
+          { title: 'Registering', tag: 'DeviceRow', ...row(<DeviceRow device={dev('hid-0002')} registering />) },
+          { title: 'Locked', tag: 'DeviceRow', ...row(<DeviceRow device={dev('hid-0004')} />) },
+          { title: 'Unsupported', tag: 'DeviceRow', ...row(<DeviceRow device={dev('hid-0005')} />) },
+          { title: 'Register as key — confirm, optional alias', tag: 'RegisterDeviceModal', span: 'span2', ...F(<RegisterDeviceModal device={dev('hid-0002')} network="Signet" existing={KEYS} onCancel={noop} onConfirm={noop} />, 420) },
+          { title: 'Register as key — alias taken', tag: 'RegisterDeviceModal', span: 'span2', ...F(<RegisterDeviceModal device={dev('hid-0002')} network="Signet" existing={KEYS} initialAlias="Daily Ledger" onCancel={noop} onConfirm={noop} />, 420) },
+        ]},
+        { name: 'Key rows', items: [
+          { title: 'Connected (USB · QR)', tag: 'KeyRow', ...row(<KeyRow k={key('73c5da0a')} devices={DEVICES} onOpen={noop} />) },
+          { title: 'On this computer (hot key)', tag: 'KeyRow', ...row(<KeyRow k={key('f23a9e01')} devices={DEVICES} onOpen={noop} />) },
+          { title: 'Offline (SD · QR)', tag: 'KeyRow', ...row(<KeyRow k={key('5be0c7d2')} devices={DEVICES} onOpen={noop} />) },
+        ]},
+        { name: '3.3 Key detail', items: [
+          { title: 'USB · QR key with descriptors', tag: 'KeyDetail', ...KD('73c5da0a', null, 900) },
+          { title: 'Hot · USB · SD key (reveal offered)', tag: 'KeyDetail', ...KD('9a41e6b3', null, 640) },
+          { title: 'Empty sections', tag: 'KeyDetail', ...KD('f23a9e01', null, 600) },
+          { title: 'Long alias — title truncates, fingerprint + status stay', tag: 'KeyDetail', span: 'span2', ...F(<KeyDetail k={{ ...key('73c5da0a'), alias: 'Daily Ledger for groceries, rent and the occasional coffee' }} devices={DEVICES} others={others('73c5da0a')} onClose={noop} onSave={noop} onRemove={noop} />, 640) },
+          { title: 'Adding a route — picker in the row, ✓ confirms', tag: 'RouteTable', ...KD('5be0c7d2', { addingRoute: true }, 640) },
+          { title: 'Fetch xpub — path type + account', tag: 'FetchXpubStep', ...KD('73c5da0a', { step: 'fetch-xpub' }, 380) },
+          { title: 'Fetch xpub — BIP48 with script type', tag: 'FetchXpubStep', ...KD('73c5da0a', { step: 'fetch-xpub', fetch: { purpose: '48' } }, 380) },
+          { title: 'Fetch xpub — custom path', tag: 'FetchXpubStep', ...KD('73c5da0a', { step: 'fetch-xpub', fetch: { purpose: 'custom', custom: "m/84'/1'/5'" } }, 380) },
+          { title: 'Fetch xpub — already cached', tag: 'FetchXpubStep', ...KD('73c5da0a', { step: 'fetch-xpub', fetch: { purpose: '86', account: 0 } }, 380) },
+          { title: 'Fetch xpub — fetching', tag: 'FetchXpubStep', ...KD('73c5da0a', { step: 'fetch-xpub', fetch: { busy: true } }, 400) },
+          { title: 'Sections folded', tag: 'KeyDetail', ...KD('73c5da0a', { folds: { routes: false, devices: false, xpubs: false, descriptors: false } }, 420) },
+          { title: 'Alias saved', tag: 'KeyDetail', ...KD('5be0c7d2', { aliasMsg: { ok: true } }, 640) },
+          { title: 'Alias error', tag: 'KeyDetail', ...KD('5be0c7d2', { alias: 'Daily Ledger', aliasMsg: { error: 'Another key is already named “Daily Ledger”.' } }, 640) },
+          { title: 'Remove — accounts still use it', tag: 'RemoveKeyConfirm', ...KD('73c5da0a', { step: 'remove' }, 360) },
+          { title: 'Remove — hot key', tag: 'RemoveKeyConfirm', ...KD('f23a9e01', { step: 'remove' }, 360) },
+        ]},
+        { name: '3.6 Password step · mnemonic reveal', items: [
+          { title: 'Password', tag: 'PasswordStep', ...KD('9a41e6b3', { step: 'password' }, 340) },
+          { title: 'Wrong password, in place', tag: 'PasswordStep', ...KD('9a41e6b3', { step: 'password', pwError: 'Wrong password. Try again.' }, 380) },
+          { title: 'Mnemonic shown (24 words)', tag: 'RevealMnemonic', ...KD('9a41e6b3', { step: 'reveal' }, 560) },
+          { title: 'Mnemonic hidden', tag: 'RevealMnemonic', ...KD('f23a9e01', { step: 'reveal', hidden: true }, 460) },
+        ]},
+        { name: '3.4 Add a key', items: [
+          { title: 'Mode — click a row to continue', tag: 'AddKeyModal', ...AK({}) },
+          { title: 'QR — request code', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'qr' }, 520) },
+          { title: 'QR — scanning, 3 of 6', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'qr-scan', camera: 'live', progress: [3, 6] }, 760) },
+          { title: 'QR — review', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'review', res: QRRES, alias: 'Coldcard Mk4' }, 480) },
+          { title: 'Fingerprint already registered', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'review', res: DUPRES }, 520) },
+          { title: 'Import a file — open', tag: 'AddKeyModal', ...AK({ mode: 'sd', step: 'sd' }, 300) },
+          { title: 'Import a file — read error', tag: 'AddKeyModal', ...AK({ mode: 'sd', step: 'sd', sdError: true }, 360) },
+          { title: 'Import — empty', tag: 'AddKeyModal', ...AK({ mode: 'import', step: 'import' }, 340) },
+          { title: 'Import — invalid key', tag: 'AddKeyModal', ...AK({ mode: 'import', step: 'import', xpub: '73c5da0a/84/1/0 tpubD6NzVbkr' }, 360) },
+          { title: 'Import — valid', tag: 'AddKeyModal', ...AK({ mode: 'import', step: 'import', xpub: "[a19c44e0/84'/1'/0']" + DEMO_XPUB_T, alias: 'Office Key' }, 340) },
+          { title: 'Import a file — loaded', tag: 'AddKeyModal', ...AK({ mode: 'sd', step: 'sd', res: { origin: "[c71d02f5/84'/1'/0']", xpub: DEMO_XPUB_T }, alias: 'Backup Key 2' }, 440) },
+          ...['invalid', 'newer', 'network', 'nofp', 'route'].map(e => ({ title: 'Import a file — ' + ({ invalid: 'not a key file', newer: 'newer version', network: 'other network', nofp: 'no fingerprint', route: 'unknown route type' })[e], tag: 'AddKeyModal', ...AK({ mode: 'sd', step: 'sd', fileError: e }, 340) })),
+        ]},
+        { name: '3.5 Hot key', items: [
+          { title: 'Generate or import', tag: 'AddKeyModal', ...AK({ mode: 'hot', step: 'hot-choose' }, 420) },
+          { title: 'Import words — partly typed, one unknown word', tag: 'WordInputGrid', ...AK({ mode: 'hot', step: 'hot-choose', hotKind: 'import', typed: 'vault echo silent ridge amber cosmc pledge orbit timber' }, 640) },
+          { title: 'Import words — 24, all valid', tag: 'WordInputGrid', ...AK({ mode: 'hot', step: 'hot-choose', hotKind: 'import', words: 24, typed: HOT_WORDS['9a41e6b3'].join(' ') }, 760) },
+          { title: 'Backup — not confirmed', tag: 'AddKeyModal', ...AK({ mode: 'hot', step: 'hot-backup' }, 500) },
+          { title: 'Backup — 24 words, confirmed', tag: 'AddKeyModal', ...AK({ mode: 'hot', step: 'hot-backup', hotKind: 'gen24', wrote: true }, 560) },
+          { title: 'Password — too short', tag: 'AddKeyModal', ...AK({ mode: 'hot', step: 'hot-password', alias: 'Laptop Key', pw: 'abc' }, 420) },
+          { title: 'Password — mismatch', tag: 'AddKeyModal', ...AK({ mode: 'hot', step: 'hot-password', alias: 'Laptop Key', pw: 'correct horse', pw2: 'correct hose' }, 420) },
+          { title: 'Sealing', tag: 'AddKeyModal', ...AK({ mode: 'hot', step: 'hot-sealing' }, 300) },
+          { title: 'Done', tag: 'AddKeyModal', ...AK({ mode: 'hot', step: 'hot-done', alias: 'Laptop Key' }, 300) },
+          { title: 'Error, with retry', tag: 'AddKeyModal', ...AK({ mode: 'hot', step: 'hot-error' }, 320) },
+        ]},
+        { name: '3.11 Create account from a key', items: [
+          { title: 'Regtest — auto test, BlindBit fails inline', tag: 'CreateAccount', ...CA({ keys: KEYS.map(k => ({ ...k, network: k.network === 'Signet' ? 'Regtest' : k.network })), initial: { tests: { blindbit: { error: 'Could not reach http://localhost:8080: connection refused. Start the BlindBit server, then test again.' }, electrum: 'ok' } } }) },
+          { title: 'Key picked, descriptor fetched, ready', tag: 'CreateAccount', ...CA({ initial: { name: 'daily', network: 'Signet', keyFp: '5be0c7d2', desc: { value: "sp([5be0c7d2/352'/1'/0']" + DEMO_XPUB_T + ')#k7f3qz9d', network: 'Signet' }, tests: { blindbit: 'ok', electrum: 'ok' } } }, 820) },
+          { title: 'Name taken', tag: 'CreateAccount', ...CA({ initial: { name: 'savings', network: 'Signet', tests: { blindbit: 'ok', electrum: 'ok' } } }, 760) },
+          { title: 'No key registered', tag: 'CreateAccount', ...CA({ keys: [] }, 520) },
+          { title: 'Keys only on another network', tag: 'CreateAccount', ...CA({ initial: { network: 'Testnet', tests: {} } }, 520) },
+        ]},
+      ],
+    });
+  </script>
+</body>
+</html>

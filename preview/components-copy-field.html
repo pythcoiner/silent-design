@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Copy Field" subtitle="Read-only mono value + copy — truncated · wrapped" viewport="700x260" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+  .wrap { padding: 22px 26px; display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
+  .lbl { font: 600 10px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+  
+</style>
+<link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="lbl">Truncated (xpub)</div>
+    <div class="s-copy-field"><span class="s-copy-field__v is-truncate">tpubDCtKfsNyRhULjZ9XMS4VKKtVcPdVDi8MKUbcSD9MJDyjRu1A2ND5MiipozyyspBT9bg8upEp7a8EAgFxNxXn1d7QkdbL52Ty5jiSLcxPt1P</span><button class="s-btn s-btn--inline-icon" title="Copy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button></div>
+    <div class="lbl">Wrapped (descriptor)</div>
+    <div class="s-copy-field"><span class="s-copy-field__v is-wrap">sp([73c5da0a/352'/1'/0']tpubDCtKfsNyRhULjZ9XMS4VKKtVcPdVDi8MKUbcSD9MJDyjRu1A2ND5MiipozyyspBT9bg8upEp7a8EAgFxNxXn1d7QkdbL52Ty5jiSLcxPt1P/&lt;0;1&gt;/*)#7q9zr3kd</span><button class="s-btn s-btn--inline-icon" title="Copy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button></div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

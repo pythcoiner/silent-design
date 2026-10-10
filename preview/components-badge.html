@@ -1,26 +1,70 @@
 <!DOCTYPE html>
-<!-- @dsCard group="Generic Components" name="Generic — Badges" subtitle="Status pills — success / warning / error / neutral · color-mix tint + semantic border" viewport="700x150" -->
+<!-- @dsCard group="Generic Components" name="Generic — Pills" subtitle="Every status pill as a hardcoded catalog entry (20) — PillWidth enum · tones · families · disabled row" viewport="900x1500" -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
+<link rel="stylesheet" href="../colors_and_type.css?v=2" /><link rel="stylesheet" href="../components.css?v=2" />
 <style>
-  html, body { margin: 0; background: var(--bg); }
-  .wrap { padding: 26px; font-family: var(--font-sans); display: flex; flex-direction: column; gap: 18px; }
-  .row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
-  .note { font: 11px var(--font-mono); color: var(--text-muted); }
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+  .wrap { padding: 22px 26px; display: flex; flex-direction: column; gap: 6px; }
+  .lbl { font: 600 10px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin: 14px 0 4px; }
+  .tbl { display: grid; grid-template-columns: 210px 110px minmax(0, 1fr) minmax(0, 1fr); gap: 8px 16px; align-items: center; }
+  .tbl .h { font: 600 10px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .id { font: 12px var(--font-mono); color: var(--text); }
+  .role { font: 11px var(--font-mono); color: var(--text-muted); }
+  .cell { display: flex; align-items: center; min-width: 0; }
+  
 </style>
-  <link rel="stylesheet" href="specimen-shell.css" />
+<link rel="stylesheet" href="specimen-shell.css" />
 </head>
 <body>
   <div class="wrap">
-    <div class="row">
-      <span class="s-badge s-badge--success"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Signed</span>
-      <span class="s-badge s-badge--warning">Unconfirmed</span>
-      <span class="s-badge s-badge--error">Failed</span>
-      <span class="s-badge s-badge--neutral">Draft</span>
+    <div class="t-body" style="color:var(--text-secondary)">Every pill is a named entry of <code>PILLS</code> (Variants.jsx): <code>&lt;Pill id="…" /&gt;</code>. Widths come only from the <code>PillWidth</code> enum — <b>M</b> by default; a label that cannot fit steps up; a family sharing a list column shares one width. Inside a disabled row any pill reads as off.</div>
+    <div class="lbl">PillWidth enum</div>
+    <div style="display:flex;flex-direction:column;gap:6px"><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">M</span><span class="role" style="width:60px">110px</span><span style="height:8px;width:110px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">L</span><span class="role" style="width:60px">140px</span><span style="height:8px;width:140px;background:var(--accent);border-radius:2px;opacity:.6"></span></div><div style="display:flex;align-items:center;gap:14px"><span class="id" style="width:110px">Auto</span><span class="role" style="width:60px">content</span></div></div>
+    <div class="lbl">Tones</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><span class="s-badge s-badge--success s-badge--w-m">success</span><span class="s-badge s-badge--warning s-badge--w-m">warning</span><span class="s-badge s-badge--error s-badge--w-m">error</span><span class="s-badge s-badge--neutral s-badge--w-m">neutral</span><span class="s-badge s-badge--off s-badge--w-m">off</span></div>
+    <div class="lbl">device · 3</div>
+    <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
+      <span class="id">pill_device_ready</span><span class="role">success</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-m">Ready</span></span>
+      <span class="id">pill_device_locked</span><span class="role">warning</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--warning s-badge--w-m">Locked</span></span>
+      <span class="id">pill_device_unsupported</span><span class="role">error</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--error s-badge--w-m">Unsupported</span></span>
     </div>
-    <div class="note">.s-badge--{success · warning · error · neutral} · icon optional · 999px radius</div>
+    <div class="lbl">key · 3</div>
+    <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
+      <span class="id">pill_key_connected</span><span class="role">success</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-m">Connected</span></span>
+      <span class="id">pill_key_hot</span><span class="role">success</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-m">Hot Key</span></span>
+      <span class="id">pill_key_offline</span><span class="role">off</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--off s-badge--w-m">Offline</span></span>
+    </div>
+    <div class="lbl">account · 1</div>
+    <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
+      <span class="id">pill_account_registered</span><span class="role">success</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-l">Registered</span></span>
+    </div>
+    <div class="lbl">signer · 8</div>
+    <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
+      <span class="id">pill_signer_first</span><span class="role">success</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-l">Signs First</span></span>
+      <span class="id">pill_signer_ready</span><span class="role">success</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-l">Ready</span></span>
+      <span class="id">pill_signer_signed</span><span class="role">success</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-l"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Signed</span></span>
+      <span class="id">pill_signer_waiting</span><span class="role">off</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--off s-badge--w-l">Waiting</span></span>
+      <span class="id">pill_signer_disconnected</span><span class="role">warning</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--warning s-badge--w-l">Not Connected</span></span>
+      <span class="id">pill_signer_no_hot</span><span class="role">warning</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--warning s-badge--w-l">No Hot Secret</span></span>
+      <span class="id">pill_signer_no_route</span><span class="role">error</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--error s-badge--w-l">No Usable Route</span></span>
+      <span class="id">pill_signer_unregistered</span><span class="role">error</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--error s-badge--w-l">Not Registered</span></span>
+    </div>
+    <div class="lbl">sd · 1</div>
+    <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
+      <span class="id">pill_sd_step_done</span><span class="role">success</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-m">Done</span></span>
+    </div>
+    <div class="lbl">tx · 1</div>
+    <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
+      <span class="id">pill_tx_signed</span><span class="role">success</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-m"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Signed</span></span>
+    </div>
+    <div class="lbl">network · 1</div>
+    <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
+      <span class="id">pill_network</span><span class="role">neutral</span><span class="role">Auto</span><span class="cell"><span class="s-badge s-badge--neutral">Signet</span></span>
+    </div>
+    <div class="lbl">In a disabled row</div>
+    <div class="s-select-row is-disabled" style="max-width:520px"><span class="s-select-row__body"><span class="s-select-row__title">Spare Key</span><span class="s-select-row__sub">None of this key’s routes can sign.</span></span><span class="s-badge s-badge--error s-badge--w-l">No Usable Route</span></div>
   </div>
   <script src="catalog-data.js"></script>
   <script src="specimen-shell.js"></script>

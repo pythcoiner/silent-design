@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Generic Components" name="Generic — Route Icons · Section Header · Modal Actions" subtitle="One icon per route kind; list header with count + action; footer with disabled reason" viewport="700x330" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+  .wrap { padding: 22px 26px; display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
+  .lbl { font: 600 10px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+  
+</style>
+<link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="lbl">Route kinds</div>
+    <div style="display:flex;gap:22px;color:var(--text-secondary);font-size:var(--size-body)"><span style="display:inline-flex;gap:6px;align-items:center"><span title="key" style="display:inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/></svg></span>Hot Key</span><span style="display:inline-flex;gap:6px;align-items:center"><span title="usb" style="display:inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7" r="1"/><circle cx="4" cy="20" r="1"/><path d="M4.7 19.3 19 5"/><path d="m21 3-3 1 2 2Z"/><path d="M9.26 7.68 5 12l2 5"/><path d="m10 14 5 2 3.5-3.5"/><path d="m18 12 1-1 1 1-1 1Z"/></svg></span>USB</span><span style="display:inline-flex;gap:6px;align-items:center"><span title="qr" style="display:inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg></span>QR Code</span><span style="display:inline-flex;gap:6px;align-items:center"><span title="sd_card" style="display:inline-flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.4.6l4.5 4.5a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M11 7v3"/><path d="M14 7v3"/><path d="M17 7v3"/></svg></span>SD Card</span></div>
+    <div class="lbl">Section header</div>
+    <div style="display:flex;align-items:center;gap:10px;min-height:var(--button-min-h)"><span style="font:600 11px var(--font-mono);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)">Keys</span><span class="t-mono" style="font-size:var(--size-caption);color:var(--text-muted)">4</span><span style="flex:1"></span><button class="s-btn">+ Add a Key</button></div>
+    <div class="lbl">Modal actions — disabled primary with reason</div>
+    <div style="display:flex;align-items:center;gap:10px"><button class="s-btn">Back</button><span style="flex:1"></span><span class="t-caption">Enter an alias.</span><button class="s-btn">Cancel</button><button class="s-btn s-btn--primary" disabled>Add Key</button></div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

@@ -1,4 +1,6 @@
 /* Silent UI Kit — App shell: QTabWidget tabs (MainWindow.cpp) + AccountView.
+   Tab order: Keys (non-closable) · wallets · + menu; Settings gear in the end slot
+   opens the global Settings modal (GlobalSettings.jsx), which owns the theme.
    Structure is built from catalog layout primitives (Stack/Row/Text) so it maps
    1:1 to Qt layouts; Tab is the catalog component (Primitives.jsx). */
 
@@ -28,12 +30,16 @@ function AccountView({ wallet, screen, onScreen }) {
 }
 
 function App() {
-  const [theme, setTheme] = React.useState('light');
+  // Theme is a global setting (GlobalSettingsModal). Module themes render on the
+  // light palette in the kit; the app ships their own palettes.
+  const [themeName, setThemeName] = React.useState('Light');
+  const theme = themeName === 'Dark' || themeName === 'Midnight' ? 'dark' : 'light';
   const [appW, setAppW] = React.useState('full');
   const [known, setKnown] = React.useState(KNOWN_WALLETS);
   const [openTabs, setOpenTabs] = React.useState(['savings']);
   const [active, setActive] = React.useState('savings');
   const [screens, setScreens] = React.useState({ savings: 'history' });
+  const [settingsOpen, setSettingsOpen] = React.useState(false);
 
   React.useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
 
@@ -85,14 +91,6 @@ function App() {
             {appW === 'full' ? 'Full' : appW}
           </Text>
         </Row>
-        <Row style={{ flex: 'none', border: '1px solid var(--border)', borderRadius: 6, overflow: 'hidden' }}>
-          {['light', 'dark'].map(t => (
-            <Button key={t} role={theme === t ? 'primary' : 'default'} onClick={() => setTheme(t)}
-              style={{ borderRadius: 0, border: 'none', minHeight: 0, padding: '5px 12px' }}>
-              {t[0].toUpperCase() + t.slice(1)}
-            </Button>
-          ))}
-        </Row>
       </Row>
 
       {/* App window */}
@@ -102,25 +100,32 @@ function App() {
         borderLeft: appW === 'full' ? 'none' : '1px solid var(--border)',
         borderRight: appW === 'full' ? 'none' : '1px solid var(--border)',
       }}>
-        {/* Tab bar */}
-        <Row align="flex-end" style={{ flex: 'none', padding: '8px 8px 0',
+        {/* Tab bar: Keys (fixed, first) · wallet tabs · + menu tab | settings gear (fixed end slot) */}
+        <div className="s-tabstrip" style={{ flex: 'none', padding: 'var(--pad-xs) var(--pad-xs) 0',
           background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)' }}>
-          {openTabs.map(name => (
-            <Tab key={name} label={name} active={active === name} closable
-              onClick={() => setActive(name)} onClose={() => closeWallet(name)} />
-          ))}
-          <Tab label="+" active={active === 'menu'} closable={false} onClick={() => setActive('menu')} />
-        </Row>
+          <div className="s-tabstrip__tabs">
+            <Tab label="Keys" active={active === 'keys'} closable={false} onClick={() => setActive('keys')} />
+            {openTabs.map(name => (
+              <Tab key={name} label={name} active={active === name} closable
+                onClick={() => setActive(name)} onClose={() => closeWallet(name)} />
+            ))}
+            <Tab label="+" active={active === 'menu'} closable={false} onClick={() => setActive('menu')} />
+          </div>
+          <div className="s-tabstrip__end"><SettingsGear onClick={() => setSettingsOpen(true)} /></div>
+        </div>
 
         {/* Content */}
-        <Row grow align="stretch" style={{ minHeight: 0, background: 'var(--bg)' }}>
-          {active === 'menu' ? (
-            <MenuTab wallets={known} openWallets={openTabs}
+        <Row grow align="stretch" style={{ minHeight: 0, background: 'var(--bg)', position: 'relative' }}>
+          {/* Keys stays mounted so its state survives tab switches */}
+          <div style={{ display: active === 'keys' ? 'flex' : 'none', flex: 1, minWidth: 0, minHeight: 0 }}><KeysScreen /></div>
+          {active === 'keys' ? null : active === 'menu' ? (
+            <MenuTab wallets={known} openWallets={openTabs} onOpenKeys={() => setActive('keys')}
               onOpen={openWallet} onCreate={createWallet} onDelete={deleteWallet} />
           ) : (
             <AccountView wallet={ensureWallet(active)} screen={screens[active] || 'history'}
               onScreen={(s) => setScreens(prev => ({ ...prev, [active]: s }))} />
           )}
+          {settingsOpen ? <GlobalSettingsModal theme={themeName} onTheme={setThemeName} onClose={() => setSettingsOpen(false)} /> : null}
         </Row>
       </Stack>
     </Stack>

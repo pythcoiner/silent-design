@@ -4,9 +4,9 @@ function TestableRow({ label, value, onChange, placeholder, width = 440, network
   const [state, setState] = React.useState('idle'); // idle | testing | ok
   const test = () => { setState('testing'); setTimeout(() => setState('ok'), 800); };
   return (
-    <Field label={label} labelWidth={130}>
+    <Field label={label}>
       <Input width={width} value={value} placeholder={placeholder} onChange={e => { onChange(e.target.value); setState('idle'); }} />
-      <Button onClick={test} disabled={state === 'testing'} style={{ marginLeft: 'var(--space-xs)' }}>{state === 'testing' ? 'Testing…' : state === 'ok' ? '✓ Test' : 'Test'}</Button>
+      <Btn id={state === 'testing' ? 'testing' : state === 'ok' ? 'test_ok' : 'test'} onClick={test} disabled={state === 'testing'} />
     </Field>
   );
 }
@@ -25,21 +25,21 @@ function SettingsScreen({ wallet }) {
     <ScreenWrap title="Settings">
       <Stack>
         <FoldSection id="conn" label="Connection" open={open === 'conn'} onToggle={toggle}>
-          <Stack gap="xs">
+          <FieldGroup>
             <TestableRow label="BlindBit URL:" value={blindbit} onChange={setBlindbit} placeholder="https://blindbit.example.com" />
             <TestableRow label="Electrum Server:" value={electrum} onChange={setElectrum} placeholder="host:port" />
-            <Field label="Network:" labelWidth={130}>
+            <Field label="Network:">
               <ComboBox value={network} options={NETWORKS} onChange={setNetwork} width={200} />
             </Field>
-          </Stack>
+          </FieldGroup>
         </FoldSection>
 
         <Ruler />
         <FoldSection id="info" label="Backend Info" open={open === 'info'} onToggle={toggle}>
-          <Stack gap="xs">
-            <Field label="Network:" labelWidth={130}><Text variant="body">{network}</Text></Field>
-            <Field label="Block Height:" labelWidth={130}><Text variant="mono">812519</Text></Field>
-            <Field label="Capabilities:" labelWidth={130} align="flex-start">
+          <FieldGroup>
+            <Field label="Network:"><Text variant="body">{network}</Text></Field>
+            <Field label="Block Height:"><Text variant="mono">812519</Text></Field>
+            <Field label="Capabilities:" align="flex-start">
               <Stack gap={2}>
                 <Text variant="body">Tweaks Only: Yes</Text>
                 <Text variant="body">Full Basic: Yes</Text>
@@ -47,13 +47,13 @@ function SettingsScreen({ wallet }) {
                 <Text variant="body">Cut-Through + Dust Filter: No</Text>
               </Stack>
             </Field>
-          </Stack>
+          </FieldGroup>
         </FoldSection>
 
         <Row justify="center" gap="s" style={{ marginTop: 'var(--space-l)' }}>
-          <Button>Connect Blindbit</Button>
-          <Button>Connect Electrum</Button>
-          <Button role="primary">Save Settings</Button>
+          <Btn id="connect_blindbit" />
+          <Btn id="connect_electrum" />
+          <Btn id="save_settings" />
         </Row>
       </Stack>
     </ScreenWrap>

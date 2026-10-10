@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Components" name="Plugin Row" subtitle="Global Settings plugin row — enabled · disabled · failed to load · unloading" viewport="760x380" -->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
+<style>
+  html, body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-sans); }
+  .wrap { padding: 22px 26px; display: flex; flex-direction: column; gap: 10px; max-width: 700px; }
+  .lbl { font: 600 10px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+</style>
+<link rel="stylesheet" href="specimen-shell.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="lbl">Enabled</div>
+    <div class="s-select-row s-select-row--error is-static"><span class="s-select-row__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg></span><span class="s-select-row__body"><span class="s-select-row__title">Atomic Swaps</span><span class="s-select-row__sub">Swap accounts and two extra themes.</span></span><span class="s-select-row__meta">atomic-swaps  v0.3.0</span><span style="flex:none;display:inline-flex"><span class="s-toggle is-on"></span></span></div>
+    <div class="lbl">Disabled</div>
+    <div class="s-select-row is-static"><span class="s-select-row__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg></span><span class="s-select-row__body"><span class="s-select-row__title">Payjoin</span><span class="s-select-row__sub">Payjoin sending and receiving.</span></span><span class="s-select-row__meta">payjoin  v1.2.3</span><span style="flex:none;display:inline-flex"><span class="s-toggle "></span></span></div>
+    <div class="lbl">Failed to load</div>
+    <div class="s-select-row is-static"><span class="s-select-row__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg></span><span class="s-select-row__body"><span class="s-select-row__title">Nostr Backup</span><span class="s-select-row__sub">Could not load: the plugin was built for a newer Silent (needs 0.9, this is 0.8).</span></span><span class="s-select-row__meta">nostr-backup  v0.1.4</span><span style="flex:none;width:var(--toggle-w)"></span></div>
+    <div class="lbl">Unloading</div>
+    <div class="s-select-row is-static"><span class="s-select-row__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg></span><span class="s-select-row__body"><span class="s-select-row__title">Atomic Swaps</span><span class="s-select-row__sub">Swap accounts and two extra themes.</span></span><span class="s-badge s-badge--off s-badge--w-l">Unloading…</span><span class="s-select-row__meta">atomic-swaps  v0.3.0</span><span style="flex:none;display:inline-flex"><span class="s-toggle is-on is-disabled"></span></span></div>
+  </div>
+  <script src="catalog-data.js"></script>
+  <script src="specimen-shell.js"></script>
+</body>
+</html>

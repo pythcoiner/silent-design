@@ -79,6 +79,10 @@
   --red-dark:     #c83232;
   --yellow:       #dcb432;
   --yellow-dark:  #c8a01e;
+  /* Proposed (issue #2 review, option E): success moves from green to teal so it
+     reads apart from the warning yellow. Not in Palette.h yet — see handoff note. */
+  --teal:         #2fc2b0;
+  --teal-dark:    #12857a;
 
   /* ---- Transaction-shape diagram (TxFlow), theme-independent ---- */
   --tx-self:            #3d8bf0;  /* TX_SELF: own coins, inputs, trunk, change */
@@ -103,7 +107,7 @@
   --accent-hover:   var(--blue-dark-light);
   --on-accent:      var(--white);
 
-  --success: var(--green-dark);
+  --success: var(--teal-dark);   /* proposed; app: GREEN_DARK */
   --error:   var(--red-dark);
   --error-hover: #f03c3c;   /* error.lighter(120) — matches Qt destructive hover */
   --warning: var(--yellow-dark);
@@ -184,6 +188,20 @@
   --select-row-pad-h:   14px;  /* SELECT_ROW_PADDING_H */
   --select-row-pad-v:   12px;  /* SELECT_ROW_PADDING_V */
   --modal-status-icon:  40px;  /* MODAL_STATUS_ICON_SIZE */
+  /* BtnWidth enum — the only button widths; text buttons default to M. Design-only
+     names; 50/200/300 match the app's Size enum (Size::XXS/M/L). */
+  --btn-w-icon:         30px;
+  --btn-w-icon-lg:      50px;
+  --btn-w-index:        60px;
+  --btn-w-m:            120px;
+  --btn-w-l:            160px;
+  --btn-w-xl:           200px;
+  --btn-w-xxl:          260px;
+  --btn-w-launch-entry: 300px;
+  --btn-w-launch-add:   354px;
+  /* PillWidth enum — the only pill widths; M default. Design only, not in the app. */
+  --pill-w-m:           110px;
+  --pill-w-l:           140px;
   --table-row-h:        34px;  /* TABLE_ROW_HEIGHT */
   --table-cell-pad:     7px;   /* TABLE_CELL_PAD */
   --combo-dropdown-w:   30px;  /* COMBO_DROPDOWN_WIDTH */
@@ -206,7 +224,7 @@
   --accent-hover:   var(--blue-light);
   --on-accent:      var(--white);
 
-  --success: var(--green);
+  --success: var(--teal);   /* proposed; app: GREEN */
   --error:   var(--red);
   --error-hover: #ff5151;   /* error.lighter(120) — matches Qt destructive hover */
   --warning: var(--yellow);
