@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":3,"namespace":"SilentDesignSystem_243e89","components":[],"sourceHashes":{"kit/harness.js":"5fb8c9053c6a","preview/catalog-data.js":"be598af0ef7e","preview/specimen-back.js":"3061a81bb3fc","preview/specimen-shell.js":"33523c9cd69a","ui_kits/silent/Address.jsx":"94ce717ec983","ui_kits/silent/App.jsx":"e41f322fef98","ui_kits/silent/Data.jsx":"144cdcbc357b","ui_kits/silent/Icons.jsx":"75bc767ae2cd","ui_kits/silent/Layout.jsx":"4c606fb69277","ui_kits/silent/LayoutDoc.jsx":"125392df58ba","ui_kits/silent/MenuTab.jsx":"35060562a956","ui_kits/silent/Modal.jsx":"0e1797ef9caa","ui_kits/silent/Primitives.jsx":"35b18e4ed4bf","ui_kits/silent/ScreensBasic.jsx":"c14c79a789ee","ui_kits/silent/Send.jsx":"5898ea09999b","ui_kits/silent/Settings.jsx":"82994452be44","ui_kits/silent/Sidebar.jsx":"a7568ec62d21","ui_kits/silent/TxFlow.jsx":"81a429823ace","ui_kits/silent/Widgets.jsx":"c4613a187109"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":3,"namespace":"SilentDesignSystem_243e89","components":[],"sourceHashes":{"kit/harness.js":"5fb8c9053c6a","preview/catalog-data.js":"be598af0ef7e","preview/specimen-back.js":"3061a81bb3fc","preview/specimen-shell.js":"33523c9cd69a","ui_kits/silent/Address.jsx":"94ce717ec983","ui_kits/silent/App.jsx":"e41f322fef98","ui_kits/silent/Data.jsx":"144cdcbc357b","ui_kits/silent/Icons.jsx":"75bc767ae2cd","ui_kits/silent/Layout.jsx":"4c606fb69277","ui_kits/silent/LayoutDoc.jsx":"125392df58ba","ui_kits/silent/MenuTab.jsx":"35060562a956","ui_kits/silent/Modal.jsx":"0e1797ef9caa","ui_kits/silent/Primitives.jsx":"c9931b8a0780","ui_kits/silent/ScreensBasic.jsx":"c14c79a789ee","ui_kits/silent/Send.jsx":"968f754c74ae","ui_kits/silent/Settings.jsx":"82994452be44","ui_kits/silent/Sidebar.jsx":"a7568ec62d21","ui_kits/silent/TxFlow.jsx":"7c8b486da357","ui_kits/silent/Widgets.jsx":"c4613a187109"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -1863,7 +1863,7 @@ function Display({
 }
 function Field({
   label,
-  labelWidth = 150,
+  labelWidth = 'var(--form-label-w)',
   children,
   align = 'center'
 }) {
@@ -1887,11 +1887,10 @@ function Checkbox({
   checked,
   onChange,
   label,
-  disabled,
-  sm
+  disabled
 }) {
   return /*#__PURE__*/React.createElement("span", {
-    className: `s-check ${sm ? 's-check--sm' : ''} ${checked ? 'is-checked' : ''} ${disabled ? 'is-disabled' : ''}`,
+    className: `s-check ${checked ? 'is-checked' : ''} ${disabled ? 'is-disabled' : ''}`,
     style: disabled ? {
       opacity: 0.55,
       cursor: 'default'
@@ -2158,20 +2157,20 @@ function ValidationMark({
   if (state === 'valid') return /*#__PURE__*/React.createElement("span", {
     className: "s-valid",
     style: {
-      width: 20,
+      width: 'var(--validation-mark-w)',
       textAlign: 'center'
     }
   }, "\u2713");
   if (state === 'invalid') return /*#__PURE__*/React.createElement("span", {
     className: "s-invalid",
     style: {
-      width: 20,
+      width: 'var(--validation-mark-w)',
       textAlign: 'center'
     }
   }, "\u2717");
   return /*#__PURE__*/React.createElement("span", {
     style: {
-      width: 20,
+      width: 'var(--validation-mark-w)',
       display: 'inline-block'
     }
   });
@@ -3122,7 +3121,6 @@ function RecipientCard({
       flex: 'none'
     }
   }, /*#__PURE__*/React.createElement(Checkbox, {
-    sm: true,
     checked: out.max,
     onChange: v => onChange({
       ...out,
@@ -4190,13 +4188,13 @@ function txMidAddr(s) {
   return s.length > 30 ? s.slice(0, 26) + '… ' + s.slice(-4) : s;
 }
 
-/* Output colors by kind: external recipient = warning (yellow); change is sent
-   back to yourself, so it shares the self/blue color; fee = error (red). */
+/* Output colors by kind (TxFlow.cpp kindFill): external recipient = tx-warning;
+   change is sent back to yourself, so it shares the self/blue color; fee = error. */
 function outFill(d) {
-  return d.kind === 'change' ? 'var(--tx-self)' : d.kind === 'fee' ? 'var(--error)' : 'var(--warning)';
+  return d.kind === 'change' ? 'var(--tx-self)' : d.kind === 'fee' ? 'var(--error)' : 'var(--tx-warning)';
 }
 function outCap(d) {
-  return d.kind === 'change' ? 'var(--tx-self)' : d.kind === 'fee' ? 'var(--error)' : 'var(--warning)';
+  return d.kind === 'change' ? 'var(--tx-self)' : d.kind === 'fee' ? 'var(--error)' : 'var(--tx-warning)';
 }
 /* Readable label text colors (darker than the band fills). */
 function outLabel(d) {
@@ -4349,23 +4347,7 @@ function TxFlow({
     style: {
       display: 'block'
     }
-  }, /*#__PURE__*/React.createElement("defs", null, /*#__PURE__*/React.createElement("linearGradient", {
-    id: "txflow-grad",
-    gradientUnits: "userSpaceOnUse",
-    x1: "0",
-    y1: "0",
-    x2: W,
-    y2: "0"
-  }, /*#__PURE__*/React.createElement("stop", {
-    offset: "0",
-    stopColor: "var(--tx-grad-0)"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: "0.5",
-    stopColor: "var(--tx-grad-1)"
-  }), /*#__PURE__*/React.createElement("stop", {
-    offset: "1",
-    stopColor: "var(--tx-grad-2)"
-  }))), ins.map((_, i) => /*#__PURE__*/React.createElement("path", {
+  }, ins.map((_, i) => /*#__PURE__*/React.createElement("path", {
     key: 'i' + i,
     d: ribbon(xFlowL, inNode[i][0], inNode[i][1], xTrunkL, inTrunk[i][0], inTrunk[i][1]),
     fill: "var(--tx-self)",

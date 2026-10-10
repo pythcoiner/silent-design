@@ -25,13 +25,13 @@ function txMidAddr(s) {
   return s.length > 30 ? s.slice(0, 26) + '… ' + s.slice(-4) : s;
 }
 
-/* Output colors by kind: external recipient = warning (yellow); change is sent
-   back to yourself, so it shares the self/blue color; fee = error (red). */
+/* Output colors by kind (TxFlow.cpp kindFill): external recipient = tx-warning;
+   change is sent back to yourself, so it shares the self/blue color; fee = error. */
 function outFill(d) {
-  return d.kind === 'change' ? 'var(--tx-self)' : d.kind === 'fee' ? 'var(--error)' : 'var(--warning)';
+  return d.kind === 'change' ? 'var(--tx-self)' : d.kind === 'fee' ? 'var(--error)' : 'var(--tx-warning)';
 }
 function outCap(d) {
-  return d.kind === 'change' ? 'var(--tx-self)' : d.kind === 'fee' ? 'var(--error)' : 'var(--warning)';
+  return d.kind === 'change' ? 'var(--tx-self)' : d.kind === 'fee' ? 'var(--error)' : 'var(--tx-warning)';
 }
 /* Readable label text colors (darker than the band fills). */
 function outLabel(d) {
@@ -104,14 +104,6 @@ function TxFlow({ inputs, outputs, width = 300, height = 188 }) {
   return (
     <div ref={wrapRef} style={{ position: 'relative' }}>
       <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={H} style={{ display: 'block' }}>
-        <defs>
-          <linearGradient id="txflow-grad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2={W} y2="0">
-            <stop offset="0" stopColor="var(--tx-grad-0)" />
-            <stop offset="0.5" stopColor="var(--tx-grad-1)" />
-            <stop offset="1" stopColor="var(--tx-grad-2)" />
-          </linearGradient>
-        </defs>
-
         {ins.map((_, i) => (
           <path key={'i' + i} d={ribbon(xFlowL, inNode[i][0], inNode[i][1], xTrunkL, inTrunk[i][0], inTrunk[i][1])}
             fill="var(--tx-self)" fillOpacity={isHot('in', i) ? 0.98 : 0.34 + 0.07 * (i % 3)}
