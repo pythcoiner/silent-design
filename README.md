@@ -286,7 +286,9 @@ Root files:
   component styles together.
 - **`colors_and_type.css`** — all design tokens (color, type, spacing, radii,
   control metrics) as CSS variables + semantic type classes. Light default, dark via
-  `[data-theme="dark"]`.
+  `[data-theme="dark"]`. The values mirror the app's `src/theme/Palette.h` and
+  `Palette.cpp`; when they disagree, the app wins. This is the only copy: the UI kit
+  and the galleries load it from the root.
 - **`components.css`** — shared component styles (buttons, inputs, tables, checkbox,
   toggle, …) built on the tokens.
 - **`SKILL.md`** — Agent-Skill front-matter so this folder is usable directly as a
@@ -303,7 +305,8 @@ Root files:
   panel-specific components it's built from (e.g. Send → tx-shape diagram, payment
   card, summary, coin selection), rendered live with mock data. `kit/index.html` is
   the panel index.
-- **`ui_kits/silent/`** — high-fidelity, interactive recreation of the desktop wallet
-  (see its own `README.md`): `index.html` plus modular JSX components.
+- **`ui_kits/silent/`** — high-fidelity, interactive recreation of the desktop wallet:
+  `index.html` plus modular JSX components. It loads the root
+  `colors_and_type.css` and `components.css`.
 
 There is **no slide template** in the source, so no `slides/` directory was created.

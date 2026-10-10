@@ -13,7 +13,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-button);
   padding: 6px 16px;
-  min-height: 36px;
+  min-height: var(--button-min-h);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -124,19 +124,19 @@
   background: var(--input-bg);
   border: 1px solid var(--input-border);
   border-radius: var(--radius-button);
-  padding: 6px 40px 6px 10px;
+  padding: 6px calc(var(--combo-dropdown-w) + var(--pad-s)) 6px 10px;
   min-width: 120px;
   cursor: pointer;
 }
 .s-combo::after {
-  content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 30px;
+  content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: var(--combo-dropdown-w);
   border-left: 1px solid var(--input-border);
   background: var(--bg-secondary);
   border-radius: 0 var(--radius-button) var(--radius-button) 0;
 }
 .s-combo > .chev {
   position: absolute; right: 9px; top: 50%; transform: translateY(-50%);
-  width: 12px; height: 12px; background: var(--text); z-index: 1;
+  width: var(--combo-arrow); height: var(--combo-arrow); background: var(--text); z-index: 1;
   -webkit-mask: var(--chevron) center/contain no-repeat;
   mask: var(--chevron) center/contain no-repeat;
 }
@@ -181,15 +181,15 @@
    rule, flat cells, thin row separators, row hover, mono for hashes/amounts.
    Buildable in Qt6 Widgets via QTableView grid-off + row styling. */
 .s-tbl { display: flex; flex-direction: column; font: var(--size-body) var(--font-sans); width: 100%; }
-.s-tbl__head { display: flex; align-items: center; padding-bottom: 7px; border-bottom: 1px solid var(--border); }
+.s-tbl__head { display: flex; align-items: center; padding-bottom: var(--table-cell-pad); border-bottom: 1px solid var(--border); }
 .s-tbl__hcell { color: var(--text-secondary); padding: 0 10px; flex: none; }
 .s-tbl__hcell--amount { text-align: right; }
 .s-tbl__body { display: flex; flex-direction: column; }
-.s-tbl__row { display: flex; align-items: center; min-height: 34px; }
+.s-tbl__row { display: flex; align-items: center; min-height: var(--table-row-h); }
 .s-tbl__body .s-tbl__row:nth-child(odd) { background: var(--bg-secondary); }
 .s-tbl__body .s-tbl__row.is-selected { background: var(--bg-secondary); box-shadow: inset 2px 0 0 var(--accent); }
 .s-tbl__body .s-tbl__row:hover { background: var(--surface-hover); }
-.s-tbl__cell { padding: 7px 10px; color: var(--text); flex: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.s-tbl__cell { padding: var(--table-cell-pad) var(--pad-s); color: var(--text); flex: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .s-tbl__cell--grow { flex: 1; min-width: 0; }
 .s-tbl__cell--mono { font-family: var(--font-mono); color: var(--text-secondary); }
 .s-tbl__cell--amount { font-family: var(--font-mono); color: var(--text); text-align: right; }
@@ -224,7 +224,7 @@
    Small rounded status tag. Tones tint a semantic color; neutral is grey. */
 .s-badge {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 5px 11px; border-radius: 999px; white-space: nowrap;
+  padding: 5px 11px; border-radius: var(--radius-badge); white-space: nowrap;
   font: var(--weight-demibold) 12px var(--font-sans); letter-spacing: 0.02em;
   border: 1px solid transparent;
 }
@@ -239,8 +239,25 @@
 .s-select-row {
   display: flex; align-items: center; gap: var(--space-m); width: 100%;
   box-sizing: border-box; text-align: left; cursor: pointer;
-  padding: 12px 14px; color: var(--text);
+  padding: var(--select-row-pad-v) var(--select-row-pad-h); color: var(--text);
   background: var(--surface); border: 1px solid var(--border-light);
   border-radius: var(--radius-button);
 }
 .s-select-row:hover { background: var(--surface-hover); border-color: var(--border); }
+
+/* ---------------- Tab (catalog/containers/Tab.cpp, QTabBar::tab) ----------------
+   Window tab: label + optional close. The selected tab takes the page bg and full
+   contrast text; the others sit on the secondary surface. Tops are rounded; a 1px
+   overlap (top: 1px) lets the selected tab merge into the content below. */
+.s-tab {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  padding: var(--pad-xs) var(--pad-m); margin-right: var(--space-xxs); position: relative; top: 1px;
+  border: 1px solid var(--border); border-bottom: none;
+  border-top-left-radius: var(--radius-inline-icon); border-top-right-radius: var(--radius-inline-icon);
+  background: var(--bg-secondary); color: var(--text-secondary);
+  font-size: var(--size-body); white-space: nowrap;
+}
+.s-tab.is-active { background: var(--bg); color: var(--text); }
+.s-tab:not(.is-active):hover { background: var(--surface-hover); }
+.s-tab__close { display: inline-flex; opacity: 0.7; }
+.s-tab__close:hover { opacity: 1; }

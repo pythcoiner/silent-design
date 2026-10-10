@@ -45,7 +45,7 @@ function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete }) {
           </Row>
           {canMax ? (
             <Row style={{ flex: 'none' }}>
-              <Checkbox sm checked={out.max} onChange={v => onChange({ ...out, max: v })} label="MAX" />
+              <Checkbox checked={out.max} onChange={v => onChange({ ...out, max: v })} label="MAX" />
             </Row>
           ) : null}
         </Row>

@@ -62,7 +62,7 @@ function Display({ value, variant = 'default', width, className = '' }) {
   return <span className={`s-display ${v} ${className}`} style={style}>{value}</span>;
 }
 
-function Field({ label, labelWidth = 150, children, align = 'center' }) {
+function Field({ label, labelWidth = 'var(--form-label-w)', children, align = 'center' }) {
   return (
     <div style={{ display: 'flex', alignItems: align, gap: 'var(--space-xs)', padding: '3px 0' }}>
       <span className="t-info-label" style={{ width: labelWidth, flex: 'none', color: 'var(--text)' }}>{label}</span>
@@ -71,9 +71,9 @@ function Field({ label, labelWidth = 150, children, align = 'center' }) {
   );
 }
 
-function Checkbox({ checked, onChange, label, disabled, sm }) {
+function Checkbox({ checked, onChange, label, disabled }) {
   return (
-    <span className={`s-check ${sm ? 's-check--sm' : ''} ${checked ? 'is-checked' : ''} ${disabled ? 'is-disabled' : ''}`}
+    <span className={`s-check ${checked ? 'is-checked' : ''} ${disabled ? 'is-disabled' : ''}`}
       style={disabled ? { opacity: 0.55, cursor: 'default' } : undefined}
       onClick={() => { if (!disabled && onChange) onChange(!checked); }}>
       <span className="box" />
@@ -180,9 +180,9 @@ function ComboBox({ value, options, onChange, width = 200 }) {
 
 /* ✓ / ✗ validation mark (Send.cpp setValidationIndicator) */
 function ValidationMark({ state }) {
-  if (state === 'valid') return <span className="s-valid" style={{ width: 20, textAlign: 'center' }}>✓</span>;
-  if (state === 'invalid') return <span className="s-invalid" style={{ width: 20, textAlign: 'center' }}>✗</span>;
-  return <span style={{ width: 20, display: 'inline-block' }} />;
+  if (state === 'valid') return <span className="s-valid" style={{ width: 'var(--validation-mark-w)', textAlign: 'center' }}>✓</span>;
+  if (state === 'invalid') return <span className="s-invalid" style={{ width: 'var(--validation-mark-w)', textAlign: 'center' }}>✗</span>;
+  return <span style={{ width: 'var(--validation-mark-w)', display: 'inline-block' }} />;
 }
 
 /* Balance summary header used atop Coins / History */

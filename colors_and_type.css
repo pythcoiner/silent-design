@@ -80,6 +80,15 @@
   --yellow:       #dcb432;
   --yellow-dark:  #c8a01e;
 
+  /* ---- Transaction-shape diagram (TxFlow), theme-independent ---- */
+  --tx-self:            #3d8bf0;  /* TX_SELF: own coins, inputs, trunk, change */
+  --tx-self-label:      #1f5fb0;  /* TX_SELF_LABEL */
+  --tx-fee-label:       #a82828;  /* TX_FEE_LABEL */
+  --tx-recipient-label: #8a6d00;  /* TX_RECIPIENT_LABEL */
+
+  /* Design only, not in the app: the camera viewport of the QR scan modal. */
+  --camera-bg:          #0c0e13;
+
   /* =========== SEMANTIC TOKENS — LIGHT (default) =========== */
   --bg:             var(--gray-4);
   --bg-secondary:   var(--gray-8);
@@ -98,6 +107,7 @@
   --error:   var(--red-dark);
   --error-hover: #f03c3c;   /* error.lighter(120) — matches Qt destructive hover */
   --warning: var(--yellow-dark);
+  --tx-warning: #e6e600;   /* TX_WARNING_LIGHT: recipient flows in the tx diagram */
 
   --border:        var(--gray-20);
   --border-light:  var(--gray-15);
@@ -156,6 +166,7 @@
   --radius-button:      8px;  /* Button base, Menu, ComboBox */
   --radius-inline-icon: 4px;  /* InlineIcon button, Tab top corners */
   --radius-checkbox:    4px;
+  --radius-badge:       999px;  /* radius::BADGE */
 
   /* =========== CONTROL METRICS =========== */
   --sidebar-w:    200px;  /* AccountWidget side menu */
@@ -165,6 +176,19 @@
   --checkbox-box: 18px;
   --icon-size:    24px;   /* IconPalette default */
   --icon-stroke:  2;      /* Lucide default */
+
+  /* metric:: constants from src/theme/Palette.h */
+  --button-min-h:       36px;  /* BUTTON_MIN_HEIGHT */
+  --form-label-w:       130px; /* FORM_LABEL_WIDTH */
+  --select-row-icon:    18px;  /* SELECT_ROW_ICON_SIZE */
+  --select-row-pad-h:   14px;  /* SELECT_ROW_PADDING_H */
+  --select-row-pad-v:   12px;  /* SELECT_ROW_PADDING_V */
+  --modal-status-icon:  40px;  /* MODAL_STATUS_ICON_SIZE */
+  --table-row-h:        34px;  /* TABLE_ROW_HEIGHT */
+  --table-cell-pad:     7px;   /* TABLE_CELL_PAD */
+  --combo-dropdown-w:   30px;  /* COMBO_DROPDOWN_WIDTH */
+  --combo-arrow:        12px;  /* COMBO_ARROW_SIZE */
+  --validation-mark-w:  20px;  /* VALIDATION_MARK_WIDTH */
 }
 
 /* =========== SEMANTIC TOKENS — DARK =========== */
@@ -186,6 +210,7 @@
   --error:   var(--red);
   --error-hover: #ff5151;   /* error.lighter(120) — matches Qt destructive hover */
   --warning: var(--yellow);
+  --tx-warning: #ffff4a;   /* TX_WARNING_DARK */
 
   --border:        var(--gray-70);
   --border-light:  var(--gray-80);
