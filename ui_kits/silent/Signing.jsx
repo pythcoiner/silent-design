@@ -253,7 +253,7 @@ function CameraStep({ context = 'sign', force, progress, scanError, settings, on
       </div>
       {status === 'live' || progress ? <ScanProgress got={got} total={total} done={got >= total} /> : null}
       {e ? <Notice tone="error" title={e.title} action={<Btn id="scan_again" onClick={() => { setErr(null); setGot(0); }} />}>{e.body}</Notice> : null}
-      <ModalActions onBack={onBack} backId="previous">
+      <ModalActions onBack={onBack}>
         <Btn id="camera_settings" onClick={() => setShowSettings(true)} />
         {/* kit-only escape hatch: the preview usually has no camera, so let reviewers
            continue as if the scan succeeded. Not part of the app (not ported to Qt). */}
