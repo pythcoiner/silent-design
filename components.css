@@ -343,6 +343,7 @@
 .s-tabstrip { display: flex; align-items: flex-end; min-width: 0; }
 .s-tabstrip__tabs { flex: 1; min-width: 0; display: flex; align-items: flex-end; overflow-x: auto; scrollbar-width: none; }
 .s-tabstrip__tabs::-webkit-scrollbar { display: none; }
+.s-tabstrip__modules { flex: none; display: flex; align-items: flex-end; margin-left: var(--space-xs); }
 .s-tabstrip__end { flex: none; display: flex; align-items: center; padding: 0 0 var(--pad-xxs) var(--pad-s); border-left: 1px solid var(--border-light); margin-left: var(--space-xs); }
 
 /* ---------------- Tab (catalog/containers/Tab.cpp, QTabBar::tab) ----------------

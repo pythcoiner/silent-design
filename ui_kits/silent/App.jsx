@@ -100,16 +100,18 @@ function App() {
         borderLeft: appW === 'full' ? 'none' : '1px solid var(--border)',
         borderRight: appW === 'full' ? 'none' : '1px solid var(--border)',
       }}>
-        {/* Tab bar: Keys (fixed, first) · wallet tabs · + menu tab | settings gear (fixed end slot) */}
+        {/* Tab bar: wallet tabs · + menu tab, then the module tabs (Keys) right aligned | settings gear (fixed end slot) */}
         <div className="s-tabstrip" style={{ flex: 'none', padding: 'var(--pad-xs) var(--pad-xs) 0',
           background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)' }}>
           <div className="s-tabstrip__tabs">
-            <Tab label="Keys" active={active === 'keys'} closable={false} onClick={() => setActive('keys')} />
             {openTabs.map(name => (
               <Tab key={name} label={name} active={active === name} closable
                 onClick={() => setActive(name)} onClose={() => closeWallet(name)} />
             ))}
             <Tab label="+" active={active === 'menu'} closable={false} onClick={() => setActive('menu')} />
+          </div>
+          <div className="s-tabstrip__modules">
+            <Tab label="Keys" active={active === 'keys'} closable={false} onClick={() => setActive('keys')} />
           </div>
           <div className="s-tabstrip__end"><SettingsGear onClick={() => setSettingsOpen(true)} /></div>
         </div>

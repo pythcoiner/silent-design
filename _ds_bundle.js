@@ -1033,12 +1033,7 @@ function App() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "s-tabstrip__tabs"
-  }, /*#__PURE__*/React.createElement(Tab, {
-    label: "Keys",
-    active: active === 'keys',
-    closable: false,
-    onClick: () => setActive('keys')
-  }), openTabs.map(name => /*#__PURE__*/React.createElement(Tab, {
+  }, openTabs.map(name => /*#__PURE__*/React.createElement(Tab, {
     key: name,
     label: name,
     active: active === name,
@@ -1050,6 +1045,13 @@ function App() {
     active: active === 'menu',
     closable: false,
     onClick: () => setActive('menu')
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "s-tabstrip__modules"
+  }, /*#__PURE__*/React.createElement(Tab, {
+    label: "Keys",
+    active: active === 'keys',
+    closable: false,
+    onClick: () => setActive('keys')
   })), /*#__PURE__*/React.createElement("div", {
     className: "s-tabstrip__end"
   }, /*#__PURE__*/React.createElement(SettingsGear, {

@@ -46,13 +46,13 @@
       lede: 'Issue #4. One modal, titled once. Opening a section or confirming a plugin disable replaces the content inside the same modal, with a way back. Every state is its own item.',
       groups: [
         { name: '1 · Entry point', items: [
-          { title: 'Settings gear in the tab strip end slot — tabs scroll, never under it', tag: 'SettingsGear', span: 'full', el: (
+          { title: 'Settings gear in the tab strip end slot, module tabs right aligned before it: account tabs scroll, never under them', tag: 'SettingsGear', span: 'full', el: (
             <div className="s-tabstrip" style={{ padding: 'var(--pad-xs) var(--pad-xs) 0', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)', maxWidth: 620 }}>
               <div className="s-tabstrip__tabs">
-                <Tab label="Keys" active closable={false} />
                 {['savings', 'cold-storage', 'testing', 'business', 'donations', 'swaps'].map(n => <Tab key={n} label={n} closable />)}
                 <Tab label="+" closable={false} />
               </div>
+              <div className="s-tabstrip__modules"><Tab label="Keys" active closable={false} /></div>
               <div className="s-tabstrip__end"><SettingsGear onClick={noop} /></div>
             </div>) },
         ]},
