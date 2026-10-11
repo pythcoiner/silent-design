@@ -5608,7 +5608,8 @@ function RecipientCard({
   deletable,
   canMax,
   onChange,
-  onDelete
+  onDelete,
+  onScan
 }) {
   const addrState = out.address === '' ? 'none' : looksLikeAddress(out.address) ? 'valid' : 'invalid';
   const amtState = out.max ? 'none' : out.amount === '' ? 'none' : looksLikeAmount(out.amount) ? 'valid' : 'invalid';
@@ -5619,16 +5620,28 @@ function RecipientCard({
     }) : null
   }, /*#__PURE__*/React.createElement(PaymentRow, {
     label: "Address"
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "xs"
   }, /*#__PURE__*/React.createElement(ValidatedInput, {
     mono: true,
     state: addrState,
     placeholder: "sp1q\u2026 / bc1q\u2026",
+    wrapStyle: {
+      flex: 1,
+      minWidth: 0
+    },
     value: out.address,
     onChange: e => onChange({
       ...out,
       address: e.target.value
     })
-  })), /*#__PURE__*/React.createElement(PaymentRow, {
+  }), /*#__PURE__*/React.createElement(Btn, {
+    id: "scan_address",
+    onClick: onScan,
+    style: {
+      flex: 'none'
+    }
+  }))), /*#__PURE__*/React.createElement(PaymentRow, {
     label: "Description"
   }, /*#__PURE__*/React.createElement(ValidatedInput, {
     state: "none",
@@ -5896,7 +5909,11 @@ function SendScreen({
     deletable: outputs.length > 1,
     canMax: !anyMax || o.max,
     onChange: v => setOut(i, v),
-    onDelete: () => delOutput(i)
+    onDelete: () => delOutput(i),
+    onScan: () => setModal({
+      type: 'scan',
+      idx: i
+    })
   }))), /*#__PURE__*/React.createElement(Row, {
     justify: "flex-end",
     style: {
@@ -6046,7 +6063,22 @@ function SendScreen({
       setSigned(true);
       setModal(null);
     }
-  }) : null, modal && modal.type === 'broadcast' ? /*#__PURE__*/React.createElement(BroadcastModal, {
+  }) : null, modal && modal.type === 'scan' ? /*#__PURE__*/React.createElement(Modal, {
+    title: "Scan Address",
+    width: 600,
+    onClose: () => setModal(null)
+  }, /*#__PURE__*/React.createElement(CameraStep, {
+    context: "scan-address",
+    onBack: () => setModal(null),
+    onCancel: () => setModal(null),
+    onDone: () => {
+      setOut(modal.idx, {
+        ...outputs[modal.idx],
+        address: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq'
+      });
+      setModal(null);
+    }
+  })) : null, modal && modal.type === 'broadcast' ? /*#__PURE__*/React.createElement(BroadcastModal, {
     onClose: () => {
       clearAll();
       setModal(null);
@@ -6321,6 +6353,11 @@ try { (() => {
    Cancelling returns quietly; it is never reported as a failure. */
 
 const FLOW_COPY = {
+  /* A payment address read off a plain QR code (Send), no device involved: only the scan. */
+  'scan-address': {
+    scanTitle: 'Scan Address',
+    scanHint: 'Show the address QR code to the camera.'
+  },
   sign: {
     title: 'Sign Transaction',
     pickerLead: 'Each key below must sign this transaction.',
@@ -7524,6 +7561,13 @@ const BUTTONS = {
     icon: 'settings',
     iconSize: 16,
     title: 'Camera Settings',
+    w: 'Icon'
+  },
+  scan_address: {
+    role: 'inline-icon',
+    icon: 'qr',
+    iconSize: 16,
+    title: 'Scan an Address QR Code',
     w: 'Icon'
   },
   open_file: {

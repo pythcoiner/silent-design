@@ -33,6 +33,10 @@ const FLOW_COPY = {
     scanTitle: 'Scan Xpub', scanHint: 'Hold the xpub code from the device in front of the camera.',
     sdTitle: 'Get Xpub', hotPrompt: a => `Enter the password of “${a}” to get its xpub.`, hotBtn: 'get_xpub_hot', hotBusy: 'Getting the xpub…',
   },
+  /* A payment address read off a plain QR code (Send), no device involved: only the scan. */
+  'scan-address': {
+    scanTitle: 'Scan Address', scanHint: 'Show the address QR code to the camera.',
+  },
 };
 
 const SIGNER_STATUS = {
