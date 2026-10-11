@@ -2677,11 +2677,20 @@ function XpubTable({
       })
     }, ...(pill || addRow ? [{
       header: '',
-      width: 130,
+      width: 120,
       align: 'right',
       render: x => x.__add ? addRow.action : pill ? /*#__PURE__*/React.createElement(Pill, {
         id: x.used ? 'xpub_used' : 'xpub_unused'
       }) : null
+    }] : []), ...(pill ? [{
+      header: '',
+      width: 30,
+      align: 'right',
+      render: x => x.__add ? null : /*#__PURE__*/React.createElement(Btn, {
+        id: "remove_xpub",
+        disabled: x.used,
+        title: x.used ? 'An account uses this xpub' : 'Remove Xpub'
+      })
     }] : [])]
   });
 }
@@ -7899,6 +7908,12 @@ const BUTTONS = {
   remove_route: {
     role: 'inline-icon',
     icon: 'trash',
+    iconSize: 14,
+    w: 'Icon'
+  },
+  remove_xpub: {
+    role: 'inline-icon',
+    icon: 'x',
     iconSize: 14,
     w: 'Icon'
   },

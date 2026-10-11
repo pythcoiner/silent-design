@@ -96,6 +96,7 @@ export const BUTTONS = {
   move_up: { role: 'inline-icon', icon: 'arrow_up', iconSize: 14, title: 'Move Up', w: 'Icon' },
   remove_payment: { role: 'inline-icon', icon: 'x', iconSize: 16, title: 'Remove Payment', w: 'Icon' },
   remove_route: { role: 'inline-icon', icon: 'trash', iconSize: 14, w: 'Icon' },
+  remove_xpub: { role: 'inline-icon', icon: 'x', iconSize: 14, w: 'Icon' },
   save_label: { role: 'inline-icon', icon: 'check', iconSize: 15, title: 'Save', w: 'Icon' },
   verify_on_device_sm: { role: 'inline-icon', icon: 'usb', iconSize: 15, w: 'Icon' },
   open_wallet: { role: 'tab-open', label: '(wallet name)', dataLabel: true, w: 'LaunchEntry' },

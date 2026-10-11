@@ -309,8 +309,8 @@ function RemoveKeyConfirm({ k, onCancel, onConfirm }) {
 }
 
 /* XpubTable — the one way an xpub list is shown: path (mono, muted) · short xpub.
-   Used by Cached Xpubs (with copy, Used pill and a trailing + row) and by the
-   Add a Key review (read-only: no copy, no pill). */
+   Used by Cached Xpubs (with copy, Used pill, a remove cross disabled while used,
+   and a trailing + row) and by the Add a Key review (read-only: no copy, no pill). */
 function XpubTable({ rows, copy = true, pill = false, addRow = null }) {
   const all = addRow ? [...rows, { __add: true }] : rows;
   return (
@@ -318,7 +318,8 @@ function XpubTable({ rows, copy = true, pill = false, addRow = null }) {
       rowClass={x => (x.__add ? 'is-bare' : '')} columns={[
       { header: 'Path', width: 140, mono: true, render: x => x.__add ? null : x.path },
       { header: 'Xpub', grow: true, render: x => x.__add ? (addRow.empty || null) : <ShortValue value={x.xpub} copy={copy} title="Copy xpub" /> },
-      ...(pill || addRow ? [{ header: '', width: 130, align: 'right', render: x => x.__add ? addRow.action : pill ? <Pill id={x.used ? 'xpub_used' : 'xpub_unused'} /> : null }] : []),
+      ...(pill || addRow ? [{ header: '', width: 120, align: 'right', render: x => x.__add ? addRow.action : pill ? <Pill id={x.used ? 'xpub_used' : 'xpub_unused'} /> : null }] : []),
+      ...(pill ? [{ header: '', width: 30, align: 'right', render: x => x.__add ? null : <Btn id="remove_xpub" disabled={x.used} title={x.used ? 'An account uses this xpub' : 'Remove Xpub'} /> }] : []),
     ]} />
   );
 }
