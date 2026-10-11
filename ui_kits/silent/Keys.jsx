@@ -136,8 +136,7 @@ function KeysScreen({ initialNetwork = 'Signet', initialKeys = KEYS, initialDevi
               ))}
             </Stack>
           ) : (
-            <EmptyState icon="usb" title="No Device Connected"
-              subtitle={`Connect a hardware wallet over USB and unlock it. It appears here while it runs on ${network}.`} />
+            <EmptyState icon="usb" title="No Device Connected" />
           ))}
         {section('keys',
           <SectionHeader label="Keys" count={netKeys.length || null} open={open.keys} onToggle={() => toggle('keys')} action={netKeys.length && open.keys ? addBtn : null} />,
@@ -146,8 +145,7 @@ function KeysScreen({ initialNetwork = 'Signet', initialKeys = KEYS, initialDevi
               {netKeys.map(k => <KeyRow key={k.fp} k={k} devices={devices} onOpen={() => setModal({ type: 'key', fp: k.fp })} />)}
             </Stack>
           ) : (
-            <EmptyState icon="key" title={`No Key on ${network}`}
-              subtitle="Add a key to sign transactions, verify addresses and create accounts." action={addBtn} />
+            <EmptyState icon="key" title={`No Key on ${network}`} action={addBtn} />
           ))}
         </div>
       </div>
