@@ -23,9 +23,9 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=6"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=5"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=39"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=40"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=13"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=21"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=22"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=6"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=5"></script>
@@ -41,8 +41,9 @@
     const others = (fp) => KEYS.filter(k => k.network === 'Signet' && k.fp !== fp);
     const KD = (fp, initial, h = 640) => ({ span: 'span2', ...F(<KeyDetail k={key(fp)} devices={DEVICES} others={others(fp)} onClose={noop} onSave={noop} onRemove={noop} initial={initial || {}} />, h) });
     const AK = (initial, h = 620) => ({ span: 'span2', ...F(<AddKeyModal network="Signet" existing={KEYS.filter(k => k.network === 'Signet')} onClose={noop} onAdd={noop} initial={initial || {}} />, h) });
-    const QRRES = { origin: "[7e02da41/84'/1'/0']", xpub: DEMO_XPUB_T };
-    const DUPRES = { origin: "[73c5da0a/84'/1'/0']", xpub: DEMO_XPUB_T };
+    const QRROWS = ["m/84'/1'/0'", "m/86'/1'/0'", "m/48'/1'/0'/2'", "m/87'/1'/0'"].map(path => ({ path, xpub: DEMO_XPUB_T }));
+    const QRRES = { origin: "[7e02da41/84'/1'/0']", xpub: DEMO_XPUB_T, rows: QRROWS };
+    const DUPRES = { origin: "[73c5da0a/84'/1'/0']", xpub: DEMO_XPUB_T, rows: QRROWS };
     const CA = (props, h = 760) => ({ span: 'span2', ...F(<CreateAccount existing={KNOWN_WALLETS} onCancel={noop} onCreate={noop} onOpenKeys={noop} {...props} />, h) });
     const row = (el) => ({ el: <div style={{ maxWidth: 640 }}>{el}</div>, span: 'span2' });
 
@@ -95,10 +96,10 @@
         ]},
         { name: '3.4 Add a key', items: [
           { title: 'Mode — click a row to continue', tag: 'AddKeyModal', ...AK({}) },
-          { title: 'QR — request code', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'qr' }, 520) },
+          { title: 'QR — request code', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'qr' }, 640) },
           { title: 'QR — scanning, 3 of 6', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'qr-scan', camera: 'live', progress: [3, 6] }, 760) },
-          { title: 'QR — review', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'review', res: QRRES, alias: 'Coldcard Mk4' }, 480) },
-          { title: 'Fingerprint already registered', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'review', res: DUPRES }, 520) },
+          { title: 'QR — review', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'review', res: QRRES, alias: 'Coldcard Mk4' }, 600) },
+          { title: 'Fingerprint already registered', tag: 'AddKeyModal', ...AK({ mode: 'qr', step: 'review', res: DUPRES }, 640) },
           { title: 'Import a file — open', tag: 'AddKeyModal', ...AK({ mode: 'sd', step: 'sd' }, 300) },
           { title: 'Import a file — read error', tag: 'AddKeyModal', ...AK({ mode: 'sd', step: 'sd', sdError: true }, 360) },
           { title: 'Import — empty', tag: 'AddKeyModal', ...AK({ mode: 'import', step: 'import' }, 340) },

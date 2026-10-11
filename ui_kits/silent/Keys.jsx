@@ -318,7 +318,7 @@ function XpubTable({ rows, copy = true, pill = false, addRow = null }) {
   return (
     <Table hideHeader rows={all} rowKey={x => x.__add ? '__add' : x.path}
       rowClass={x => (x.__add ? 'is-bare' : '')} columns={[
-      { header: 'Path', width: 120, mono: true, render: x => x.__add ? null : x.path },
+      { header: 'Path', width: 140, mono: true, render: x => x.__add ? null : x.path },
       { header: 'Xpub', grow: true, render: x => x.__add ? (addRow.empty || null) : <ShortValue value={x.xpub} copy={copy} title="Copy xpub" /> },
       ...(pill || addRow ? [{ header: '', width: 130, align: 'right', render: x => x.__add ? addRow.action : pill ? <Pill id={x.used ? 'xpub_used' : 'xpub_unused'} /> : null }] : []),
     ]} />
