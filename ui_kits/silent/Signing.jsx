@@ -315,13 +315,18 @@ function CameraStep({ context = 'sign', force, progress, scanError, settings, on
   );
 }
 
+/* A hot key: the flow waits under a spinner while the generic unseal modal, opened over
+   it, takes the password and works. Closing the prompt goes back to the picker. */
 function HotStep({ context = 'sign', keyAlias, onCancel, onDone, initialBusy = false, pwError }) {
   const c = FLOW_COPY[context];
-  const [busy, setBusy] = React.useState(initialBusy);
-  React.useEffect(() => { if (!busy || initialBusy) return; const t = setTimeout(() => onDone && onDone(), 1400); return () => clearTimeout(t); }, [busy]);
-  if (busy) return <ModalStatus spinner title={c.hotBusy} subtitle={`With “${keyAlias}”.`} pad="var(--space-m) 0" />;
-  return <PasswordStep prompt={c.hotPrompt(keyAlias)} proceedId={c.hotBtn} error={pwError}
-    onCancel={onCancel} onProceed={() => setBusy(true)} />;
+  return (
+    <>
+      <ModalStatus spinner title={c.hotBusy} subtitle={`With “${keyAlias}”.`} pad="var(--space-m) 0" />
+      <UnsealModal title={c.title} prompt={c.hotPrompt(keyAlias)} proceedId={c.hotBtn} error={pwError}
+        busyTitle={c.hotBusy} busySubtitle={`With “${keyAlias}”.`} initialBusy={initialBusy}
+        onCancel={onCancel} onDone={onDone} />
+    </>
+  );
 }
 
 /* ---------------- 3.10 Verify result ---------------- */

@@ -230,6 +230,21 @@ function PasswordStep({ prompt, proceedId = 'proceed', onBack, error: initialErr
   );
 }
 
+/* UnsealModal — the one password prompt that unseals a hot key's mnemonic, opened on
+   top of whatever needs it: Reveal Mnemonic, signing, a descriptor or xpub fetch. Once the
+   password is taken it works under its spinner (shown at least 500ms) and closes. */
+function UnsealModal({ title, prompt, proceedId = 'proceed', busyTitle, busySubtitle, error, initialBusy = false, onCancel, onDone }) {
+  const [busy, setBusy] = React.useState(initialBusy);
+  React.useEffect(() => { if (!busy || initialBusy) return; const t = setTimeout(() => onDone && onDone(), 900); return () => clearTimeout(t); }, [busy]);
+  return (
+    <Modal title={title} width={520} onClose={onCancel}>
+      {busy ? <ModalStatus spinner title={busyTitle} subtitle={busySubtitle} pad="var(--space-m) 0" /> : (
+        <PasswordStep prompt={prompt} proceedId={proceedId} error={error} onBack={onCancel} onProceed={() => setBusy(true)} />
+      )}
+    </Modal>
+  );
+}
+
 /* ---------------- 3.3 Key detail ---------------- */
 
 function RouteTable({ routes, hasHot, onChange, initialAdding = false }) {
@@ -362,7 +377,11 @@ function FetchXpubStep({ network, device, hot = false, existing = [], onBack, on
     : dup ? 'This xpub is already cached.' : null;
   const fetchNow = () => { setBusy(true); setTimeout(() => onFetched(path), 1000); };
   if (busy) return <ModalStatus spinner title="Fetching the xpub…" subtitle={device ? `Confirm on ${deviceName(device)} if it asks.` : null} pad="var(--space-m) 0" />;
-  if (askPassword) return <PasswordStep onBack={() => setAskPassword(false)} onProceed={() => { setAskPassword(false); fetchNow(); }} />;
+  // A hot key: the unseal modal over this one derives the xpub under its own spinner.
+  const unseal = askPassword ? (
+    <UnsealModal title="Fetch Xpub" proceedId="get_xpub_hot" busyTitle="Fetching the xpub…"
+      onCancel={() => setAskPassword(false)} onDone={() => { setAskPassword(false); onFetched(path); }} />
+  ) : null;
   return (
     <Stack gap="m">
       <FieldGroup>
@@ -391,6 +410,7 @@ function FetchXpubStep({ network, device, hot = false, existing = [], onBack, on
       <ModalActions reason={reason}>
         <Btn id="fetch_this_xpub" disabled={!!reason} onClick={() => (device || !hot ? fetchNow() : setAskPassword(true))} />
       </ModalActions>
+      {unseal}
     </Stack>
   );
 }
@@ -416,7 +436,7 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
     onSave && onSave({ ...k, alias: a }); setAliasMsg(null);
   };
   const addXpub = (path) => { setXpubs(xs => [...xs, { path, xpub: (k.network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T).replace('Lj', path.slice(2, 4)), used: false }]); setStep('detail'); };
-  const title = { detail: k.alias, 'fetch-xpub': k.alias, password: 'Reveal Mnemonic', reveal: 'Reveal Mnemonic', remove: 'Remove Key' }[step];
+  const title = { detail: k.alias, 'fetch-xpub': k.alias, password: k.alias, reveal: k.alias, remove: 'Remove Key' }[step];
   // Fetch Xpub opens its own modal over the key detail, which stays underneath.
   const fetchOpen = step === 'fetch-xpub' && (device || k.hasHot);
 
@@ -424,12 +444,7 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
     <>
     <Modal title={title} width={600} onClose={onClose}
       headerRight={<Row gap="s"><Text variant="mono" color="secondary" size="sm">{k.fp}</Text><Pill id={st} /></Row>}>
-      {step === 'password' ? (
-        <PasswordStep proceedId="show_mnemonic"
-          error={initial.pwError || null} onBack={() => setStep('detail')} onProceed={() => setStep('reveal')} />
-      ) : step === 'reveal' ? (
-        <RevealMnemonic words={HOT_WORDS[k.fp] || MNEMONIC_WORDS.slice(0, 12)} initialHidden={!!initial.hidden} onDone={() => setStep('detail')} />
-      ) : step === 'remove' ? (
+      {step === 'remove' ? (
         <RemoveKeyConfirm k={k} onCancel={() => setStep('detail')} onConfirm={onRemove} />
       ) : (
         <Stack gap="xs">
@@ -483,6 +498,16 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
         </Stack>
       )}
     </Modal>
+    {/* Reveal Mnemonic: the unseal prompt, then the words, each a modal over the detail. */}
+    {step === 'password' ? (
+      <UnsealModal title="Reveal Mnemonic" proceedId="show_mnemonic" busyTitle="Opening the key…" error={initial.pwError || null}
+        onCancel={() => setStep('detail')} onDone={() => setStep('reveal')} />
+    ) : null}
+    {step === 'reveal' ? (
+      <Modal title="Reveal Mnemonic" width={600} onClose={() => setStep('detail')}>
+        <RevealMnemonic words={HOT_WORDS[k.fp] || MNEMONIC_WORDS.slice(0, 12)} initialHidden={!!initial.hidden} onDone={() => setStep('detail')} />
+      </Modal>
+    ) : null}
     {fetchOpen ? (
       <Modal title="Fetch Xpub" width={600} onClose={() => setStep('detail')}>
         <FetchXpubStep network={k.network} device={device} hot={k.hasHot} existing={xpubs} initial={initial.fetch || {}}
@@ -493,5 +518,5 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
   );
 }
 
-Object.assign(window, { XpubTable, FetchXpubStep, XPUB_PURPOSES, BIP48_SCRIPTS, KeysScreen, RegisterDeviceModal, DeviceRow, KeyRow, KeyDetail, PasswordStep, RevealMnemonic,
+Object.assign(window, { XpubTable, FetchXpubStep, XPUB_PURPOSES, BIP48_SCRIPTS, KeysScreen, RegisterDeviceModal, DeviceRow, KeyRow, KeyDetail, PasswordStep, UnsealModal, RevealMnemonic,
   RemoveKeyConfirm, RouteTable, KEYS_TAB_W, LIST_COLS, ListTitle, ListEnd, StateBadge, keyStatus, HOT_WORDS });
