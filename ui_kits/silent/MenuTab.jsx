@@ -14,7 +14,8 @@ function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys 
           return (
             <Row key={name} gap="xs" style={{ opacity: open ? 0.5 : 1 }}>
               <Btn id="open_wallet" label={name} disabled={open} onClick={() => onOpen(name)} />
-              <Btn id="delete_wallet" onClick={() => setDeleting(name)} />
+              {/* Shown, but an open wallet cannot be deleted: close its tab first. */}
+              <Btn id="delete_wallet" disabled={open} onClick={() => setDeleting(name)} />
             </Row>
           );
         })}
