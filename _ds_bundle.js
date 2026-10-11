@@ -4003,7 +4003,7 @@ function CreateAccount({
   }), netKeys.length ? /*#__PURE__*/React.createElement(Row, {
     gap: "s"
   }, /*#__PURE__*/React.createElement(Btn, {
-    id: desc ? 'get_again' : 'get_descriptor',
+    id: 'get_silent_payment',
     disabled: !key,
     onClick: () => setFetching(true)
   }), !key ? /*#__PURE__*/React.createElement(Text, {
@@ -7577,6 +7577,11 @@ const BUTTONS = {
     label: 'Get Descriptor',
     w: 'L'
   },
+  get_xpub_hot: {
+    role: 'primary',
+    label: 'Get Xpub',
+    w: 'L'
+  },
   load_signed_psbt: {
     role: 'primary',
     label: 'Load Signed PSBT…',
@@ -7690,15 +7695,20 @@ const BUTTONS = {
     iconSize: 15,
     w: 'L'
   },
-  get_again: {
+  get_segwit: {
     role: 'default',
-    label: 'Get Again',
+    label: 'Segwit',
+    w: 'M'
+  },
+  get_silent_payment: {
+    role: 'default',
+    label: 'Silent Payment',
     w: 'L'
   },
-  get_descriptor: {
+  get_taproot: {
     role: 'default',
-    label: 'Get Descriptor',
-    w: 'L'
+    label: 'Taproot',
+    w: 'M'
   },
   open: {
     role: 'default',

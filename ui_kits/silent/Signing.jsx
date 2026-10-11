@@ -25,6 +25,14 @@ const FLOW_COPY = {
     scanTitle: 'Scan Descriptor', scanHint: 'Hold the descriptor code from the device in front of the camera.',
     sdTitle: 'Descriptor from SD Card', hotPrompt: a => `Enter the password of “${a}” to get its silent payment descriptor.`, hotBtn: 'get_descriptor_hot', hotBusy: 'Getting the descriptor…',
   },
+  /* An account's taproot or segwit xpub: from the key's cache, else over its USB, QR or hot route. */
+  'fetch-xpub': {
+    title: 'Get Xpub', pickerLead: '',
+    usbTitle: 'Confirm on the Device', usbWait: d => `Approve the xpub export on ${d}.`,
+    qrTitle: 'Show Xpub Request', qrHint: 'Scan this code with the device to request its xpub.',
+    scanTitle: 'Scan Xpub', scanHint: 'Hold the xpub code from the device in front of the camera.',
+    sdTitle: 'Get Xpub', hotPrompt: a => `Enter the password of “${a}” to get its xpub.`, hotBtn: 'get_xpub_hot', hotBusy: 'Getting the xpub…',
+  },
 };
 
 const SIGNER_STATUS = {
@@ -339,7 +347,7 @@ function SigningFlow({ context = 'sign', plan = [], others = [], address, fileBa
   const back = keyRow ? null : () => setStep(null);
   const finished = (r) => {
     if (context === 'verify') return setStep({ row: r, result: 'matched' });
-    if (context === 'fetch') return onDone && onDone(r);
+    if (context === 'fetch' || context === 'fetch-xpub') return onDone && onDone(r);
     const next = rows.map(x => (x.fp === r.fp ? { ...x, status: 'signed' } : x.status === 'waiting' && r.status === 'first' ? { ...x, status: 'ready' } : x));
     setRows(next); setStep(null);
     if (!next.some(x => ['first', 'ready', 'waiting'].includes(x.status))) onDone && onDone();

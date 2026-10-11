@@ -18,19 +18,19 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=13"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=18"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=19"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=11"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=6"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=41"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=13"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=26"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=6"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=6"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=9"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
@@ -123,6 +123,7 @@
         { name: '3.11 Create account from a key', items: [
           { title: 'Regtest — auto test, BlindBit fails inline', tag: 'CreateAccount', ...CA({ keys: KEYS.map(k => ({ ...k, network: k.network === 'Signet' ? 'Regtest' : k.network })), initial: { tests: { blindbit: { error: 'Could not reach http://localhost:8080: connection refused. Start the BlindBit server, then test again.' }, electrum: 'ok' } } }) },
           { title: 'Key picked, descriptor fetched, ready', tag: 'CreateAccount', ...CA({ initial: { name: 'daily', network: 'Signet', keyFp: '5be0c7d2', desc: { value: "sp([5be0c7d2/352'/1'/0']" + DEMO_XPUB_T + ')#k7f3qz9d', network: 'Signet' }, tests: { blindbit: 'ok', electrum: 'ok' } } }, 820) },
+          { title: 'Silent payment, taproot and segwit fetched', tag: 'CreateAccount', ...CA({ initial: { name: 'daily', network: 'Signet', keyFp: '5be0c7d2', desc: { value: "sp([5be0c7d2/352'/1'/0']" + DEMO_XPUB_T + ')#k7f3qz9d', network: 'Signet' }, taproot: { value: "tr([5be0c7d2/86'/1'/0']" + DEMO_XPUB_T + '/<0;1>/*)#p8fcdvc7', network: 'Signet' }, segwit: { value: "wpkh([5be0c7d2/84'/1'/0']" + DEMO_XPUB_T + '/<0;1>/*)#203wua0q', network: 'Signet' }, tests: { blindbit: 'ok', electrum: 'ok' } } }, 960) },
           { title: 'Name taken', tag: 'CreateAccount', ...CA({ initial: { name: 'savings', network: 'Signet', tests: { blindbit: 'ok', electrum: 'ok' } } }, 760) },
           { title: 'No key registered', tag: 'CreateAccount', ...CA({ keys: [] }, 520) },
           { title: 'Keys only on another network', tag: 'CreateAccount', ...CA({ initial: { network: 'Testnet', tests: {} } }, 520) },
