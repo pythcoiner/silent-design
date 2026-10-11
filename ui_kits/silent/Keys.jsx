@@ -337,7 +337,8 @@ const XPUB_PURPOSES = [
   { id: '87', label: "BIP87 · Multisig (87')", tpl: (c, a) => `m/87'/${c}'/${a}'` },
   { id: 'custom', label: 'Custom Path' },
 ];
-function FetchXpubStep({ network, device, existing = [], onBack, onFetched, initial = {} }) {
+/* No device but a hot key: the password is asked, then the xpub is derived. */
+function FetchXpubStep({ network, device, hot = false, existing = [], onBack, onFetched, initial = {} }) {
   const coin = network === 'Bitcoin' ? 0 : 1;
   const [purpose, setPurpose] = React.useState(initial.purpose || '84');
   /* default account = the first index whose path is not cached yet for this purpose */
@@ -347,6 +348,7 @@ function FetchXpubStep({ network, device, existing = [], onBack, onFetched, init
   const [script, setScript] = React.useState(initial.script || 2);
   const [custom, setCustom] = React.useState(initial.custom || '');
   const [busy, setBusy] = React.useState(!!initial.busy);
+  const [askPassword, setAskPassword] = React.useState(!!initial.password);
   const p = XPUB_PURPOSES.find(x => x.id === purpose);
   /* 48 splits the path around the account AND the script type; others only the account */
   const pathParts = p.tpl ? p.tpl(coin, '\u0000', '\u0001').split(/[\u0000\u0001]/) : ['', ''];
@@ -358,7 +360,9 @@ function FetchXpubStep({ network, device, existing = [], onBack, onFetched, init
     : purpose === 'custom' && !path ? 'Enter a derivation path.'
     : !pathOk ? "Write the path like m/84'/1'/0'."
     : dup ? 'This xpub is already cached.' : null;
-  if (busy) return <ModalStatus spinner title="Fetching the xpub…" subtitle={`Confirm on ${deviceName(device)} if it asks.`} pad="var(--space-m) 0" />;
+  const fetchNow = () => { setBusy(true); setTimeout(() => onFetched(path), 1000); };
+  if (busy) return <ModalStatus spinner title="Fetching the xpub…" subtitle={device ? `Confirm on ${deviceName(device)} if it asks.` : null} pad="var(--space-m) 0" />;
+  if (askPassword) return <PasswordStep onBack={() => setAskPassword(false)} onProceed={() => { setAskPassword(false); fetchNow(); }} />;
   return (
     <Stack gap="m">
       <FieldGroup>
@@ -385,7 +389,7 @@ function FetchXpubStep({ network, device, existing = [], onBack, onFetched, init
         )}
       </FieldGroup>
       <ModalActions reason={reason}>
-        <Btn id="fetch_this_xpub" disabled={!!reason} onClick={() => { setBusy(true); setTimeout(() => onFetched(path), 1000); }} />
+        <Btn id="fetch_this_xpub" disabled={!!reason} onClick={() => (device || !hot ? fetchNow() : setAskPassword(true))} />
       </ModalActions>
     </Stack>
   );
@@ -414,7 +418,7 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
   const addXpub = (path) => { setXpubs(xs => [...xs, { path, xpub: (k.network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T).replace('Lj', path.slice(2, 4)), used: false }]); setStep('detail'); };
   const title = { detail: k.alias, 'fetch-xpub': k.alias, password: 'Reveal Mnemonic', reveal: 'Reveal Mnemonic', remove: 'Remove Key' }[step];
   // Fetch Xpub opens its own modal over the key detail, which stays underneath.
-  const fetchOpen = step === 'fetch-xpub' && device;
+  const fetchOpen = step === 'fetch-xpub' && (device || k.hasHot);
 
   return (
     <>
@@ -453,9 +457,9 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
 
           <Section dense label="Cached Xpubs" count={xpubs.length || null} open={folds.xpubs} onToggle={() => fold('xpubs')}>
             <XpubTable rows={xpubs} pill addRow={{
-              empty: xpubs.length ? null : <Text variant="body" color="muted">{device ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'}</Text>,
-              action: <Btn id="fetch_xpub" disabled={!device} onClick={() => setStep('fetch-xpub')}
-                title={device ? `Fetch xpubs from ${deviceName(device)}` : 'Connect the device to fetch xpubs'} />,
+              empty: xpubs.length ? null : <Text variant="body" color="muted">{device || k.hasHot ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'}</Text>,
+              action: <Btn id="fetch_xpub" disabled={!device && !k.hasHot} onClick={() => setStep('fetch-xpub')}
+                title={device ? `Fetch xpubs from ${deviceName(device)}` : k.hasHot ? 'Derive xpubs from the hot key, with its password' : 'Connect the device to fetch xpubs'} />,
             }} />
           </Section>
 
@@ -481,7 +485,7 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
     </Modal>
     {fetchOpen ? (
       <Modal title="Fetch Xpub" width={600} onClose={() => setStep('detail')}>
-        <FetchXpubStep network={k.network} device={device} existing={xpubs} initial={initial.fetch || {}}
+        <FetchXpubStep network={k.network} device={device} hot={k.hasHot} existing={xpubs} initial={initial.fetch || {}}
           onBack={() => setStep('detail')} onFetched={addXpub} />
       </Modal>
     ) : null}

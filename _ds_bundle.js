@@ -2736,6 +2736,7 @@ const XPUB_PURPOSES = [{
 function FetchXpubStep({
   network,
   device,
+  hot = false,
   existing = [],
   onBack,
   onFetched,
@@ -2756,6 +2757,7 @@ function FetchXpubStep({
   const [script, setScript] = React.useState(initial.script || 2);
   const [custom, setCustom] = React.useState(initial.custom || '');
   const [busy, setBusy] = React.useState(!!initial.busy);
+  const [askPassword, setAskPassword] = React.useState(!!initial.password);
   const p = XPUB_PURPOSES.find(x => x.id === purpose);
   /* 48 splits the path around the account AND the script type; others only the account */
   const pathParts = p.tpl ? p.tpl(coin, '\u0000', '\u0001').split(/[\u0000\u0001]/) : ['', ''];
@@ -2764,11 +2766,22 @@ function FetchXpubStep({
   const pathOk = purpose !== 'custom' || /^m(\/\d+'?)+$/.test(path);
   const dup = path && existing.some(x => x.path === path);
   const reason = purpose !== 'custom' && !accOk ? 'Enter an account index (0–99).' : purpose === 'custom' && !path ? 'Enter a derivation path.' : !pathOk ? "Write the path like m/84'/1'/0'." : dup ? 'This xpub is already cached.' : null;
+  const fetchNow = () => {
+    setBusy(true);
+    setTimeout(() => onFetched(path), 1000);
+  };
   if (busy) return /*#__PURE__*/React.createElement(ModalStatus, {
     spinner: true,
     title: "Fetching the xpub\u2026",
-    subtitle: `Confirm on ${deviceName(device)} if it asks.`,
+    subtitle: device ? `Confirm on ${deviceName(device)} if it asks.` : null,
     pad: "var(--space-m) 0"
+  });
+  if (askPassword) return /*#__PURE__*/React.createElement(PasswordStep, {
+    onBack: () => setAskPassword(false),
+    onProceed: () => {
+      setAskPassword(false);
+      fetchNow();
+    }
   });
   return /*#__PURE__*/React.createElement(Stack, {
     gap: "m"
@@ -2824,10 +2837,7 @@ function FetchXpubStep({
   }, /*#__PURE__*/React.createElement(Btn, {
     id: "fetch_this_xpub",
     disabled: !!reason,
-    onClick: () => {
-      setBusy(true);
-      setTimeout(() => onFetched(path), 1000);
-    }
+    onClick: () => device || !hot ? fetchNow() : setAskPassword(true)
   })));
 }
 function KeyDetail({
@@ -2913,9 +2923,10 @@ function KeyDetail({
     }, k.fp), /*#__PURE__*/React.createElement(Pill, {
       id: st
     }))
-  }, step === 'fetch-xpub' && device ? /*#__PURE__*/React.createElement(FetchXpubStep, {
+  }, step === 'fetch-xpub' && (device || k.hasHot) ? /*#__PURE__*/React.createElement(FetchXpubStep, {
     network: k.network,
     device: device,
+    hot: k.hasHot,
     existing: xpubs,
     initial: initial.fetch || {},
     onBack: () => setStep('detail'),
@@ -3004,12 +3015,12 @@ function KeyDetail({
       empty: xpubs.length ? null : /*#__PURE__*/React.createElement(Text, {
         variant: "body",
         color: "muted"
-      }, device ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'),
+      }, device || k.hasHot ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'),
       action: /*#__PURE__*/React.createElement(Btn, {
         id: "fetch_xpub",
-        disabled: !device,
+        disabled: !device && !k.hasHot,
         onClick: () => setStep('fetch-xpub'),
-        title: device ? `Fetch xpubs from ${deviceName(device)}` : 'Connect the device to fetch xpubs'
+        title: device ? `Fetch xpubs from ${deviceName(device)}` : k.hasHot ? 'Derive xpubs from the hot key, with its password' : 'Connect the device to fetch xpubs'
       })
     }
   })), /*#__PURE__*/React.createElement(Section, {
