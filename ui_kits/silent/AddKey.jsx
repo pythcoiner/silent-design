@@ -83,7 +83,6 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
     title = 'Add a Key · QR Code';
     body = (
       <Stack gap="m" align="center">
-        <Text variant="body" color="secondary" align="center">Scan this request with the device. It answers with its key origin and xpub.</Text>
         <QRCode text={`UR:CRYPTO-REQUEST/XPUBS/${network.toUpperCase()}/${accountRows.map(r => r.path.slice(2).replace(/'/g, 'H').replace(/\//g, '-')).join(',')}`} size={360} />
         <ModalActions onBack={() => setStep('mode')}>
           <Btn id="next_scan_the_answer" onClick={() => setStep('qr-scan')} />
