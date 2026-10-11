@@ -90,7 +90,7 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
       </Stack>
     );
   } else if (step === 'qr-scan') {
-    title = 'Add a Key · Scan the Answer'; width = 640;
+    title = 'Add a Key · Scan the Answer';
     body = <CameraStep context="add" force={initial.camera} progress={initial.progress} scanError={initial.scanError}
       onBack={() => setStep('qr')} onCancel={onClose}
       /* the answer names the device (vendor + model): it is the default alias, editable */
