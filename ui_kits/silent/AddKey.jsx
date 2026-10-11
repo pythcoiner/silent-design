@@ -93,7 +93,8 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
     title = 'Add a Key · Scan the Answer'; width = 640;
     body = <CameraStep context="add" force={initial.camera} progress={initial.progress} scanError={initial.scanError}
       onBack={() => setStep('qr')} onCancel={onClose}
-      onDone={() => { setRes({ origin: `[7e02da41/84'/${coin}/0']`, xpub: xp, rows: accountRows }); setStep('review'); }} />;
+      /* the answer names the device (vendor + model): it is the default alias, editable */
+      onDone={() => { setRes({ origin: `[7e02da41/84'/${coin}/0']`, xpub: xp, rows: accountRows }); setAlias('Coldcard Mk4'); setStep('review'); }} />;
   } else if (step === 'review' || step === 'sd') {
     title = step === 'sd' ? 'Add a Key · Import a File' : 'Add a Key · Review';
     const loaded = step === 'review' || (res && !fileErr);
