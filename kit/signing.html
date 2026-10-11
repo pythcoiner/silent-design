@@ -24,7 +24,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=25"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=15"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=16"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=26"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=6"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
@@ -71,7 +71,7 @@
         ]},
         { name: '3.8 QR display', items: [
           { title: 'Animated code — sign', tag: 'QrDisplayStep', ...SF({ initial: { step: { row: qr } } }, 820) },
-          { title: 'Rebuilding (density changed)', tag: 'QrDisplayStep', ...SF({ context: 'verify', initial: { step: { row: qr }, rebuilding: true } }, 820) },
+          { title: 'Rebuilding (density changed), verify shows the address', tag: 'QrDisplayStep', ...SF({ context: 'verify', address: ADDR, initial: { step: { row: qr }, rebuilding: true } }, 900) },
         ]},
         { name: '3.8 Camera scan', items: [
           ...['starting', 'none', 'denied', 'failed'].map(c => ({ title: 'Camera — ' + CAMERA_STATES[c].title, tag: 'CameraStep', ...SF({ initial: { step: { row: qr }, qrPhase: 'scan', camera: c } }, 720) })),

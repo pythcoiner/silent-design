@@ -144,7 +144,7 @@ function SdStep({ context = 'sign', fileBase = 'savings', phase: initialPhase = 
 
 const QR_PAYLOAD = 'cHNidP8BAHECAAAAAfwzq1kY2hVi9k3lQ8nT0pXrWb7mGv4Lh2Jd9sKfP1aoAAAAAAAD9____AoCWmAAAAAAAFgAUq3Zr8tN1dJ0hLmC4wVfYx2kPbT5AQg8AAAAAABYAFLuh7cP2mZ9oXkqR3sVbTtMu1nQwAAAAAAEBH0BCDwAAAAAAFgAU8aQxk2nF0pZ7Lm3vBtWcYxRd9KsiBgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7mGv4Lh0Yz1a8tVAAAA';
 
-function QrDisplayStep({ context = 'sign', onNext, onCancel, initialRebuilding = false }) {
+function QrDisplayStep({ context = 'sign', address, onNext, onCancel, initialRebuilding = false }) {
   const c = FLOW_COPY[context];
   const [contrast, setContrast] = React.useState(3);
   const [density, setDensity] = React.useState(3);
@@ -172,6 +172,7 @@ function QrDisplayStep({ context = 'sign', onNext, onCancel, initialRebuilding =
   return (
     <Stack align="center" gap="m">
       <Text variant="body" color="secondary" align="center">{c.qrHint}</Text>
+      {context === 'verify' && address ? <Card tone="inset" pad="m" style={{ width: '100%' }}><ChunkedAddress text={address} /></Card> : null}
       <div style={{ position: 'relative' }}>
         <QRCard size={400} pad={16} radius={12} bg={bg} dim={rebuilding}>
           <div style={{ width: '100%', height: '100%' }} dangerouslySetInnerHTML={{ __html: svg }} />
@@ -364,7 +365,7 @@ function SigningFlow({ context = 'sign', plan = [], others = [], address, fileBa
   else if (row.route === 'usb') { title = c.usbTitle; width = 520; body = <UsbStep context={context} device={devLabel} error={usbErr} onCancel={onCancel} onRetry={() => setUsbErr(null)} onBack={back} />; }
   else if (row.route === 'sd') { title = c.sdTitle; body = <SdStep context={context} fileBase={fileBase} phase={initial.sdPhase} error={initial.sdError} onCancel={onCancel} onDone={() => finished(row)} />; }
   else if (row.route === 'hot') { width = 520; body = <HotStep context={context} keyAlias={row.alias} pwError={initial.pwError} initialBusy={initial.hotBusy} onCancel={onCancel} onDone={() => finished(row)} />; }
-  else if (qrPhase === 'display') { title = c.qrTitle; width = 640; body = <QrDisplayStep context={context} initialRebuilding={initial.rebuilding} onCancel={onCancel} onNext={() => setQrPhase('scan')} />; }
+  else if (qrPhase === 'display') { title = c.qrTitle; width = 640; body = <QrDisplayStep context={context} address={address} initialRebuilding={initial.rebuilding} onCancel={onCancel} onNext={() => setQrPhase('scan')} />; }
   else { title = c.scanTitle; width = 640; body = <CameraStep context={context} force={initial.camera} progress={initial.progress} scanError={initial.scanError} settings={initial.settings} onBack={() => setQrPhase('display')} onCancel={onCancel} onDone={() => finished(row)} />; }
 
   return <Modal title={title} width={width} onClose={onCancel}>{body}</Modal>;

@@ -6559,6 +6559,7 @@ function SdStep({
 const QR_PAYLOAD = 'cHNidP8BAHECAAAAAfwzq1kY2hVi9k3lQ8nT0pXrWb7mGv4Lh2Jd9sKfP1aoAAAAAAAD9____AoCWmAAAAAAAFgAUq3Zr8tN1dJ0hLmC4wVfYx2kPbT5AQg8AAAAAABYAFLuh7cP2mZ9oXkqR3sVbTtMu1nQwAAAAAAEBH0BCDwAAAAAAFgAU8aQxk2nF0pZ7Lm3vBtWcYxRd9KsiBgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7mGv4Lh0Yz1a8tVAAAA';
 function QrDisplayStep({
   context = 'sign',
+  address,
   onNext,
   onCancel,
   initialRebuilding = false
@@ -6613,7 +6614,15 @@ function QrDisplayStep({
     variant: "body",
     color: "secondary",
     align: "center"
-  }, c.qrHint), /*#__PURE__*/React.createElement("div", {
+  }, c.qrHint), context === 'verify' && address ? /*#__PURE__*/React.createElement(Card, {
+    tone: "inset",
+    pad: "m",
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/React.createElement(ChunkedAddress, {
+    text: address
+  })) : null, /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'relative'
     }
@@ -7049,6 +7058,7 @@ function SigningFlow({
     width = 640;
     body = /*#__PURE__*/React.createElement(QrDisplayStep, {
       context: context,
+      address: address,
       initialRebuilding: initial.rebuilding,
       onCancel: onCancel,
       onNext: () => setQrPhase('scan')
