@@ -198,9 +198,35 @@ const SCAN_ERRORS = {
   'bare-sigs': { title: 'The device returned signatures only', body: 'Silent needs the whole signed transaction (PSBT). On the device, choose to export the signed PSBT, then scan again.' },
 };
 
+/* The 4:3 camera preview on its dark surface, the camera state drawn over it while
+   there is no live picture. The scan step and Camera Settings each show one, fed by
+   the same stream. */
+function CameraView({ stream, status, contrast }) {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    if (ref.current && stream) { ref.current.srcObject = stream; ref.current.play().catch(() => {}); }
+  }, [stream, status]);
+  const st = CAMERA_STATES[status];
+  return (
+    <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 3', borderRadius: 'var(--radius-button)',
+      overflow: 'hidden', background: 'var(--camera-bg)', border: '1px solid var(--border-light)' }}>
+      <video ref={ref} muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', display: status === 'live' ? 'block' : 'none',
+        filter: `contrast(${(0.55 + contrast * 0.28).toFixed(2)})` }} />
+      {st ? (
+        <Stack align="center" justify="center" gap="s" style={{ position: 'absolute', inset: 0, padding: 'var(--space-l)', color: 'var(--gray-40)' }}>
+          {status === 'starting' ? <Spinner size={40} /> : <Icon name={st.icon} size={40} />}
+          <Text variant="section" align="center" color="inverse">{st.title}</Text>
+          {st.body ? <Text variant="body" align="center" color="inverse-muted">{st.body}</Text> : null}
+        </Stack>
+      ) : null}
+    </div>
+  );
+}
+
 function CameraStep({ context = 'sign', force, progress, scanError, settings, onBack, onCancel, onDone }) {
   const c = FLOW_COPY[context];
-  const videoRef = React.useRef(null), streamRef = React.useRef(null);
+  const streamRef = React.useRef(null);
+  const [stream, setStream] = React.useState(null);
   const [cams, setCams] = React.useState([]);
   const [status, setStatus] = React.useState(force || 'starting');       // starting | live | none | denied | failed
   const [got, setGot] = React.useState(progress ? progress[0] : 0);
@@ -215,7 +241,7 @@ function CameraStep({ context = 'sign', force, progress, scanError, settings, on
       if (!navigator.mediaDevices) throw new Error('none');
       const stream = await navigator.mediaDevices.getUserMedia({ video: id ? { deviceId: { exact: id } } : true, audio: false });
       streamRef.current = stream;
-      if (videoRef.current) { videoRef.current.srcObject = stream; videoRef.current.play().catch(() => {}); }
+      setStream(stream);
       setStatus('live');
       const all = await navigator.mediaDevices.enumerateDevices();
       setCams(all.filter(d => d.kind === 'videoinput'));
@@ -234,23 +260,11 @@ function CameraStep({ context = 'sign', force, progress, scanError, settings, on
     return () => clearTimeout(t);
   }, [status, got, err]);
   const labels = cams.length ? cams.map((d, i) => d.label || `Camera ${i + 1}`) : ['Default Camera'];
-  const st = CAMERA_STATES[status];
   const e = err ? SCAN_ERRORS[err] : null;
   return (
     <Stack gap="m">
       <Text variant="body" color="secondary">{c.scanHint}</Text>
-      <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 3', borderRadius: 'var(--radius-button)',
-        overflow: 'hidden', background: 'var(--camera-bg)', border: '1px solid var(--border-light)' }}>
-        <video ref={videoRef} muted playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', display: status === 'live' ? 'block' : 'none',
-          filter: `contrast(${(0.55 + contrast * 0.28).toFixed(2)})` }} />
-        {st ? (
-          <Stack align="center" justify="center" gap="s" style={{ position: 'absolute', inset: 0, padding: 'var(--space-l)', color: 'var(--gray-40)' }}>
-            {status === 'starting' ? <Spinner size={40} /> : <Icon name={st.icon} size={40} />}
-            <Text variant="section" align="center" color="inverse">{st.title}</Text>
-            {st.body ? <Text variant="body" align="center" color="inverse-muted">{st.body}</Text> : null}
-          </Stack>
-        ) : null}
-      </div>
+      <CameraView stream={stream} status={status} contrast={contrast} />
       {status === 'live' || progress ? <ScanProgress got={got} total={total} done={got >= total} /> : null}
       {e ? <Notice tone="error" title={e.title} action={<Btn id="scan_again" onClick={() => { setErr(null); setGot(0); }} />}>{e.body}</Notice> : null}
       <ModalActions onBack={onBack}>
@@ -261,15 +275,19 @@ function CameraStep({ context = 'sign', force, progress, scanError, settings, on
       </ModalActions>
       {showSettings ? (
         /* settings overlay: the one allowed modal-on-modal (see Modal.jsx) — small,
-           closes back to the live scan */
+           closes back to the live scan. It shows the stream too, so a camera or
+           contrast change is seen while the scan step sits behind it. */
         <Modal title="Camera Settings" width={460} onClose={() => setShowSettings(false)}>
-          <FieldGroup>
-            <Field label="Camera Source:">
-              <ComboBox value={labels[camIdx] || labels[0]} options={labels} width={220}
-                onChange={l => { const n = labels.indexOf(l); setCamIdx(n); const d = cams[n]; if (d) start(d.deviceId); }} />
-            </Field>
-            <Field label="Contrast:"><Stepper value={contrast} min={1} max={5} onChange={setContrast} /></Field>
-          </FieldGroup>
+          <Stack gap="m">
+            <CameraView stream={stream} status={status} contrast={contrast} />
+            <FieldGroup>
+              <Field label="Camera Source:">
+                <ComboBox value={labels[camIdx] || labels[0]} options={labels} width={220}
+                  onChange={l => { const n = labels.indexOf(l); setCamIdx(n); const d = cams[n]; if (d) start(d.deviceId); }} />
+              </Field>
+              <Field label="Contrast:"><Stepper value={contrast} min={1} max={5} onChange={setContrast} /></Field>
+            </FieldGroup>
+          </Stack>
         </Modal>
       ) : null}
     </Stack>
