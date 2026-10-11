@@ -148,12 +148,15 @@ function SdStep({ context = 'sign', fileBase = 'savings', phase: initialPhase = 
 
 const QR_PAYLOAD = 'cHNidP8BAHECAAAAAfwzq1kY2hVi9k3lQ8nT0pXrWb7mGv4Lh2Jd9sKfP1aoAAAAAAAD9____AoCWmAAAAAAAFgAUq3Zr8tN1dJ0hLmC4wVfYx2kPbT5AQg8AAAAAABYAFLuh7cP2mZ9oXkqR3sVbTtMu1nQwAAAAAAEBH0BCDwAAAAAAFgAU8aQxk2nF0pZ7Lm3vBtWcYxRd9KsiBgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7mGv4Lh0Yz1a8tVAAAA';
 
-function QrDisplayStep({ context = 'sign', address, onNext, onCancel, initialRebuilding = false }) {
+/* The tuning sits in a QR Settings overlay behind a gear left of Next, as Camera Settings
+   does for a scan: the code keeps playing behind it. */
+function QrDisplayStep({ context = 'sign', address, onNext, onCancel, initialRebuilding = false, initialSettings = false }) {
   const c = FLOW_COPY[context];
   const [contrast, setContrast] = React.useState(3);
   const [density, setDensity] = React.useState(3);
   const [speed, setSpeed] = React.useState(3);
   const [rebuilding, setRebuilding] = React.useState(initialRebuilding);
+  const [showSettings, setShowSettings] = React.useState(!!initialSettings);
   const parts = React.useMemo(() => {
     const chunk = density * 24, n = Math.max(2, Math.ceil(QR_PAYLOAD.length / chunk));
     return Array.from({ length: n }, (_, i) => `UR:CRYPTO-PSBT/${i + 1}-${n}/${QR_PAYLOAD.slice(i * chunk, (i + 1) * chunk)}`);
@@ -188,14 +191,19 @@ function QrDisplayStep({ context = 'sign', address, onNext, onCancel, initialReb
         ) : null}
       </div>
       <Text variant="mono" color="secondary" weight="demibold">{rebuilding ? 'Part – / –' : `Part ${frame + 1} / ${parts.length}`}</Text>
-      <Row gap="l" justify="center" align="flex-start" style={{ width: '100%', borderTop: '1px solid var(--border-light)', paddingTop: 'var(--space-m)' }}>
-        {tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, setContrast)}
-        {tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, changeDensity)}
-        {tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, setSpeed)}
-      </Row>
       <ModalActions style={{ width: '100%' }} reason={rebuilding ? 'Wait for the code to rebuild.' : null}>
+        <Btn id="qr_settings" onClick={() => setShowSettings(true)} />
         <Btn id="next_scan_the_answer" disabled={rebuilding} onClick={onNext} />
       </ModalActions>
+      {showSettings ? (
+        <Modal title="QR Settings" width={560} onClose={() => setShowSettings(false)}>
+          <Row gap="l" justify="center" align="flex-start">
+            {tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, setContrast)}
+            {tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, changeDensity)}
+            {tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, setSpeed)}
+          </Row>
+        </Modal>
+      ) : null}
     </Stack>
   );
 }
@@ -369,7 +377,7 @@ function SigningFlow({ context = 'sign', plan = [], others = [], address, fileBa
   else if (row.route === 'usb') { title = c.usbTitle; width = 520; body = <UsbStep context={context} device={devLabel} error={usbErr} onCancel={onCancel} onRetry={() => setUsbErr(null)} onBack={back} />; }
   else if (row.route === 'sd') { title = c.sdTitle; body = <SdStep context={context} fileBase={fileBase} phase={initial.sdPhase} error={initial.sdError} onCancel={onCancel} onDone={() => finished(row)} />; }
   else if (row.route === 'hot') { width = 520; body = <HotStep context={context} keyAlias={row.alias} pwError={initial.pwError} initialBusy={initial.hotBusy} onCancel={onCancel} onDone={() => finished(row)} />; }
-  else if (qrPhase === 'display') { title = c.qrTitle; width = 640; body = <QrDisplayStep context={context} address={address} initialRebuilding={initial.rebuilding} onCancel={onCancel} onNext={() => setQrPhase('scan')} />; }
+  else if (qrPhase === 'display') { title = c.qrTitle; width = 640; body = <QrDisplayStep context={context} address={address} initialRebuilding={initial.rebuilding} initialSettings={initial.qrSettings} onCancel={onCancel} onNext={() => setQrPhase('scan')} />; }
   else { title = c.scanTitle; width = 640; body = <CameraStep context={context} force={initial.camera} progress={initial.progress} scanError={initial.scanError} settings={initial.settings} onBack={() => setQrPhase('display')} onCancel={onCancel} onDone={() => finished(row)} />; }
 
   return <Modal title={title} width={width} onClose={onCancel}>{body}</Modal>;

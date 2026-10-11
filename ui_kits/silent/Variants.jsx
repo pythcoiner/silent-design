@@ -26,6 +26,7 @@ export const BUTTONS = {
   register_account: { role: 'default', label: 'Register', w: 'M' },
   fetch_this_xpub: { role: 'primary', label: 'Fetch Xpub', w: 'M' },
   camera_settings: { role: 'inline-icon', icon: 'settings', iconSize: 16, title: 'Camera Settings', w: 'Icon' },
+  qr_settings: { role: 'inline-icon', icon: 'settings', iconSize: 16, title: 'QR Settings', w: 'Icon' },
   scan_address: { role: 'inline-icon', icon: 'qr', iconSize: 16, title: 'Scan an Address QR Code', w: 'Icon' },
   open_file: { role: 'primary', label: 'Open File…', icon: 'folder', iconSize: 16, w: 'L' },
   copy_value: { role: 'inline-icon', icon: 'copy', iconSize: 14, title: 'Copy', w: 'Icon' },

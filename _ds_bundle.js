@@ -6622,13 +6622,15 @@ function QrDisplayStep({
   address,
   onNext,
   onCancel,
-  initialRebuilding = false
+  initialRebuilding = false,
+  initialSettings = false
 }) {
   const c = FLOW_COPY[context];
   const [contrast, setContrast] = React.useState(3);
   const [density, setDensity] = React.useState(3);
   const [speed, setSpeed] = React.useState(3);
   const [rebuilding, setRebuilding] = React.useState(initialRebuilding);
+  const [showSettings, setShowSettings] = React.useState(!!initialSettings);
   const parts = React.useMemo(() => {
     const chunk = density * 24,
       n = Math.max(2, Math.ceil(QR_PAYLOAD.length / chunk));
@@ -6717,25 +6719,27 @@ function QrDisplayStep({
     variant: "mono",
     color: "secondary",
     weight: "demibold"
-  }, rebuilding ? 'Part – / –' : `Part ${frame + 1} / ${parts.length}`), /*#__PURE__*/React.createElement(Row, {
-    gap: "l",
-    justify: "center",
-    align: "flex-start",
-    style: {
-      width: '100%',
-      borderTop: '1px solid var(--border-light)',
-      paddingTop: 'var(--space-m)'
-    }
-  }, tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, setContrast), tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, changeDensity), tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, setSpeed)), /*#__PURE__*/React.createElement(ModalActions, {
+  }, rebuilding ? 'Part – / –' : `Part ${frame + 1} / ${parts.length}`), /*#__PURE__*/React.createElement(ModalActions, {
     style: {
       width: '100%'
     },
     reason: rebuilding ? 'Wait for the code to rebuild.' : null
   }, /*#__PURE__*/React.createElement(Btn, {
+    id: "qr_settings",
+    onClick: () => setShowSettings(true)
+  }), /*#__PURE__*/React.createElement(Btn, {
     id: "next_scan_the_answer",
     disabled: rebuilding,
     onClick: onNext
-  })));
+  })), showSettings ? /*#__PURE__*/React.createElement(Modal, {
+    title: "QR Settings",
+    width: 560,
+    onClose: () => setShowSettings(false)
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "l",
+    justify: "center",
+    align: "flex-start"
+  }, tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, setContrast), tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, changeDensity), tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, setSpeed))) : null);
 }
 const CAMERA_STATES = {
   starting: {
@@ -7120,6 +7124,7 @@ function SigningFlow({
       context: context,
       address: address,
       initialRebuilding: initial.rebuilding,
+      initialSettings: initial.qrSettings,
       onCancel: onCancel,
       onNext: () => setQrPhase('scan')
     });
@@ -7561,6 +7566,13 @@ const BUTTONS = {
     icon: 'settings',
     iconSize: 16,
     title: 'Camera Settings',
+    w: 'Icon'
+  },
+  qr_settings: {
+    role: 'inline-icon',
+    icon: 'settings',
+    iconSize: 16,
+    title: 'QR Settings',
     w: 'Icon'
   },
   scan_address: {
