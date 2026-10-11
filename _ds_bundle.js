@@ -5931,11 +5931,9 @@ function SendScreen({
   const actionRow = /*#__PURE__*/React.createElement(Row, {
     align: "flex-end",
     gap: "s"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, signed ? null : /*#__PURE__*/React.createElement("div", {
     style: {
-      flex: 'none',
-      opacity: signed ? 0.5 : 1,
-      pointerEvents: signed ? 'none' : 'auto'
+      flex: 'none'
     }
   }, /*#__PURE__*/React.createElement(FieldLabel, null, "Fee rate"), /*#__PURE__*/React.createElement(Row, {
     gap: "s"
@@ -5966,7 +5964,10 @@ function SendScreen({
     }
   }, signed ? /*#__PURE__*/React.createElement(Pill, {
     id: "tx_signed"
-  }) : null, /*#__PURE__*/React.createElement(Btn, {
+  }) : null, signed ? /*#__PURE__*/React.createElement(Btn, {
+    id: "cancel_signed",
+    onClick: () => setSigned(false)
+  }) : /*#__PURE__*/React.createElement(Btn, {
     id: "clear",
     onClick: clearAll
   }), signed ? /*#__PURE__*/React.createElement(Btn, {
@@ -7681,6 +7682,11 @@ const BUTTONS = {
   clear: {
     role: 'default',
     label: 'Clear',
+    w: 'M'
+  },
+  cancel_signed: {
+    role: 'destructive',
+    label: 'Cancel',
     w: 'M'
   },
   connect_blindbit: {

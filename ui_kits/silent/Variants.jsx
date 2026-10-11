@@ -60,6 +60,7 @@ export const BUTTONS = {
   add_a_key: { role: 'default', label: '+ Add a Key', w: 'M' },
   add_payment: { role: 'default', label: '+ Add Payment', w: 'L' },
   clear: { role: 'default', label: 'Clear', w: 'M' },
+  cancel_signed: { role: 'destructive', label: 'Cancel', w: 'M' },
   connect_blindbit: { role: 'default', label: 'Connect Blindbit', w: 'L' },
   connect_electrum: { role: 'default', label: 'Connect Electrum', w: 'L' },
   generate: { role: 'default', label: 'Generate', w: 'M' },

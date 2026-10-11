@@ -213,7 +213,8 @@ function SendScreen({ wallet }) {
 
   const actionRow = (
     <Row align="flex-end" gap="s">
-      <div style={{ flex: 'none', opacity: signed ? 0.5 : 1, pointerEvents: signed ? 'none' : 'auto' }}>
+      {signed ? null : (
+      <div style={{ flex: 'none' }}>
         <FieldLabel>Fee rate</FieldLabel>
         <Row gap="s">
           <Toggle on={feeRate} onClick={() => setFeeRate(r => !r)} />
@@ -223,12 +224,13 @@ function SendScreen({ wallet }) {
           <Text variant="body" color="secondary" style={{ flex: 'none' }}>{feeRate ? 'sats/vB' : 'sats'}</Text>
         </Row>
       </div>
+      )}
       <Spacer />
       <Row gap="s" style={{ flex: 'none' }}>
         {signed ? (
           <Pill id="tx_signed" />
         ) : null}
-        <Btn id="clear" onClick={clearAll} />
+        {signed ? <Btn id="cancel_signed" onClick={() => setSigned(false)} /> : <Btn id="clear" onClick={clearAll} />}
         {signed ? (
           <Btn id="broadcast" onClick={() => setModal({ type: 'broadcast' })} style={{ flex: 'none' }} />
         ) : (
