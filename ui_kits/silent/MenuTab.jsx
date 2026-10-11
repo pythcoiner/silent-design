@@ -76,7 +76,6 @@ function CreateAccount({ existing, keys = window.KEYS, onCancel, onCreate, onOpe
   React.useEffect(() => { if (!initial.tests && ENDPOINT_DEFAULTS[network].auto) { runTest('blindbit', blindbit); runTest('electrum', electrum); } }, []);
 
   const netKeys = keys.filter(k => k.network === network);
-  const elsewhere = keys.filter(k => k.network !== network);
   const key = netKeys.find(k => k.fp === keyFp);
   const trimmed = name.trim();
   const reason = !trimmed ? 'Enter an account name.'
@@ -118,9 +117,7 @@ function CreateAccount({ existing, keys = window.KEYS, onCancel, onCreate, onOpe
             <EmptyState icon="key" title="No Key Registered" subtitle="An account is created from a key. Register one in the Keys tab first."
               action={onOpenKeys ? <Btn id="open_keys_tab" onClick={onOpenKeys} /> : null} />
           ) : (
-            <EmptyState icon="key" title={`No Key on ${network}`}
-              subtitle={`${elsewhere.length === 1 ? '1 key is' : elsewhere.length + ' keys are'} registered on ${[...new Set(elsewhere.map(k => k.network))].join(', ')}. Pick that network, or add a ${network} key.`}
-              action={onOpenKeys ? <Btn id="open_keys_tab" onClick={onOpenKeys} /> : null} />
+            <EmptyState icon="key" title={`No Key on ${network}`} />
           )}
           {netKeys.length ? (
             <Row gap="s">
