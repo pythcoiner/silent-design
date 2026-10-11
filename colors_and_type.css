@@ -135,7 +135,7 @@
   --size-caption: 11px;  /*  8pt  caption/status */
 
   --weight-normal:   400;
-  --weight-demibold: 600;  /* QFont::DemiBold */
+  --weight-demibold: 600;  /* app font::DEMIBOLD = QFont::Bold: both draw with the Noto Sans Bold face */
 
   /* =========== SPACING (Spacing enum, px) =========== */
   --space-xxs: 2px;

@@ -318,7 +318,7 @@ function XpubTable({ rows, copy = true, pill = false, addRow = null }) {
   return (
     <Table hideHeader rows={all} rowKey={x => x.__add ? '__add' : x.path}
       rowClass={x => (x.__add ? 'is-bare' : '')} columns={[
-      { header: 'Path', width: 120, mono: true, render: x => x.__add ? null : x.path },
+      { header: 'Path', width: 140, mono: true, render: x => x.__add ? null : x.path },
       { header: 'Xpub', grow: true, render: x => x.__add ? (addRow.empty || null) : <ShortValue value={x.xpub} copy={copy} title="Copy xpub" /> },
       ...(pill || addRow ? [{ header: '', width: 130, align: 'right', render: x => x.__add ? addRow.action : pill ? <Pill id={x.used ? 'xpub_used' : 'xpub_unused'} /> : null }] : []),
     ]} />
@@ -395,7 +395,7 @@ function FetchXpubStep({ network, device, existing = [], onBack, onFetched, init
 function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, initial = {} }) {
   const [step, setStep] = React.useState(initial.step || 'detail');     // detail | password | reveal | remove
   const [alias, setAlias] = React.useState(initial.alias != null ? initial.alias : k.alias);
-  const [aliasMsg, setAliasMsg] = React.useState(initial.aliasMsg || null);   // { ok } | { error }
+  const [aliasMsg, setAliasMsg] = React.useState(initial.aliasMsg || null);   // { error }
   const st = keyStatus(k, devices);
   const device = (devices || []).find(d => d.fp === k.fp && d.state === 'ready');
   const [xpubs, setXpubs] = React.useState(k.xpubs);
@@ -410,18 +410,18 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
     const a = alias.trim();
     if (!a) return setAliasMsg({ error: 'Enter an alias.' });
     if (others.some(o => o.alias === a)) return setAliasMsg({ error: `Another key is already named “${a}”.` });
-    onSave && onSave({ ...k, alias: a }); setAliasMsg({ ok: true });
+    onSave && onSave({ ...k, alias: a }); setAliasMsg(null);
   };
   const addXpub = (path) => { setXpubs(xs => [...xs, { path, xpub: (k.network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T).replace('Lj', path.slice(2, 4)), used: false }]); setStep('detail'); };
-  const title = { detail: k.alias, 'fetch-xpub': 'Fetch Xpub', password: 'Reveal Mnemonic', reveal: 'Reveal Mnemonic', remove: 'Remove Key' }[step];
+  const title = { detail: k.alias, 'fetch-xpub': k.alias, password: 'Reveal Mnemonic', reveal: 'Reveal Mnemonic', remove: 'Remove Key' }[step];
+  // Fetch Xpub opens its own modal over the key detail, which stays underneath.
+  const fetchOpen = step === 'fetch-xpub' && device;
 
   return (
+    <>
     <Modal title={title} width={600} onClose={onClose}
       headerRight={<Row gap="s"><Text variant="mono" color="secondary" size="sm">{k.fp}</Text><Pill id={st} /></Row>}>
-      {step === 'fetch-xpub' && device ? (
-        <FetchXpubStep network={k.network} device={device} existing={xpubs} initial={initial.fetch || {}}
-          onBack={() => setStep('detail')} onFetched={addXpub} />
-      ) : step === 'password' ? (
+      {step === 'password' ? (
         <PasswordStep proceedId="show_mnemonic"
           error={initial.pwError || null} onBack={() => setStep('detail')} onProceed={() => setStep('reveal')} />
       ) : step === 'reveal' ? (
@@ -436,7 +436,6 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
                 onKeyDown={e => { if (e.key === 'Enter' && alias.trim() !== k.alias) saveAlias(); }} />
               {alias.trim() !== k.alias ? <Btn id="save_alias" onClick={saveAlias} /> : null}
             </Field>
-            {aliasMsg && aliasMsg.ok ? <Text as="div" variant="caption" color="success">Saved</Text> : null}
             {aliasMsg && aliasMsg.error ? <Text as="div" variant="caption" color="error">{aliasMsg.error}</Text> : null}
           </Stack>
 
@@ -481,6 +480,13 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
         </Stack>
       )}
     </Modal>
+    {fetchOpen ? (
+      <Modal title="Fetch Xpub" width={600} onClose={() => setStep('detail')}>
+        <FetchXpubStep network={k.network} device={device} existing={xpubs} initial={initial.fetch || {}}
+          onBack={() => setStep('detail')} onFetched={addXpub} />
+      </Modal>
+    ) : null}
+    </>
   );
 }
 

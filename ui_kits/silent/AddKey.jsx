@@ -27,8 +27,9 @@ const xpubOk = (x) => /^[xt]pub[1-9A-HJ-NP-Za-km-z]{100,}$/.test((x || '').trim(
 /* Same row as Cached Xpubs (XpubTable), read-only. The fingerprint is in the
    modal title bar. */
 const originPath = (o) => 'm/' + (o || '').replace(/^\[[0-9a-f]{8}\/?/, '').replace(/\]$/, '');
-function KeyReview({ origin, xpub }) {
-  return <XpubTable rows={[{ path: originPath(origin), xpub }]} copy={false} />;
+/* rows: every xpub the device or file returned; a lone origin + xpub otherwise */
+function KeyReview({ origin, xpub, rows }) {
+  return <XpubTable rows={rows || [{ path: originPath(origin), xpub }]} copy={false} />;
 }
 
 function AliasField({ value, onChange }) {
@@ -63,8 +64,10 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
   const dup = fpOf && existing.some(k => k.fp === fpOf);
   const dupNotice = dup ? <Notice tone="error" title="Fingerprint already registered">Key {fpOf} is already registered as “{existing.find(k => k.fp === fpOf).alias}”.</Notice> : null;
   const aliasReason = !alias.trim() ? 'Enter an alias.' : existing.some(k => k.alias === alias.trim()) ? 'Another key already has this alias.' : null;
-  const add = (o, x, routes, hasHot) => onAdd && onAdd({ fp: originFp(o) || 'f00dcafe', alias: alias.trim(), routes, hasHot,
-    devicesSeen: [], xpubs: [{ path: 'm/' + o.slice(10, -1), xpub: x }], descriptors: [] });
+  const add = (o, x, routes, hasHot, rows) => onAdd && onAdd({ fp: originFp(o) || 'f00dcafe', alias: alias.trim(), routes, hasHot,
+    devicesSeen: [], xpubs: rows || [{ path: 'm/' + o.slice(10, -1), xpub: x }], descriptors: [] });
+  /* the QR request asks one xpub per account type, each at account 0 */
+  const accountRows = ["84'", "86'", "48'", "87'"].map(p => ({ path: `m/${p}/${coin}/0'${p === "48'" ? "/2'" : ''}`, xpub: xp }));
 
   let title = 'Add a Key', width = 600, body;
 
@@ -81,8 +84,8 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
     body = (
       <Stack gap="m" align="center">
         <Text variant="body" color="secondary" align="center">Scan this request with the device. It answers with its key origin and xpub.</Text>
-        <QRCode text={`UR:CRYPTO-REQUEST/XPUB/${network.toUpperCase()}/M-84H-${coin === "0'" ? '0' : '1'}H-0H`} size={240} />
-        <ModalActions onBack={() => setStep('mode')} style={{ width: '100%' }}>
+        <QRCode text={`UR:CRYPTO-REQUEST/XPUBS/${network.toUpperCase()}/${accountRows.map(r => r.path.slice(2).replace(/'/g, 'H').replace(/\//g, '-')).join(',')}`} size={360} />
+        <ModalActions onBack={() => setStep('mode')}>
           <Btn id="next_scan_the_answer" onClick={() => setStep('qr-scan')} />
         </ModalActions>
       </Stack>
@@ -91,7 +94,7 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
     title = 'Add a Key · Scan the Answer'; width = 640;
     body = <CameraStep context="add" force={initial.camera} progress={initial.progress} scanError={initial.scanError}
       onBack={() => setStep('qr')} onCancel={onClose}
-      onDone={() => { setRes({ origin: `[7e02da41/84'/${coin}/0']`, xpub: xp }); setStep('review'); }} />;
+      onDone={() => { setRes({ origin: `[7e02da41/84'/${coin}/0']`, xpub: xp, rows: accountRows }); setStep('review'); }} />;
   } else if (step === 'review' || step === 'sd') {
     title = step === 'sd' ? 'Add a Key · Import a File' : 'Add a Key · Review';
     const loaded = step === 'review' || (res && !fileErr);
@@ -111,13 +114,13 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
             {fileMsg ? <Notice tone="error" title="Cannot import this file">{fileMsg}</Notice> : null}
           </Stack>
         ) : null}
-        {loaded ? <KeyReview origin={res.origin} xpub={res.xpub} /> : null}
+        {loaded ? <KeyReview origin={res.origin} xpub={res.xpub} rows={res.rows} /> : null}
         {loaded ? dupNotice : null}
         {loaded ? <AliasField value={alias} onChange={setAlias} /> : null}
         <ModalActions onBack={() => { setRes(null); setStep(step === 'review' ? 'qr' : 'mode'); }}
           reason={!loaded ? null : dup ? 'This key is already registered.' : aliasReason}>
           {loaded
-            ? <Btn id="add_key" disabled={dup || !!aliasReason} onClick={() => add(res.origin, res.xpub, [mode === 'sd' ? 'sd' : 'qr'], false)} />
+            ? <Btn id="add_key" disabled={dup || !!aliasReason} onClick={() => add(res.origin, res.xpub, [mode === 'sd' ? 'sd' : 'qr'], false, res.rows)} />
             : <Btn id="open_file" onClick={() => { setSdErr(false); setFileErr(null); setRes({ origin: `[a19c44e0/84'/${coin}/0']`, xpub: xp }); }} />}
         </ModalActions>
       </Stack>

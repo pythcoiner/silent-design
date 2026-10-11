@@ -19,8 +19,9 @@ These apply to the whole UI kit and design system, always.
 4. **Tokens only.** No raw hex / px in screens; values come from
    `colors_and_type.css`. A token the app (`Palette.h`) doesn't have is marked
    "design only" and listed in the handoff note.
-5. **Modals.** One modal at a time; steps replace each other. Exception: a small
-   settings overlay (e.g. Camera Settings) may open on top and closes back. Every modal and
+5. **Modals.** One modal at a time; steps replace each other. Exceptions: a small
+   settings overlay (e.g. Camera Settings) and Fetch Xpub (over the key detail) open on
+   top and close back. Every modal and
    step ends with one `ModalActions` bar — except when its only action would be
    Close (the header × already does that) or it is a transient status. Never add
    a Close / OK / Cancel button: the header × closes every modal. A sub-step

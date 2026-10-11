@@ -14,7 +14,6 @@ export const BUTTONS = {
   /* component parts (Modal, ModalActions, Stepper, CopyField) */
   modal_close: { role: 'inline-icon', icon: 'x', iconSize: 16, title: 'Close', w: 'Icon' },
   back: { role: 'default', label: 'Back', icon: 'chevron_left', iconSize: 14, w: 'M' },
-  previous: { role: 'default', label: 'Previous', icon: 'chevron_left', iconSize: 14, w: 'M' },
   other_signer: { role: 'default', label: 'Other Signer', icon: 'chevron_left', iconSize: 14, w: 'L' },
   all_settings: { role: 'default', label: 'All Settings', icon: 'chevron_left', iconSize: 14, w: 'L' },
   stepper_minus: { role: 'inline-icon', icon: 'minus', iconSize: 14, title: 'Less', w: 'Icon' },
