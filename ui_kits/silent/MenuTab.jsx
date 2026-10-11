@@ -76,7 +76,7 @@ function CreateAccount({ existing, keys = window.KEYS, onCancel, onCreate, onOpe
       ? { error: `Could not reach ${value}: connection refused. Start the BlindBit server, then test again.` } : 'ok' })), 900);
   };
   const pickNetwork = (n) => {
-    setNetwork(n); setKeyFp(null); setTaproot(null); setSegwit(null);
+    setNetwork(n); setKeyFp(null); setDesc(null); setTaproot(null); setSegwit(null);
     const d = ENDPOINT_DEFAULTS[n]; setBlindbit(d.blindbit); setElectrum(d.electrum); setTests({});
     if (d.auto) { runTest('blindbit', d.blindbit); runTest('electrum', d.electrum); }
   };
@@ -139,15 +139,14 @@ function CreateAccount({ existing, keys = window.KEYS, onCancel, onCreate, onOpe
           )}
           {netKeys.length ? (
             <Row gap="s">
-              <Btn id="get_silent_payment" disabled={!key} onClick={() => setFetching('sp')} />
-              <Btn id="get_taproot" disabled={!key} onClick={() => setFetching('taproot')} />
-              <Btn id="get_segwit" disabled={!key} onClick={() => setFetching('segwit')} />
+              {/* A fetched one is done: greyed out with a check mark until the key or the network changes. */}
+              {[['get_silent_payment', 'sp', desc], ['get_taproot', 'taproot', taproot], ['get_segwit', 'segwit', segwit]].map(([id, what, got]) => (
+                <Btn key={id} id={id} disabled={!key || !!got} icon={got ? 'check' : undefined} iconSize={16} iconTone="success"
+                  onClick={() => setFetching(what)} />
+              ))}
               {!key ? <Text variant="caption">Pick a key first.</Text> : null}
             </Row>
           ) : null}
-          {desc ? <CopyField value={desc.value} wrap title="Copy descriptor" /> : null}
-          {taproot ? <CopyField value={taproot.value} wrap title="Copy taproot descriptor" /> : null}
-          {segwit ? <CopyField value={segwit.value} wrap title="Copy segwit descriptor" /> : null}
         </Stack>
 
         <Stack gap="xs">
