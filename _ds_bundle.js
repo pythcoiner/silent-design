@@ -6827,8 +6827,7 @@ function CameraStep({
       }
     })
   }, e.body) : null, /*#__PURE__*/React.createElement(ModalActions, {
-    onBack: onBack,
-    backId: "previous"
+    onBack: onBack
   }, /*#__PURE__*/React.createElement(Btn, {
     id: "camera_settings",
     onClick: () => setShowSettings(true)
@@ -7410,13 +7409,6 @@ const BUTTONS = {
   back: {
     role: 'default',
     label: 'Back',
-    icon: 'chevron_left',
-    iconSize: 14,
-    w: 'M'
-  },
-  previous: {
-    role: 'default',
-    label: 'Previous',
     icon: 'chevron_left',
     iconSize: 14,
     w: 'M'
