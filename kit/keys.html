@@ -23,7 +23,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=9"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=5"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=47"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=48"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=21"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=27"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=7"></script>
@@ -83,6 +83,7 @@
           { title: 'Fetch xpub — custom path', tag: 'FetchXpubStep', ...KD('73c5da0a', { step: 'fetch-xpub', fetch: { purpose: 'custom', custom: "m/84'/1'/5'" } }, 640) },
           { title: 'Fetch xpub — already cached', tag: 'FetchXpubStep', ...KD('73c5da0a', { step: 'fetch-xpub', fetch: { purpose: '86', account: 0 } }, 640) },
           { title: 'Fetch xpub — fetching', tag: 'FetchXpubStep', ...KD('73c5da0a', { step: 'fetch-xpub', fetch: { busy: true } }, 640) },
+          { title: 'Fetch xpub — over QR (offline key with a QR route)', tag: 'FetchXpubStep', ...KD('5be0c7d2', { step: 'fetch-xpub', fetch: { qr: true } }, 760) },
           { title: 'Sections folded', tag: 'KeyDetail', ...KD('73c5da0a', { folds: { routes: false, devices: false, xpubs: false, descriptors: false } }, 420) },
           { title: 'Alias error', tag: 'KeyDetail', ...KD('5be0c7d2', { alias: 'Daily Ledger', aliasMsg: { error: 'Another key is already named “Daily Ledger”.' } }, 640) },
           { title: 'Remove — accounts still use it', tag: 'RemoveKeyConfirm', ...KD('73c5da0a', { step: 'remove' }, 360) },
