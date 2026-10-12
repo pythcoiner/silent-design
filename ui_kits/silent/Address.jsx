@@ -64,14 +64,16 @@ export function QRCode({ text, size = 132, zoom }) {
   );
 }
 
-/* ChunkedAddress — an address/txid shown as alternating-dimmed 4-char mono
-   groups; click to toggle to one unbroken string. Long silent-payment strings
-   wrap to two centered rows. */
+/* ChunkedAddress — an address/txid shown as alternating-dimmed mono groups; a
+   click cycles groups of 4, groups of 6, then one unbroken string. Long
+   silent-payment strings (over 56 characters) wrap to two centered rows. */
+const CHUNK_CYCLE = { 4: 6, 6: 0, 0: 4 };
 export function ChunkedAddress({ text }) {
-  const [chunked, setChunked] = React.useState(true);
+  const [size, setSize] = React.useState(4);          // characters per group, 0 = one string
+  const chunked = size > 0;
   const lines = React.useMemo(() => {
-    const chunks = text.match(/.{1,4}/g) || [];
-    const rows = chunks.length > 14 ? 2 : 1;          // long SP → 2 rows, others → 1
+    const chunks = chunked ? text.match(new RegExp(`.{1,${size}}`, 'g')) || [] : [];
+    const rows = text.length > 56 ? 2 : 1;            // long SP → 2 rows, others → 1
     const base = Math.floor(chunks.length / rows);
     const extra = chunks.length % rows;                       // first `extra` rows get +1
     const out = [];
@@ -82,12 +84,12 @@ export function ChunkedAddress({ text }) {
       i += n;
     }
     return out;
-  }, [text]);
+  }, [text, size]);
 
   let idx = 0;  // running chunk index for alternating dim
   return (
-    <div className="t-mono" onClick={() => setChunked((c) => !c)}
-      title={chunked ? 'Show as one string' : 'Show in chunks'}
+    <div className="t-mono" onClick={() => setSize((n) => CHUNK_CYCLE[n])}
+      title={size === 4 ? 'Show in groups of 6' : size === 6 ? 'Show as one string' : 'Show in groups of 4'}
       style={{ lineHeight: 1.75, textAlign: 'center', cursor: 'pointer', userSelect: 'none',
         wordBreak: chunked ? 'normal' : 'break-all' }}>
       {chunked
