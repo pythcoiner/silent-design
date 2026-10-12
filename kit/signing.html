@@ -20,13 +20,13 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=13"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=23"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=11"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=7"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=9"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=31"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=20"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=21"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=27"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=6"></script>
@@ -91,7 +91,8 @@
           { title: 'Matched', tag: 'VerifyResult', ...SF({ context: 'verify', address: ADDR, initial: { step: { row: usb, result: 'matched' } } }, 420) },
           { title: 'Mismatch', tag: 'VerifyResult', ...SF({ context: 'verify', address: ADDR, initial: { step: { row: usb, result: 'mismatch' } } }, 420) },
           { title: 'Error', tag: 'VerifyResult', ...SF({ context: 'verify', address: ADDR, initial: { step: { row: qr, result: 'error' } } }, 420) },
-          { title: 'SP address — cannot be verified (non-clickable)', tag: 'SpVerifyNote', span: 'span2', el: <AddressRow address={SP_ADDRESS} verifiable={false} onCopy={noop} /> },
+          { title: 'SP address — QR devices only', tag: 'SignerPicker', ...SF({ context: 'verify', plan: SP_VERIFY_PLAN, address: SP_ADDRESS }, 300) },
+          { title: 'SP address — QR request, the address wrapping in its card', tag: 'QrDisplayStep', ...SF({ context: 'verify', address: SP_ADDRESS, initial: { step: { row: qr } } }, 840) },
         ]},
         { name: '3.9 Send integration', items: [
           { title: 'Send — Sign opens the signing flow', tag: 'SendScreen', span: 'full', frame: true, height: 660, el: <SendScreen wallet={WALLETS.savings} /> },

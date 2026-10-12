@@ -193,7 +193,7 @@ function QrDisplayStep({ context = 'sign', address, onNext, onCancel, initialReb
   return (
     <Stack align="center" gap="m">
       <Text variant="body" color="secondary" align="center">{c.qrHint}</Text>
-      {context === 'verify' && address ? <Card tone="inset" pad="m" style={{ width: '100%' }}><ChunkedAddress text={address} /></Card> : null}
+      {context === 'verify' && address ? <Card tone="inset" pad="m" style={{ width: '100%' }}><ChunkedAddress text={address} wrap /></Card> : null}
       <div style={{ position: 'relative' }}>
         <QRCard size={400} pad={16} radius={12} bg={bg} dim={rebuilding}>
           <div style={{ width: '100%', height: '100%' }} dangerouslySetInnerHTML={{ __html: svg }} />

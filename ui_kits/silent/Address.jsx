@@ -66,14 +66,15 @@ export function QRCode({ text, size = 132, zoom }) {
 
 /* ChunkedAddress — an address/txid shown as alternating-dimmed mono groups; a
    click cycles groups of 4, groups of 6, then one unbroken string. Long
-   silent-payment strings (over 56 characters) wrap to two centered rows. */
+   silent-payment strings (over 56 characters) wrap to two centered rows, or,
+   with `wrap`, to as many rows as the width needs (the verify card). */
 const CHUNK_CYCLE = { 4: 6, 6: 0, 0: 4 };
-export function ChunkedAddress({ text }) {
+export function ChunkedAddress({ text, wrap = false }) {
   const [size, setSize] = React.useState(4);          // characters per group, 0 = one string
   const chunked = size > 0;
   const lines = React.useMemo(() => {
     const chunks = chunked ? text.match(new RegExp(`.{1,${size}}`, 'g')) || [] : [];
-    const rows = text.length > 56 ? 2 : 1;            // long SP → 2 rows, others → 1
+    const rows = !wrap && text.length > 56 ? 2 : 1;   // long SP → 2 rows, others → 1
     const base = Math.floor(chunks.length / rows);
     const extra = chunks.length % rows;                       // first `extra` rows get +1
     const out = [];
@@ -94,7 +95,7 @@ export function ChunkedAddress({ text }) {
         wordBreak: chunked ? 'normal' : 'break-all' }}>
       {chunked
         ? lines.map((row, r) => (
-            <div key={r} style={{ display: 'flex', justifyContent: 'center', gap: '0.4em' }}>
+            <div key={r} style={{ display: 'flex', justifyContent: 'center', gap: '0.4em', flexWrap: wrap ? 'wrap' : 'nowrap' }}>
               {row.map((c) => {
                 const i = idx++;
                 return <span key={i} style={{ color: i % 2 ? 'var(--text-muted)' : 'var(--text)' }}>{c}</span>;

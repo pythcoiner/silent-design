@@ -202,7 +202,7 @@ function LabelRow({ label, onSetLabel }) {
   );
 }
 
-function AddressRow({ address, placeholder, generatable, onGenerate, onCopy, copied, prevCount = 0, onShowPrev, labelable, label = '', onSetLabel, verifiable = true }) {
+function AddressRow({ address, placeholder, generatable, onGenerate, onCopy, copied, prevCount = 0, onShowPrev, labelable, label = '', onSetLabel, verifyPlan = window.VERIFY_PLAN }) {
   const [verify, setVerify] = React.useState(false);
   if (!address) {
     return (
@@ -218,11 +218,9 @@ function AddressRow({ address, placeholder, generatable, onGenerate, onCopy, cop
       <QRCode text={address} size={256} zoom />
       {labelable ? <LabelRow label={label} onSetLabel={onSetLabel} /> : null}
       <Row justify="center" gap="m" style={{ width: '100%' }}>
-        {verifiable ? (
-          <Tooltip label="Verify on signing device">
-            <Btn id="verify_on_device" onClick={() => setVerify(true)} style={{ flex: 'none' }} />
-          </Tooltip>
-        ) : null}
+        <Tooltip label="Verify on signing device">
+          <Btn id="verify_on_device" onClick={() => setVerify(true)} style={{ flex: 'none' }} />
+        </Tooltip>
         <ChunkedAddress text={address} />
         <Btn id={copied ? 'copied' : 'copy_address'} onClick={onCopy} />
       </Row>
@@ -234,21 +232,9 @@ function AddressRow({ address, placeholder, generatable, onGenerate, onCopy, cop
           ) : null}
         </Row>
       ) : null}
-      {!verifiable ? <SpVerifyNote /> : null}
     </Stack>
-    {verify ? <SigningFlow context="verify" plan={window.VERIFY_PLAN} address={address} onCancel={() => setVerify(false)} /> : null}
+    {verify ? <SigningFlow context="verify" plan={verifyPlan} address={address} onCancel={() => setVerify(false)} /> : null}
     </React.Fragment>
-  );
-}
-
-/* SP addresses can't be checked on a device yet (the QR protocol has no SP
-   address verification): an honest, non-clickable note instead of a button. */
-function SpVerifyNote() {
-  return (
-    <Row gap="xs" justify="center" style={{ color: 'var(--text-muted)', maxWidth: 520 }}>
-      <Icon name="info" size={14} />
-      <Text variant="caption" align="center">Silent payment addresses can't be checked on a signing device yet. No device protocol supports it.</Text>
-    </Row>
   );
 }
 
@@ -322,7 +308,7 @@ function ReceiveScreen({ wallet }) {
     <ScreenWrap title="Receive">
       <Stack>
         <FoldSection id="sp" label="Silent Payment Address" open={open === 'sp'} onToggle={toggle}>
-          <AddressRow address={SP_ADDRESS} verifiable={false} onCopy={() => copy(SP_ADDRESS, 'sp')} copied={copied === 'sp'} />
+          <AddressRow address={SP_ADDRESS} verifyPlan={window.SP_VERIFY_PLAN} onCopy={() => copy(SP_ADDRESS, 'sp')} copied={copied === 'sp'} />
         </FoldSection>
 
         <Ruler />
@@ -353,5 +339,5 @@ function ReceiveScreen({ wallet }) {
   );
 }
 
-Object.assign(window, { HistoryScreen, CoinsScreen, ReceiveScreen, ScreenWrap, DashboardLayout, Ruler, AddressRow, SpVerifyNote, PrevAddressesModal, genAddr,
+Object.assign(window, { HistoryScreen, CoinsScreen, ReceiveScreen, ScreenWrap, DashboardLayout, Ruler, AddressRow, PrevAddressesModal, genAddr,
   DASH_MIN_W, DASH_COL_MAX, DASH_MAX_W, DASH_GUTTER, DASH_SPLIT_AT, DASH_WIDE_AT, DASH_TOP_GAP, LayoutInfo });
