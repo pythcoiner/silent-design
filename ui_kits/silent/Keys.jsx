@@ -232,14 +232,15 @@ function PasswordStep({ prompt, proceedId = 'proceed', onBack, error: initialErr
 
 /* UnsealModal — the one password prompt that unseals a hot key's mnemonic, opened on
    top of whatever needs it: Reveal Mnemonic, signing, a descriptor or xpub fetch. Once the
-   password is taken it works under its spinner (shown at least 500ms) and closes. */
-function UnsealModal({ title, prompt, proceedId = 'proceed', busyTitle, busySubtitle, error, initialBusy = false, onCancel, onDone }) {
+   password is taken it works under its spinner (shown at least 500ms) and closes.
+   `back={false}` drops Back where the header cross is the only way out (Reveal Mnemonic). */
+function UnsealModal({ title, prompt, proceedId = 'proceed', busyTitle, busySubtitle, error, initialBusy = false, back = true, onCancel, onDone }) {
   const [busy, setBusy] = React.useState(initialBusy);
   React.useEffect(() => { if (!busy || initialBusy) return; const t = setTimeout(() => onDone && onDone(), 900); return () => clearTimeout(t); }, [busy]);
   return (
     <Modal title={title} width={520} onClose={onCancel}>
       {busy ? <ModalStatus spinner title={busyTitle} subtitle={busySubtitle} pad="var(--space-m) 0" /> : (
-        <PasswordStep prompt={prompt} proceedId={proceedId} error={error} onBack={onCancel} onProceed={() => setBusy(true)} />
+        <PasswordStep prompt={prompt} proceedId={proceedId} error={error} onBack={back ? onCancel : undefined} onProceed={() => setBusy(true)} />
       )}
     </Modal>
   );
@@ -503,7 +504,7 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
     </Modal>
     {/* Reveal Mnemonic: the unseal prompt, then the words, each a modal over the detail. */}
     {step === 'password' ? (
-      <UnsealModal title="Reveal Mnemonic" proceedId="show_mnemonic" busyTitle="Opening the key…" error={initial.pwError || null}
+      <UnsealModal title="Reveal Mnemonic" proceedId="show_mnemonic" busyTitle="Opening the key…" error={initial.pwError || null} back={false}
         onCancel={() => setStep('detail')} onDone={() => setStep('reveal')} />
     ) : null}
     {step === 'reveal' ? (
