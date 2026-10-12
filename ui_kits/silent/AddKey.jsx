@@ -54,6 +54,11 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
   const [fileErr, setFileErr] = React.useState(initial.fileError || null);
   const [sdErr, setSdErr] = React.useState(initial.sdError || false);
   // hot key
+  /* the QR request's tuning, changed in QR Settings behind the gear left of Next */
+  const [qrSettings, setQrSettings] = React.useState(!!initial.qrSettings);
+  const [qrContrast, setQrContrast] = React.useState(3);
+  const [qrDensity, setQrDensity] = React.useState(3);
+  const [qrSpeed, setQrSpeed] = React.useState(3);
   const [hotKind, setHotKind] = React.useState(initial.hotKind || 'gen12');   // gen12 | gen24 | import
   const [typed, setTyped] = React.useState(initial.typed || '');
   const [inWords, setInWords] = React.useState(() => { const t = (initial.typed || '').trim().split(/\s+/).filter(Boolean); const n = initial.words || (t.length > 12 ? 24 : 12); return Array.from({ length: n }, (_, i) => t[i] || ''); });
@@ -87,10 +92,17 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
     title = 'Add a Key · QR Code';
     body = (
       <Stack gap="m" align="center">
-        <QRCode text={`UR:CRYPTO-REQUEST/XPUBS/${network.toUpperCase()}/${accountRows.map(r => r.path.slice(2).replace(/'/g, 'H').replace(/\//g, '-')).join(',')}`} size={360} />
+        <QRCard size={360} bg={`hsl(220 14% ${40 + (qrContrast - 1) * 15}%)`}>
+          <div style={{ width: '100%', height: '100%' }} dangerouslySetInnerHTML={{ __html: qrSvg(`UR:CRYPTO-REQUEST/XPUBS/${network.toUpperCase()}/${accountRows.map(r => r.path.slice(2).replace(/'/g, 'H').replace(/\//g, '-')).join(',')}`) }} />
+        </QRCard>
         <ModalActions onBack={() => setStep('mode')}>
+          <Btn id="qr_settings" onClick={() => setQrSettings(true)} />
           <Btn id="next_scan_the_answer" onClick={() => setStep('qr-scan')} />
         </ModalActions>
+        {qrSettings ? (
+          <QrSettingsModal contrast={qrContrast} density={qrDensity} speed={qrSpeed} onContrast={setQrContrast}
+            onDensity={setQrDensity} onSpeed={setQrSpeed} onClose={() => setQrSettings(false)} />
+        ) : null}
       </Stack>
     );
   } else if (step === 'qr-scan') {

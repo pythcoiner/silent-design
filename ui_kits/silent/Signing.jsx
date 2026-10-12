@@ -148,6 +148,26 @@ function SdStep({ context = 'sign', fileBase = 'savings', phase: initialPhase = 
 
 const QR_PAYLOAD = 'cHNidP8BAHECAAAAAfwzq1kY2hVi9k3lQ8nT0pXrWb7mGv4Lh2Jd9sKfP1aoAAAAAAAD9____AoCWmAAAAAAAFgAUq3Zr8tN1dJ0hLmC4wVfYx2kPbT5AQg8AAAAAABYAFLuh7cP2mZ9oXkqR3sVbTtMu1nQwAAAAAAEBH0BCDwAAAAAAFgAU8aQxk2nF0pZ7Lm3vBtWcYxRd9KsiBgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7mGv4Lh0Yz1a8tVAAAA';
 
+/* QR Settings: contrast, density and speed of a QR code that keeps playing behind it.
+   Opened from the gear left of Next on every QR code step (signing, Add a Key). */
+function QrSettingsModal({ contrast, density, speed, onContrast, onDensity, onSpeed, onClose }) {
+  const tune = (label, hint, v, set) => (
+    <Stack align="center" gap="xxs" style={{ width: 150 }}>
+      <Stepper label={label} value={v} min={1} max={5} onChange={set} />
+      <Text variant="caption" align="center">{hint}</Text>
+    </Stack>
+  );
+  return (
+    <Modal title="QR Settings" width={560} onClose={onClose}>
+      <Row gap="l" justify="center" align="flex-start">
+        {tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, onContrast)}
+        {tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, onDensity)}
+        {tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, onSpeed)}
+      </Row>
+    </Modal>
+  );
+}
+
 /* The tuning sits in a QR Settings overlay behind a gear left of Next, as Camera Settings
    does for a scan: the code keeps playing behind it. */
 function QrDisplayStep({ context = 'sign', address, onNext, onCancel, initialRebuilding = false, initialSettings = false }) {
@@ -170,12 +190,6 @@ function QrDisplayStep({ context = 'sign', address, onNext, onCancel, initialReb
   const changeDensity = (v) => { setDensity(v); setRebuilding(true); setTimeout(() => setRebuilding(false), 700); };
   const svg = React.useMemo(() => qrSvg(parts[frame] || '', { ecOrder: ['L', 'M'] }), [parts, frame]);
   const bg = `hsl(220 14% ${40 + (contrast - 1) * 15}%)`;
-  const tune = (label, hint, v, set) => (
-    <Stack align="center" gap="xxs" style={{ width: 150 }}>
-      <Stepper label={label} value={v} min={1} max={5} onChange={set} />
-      <Text variant="caption" align="center">{hint}</Text>
-    </Stack>
-  );
   return (
     <Stack align="center" gap="m">
       <Text variant="body" color="secondary" align="center">{c.qrHint}</Text>
@@ -196,13 +210,8 @@ function QrDisplayStep({ context = 'sign', address, onNext, onCancel, initialReb
         <Btn id="next_scan_the_answer" disabled={rebuilding} onClick={onNext} />
       </ModalActions>
       {showSettings ? (
-        <Modal title="QR Settings" width={560} onClose={() => setShowSettings(false)}>
-          <Row gap="l" justify="center" align="flex-start">
-            {tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, setContrast)}
-            {tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, changeDensity)}
-            {tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, setSpeed)}
-          </Row>
-        </Modal>
+        <QrSettingsModal contrast={contrast} density={density} speed={speed} onContrast={setContrast}
+          onDensity={changeDensity} onSpeed={setSpeed} onClose={() => setShowSettings(false)} />
       ) : null}
     </Stack>
   );
@@ -388,5 +397,5 @@ function SigningFlow({ context = 'sign', plan = [], others = [], address, fileBa
   return <Modal title={title} width={width} onClose={onCancel}>{body}</Modal>;
 }
 
-Object.assign(window, { FLOW_COPY, SIGNER_STATUS, SignerPicker, UsbStep, SdStep, QrDisplayStep, CameraStep, HotStep,
+Object.assign(window, { FLOW_COPY, SIGNER_STATUS, SignerPicker, UsbStep, SdStep, QrSettingsModal, QrDisplayStep, CameraStep, HotStep,
   VerifyResult, SigningFlow, CAMERA_STATES, SCAN_ERRORS, USB_ERRORS, VERIFY_RESULT });
