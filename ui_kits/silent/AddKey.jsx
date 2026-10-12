@@ -32,6 +32,10 @@ function KeyReview({ origin, xpub, rows }) {
   return <XpubTable rows={rows || [{ path: originPath(origin), xpub }]} copy={false} />;
 }
 
+/* The Choose a Password body, centred at the app's width rather than spanning the
+   modal. Qt: the HotKeyFlow password view at its content width. */
+const HOT_PASSWORD_WIDTH = 320;
+
 function AliasField({ value, onChange }) {
   return (
     <Field label="Alias:">
@@ -50,6 +54,11 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
   const [fileErr, setFileErr] = React.useState(initial.fileError || null);
   const [sdErr, setSdErr] = React.useState(initial.sdError || false);
   // hot key
+  /* the QR request's tuning, changed in QR Settings behind the gear left of Next */
+  const [qrSettings, setQrSettings] = React.useState(!!initial.qrSettings);
+  const [qrContrast, setQrContrast] = React.useState(3);
+  const [qrDensity, setQrDensity] = React.useState(3);
+  const [qrSpeed, setQrSpeed] = React.useState(3);
   const [hotKind, setHotKind] = React.useState(initial.hotKind || 'gen12');   // gen12 | gen24 | import
   const [typed, setTyped] = React.useState(initial.typed || '');
   const [inWords, setInWords] = React.useState(() => { const t = (initial.typed || '').trim().split(/\s+/).filter(Boolean); const n = initial.words || (t.length > 12 ? 24 : 12); return Array.from({ length: n }, (_, i) => t[i] || ''); });
@@ -83,10 +92,17 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
     title = 'Add a Key · QR Code';
     body = (
       <Stack gap="m" align="center">
-        <QRCode text={`UR:CRYPTO-REQUEST/XPUBS/${network.toUpperCase()}/${accountRows.map(r => r.path.slice(2).replace(/'/g, 'H').replace(/\//g, '-')).join(',')}`} size={360} />
+        <QRCard size={360} bg={`hsl(220 14% ${40 + (qrContrast - 1) * 15}%)`}>
+          <div style={{ width: '100%', height: '100%' }} dangerouslySetInnerHTML={{ __html: qrSvg(`UR:CRYPTO-REQUEST/XPUBS/${network.toUpperCase()}/${accountRows.map(r => r.path.slice(2).replace(/'/g, 'H').replace(/\//g, '-')).join(',')}`) }} />
+        </QRCard>
         <ModalActions onBack={() => setStep('mode')}>
+          <Btn id="qr_settings" onClick={() => setQrSettings(true)} />
           <Btn id="next_scan_the_answer" onClick={() => setStep('qr-scan')} />
         </ModalActions>
+        {qrSettings ? (
+          <QrSettingsModal contrast={qrContrast} density={qrDensity} speed={qrSpeed} onContrast={setQrContrast}
+            onDensity={setQrDensity} onSpeed={setQrSpeed} onClose={() => setQrSettings(false)} />
+        ) : null}
       </Stack>
     );
   } else if (step === 'qr-scan') {
@@ -190,6 +206,7 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
     const reason = aliasReason || (!pw ? 'Choose a password.' : short ? 'Use at least 8 characters.' : pw !== pw2 ? 'The two passwords must match.' : null);
     body = (
       <Stack gap="s">
+        <Stack gap="s" style={{ width: HOT_PASSWORD_WIDTH, alignSelf: 'center' }}>
         <Text as="div" variant="body" color="secondary">The password seals the mnemonic on this computer. Silent asks for it each time the key signs.</Text>
         <FieldGroup>
         <AliasField value={alias} onChange={setAlias} />
@@ -198,6 +215,7 @@ function AddKeyModal({ network = 'Signet', existing = [], onClose, onAdd, initia
         <Field label="Confirm:"><Input grow type="password" value={pw2} onChange={e => setPw2(e.target.value)} /></Field>
         {mismatch ? <FieldNote tone="error">The passwords do not match.</FieldNote> : null}
         </FieldGroup>
+        </Stack>
         <ModalActions onBack={() => setStep(hotKind === 'import' ? 'hot-choose' : 'hot-backup')} reason={reason}>
           <Btn id="seal_key" disabled={!!reason} onClick={() => { setStep('hot-sealing'); setTimeout(() => setStep('hot-done'), 2200); }} />
         </ModalActions>

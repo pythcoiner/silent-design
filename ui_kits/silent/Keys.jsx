@@ -136,8 +136,7 @@ function KeysScreen({ initialNetwork = 'Signet', initialKeys = KEYS, initialDevi
               ))}
             </Stack>
           ) : (
-            <EmptyState icon="usb" title="No Device Connected"
-              subtitle={`Connect a hardware wallet over USB and unlock it. It appears here while it runs on ${network}.`} />
+            <EmptyState icon="usb" title="No Device Connected" />
           ))}
         {section('keys',
           <SectionHeader label="Keys" count={netKeys.length || null} open={open.keys} onToggle={() => toggle('keys')} action={netKeys.length && open.keys ? addBtn : null} />,
@@ -146,8 +145,7 @@ function KeysScreen({ initialNetwork = 'Signet', initialKeys = KEYS, initialDevi
               {netKeys.map(k => <KeyRow key={k.fp} k={k} devices={devices} onOpen={() => setModal({ type: 'key', fp: k.fp })} />)}
             </Stack>
           ) : (
-            <EmptyState icon="key" title={`No Key on ${network}`}
-              subtitle="Add a key to sign transactions, verify addresses and create accounts." action={addBtn} />
+            <EmptyState icon="key" title={`No Key on ${network}`} action={addBtn} />
           ))}
         </div>
       </div>
@@ -232,6 +230,22 @@ function PasswordStep({ prompt, proceedId = 'proceed', onBack, error: initialErr
   );
 }
 
+/* UnsealModal — the one password prompt that unseals a hot key's mnemonic, opened on
+   top of whatever needs it: Reveal Mnemonic, signing, a descriptor or xpub fetch. Once the
+   password is taken it works under its spinner (shown at least 500ms) and closes.
+   `back={false}` drops Back where the header cross is the only way out (Reveal Mnemonic). */
+function UnsealModal({ title, prompt, proceedId = 'proceed', busyTitle, busySubtitle, error, initialBusy = false, back = true, onCancel, onDone }) {
+  const [busy, setBusy] = React.useState(initialBusy);
+  React.useEffect(() => { if (!busy || initialBusy) return; const t = setTimeout(() => onDone && onDone(), 900); return () => clearTimeout(t); }, [busy]);
+  return (
+    <Modal title={title} width={520} onClose={onCancel}>
+      {busy ? <ModalStatus spinner title={busyTitle} subtitle={busySubtitle} pad="var(--space-m) 0" /> : (
+        <PasswordStep prompt={prompt} proceedId={proceedId} error={error} onBack={back ? onCancel : undefined} onProceed={() => setBusy(true)} />
+      )}
+    </Modal>
+  );
+}
+
 /* ---------------- 3.3 Key detail ---------------- */
 
 function RouteTable({ routes, hasHot, onChange, initialAdding = false }) {
@@ -311,8 +325,10 @@ function RemoveKeyConfirm({ k, onCancel, onConfirm }) {
 }
 
 /* XpubTable — the one way an xpub list is shown: path (mono, muted) · short xpub.
-   Used by Cached Xpubs (with copy, Used pill and a trailing + row) and by the
-   Add a Key review (read-only: no copy, no pill). */
+   Used by Cached Xpubs (with copy, Used pill, a remove cross disabled while used,
+   and a trailing + row) and by the Add a Key review (read-only: no copy, no pill). */
+/* The add row's action ends the table, under the removes when there are any, as the
+   routes' + does. */
 function XpubTable({ rows, copy = true, pill = false, addRow = null }) {
   const all = addRow ? [...rows, { __add: true }] : rows;
   return (
@@ -320,7 +336,9 @@ function XpubTable({ rows, copy = true, pill = false, addRow = null }) {
       rowClass={x => (x.__add ? 'is-bare' : '')} columns={[
       { header: 'Path', width: 140, mono: true, render: x => x.__add ? null : x.path },
       { header: 'Xpub', grow: true, render: x => x.__add ? (addRow.empty || null) : <ShortValue value={x.xpub} copy={copy} title="Copy xpub" /> },
-      ...(pill || addRow ? [{ header: '', width: 130, align: 'right', render: x => x.__add ? addRow.action : pill ? <Pill id={x.used ? 'xpub_used' : 'xpub_unused'} /> : null }] : []),
+      ...(pill || addRow ? [{ header: '', width: 120, align: 'right', render: x => x.__add ? (pill ? null : addRow.action) : pill ? <Pill id={x.used ? 'xpub_used' : 'xpub_unused'} /> : null }] : []),
+      /* 50: the 30px button inside the cell's padding, ending where the routes' + does */
+      ...(pill ? [{ header: '', width: 50, align: 'right', render: x => x.__add ? addRow.action : <Btn id="remove_xpub" disabled={x.used} title={x.used ? 'An account uses this xpub' : 'Remove Xpub'} /> }] : []),
     ]} />
   );
 }
@@ -338,7 +356,8 @@ const XPUB_PURPOSES = [
   { id: '87', label: "BIP87 · Multisig (87')", tpl: (c, a) => `m/87'/${c}'/${a}'` },
   { id: 'custom', label: 'Custom Path' },
 ];
-function FetchXpubStep({ network, device, existing = [], onBack, onFetched, initial = {} }) {
+/* No device but a hot key: the password is asked, then the xpub is derived. */
+function FetchXpubStep({ network, device, hot = false, qrKey = null, existing = [], onBack, onFetched, initial = {} }) {
   const coin = network === 'Bitcoin' ? 0 : 1;
   const [purpose, setPurpose] = React.useState(initial.purpose || '84');
   /* default account = the first index whose path is not cached yet for this purpose */
@@ -348,6 +367,8 @@ function FetchXpubStep({ network, device, existing = [], onBack, onFetched, init
   const [script, setScript] = React.useState(initial.script || 2);
   const [custom, setCustom] = React.useState(initial.custom || '');
   const [busy, setBusy] = React.useState(!!initial.busy);
+  const [askPassword, setAskPassword] = React.useState(!!initial.password);
+  const [askQr, setAskQr] = React.useState(!!initial.qr);
   const p = XPUB_PURPOSES.find(x => x.id === purpose);
   /* 48 splits the path around the account AND the script type; others only the account */
   const pathParts = p.tpl ? p.tpl(coin, '\u0000', '\u0001').split(/[\u0000\u0001]/) : ['', ''];
@@ -359,7 +380,19 @@ function FetchXpubStep({ network, device, existing = [], onBack, onFetched, init
     : purpose === 'custom' && !path ? 'Enter a derivation path.'
     : !pathOk ? "Write the path like m/84'/1'/0'."
     : dup ? 'This xpub is already cached.' : null;
-  if (busy) return <ModalStatus spinner title="Fetching the xpub…" subtitle={`Confirm on ${deviceName(device)} if it asks.`} pad="var(--space-m) 0" />;
+  const fetchNow = () => { setBusy(true); setTimeout(() => onFetched(path), 1000); };
+  if (busy) return <ModalStatus spinner title="Fetching the xpub…" subtitle={device ? `Confirm on ${deviceName(device)} if it asks.` : null} pad="var(--space-m) 0" />;
+  // A hot key: the unseal modal over this one derives the xpub under its own spinner.
+  const unseal = askPassword ? (
+    <UnsealModal title="Fetch Xpub" proceedId="get_xpub_hot" busyTitle="Fetching the xpub…"
+      onCancel={() => setAskPassword(false)} onDone={() => { setAskPassword(false); onFetched(path); }} />
+  ) : null;
+  // No device and no hot secret: the key's QR route, its request code and answer scan
+  // in the signing flow over this modal.
+  const qrFlow = askQr && qrKey ? (
+    <SigningFlow context="fetch-xpub" keyRow={{ fp: qrKey.fp, alias: qrKey.alias, route: 'qr' }}
+      onCancel={() => setAskQr(false)} onDone={() => { setAskQr(false); onFetched(path); }} />
+  ) : null;
   return (
     <Stack gap="m">
       <FieldGroup>
@@ -386,8 +419,10 @@ function FetchXpubStep({ network, device, existing = [], onBack, onFetched, init
         )}
       </FieldGroup>
       <ModalActions reason={reason}>
-        <Btn id="fetch_this_xpub" disabled={!!reason} onClick={() => { setBusy(true); setTimeout(() => onFetched(path), 1000); }} />
+        <Btn id="fetch_this_xpub" disabled={!!reason} onClick={() => (device ? fetchNow() : hot ? setAskPassword(true) : qrKey ? setAskQr(true) : fetchNow())} />
       </ModalActions>
+      {unseal}
+      {qrFlow}
     </Stack>
   );
 }
@@ -413,20 +448,16 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
     onSave && onSave({ ...k, alias: a }); setAliasMsg(null);
   };
   const addXpub = (path) => { setXpubs(xs => [...xs, { path, xpub: (k.network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T).replace('Lj', path.slice(2, 4)), used: false }]); setStep('detail'); };
-  const title = { detail: k.alias, 'fetch-xpub': k.alias, password: 'Reveal Mnemonic', reveal: 'Reveal Mnemonic', remove: 'Remove Key' }[step];
+  const title = { detail: k.alias, 'fetch-xpub': k.alias, password: k.alias, reveal: k.alias, remove: 'Remove Key' }[step];
   // Fetch Xpub opens its own modal over the key detail, which stays underneath.
-  const fetchOpen = step === 'fetch-xpub' && device;
+  const qrRoute = (k.routes || []).includes('qr');
+  const fetchOpen = step === 'fetch-xpub' && (device || k.hasHot || qrRoute);
 
   return (
     <>
     <Modal title={title} width={600} onClose={onClose}
       headerRight={<Row gap="s"><Text variant="mono" color="secondary" size="sm">{k.fp}</Text><Pill id={st} /></Row>}>
-      {step === 'password' ? (
-        <PasswordStep proceedId="show_mnemonic"
-          error={initial.pwError || null} onBack={() => setStep('detail')} onProceed={() => setStep('reveal')} />
-      ) : step === 'reveal' ? (
-        <RevealMnemonic words={HOT_WORDS[k.fp] || MNEMONIC_WORDS.slice(0, 12)} initialHidden={!!initial.hidden} onDone={() => setStep('detail')} />
-      ) : step === 'remove' ? (
+      {step === 'remove' ? (
         <RemoveKeyConfirm k={k} onCancel={() => setStep('detail')} onConfirm={onRemove} />
       ) : (
         <Stack gap="xs">
@@ -454,9 +485,9 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
 
           <Section dense label="Cached Xpubs" count={xpubs.length || null} open={folds.xpubs} onToggle={() => fold('xpubs')}>
             <XpubTable rows={xpubs} pill addRow={{
-              empty: xpubs.length ? null : <Text variant="body" color="muted">{device ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'}</Text>,
-              action: <Btn id="fetch_xpub" disabled={!device} onClick={() => setStep('fetch-xpub')}
-                title={device ? `Fetch xpubs from ${deviceName(device)}` : 'Connect the device to fetch xpubs'} />,
+              empty: xpubs.length ? null : <Text variant="body" color="muted">{device || k.hasHot || qrRoute ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'}</Text>,
+              action: <Btn id="fetch_xpub" disabled={!device && !k.hasHot && !qrRoute} onClick={() => setStep('fetch-xpub')}
+                title={device ? `Fetch xpubs from ${deviceName(device)}` : k.hasHot ? 'Derive xpubs from the hot key, with its password' : qrRoute ? 'Fetch xpubs over QR codes' : 'Connect the device to fetch xpubs'} />,
             }} />
           </Section>
 
@@ -480,9 +511,19 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
         </Stack>
       )}
     </Modal>
+    {/* Reveal Mnemonic: the unseal prompt, then the words, each a modal over the detail. */}
+    {step === 'password' ? (
+      <UnsealModal title="Reveal Mnemonic" proceedId="show_mnemonic" busyTitle="Opening the key…" error={initial.pwError || null} back={false}
+        onCancel={() => setStep('detail')} onDone={() => setStep('reveal')} />
+    ) : null}
+    {step === 'reveal' ? (
+      <Modal title="Reveal Mnemonic" width={600} onClose={() => setStep('detail')}>
+        <RevealMnemonic words={HOT_WORDS[k.fp] || MNEMONIC_WORDS.slice(0, 12)} initialHidden={!!initial.hidden} onDone={() => setStep('detail')} />
+      </Modal>
+    ) : null}
     {fetchOpen ? (
       <Modal title="Fetch Xpub" width={600} onClose={() => setStep('detail')}>
-        <FetchXpubStep network={k.network} device={device} existing={xpubs} initial={initial.fetch || {}}
+        <FetchXpubStep network={k.network} device={device} hot={k.hasHot} qrKey={qrRoute ? k : null} existing={xpubs} initial={initial.fetch || {}}
           onBack={() => setStep('detail')} onFetched={addXpub} />
       </Modal>
     ) : null}
@@ -490,5 +531,5 @@ function KeyDetail({ k, devices = [], others = [], onClose, onSave, onRemove, in
   );
 }
 
-Object.assign(window, { XpubTable, FetchXpubStep, XPUB_PURPOSES, BIP48_SCRIPTS, KeysScreen, RegisterDeviceModal, DeviceRow, KeyRow, KeyDetail, PasswordStep, RevealMnemonic,
+Object.assign(window, { XpubTable, FetchXpubStep, XPUB_PURPOSES, BIP48_SCRIPTS, KeysScreen, RegisterDeviceModal, DeviceRow, KeyRow, KeyDetail, PasswordStep, UnsealModal, RevealMnemonic,
   RemoveKeyConfirm, RouteTable, KEYS_TAB_W, LIST_COLS, ListTitle, ListEnd, StateBadge, keyStatus, HOT_WORDS });

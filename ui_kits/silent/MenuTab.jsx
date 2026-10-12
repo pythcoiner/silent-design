@@ -14,7 +14,8 @@ function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys 
           return (
             <Row key={name} gap="xs" style={{ opacity: open ? 0.5 : 1 }}>
               <Btn id="open_wallet" label={name} disabled={open} onClick={() => onOpen(name)} />
-              <Btn id="delete_wallet" onClick={() => setDeleting(name)} />
+              {/* Shown, but an open wallet cannot be deleted: close its tab first. */}
+              <Btn id="delete_wallet" disabled={open} onClick={() => setDeleting(name)} />
             </Row>
           );
         })}
@@ -30,8 +31,10 @@ function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys 
   );
 }
 
-/* 3.11 Create account from a key. The descriptor fetch runs the route steps in
-   the "fetch" context — rendered in place of this modal, so modals never stack. */
+/* 3.11 Create account from a key. [Silent Payment] fetches its sp() descriptor (the
+   "fetch" context); [Taproot] and [Segwit] its xpubs at 86'/c'/0' and 84'/c'/0'
+   ("fetch-xpub"), which give the account its taproot and segwit addresses. Each runs
+   the route steps in place of this modal, so modals never stack. */
 const ENDPOINT_DEFAULTS = {
   Bitcoin: { blindbit: 'https://blindbit.silentpayments.dev', electrum: 'electrum.blockstream.info:50002', auto: true },
   Regtest: { blindbit: 'http://localhost:8080', electrum: '127.0.0.1:50001', auto: true },
@@ -39,6 +42,8 @@ const ENDPOINT_DEFAULTS = {
   Testnet: { blindbit: '', electrum: '', auto: false },
 };
 const descriptorRoute = (k) => k.routes.find(r => r === 'qr' || r === 'hot') || null;
+/* An xpub also comes from the key's USB device. Qt: KeysModule::xpubRoute. */
+const xpubRoute = (k) => k.routes.find(r => r === 'usb' || r === 'qr' || r === 'hot') || null;
 
 function EndpointRow({ label, value, onChange, test, onTest }) {
   return (
@@ -58,7 +63,9 @@ function CreateAccount({ existing, keys = window.KEYS, onCancel, onCreate, onOpe
   const [network, setNetwork] = React.useState(initial.network || 'Regtest');
   const [keyFp, setKeyFp] = React.useState(initial.keyFp || null);
   const [desc, setDesc] = React.useState(initial.desc || null);          // { value, network }
-  const [fetching, setFetching] = React.useState(false);
+  const [taproot, setTaproot] = React.useState(initial.taproot || null); // { value, network }
+  const [segwit, setSegwit] = React.useState(initial.segwit || null);    // { value, network }
+  const [fetching, setFetching] = React.useState(null);                 // 'sp' | 'taproot' | 'segwit'
   const [blindbit, setBlindbit] = React.useState(ENDPOINT_DEFAULTS[initial.network || 'Regtest'].blindbit);
   const [electrum, setElectrum] = React.useState(ENDPOINT_DEFAULTS[initial.network || 'Regtest'].electrum);
   const [tests, setTests] = React.useState(initial.tests || {});         // { blindbit, electrum }: 'testing' | 'ok' | { error }
@@ -69,27 +76,37 @@ function CreateAccount({ existing, keys = window.KEYS, onCancel, onCreate, onOpe
       ? { error: `Could not reach ${value}: connection refused. Start the BlindBit server, then test again.` } : 'ok' })), 900);
   };
   const pickNetwork = (n) => {
-    setNetwork(n); setKeyFp(null);
+    setNetwork(n); setKeyFp(null); setDesc(null); setTaproot(null); setSegwit(null);
     const d = ENDPOINT_DEFAULTS[n]; setBlindbit(d.blindbit); setElectrum(d.electrum); setTests({});
     if (d.auto) { runTest('blindbit', d.blindbit); runTest('electrum', d.electrum); }
   };
   React.useEffect(() => { if (!initial.tests && ENDPOINT_DEFAULTS[network].auto) { runTest('blindbit', blindbit); runTest('electrum', electrum); } }, []);
 
   const netKeys = keys.filter(k => k.network === network);
-  const elsewhere = keys.filter(k => k.network !== network);
   const key = netKeys.find(k => k.fp === keyFp);
   const trimmed = name.trim();
   const reason = !trimmed ? 'Enter an account name.'
     : /\s/.test(name) ? 'The account name cannot contain spaces.'
     : existing.includes(trimmed) ? `An account named “${trimmed}” already exists.`
-    : !desc ? 'Get the descriptor of a key first.'
+    : !desc ? 'Get the silent payment descriptor of a key first.'
     : desc.network !== network ? `The descriptor is for ${desc.network}, not ${network}. Get it again.`
     : tests.blindbit !== 'ok' || tests.electrum !== 'ok' ? 'Test both backends first.' : null;
 
-  if (fetching && key) {
+  const coin = network === 'Bitcoin' ? 0 : 1;
+  const demoXpub = network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T;
+  if (fetching === 'sp' && key) {
     return <SigningFlow context="fetch" keyRow={{ fp: key.fp, alias: key.alias, route: descriptorRoute(key) }}
-      onCancel={() => setFetching(false)}
-      onDone={() => { setDesc({ value: `sp([${key.fp}/352'/${network === 'Bitcoin' ? 0 : 1}'/0']${network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T})#k7f3qz9d`, network }); setFetching(false); }} />;
+      onCancel={() => setFetching(null)}
+      onDone={() => { setDesc({ value: `sp([${key.fp}/352'/${coin}'/0']${demoXpub})#k7f3qz9d`, network }); setFetching(null); }} />;
+  }
+  if ((fetching === 'taproot' || fetching === 'segwit') && key) {
+    const tr = fetching === 'taproot';
+    return <SigningFlow context="fetch-xpub" keyRow={{ fp: key.fp, alias: key.alias, route: xpubRoute(key) }}
+      onCancel={() => setFetching(null)}
+      onDone={() => {
+        const value = tr ? `tr([${key.fp}/86'/${coin}'/0']${demoXpub}/<0;1>/*)#p8fcdvc7` : `wpkh([${key.fp}/84'/${coin}'/0']${demoXpub}/<0;1>/*)#203wua0q`;
+        (tr ? setTaproot : setSegwit)({ value, network }); setFetching(null);
+      }} />;
   }
 
   return (
@@ -112,23 +129,24 @@ function CreateAccount({ existing, keys = window.KEYS, onCancel, onCreate, onOpe
               <SelectRow key={k.fp} icon={route ? ROUTE_KINDS[route].icon : 'key'} title={k.alias} meta={k.fp}
                 sub={route ? `Gets the descriptor with ${ROUTE_KINDS[route].label}.` : 'Only a QR Code or Hot Key route can return a descriptor.'}
                 disabled={!route} selected={route ? keyFp === k.fp : undefined}
-                onClick={route ? () => { setKeyFp(k.fp); if (keyFp !== k.fp) setDesc(null); } : undefined} />
+                onClick={route ? () => { setKeyFp(k.fp); if (keyFp !== k.fp) { setDesc(null); setTaproot(null); setSegwit(null); } } : undefined} />
             );
           }) : keys.length === 0 ? (
             <EmptyState icon="key" title="No Key Registered" subtitle="An account is created from a key. Register one in the Keys tab first."
               action={onOpenKeys ? <Btn id="open_keys_tab" onClick={onOpenKeys} /> : null} />
           ) : (
-            <EmptyState icon="key" title={`No Key on ${network}`}
-              subtitle={`${elsewhere.length === 1 ? '1 key is' : elsewhere.length + ' keys are'} registered on ${[...new Set(elsewhere.map(k => k.network))].join(', ')}. Pick that network, or add a ${network} key.`}
-              action={onOpenKeys ? <Btn id="open_keys_tab" onClick={onOpenKeys} /> : null} />
+            <EmptyState icon="key" title={`No Key on ${network}`} />
           )}
           {netKeys.length ? (
             <Row gap="s">
-              <Btn id={desc ? 'get_again' : 'get_descriptor'} disabled={!key} onClick={() => setFetching(true)} />
+              {/* A fetched one is done: greyed out with a check mark until the key or the network changes. */}
+              {[['get_silent_payment', 'sp', desc], ['get_taproot', 'taproot', taproot], ['get_segwit', 'segwit', segwit]].map(([id, what, got]) => (
+                <Btn key={id} id={id} disabled={!key || !!got} icon={got ? 'check' : undefined} iconSize={16} iconTone="success"
+                  onClick={() => setFetching(what)} />
+              ))}
               {!key ? <Text variant="caption">Pick a key first.</Text> : null}
             </Row>
           ) : null}
-          {desc ? <CopyField value={desc.value} wrap title="Copy descriptor" /> : null}
         </Stack>
 
         <Stack gap="xs">

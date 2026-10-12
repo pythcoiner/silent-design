@@ -21,7 +21,7 @@ function useMeasure() {
   return [ref, w];
 }
 
-export function Button({ role = 'default', children, className = '', icon, iconSize = 20, ...rest }) {
+export function Button({ role = 'default', children, className = '', icon, iconSize = 20, iconTone, ...rest }) {
   const cls = {
     default: 's-btn',
     primary: 's-btn s-btn--primary',
@@ -35,10 +35,10 @@ export function Button({ role = 'default', children, className = '', icon, iconS
     index: 's-btn s-btn--index',
   }[role] || 's-btn';
   const dom = { ...rest };
-  ['role', 'className', 'icon', 'iconSize', 'children'].forEach(k => delete dom[k]);
+  ['role', 'className', 'icon', 'iconSize', 'iconTone', 'children'].forEach(k => delete dom[k]);
   return (
     <button className={`${cls} ${className}`.trim()} {...dom}>
-      {icon ? <Icon name={icon} size={iconSize} /> : null}
+      {icon ? <Icon name={icon} size={iconSize} tone={iconTone} /> : null}
       {children}
     </button>
   );

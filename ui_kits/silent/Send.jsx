@@ -12,7 +12,7 @@ const USD_RATE = 68000;
 const btcToUsd = b => looksLikeAmount(b) ? (parseFloat(b) * USD_RATE).toFixed(2) : '';
 const usdToBtc = u => looksLikeAmount(u) ? (parseFloat(u) / USD_RATE).toFixed(8) : '';
 
-function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete }) {
+function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete, onScan }) {
   const addrState = out.address === '' ? 'none' : looksLikeAddress(out.address) ? 'valid' : 'invalid';
   const amtState = out.max ? 'none' : out.amount === '' ? 'none' : looksLikeAmount(out.amount) ? 'valid' : 'invalid';
   return (
@@ -21,8 +21,13 @@ function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete }) {
     ) : null}>
 
       <PaymentRow label="Address">
-        <ValidatedInput mono state={addrState} placeholder="sp1q… / bc1q…"
-          value={out.address} onChange={e => onChange({ ...out, address: e.target.value })} />
+        {/* The scan button takes its width from the address: the row ends where the
+            description below does. */}
+        <Row gap="xs">
+          <ValidatedInput mono state={addrState} placeholder="sp1q… / bc1q…" wrapStyle={{ flex: 1, minWidth: 0 }}
+            value={out.address} onChange={e => onChange({ ...out, address: e.target.value })} />
+          <Btn id="scan_address" onClick={onScan} style={{ flex: 'none' }} />
+        </Row>
       </PaymentRow>
 
       <PaymentRow label="Description">
@@ -171,7 +176,8 @@ function SendScreen({ wallet }) {
       <Stack gap="s">
         {outputs.map((o, i) => (
           <RecipientCard key={i} out={o} idx={i} deletable={outputs.length > 1}
-            canMax={!anyMax || o.max} onChange={v => setOut(i, v)} onDelete={() => delOutput(i)} />
+            canMax={!anyMax || o.max} onChange={v => setOut(i, v)} onDelete={() => delOutput(i)}
+            onScan={() => setModal({ type: 'scan', idx: i })} />
         ))}
       </Stack>
       <Row justify="flex-end" style={{ marginTop: 'var(--space-s)' }}>
@@ -213,7 +219,8 @@ function SendScreen({ wallet }) {
 
   const actionRow = (
     <Row align="flex-end" gap="s">
-      <div style={{ flex: 'none', opacity: signed ? 0.5 : 1, pointerEvents: signed ? 'none' : 'auto' }}>
+      {signed ? null : (
+      <div style={{ flex: 'none' }}>
         <FieldLabel>Fee rate</FieldLabel>
         <Row gap="s">
           <Toggle on={feeRate} onClick={() => setFeeRate(r => !r)} />
@@ -223,12 +230,13 @@ function SendScreen({ wallet }) {
           <Text variant="body" color="secondary" style={{ flex: 'none' }}>{feeRate ? 'sats/vB' : 'sats'}</Text>
         </Row>
       </div>
+      )}
       <Spacer />
       <Row gap="s" style={{ flex: 'none' }}>
         {signed ? (
           <Pill id="tx_signed" />
         ) : null}
-        <Btn id="clear" onClick={clearAll} />
+        {signed ? <Btn id="cancel_signed" onClick={() => setSigned(false)} /> : <Btn id="clear" onClick={clearAll} />}
         {signed ? (
           <Btn id="broadcast" onClick={() => setModal({ type: 'broadcast' })} style={{ flex: 'none' }} />
         ) : (
@@ -269,6 +277,13 @@ function SendScreen({ wallet }) {
       {modal === 'signer' ? (
         <SigningFlow context="sign" plan={window.SIGNING_PLAN} others={window.OTHER_DEVICES} fileBase={wallet.name}
           onCancel={() => setModal(null)} onDone={() => { setSigned(true); setModal(null); }} />
+      ) : null}
+      {modal && modal.type === 'scan' ? (
+        /* The bare text read goes into the address input, which checks it. */
+        <Modal title="Scan Address" width={600} onClose={() => setModal(null)}>
+          <CameraStep context="scan-address" onBack={() => setModal(null)} onCancel={() => setModal(null)}
+            onDone={() => { setOut(modal.idx, { ...outputs[modal.idx], address: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq' }); setModal(null); }} />
+        </Modal>
       ) : null}
       {modal && modal.type === 'broadcast' ? (
         <BroadcastModal onClose={() => { clearAll(); setModal(null); }} />

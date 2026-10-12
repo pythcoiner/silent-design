@@ -7,6 +7,9 @@
    never overlaps a tab. */
 
 const GS_WIDTH = 1040;   /* issue #4: 1040 × 640 */
+/* One body width whatever the rows hold: longer texts wrap in it.
+   Qt: metric::SETTINGS_BODY_WIDTH. */
+const GS_BODY_WIDTH = 666;
 
 function SettingsGear({ onClick }) {
   return (
@@ -172,7 +175,7 @@ function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: plug
     actions = <ModalActions onBack={() => setView(null)}><Btn id="disable_plugin" onClick={() => confirmDisable(disabling)} /></ModalActions>;
   } else {
     body = (
-      <Stack gap="s">
+      <Stack gap="s" style={{ width: GS_BODY_WIDTH }}>
         <GeneralSection theme={theme} themes={themes} onTheme={pickTheme} language={language} onLanguage={pickLanguage} langSaved={langSaved} open={folds.general} onFold={() => fold('general')} />
         <Divider space="0" />
         <PluginSection registry={registry} plugins={plugins} scan={scan} notice={notice} busyId={busyId} onScan={runScan} onToggle={toggle} open={folds.plugins} onFold={() => fold('plugins')} />

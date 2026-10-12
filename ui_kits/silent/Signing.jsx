@@ -25,6 +25,18 @@ const FLOW_COPY = {
     scanTitle: 'Scan Descriptor', scanHint: 'Hold the descriptor code from the device in front of the camera.',
     sdTitle: 'Descriptor from SD Card', hotPrompt: a => `Enter the password of “${a}” to get its silent payment descriptor.`, hotBtn: 'get_descriptor_hot', hotBusy: 'Getting the descriptor…',
   },
+  /* An account's taproot or segwit xpub: from the key's cache, else over its USB, QR or hot route. */
+  'fetch-xpub': {
+    title: 'Get Xpub', pickerLead: '',
+    usbTitle: 'Confirm on the Device', usbWait: d => `Approve the xpub export on ${d}.`,
+    qrTitle: 'Show Xpub Request', qrHint: 'Scan this code with the device to request its xpub.',
+    scanTitle: 'Scan Xpub', scanHint: 'Hold the xpub code from the device in front of the camera.',
+    sdTitle: 'Get Xpub', hotPrompt: a => `Enter the password of “${a}” to get its xpub.`, hotBtn: 'get_xpub_hot', hotBusy: 'Getting the xpub…',
+  },
+  /* A payment address read off a plain QR code (Send), no device involved: only the scan. */
+  'scan-address': {
+    scanTitle: 'Scan Address', scanHint: 'Show the address QR code to the camera.',
+  },
 };
 
 const SIGNER_STATUS = {
@@ -136,12 +148,35 @@ function SdStep({ context = 'sign', fileBase = 'savings', phase: initialPhase = 
 
 const QR_PAYLOAD = 'cHNidP8BAHECAAAAAfwzq1kY2hVi9k3lQ8nT0pXrWb7mGv4Lh2Jd9sKfP1aoAAAAAAAD9____AoCWmAAAAAAAFgAUq3Zr8tN1dJ0hLmC4wVfYx2kPbT5AQg8AAAAAABYAFLuh7cP2mZ9oXkqR3sVbTtMu1nQwAAAAAAEBH0BCDwAAAAAAFgAU8aQxk2nF0pZ7Lm3vBtWcYxRd9KsiBgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7mGv4Lh0Yz1a8tVAAAA';
 
-function QrDisplayStep({ context = 'sign', onNext, onCancel, initialRebuilding = false }) {
+/* QR Settings: contrast, density and speed of a QR code that keeps playing behind it.
+   Opened from the gear left of Next on every QR code step (signing, Add a Key). */
+function QrSettingsModal({ contrast, density, speed, onContrast, onDensity, onSpeed, onClose }) {
+  const tune = (label, hint, v, set) => (
+    <Stack align="center" gap="xxs" style={{ width: 150 }}>
+      <Stepper label={label} value={v} min={1} max={5} onChange={set} />
+      <Text variant="caption" align="center">{hint}</Text>
+    </Stack>
+  );
+  return (
+    <Modal title="QR Settings" width={560} onClose={onClose}>
+      <Row gap="l" justify="center" align="flex-start">
+        {tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, onContrast)}
+        {tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, onDensity)}
+        {tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, onSpeed)}
+      </Row>
+    </Modal>
+  );
+}
+
+/* The tuning sits in a QR Settings overlay behind a gear left of Next, as Camera Settings
+   does for a scan: the code keeps playing behind it. */
+function QrDisplayStep({ context = 'sign', address, onNext, onCancel, initialRebuilding = false, initialSettings = false }) {
   const c = FLOW_COPY[context];
   const [contrast, setContrast] = React.useState(3);
   const [density, setDensity] = React.useState(3);
   const [speed, setSpeed] = React.useState(3);
   const [rebuilding, setRebuilding] = React.useState(initialRebuilding);
+  const [showSettings, setShowSettings] = React.useState(!!initialSettings);
   const parts = React.useMemo(() => {
     const chunk = density * 24, n = Math.max(2, Math.ceil(QR_PAYLOAD.length / chunk));
     return Array.from({ length: n }, (_, i) => `UR:CRYPTO-PSBT/${i + 1}-${n}/${QR_PAYLOAD.slice(i * chunk, (i + 1) * chunk)}`);
@@ -155,15 +190,10 @@ function QrDisplayStep({ context = 'sign', onNext, onCancel, initialRebuilding =
   const changeDensity = (v) => { setDensity(v); setRebuilding(true); setTimeout(() => setRebuilding(false), 700); };
   const svg = React.useMemo(() => qrSvg(parts[frame] || '', { ecOrder: ['L', 'M'] }), [parts, frame]);
   const bg = `hsl(220 14% ${40 + (contrast - 1) * 15}%)`;
-  const tune = (label, hint, v, set) => (
-    <Stack align="center" gap="xxs" style={{ width: 150 }}>
-      <Stepper label={label} value={v} min={1} max={5} onChange={set} />
-      <Text variant="caption" align="center">{hint}</Text>
-    </Stack>
-  );
   return (
     <Stack align="center" gap="m">
       <Text variant="body" color="secondary" align="center">{c.qrHint}</Text>
+      {context === 'verify' && address ? <Card tone="inset" pad="m" style={{ width: '100%' }}><ChunkedAddress text={address} wrap /></Card> : null}
       <div style={{ position: 'relative' }}>
         <QRCard size={400} pad={16} radius={12} bg={bg} dim={rebuilding}>
           <div style={{ width: '100%', height: '100%' }} dangerouslySetInnerHTML={{ __html: svg }} />
@@ -175,14 +205,14 @@ function QrDisplayStep({ context = 'sign', onNext, onCancel, initialRebuilding =
         ) : null}
       </div>
       <Text variant="mono" color="secondary" weight="demibold">{rebuilding ? 'Part – / –' : `Part ${frame + 1} / ${parts.length}`}</Text>
-      <Row gap="l" justify="center" align="flex-start" style={{ width: '100%', borderTop: '1px solid var(--border-light)', paddingTop: 'var(--space-m)' }}>
-        {tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, setContrast)}
-        {tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, changeDensity)}
-        {tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, setSpeed)}
-      </Row>
       <ModalActions style={{ width: '100%' }} reason={rebuilding ? 'Wait for the code to rebuild.' : null}>
+        <Btn id="qr_settings" onClick={() => setShowSettings(true)} />
         <Btn id="next_scan_the_answer" disabled={rebuilding} onClick={onNext} />
       </ModalActions>
+      {showSettings ? (
+        <QrSettingsModal contrast={contrast} density={density} speed={speed} onContrast={setContrast}
+          onDensity={changeDensity} onSpeed={setSpeed} onClose={() => setShowSettings(false)} />
+      ) : null}
     </Stack>
   );
 }
@@ -294,13 +324,18 @@ function CameraStep({ context = 'sign', force, progress, scanError, settings, on
   );
 }
 
+/* A hot key: the flow waits under a spinner while the generic unseal modal, opened over
+   it, takes the password and works. Closing the prompt goes back to the picker. */
 function HotStep({ context = 'sign', keyAlias, onCancel, onDone, initialBusy = false, pwError }) {
   const c = FLOW_COPY[context];
-  const [busy, setBusy] = React.useState(initialBusy);
-  React.useEffect(() => { if (!busy || initialBusy) return; const t = setTimeout(() => onDone && onDone(), 1400); return () => clearTimeout(t); }, [busy]);
-  if (busy) return <ModalStatus spinner title={c.hotBusy} subtitle={`With “${keyAlias}”.`} pad="var(--space-m) 0" />;
-  return <PasswordStep prompt={c.hotPrompt(keyAlias)} proceedId={c.hotBtn} error={pwError}
-    onCancel={onCancel} onProceed={() => setBusy(true)} />;
+  return (
+    <>
+      <ModalStatus spinner title={c.hotBusy} subtitle={`With “${keyAlias}”.`} pad="var(--space-m) 0" />
+      <UnsealModal title={c.title} prompt={c.hotPrompt(keyAlias)} proceedId={c.hotBtn} error={pwError}
+        busyTitle={c.hotBusy} busySubtitle={`With “${keyAlias}”.`} initialBusy={initialBusy}
+        onCancel={onCancel} onDone={onDone} />
+    </>
+  );
 }
 
 /* ---------------- 3.10 Verify result ---------------- */
@@ -339,7 +374,7 @@ function SigningFlow({ context = 'sign', plan = [], others = [], address, fileBa
   const back = keyRow ? null : () => setStep(null);
   const finished = (r) => {
     if (context === 'verify') return setStep({ row: r, result: 'matched' });
-    if (context === 'fetch') return onDone && onDone(r);
+    if (context === 'fetch' || context === 'fetch-xpub') return onDone && onDone(r);
     const next = rows.map(x => (x.fp === r.fp ? { ...x, status: 'signed' } : x.status === 'waiting' && r.status === 'first' ? { ...x, status: 'ready' } : x));
     setRows(next); setStep(null);
     if (!next.some(x => ['first', 'ready', 'waiting'].includes(x.status))) onDone && onDone();
@@ -356,11 +391,11 @@ function SigningFlow({ context = 'sign', plan = [], others = [], address, fileBa
   else if (row.route === 'usb') { title = c.usbTitle; width = 520; body = <UsbStep context={context} device={devLabel} error={usbErr} onCancel={onCancel} onRetry={() => setUsbErr(null)} onBack={back} />; }
   else if (row.route === 'sd') { title = c.sdTitle; body = <SdStep context={context} fileBase={fileBase} phase={initial.sdPhase} error={initial.sdError} onCancel={onCancel} onDone={() => finished(row)} />; }
   else if (row.route === 'hot') { width = 520; body = <HotStep context={context} keyAlias={row.alias} pwError={initial.pwError} initialBusy={initial.hotBusy} onCancel={onCancel} onDone={() => finished(row)} />; }
-  else if (qrPhase === 'display') { title = c.qrTitle; width = 640; body = <QrDisplayStep context={context} initialRebuilding={initial.rebuilding} onCancel={onCancel} onNext={() => setQrPhase('scan')} />; }
+  else if (qrPhase === 'display') { title = c.qrTitle; width = 640; body = <QrDisplayStep context={context} address={address} initialRebuilding={initial.rebuilding} initialSettings={initial.qrSettings} onCancel={onCancel} onNext={() => setQrPhase('scan')} />; }
   else { title = c.scanTitle; width = 640; body = <CameraStep context={context} force={initial.camera} progress={initial.progress} scanError={initial.scanError} settings={initial.settings} onBack={() => setQrPhase('display')} onCancel={onCancel} onDone={() => finished(row)} />; }
 
   return <Modal title={title} width={width} onClose={onCancel}>{body}</Modal>;
 }
 
-Object.assign(window, { FLOW_COPY, SIGNER_STATUS, SignerPicker, UsbStep, SdStep, QrDisplayStep, CameraStep, HotStep,
+Object.assign(window, { FLOW_COPY, SIGNER_STATUS, SignerPicker, UsbStep, SdStep, QrSettingsModal, QrDisplayStep, CameraStep, HotStep,
   VerifyResult, SigningFlow, CAMERA_STATES, SCAN_ERRORS, USB_ERRORS, VERIFY_RESULT });

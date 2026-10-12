@@ -139,9 +139,12 @@ const VERIFY_PLAN = [
   { fp: '73c5da0a', alias: 'Daily Ledger', route: 'usb', status: 'ready', device: 'Ledger Nano S Plus' },
   { fp: '5be0c7d2', alias: 'Vault Coldcard', route: 'qr', status: 'ready' },
 ];
+/* A silent payment address is only checked over QR codes: no USB device protocol
+   supports it. */
+const SP_VERIFY_PLAN = VERIFY_PLAN.filter(r => r.route === 'qr');
 const OTHER_DEVICES = [{ name: 'Coldcard Mk4', fp: '7e02da41' }];
 
-Object.assign(window, { SIGNING_PLAN, SIGNING_PLAN_ALL, VERIFY_PLAN, OTHER_DEVICES });
+Object.assign(window, { SIGNING_PLAN, SIGNING_PLAN_ALL, VERIFY_PLAN, SP_VERIFY_PLAN, OTHER_DEVICES });
 
 const defaultXpubPath = (network) => (network === 'Bitcoin' ? "m/84'/0'/0'" : "m/84'/1'/0'");
 const deviceName = (d) => (d.brand && d.model && !d.model.startsWith(d.brand) ? `${d.brand} ${d.model}` : d.model || d.brand);

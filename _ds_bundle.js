@@ -1033,12 +1033,7 @@ function App() {
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "s-tabstrip__tabs"
-  }, /*#__PURE__*/React.createElement(Tab, {
-    label: "Keys",
-    active: active === 'keys',
-    closable: false,
-    onClick: () => setActive('keys')
-  }), openTabs.map(name => /*#__PURE__*/React.createElement(Tab, {
+  }, openTabs.map(name => /*#__PURE__*/React.createElement(Tab, {
     key: name,
     label: name,
     active: active === name,
@@ -1050,6 +1045,13 @@ function App() {
     active: active === 'menu',
     closable: false,
     onClick: () => setActive('menu')
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "s-tabstrip__modules"
+  }, /*#__PURE__*/React.createElement(Tab, {
+    label: "Keys",
+    active: active === 'keys',
+    closable: false,
+    onClick: () => setActive('keys')
   })), /*#__PURE__*/React.createElement("div", {
     className: "s-tabstrip__end"
   }, /*#__PURE__*/React.createElement(SettingsGear, {
@@ -2675,11 +2677,20 @@ function XpubTable({
       })
     }, ...(pill || addRow ? [{
       header: '',
-      width: 130,
+      width: 120,
       align: 'right',
       render: x => x.__add ? addRow.action : pill ? /*#__PURE__*/React.createElement(Pill, {
         id: x.used ? 'xpub_used' : 'xpub_unused'
       }) : null
+    }] : []), ...(pill ? [{
+      header: '',
+      width: 30,
+      align: 'right',
+      render: x => x.__add ? null : /*#__PURE__*/React.createElement(Btn, {
+        id: "remove_xpub",
+        disabled: x.used,
+        title: x.used ? 'An account uses this xpub' : 'Remove Xpub'
+      })
     }] : [])]
   });
 }
@@ -2725,6 +2736,7 @@ const XPUB_PURPOSES = [{
 function FetchXpubStep({
   network,
   device,
+  hot = false,
   existing = [],
   onBack,
   onFetched,
@@ -2745,6 +2757,7 @@ function FetchXpubStep({
   const [script, setScript] = React.useState(initial.script || 2);
   const [custom, setCustom] = React.useState(initial.custom || '');
   const [busy, setBusy] = React.useState(!!initial.busy);
+  const [askPassword, setAskPassword] = React.useState(!!initial.password);
   const p = XPUB_PURPOSES.find(x => x.id === purpose);
   /* 48 splits the path around the account AND the script type; others only the account */
   const pathParts = p.tpl ? p.tpl(coin, '\u0000', '\u0001').split(/[\u0000\u0001]/) : ['', ''];
@@ -2753,11 +2766,22 @@ function FetchXpubStep({
   const pathOk = purpose !== 'custom' || /^m(\/\d+'?)+$/.test(path);
   const dup = path && existing.some(x => x.path === path);
   const reason = purpose !== 'custom' && !accOk ? 'Enter an account index (0–99).' : purpose === 'custom' && !path ? 'Enter a derivation path.' : !pathOk ? "Write the path like m/84'/1'/0'." : dup ? 'This xpub is already cached.' : null;
+  const fetchNow = () => {
+    setBusy(true);
+    setTimeout(() => onFetched(path), 1000);
+  };
   if (busy) return /*#__PURE__*/React.createElement(ModalStatus, {
     spinner: true,
     title: "Fetching the xpub\u2026",
-    subtitle: `Confirm on ${deviceName(device)} if it asks.`,
+    subtitle: device ? `Confirm on ${deviceName(device)} if it asks.` : null,
     pad: "var(--space-m) 0"
+  });
+  if (askPassword) return /*#__PURE__*/React.createElement(PasswordStep, {
+    onBack: () => setAskPassword(false),
+    onProceed: () => {
+      setAskPassword(false);
+      fetchNow();
+    }
   });
   return /*#__PURE__*/React.createElement(Stack, {
     gap: "m"
@@ -2813,10 +2837,7 @@ function FetchXpubStep({
   }, /*#__PURE__*/React.createElement(Btn, {
     id: "fetch_this_xpub",
     disabled: !!reason,
-    onClick: () => {
-      setBusy(true);
-      setTimeout(() => onFetched(path), 1000);
-    }
+    onClick: () => device || !hot ? fetchNow() : setAskPassword(true)
   })));
 }
 function KeyDetail({
@@ -2902,9 +2923,10 @@ function KeyDetail({
     }, k.fp), /*#__PURE__*/React.createElement(Pill, {
       id: st
     }))
-  }, step === 'fetch-xpub' && device ? /*#__PURE__*/React.createElement(FetchXpubStep, {
+  }, step === 'fetch-xpub' && (device || k.hasHot) ? /*#__PURE__*/React.createElement(FetchXpubStep, {
     network: k.network,
     device: device,
+    hot: k.hasHot,
     existing: xpubs,
     initial: initial.fetch || {},
     onBack: () => setStep('detail'),
@@ -2993,12 +3015,12 @@ function KeyDetail({
       empty: xpubs.length ? null : /*#__PURE__*/React.createElement(Text, {
         variant: "body",
         color: "muted"
-      }, device ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'),
+      }, device || k.hasHot ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'),
       action: /*#__PURE__*/React.createElement(Btn, {
         id: "fetch_xpub",
-        disabled: !device,
+        disabled: !device && !k.hasHot,
         onClick: () => setStep('fetch-xpub'),
-        title: device ? `Fetch xpubs from ${deviceName(device)}` : 'Connect the device to fetch xpubs'
+        title: device ? `Fetch xpubs from ${deviceName(device)}` : k.hasHot ? 'Derive xpubs from the hot key, with its password' : 'Connect the device to fetch xpubs'
       })
     }
   })), /*#__PURE__*/React.createElement(Section, {
@@ -4003,7 +4025,7 @@ function CreateAccount({
   }), netKeys.length ? /*#__PURE__*/React.createElement(Row, {
     gap: "s"
   }, /*#__PURE__*/React.createElement(Btn, {
-    id: desc ? 'get_again' : 'get_descriptor',
+    id: 'get_silent_payment',
     disabled: !key,
     onClick: () => setFetching(true)
   }), !key ? /*#__PURE__*/React.createElement(Text, {
@@ -5586,7 +5608,8 @@ function RecipientCard({
   deletable,
   canMax,
   onChange,
-  onDelete
+  onDelete,
+  onScan
 }) {
   const addrState = out.address === '' ? 'none' : looksLikeAddress(out.address) ? 'valid' : 'invalid';
   const amtState = out.max ? 'none' : out.amount === '' ? 'none' : looksLikeAmount(out.amount) ? 'valid' : 'invalid';
@@ -5597,16 +5620,28 @@ function RecipientCard({
     }) : null
   }, /*#__PURE__*/React.createElement(PaymentRow, {
     label: "Address"
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "xs"
   }, /*#__PURE__*/React.createElement(ValidatedInput, {
     mono: true,
     state: addrState,
     placeholder: "sp1q\u2026 / bc1q\u2026",
+    wrapStyle: {
+      flex: 1,
+      minWidth: 0
+    },
     value: out.address,
     onChange: e => onChange({
       ...out,
       address: e.target.value
     })
-  })), /*#__PURE__*/React.createElement(PaymentRow, {
+  }), /*#__PURE__*/React.createElement(Btn, {
+    id: "scan_address",
+    onClick: onScan,
+    style: {
+      flex: 'none'
+    }
+  }))), /*#__PURE__*/React.createElement(PaymentRow, {
     label: "Description"
   }, /*#__PURE__*/React.createElement(ValidatedInput, {
     state: "none",
@@ -5874,7 +5909,11 @@ function SendScreen({
     deletable: outputs.length > 1,
     canMax: !anyMax || o.max,
     onChange: v => setOut(i, v),
-    onDelete: () => delOutput(i)
+    onDelete: () => delOutput(i),
+    onScan: () => setModal({
+      type: 'scan',
+      idx: i
+    })
   }))), /*#__PURE__*/React.createElement(Row, {
     justify: "flex-end",
     style: {
@@ -5931,11 +5970,9 @@ function SendScreen({
   const actionRow = /*#__PURE__*/React.createElement(Row, {
     align: "flex-end",
     gap: "s"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, signed ? null : /*#__PURE__*/React.createElement("div", {
     style: {
-      flex: 'none',
-      opacity: signed ? 0.5 : 1,
-      pointerEvents: signed ? 'none' : 'auto'
+      flex: 'none'
     }
   }, /*#__PURE__*/React.createElement(FieldLabel, null, "Fee rate"), /*#__PURE__*/React.createElement(Row, {
     gap: "s"
@@ -5966,7 +6003,10 @@ function SendScreen({
     }
   }, signed ? /*#__PURE__*/React.createElement(Pill, {
     id: "tx_signed"
-  }) : null, /*#__PURE__*/React.createElement(Btn, {
+  }) : null, signed ? /*#__PURE__*/React.createElement(Btn, {
+    id: "cancel_signed",
+    onClick: () => setSigned(false)
+  }) : /*#__PURE__*/React.createElement(Btn, {
     id: "clear",
     onClick: clearAll
   }), signed ? /*#__PURE__*/React.createElement(Btn, {
@@ -6023,7 +6063,22 @@ function SendScreen({
       setSigned(true);
       setModal(null);
     }
-  }) : null, modal && modal.type === 'broadcast' ? /*#__PURE__*/React.createElement(BroadcastModal, {
+  }) : null, modal && modal.type === 'scan' ? /*#__PURE__*/React.createElement(Modal, {
+    title: "Scan Address",
+    width: 600,
+    onClose: () => setModal(null)
+  }, /*#__PURE__*/React.createElement(CameraStep, {
+    context: "scan-address",
+    onBack: () => setModal(null),
+    onCancel: () => setModal(null),
+    onDone: () => {
+      setOut(modal.idx, {
+        ...outputs[modal.idx],
+        address: 'bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq'
+      });
+      setModal(null);
+    }
+  })) : null, modal && modal.type === 'broadcast' ? /*#__PURE__*/React.createElement(BroadcastModal, {
     onClose: () => {
       clearAll();
       setModal(null);
@@ -6298,6 +6353,11 @@ try { (() => {
    Cancelling returns quietly; it is never reported as a failure. */
 
 const FLOW_COPY = {
+  /* A payment address read off a plain QR code (Send), no device involved: only the scan. */
+  'scan-address': {
+    scanTitle: 'Scan Address',
+    scanHint: 'Show the address QR code to the camera.'
+  },
   sign: {
     title: 'Sign Transaction',
     pickerLead: 'Each key below must sign this transaction.',
@@ -6559,15 +6619,18 @@ function SdStep({
 const QR_PAYLOAD = 'cHNidP8BAHECAAAAAfwzq1kY2hVi9k3lQ8nT0pXrWb7mGv4Lh2Jd9sKfP1aoAAAAAAAD9____AoCWmAAAAAAAFgAUq3Zr8tN1dJ0hLmC4wVfYx2kPbT5AQg8AAAAAABYAFLuh7cP2mZ9oXkqR3sVbTtMu1nQwAAAAAAEBH0BCDwAAAAAAFgAU8aQxk2nF0pZ7Lm3vBtWcYxRd9KsiBgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7mGv4Lh0Yz1a8tVAAAA';
 function QrDisplayStep({
   context = 'sign',
+  address,
   onNext,
   onCancel,
-  initialRebuilding = false
+  initialRebuilding = false,
+  initialSettings = false
 }) {
   const c = FLOW_COPY[context];
   const [contrast, setContrast] = React.useState(3);
   const [density, setDensity] = React.useState(3);
   const [speed, setSpeed] = React.useState(3);
   const [rebuilding, setRebuilding] = React.useState(initialRebuilding);
+  const [showSettings, setShowSettings] = React.useState(!!initialSettings);
   const parts = React.useMemo(() => {
     const chunk = density * 24,
       n = Math.max(2, Math.ceil(QR_PAYLOAD.length / chunk));
@@ -6613,7 +6676,15 @@ function QrDisplayStep({
     variant: "body",
     color: "secondary",
     align: "center"
-  }, c.qrHint), /*#__PURE__*/React.createElement("div", {
+  }, c.qrHint), context === 'verify' && address ? /*#__PURE__*/React.createElement(Card, {
+    tone: "inset",
+    pad: "m",
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/React.createElement(ChunkedAddress, {
+    text: address
+  })) : null, /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'relative'
     }
@@ -6648,25 +6719,27 @@ function QrDisplayStep({
     variant: "mono",
     color: "secondary",
     weight: "demibold"
-  }, rebuilding ? 'Part – / –' : `Part ${frame + 1} / ${parts.length}`), /*#__PURE__*/React.createElement(Row, {
-    gap: "l",
-    justify: "center",
-    align: "flex-start",
-    style: {
-      width: '100%',
-      borderTop: '1px solid var(--border-light)',
-      paddingTop: 'var(--space-m)'
-    }
-  }, tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, setContrast), tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, changeDensity), tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, setSpeed)), /*#__PURE__*/React.createElement(ModalActions, {
+  }, rebuilding ? 'Part – / –' : `Part ${frame + 1} / ${parts.length}`), /*#__PURE__*/React.createElement(ModalActions, {
     style: {
       width: '100%'
     },
     reason: rebuilding ? 'Wait for the code to rebuild.' : null
   }, /*#__PURE__*/React.createElement(Btn, {
+    id: "qr_settings",
+    onClick: () => setShowSettings(true)
+  }), /*#__PURE__*/React.createElement(Btn, {
     id: "next_scan_the_answer",
     disabled: rebuilding,
     onClick: onNext
-  })));
+  })), showSettings ? /*#__PURE__*/React.createElement(Modal, {
+    title: "QR Settings",
+    width: 560,
+    onClose: () => setShowSettings(false)
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "l",
+    justify: "center",
+    align: "flex-start"
+  }, tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, setContrast), tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, changeDensity), tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, setSpeed))) : null);
 }
 const CAMERA_STATES = {
   starting: {
@@ -7049,7 +7122,9 @@ function SigningFlow({
     width = 640;
     body = /*#__PURE__*/React.createElement(QrDisplayStep, {
       context: context,
+      address: address,
       initialRebuilding: initial.rebuilding,
+      initialSettings: initial.qrSettings,
       onCancel: onCancel,
       onNext: () => setQrPhase('scan')
     });
@@ -7493,6 +7568,20 @@ const BUTTONS = {
     title: 'Camera Settings',
     w: 'Icon'
   },
+  qr_settings: {
+    role: 'inline-icon',
+    icon: 'settings',
+    iconSize: 16,
+    title: 'QR Settings',
+    w: 'Icon'
+  },
+  scan_address: {
+    role: 'inline-icon',
+    icon: 'qr',
+    iconSize: 16,
+    title: 'Scan an Address QR Code',
+    w: 'Icon'
+  },
   open_file: {
     role: 'primary',
     label: 'Open File…',
@@ -7575,6 +7664,11 @@ const BUTTONS = {
   get_descriptor_hot: {
     role: 'primary',
     label: 'Get Descriptor',
+    w: 'L'
+  },
+  get_xpub_hot: {
+    role: 'primary',
+    label: 'Get Xpub',
     w: 'L'
   },
   load_signed_psbt: {
@@ -7668,6 +7762,11 @@ const BUTTONS = {
     label: 'Clear',
     w: 'M'
   },
+  cancel_signed: {
+    role: 'destructive',
+    label: 'Cancel',
+    w: 'M'
+  },
   connect_blindbit: {
     role: 'default',
     label: 'Connect Blindbit',
@@ -7690,15 +7789,20 @@ const BUTTONS = {
     iconSize: 15,
     w: 'L'
   },
-  get_again: {
+  get_segwit: {
     role: 'default',
-    label: 'Get Again',
+    label: 'Segwit',
+    w: 'M'
+  },
+  get_silent_payment: {
+    role: 'default',
+    label: 'Silent Payment',
     w: 'L'
   },
-  get_descriptor: {
+  get_taproot: {
     role: 'default',
-    label: 'Get Descriptor',
-    w: 'L'
+    label: 'Taproot',
+    w: 'M'
   },
   open: {
     role: 'default',
@@ -7871,6 +7975,12 @@ const BUTTONS = {
   remove_route: {
     role: 'inline-icon',
     icon: 'trash',
+    iconSize: 14,
+    w: 'Icon'
+  },
+  remove_xpub: {
+    role: 'inline-icon',
+    icon: 'x',
     iconSize: 14,
     w: 'Icon'
   },
