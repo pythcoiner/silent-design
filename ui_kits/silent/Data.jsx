@@ -70,6 +70,7 @@ const KEYS = [
     descriptors: [
       { desc: desc('73c5da0a', "m/352'/1'/0'", DEMO_XPUB_T), registered: true, account: 'savings', module: 'SP Accounts' },
       { desc: desc('73c5da0a', "m/352'/1'/1'", DEMO_XPUB_T.replace('Lj', 'Qm')), registered: false, account: 'testing', module: 'SP Accounts' },
+      { desc: `tr(${DEMO_XPUB_T}/<2147483646;2147483647>/*,pk(musig([73c5da0a/87'/1'/0'/2]${DEMO_XPUB_T},[5be0c7d2/87'/1'/0'/1]${DEMO_XPUB_T.replace('ULj', 'Vv3')})/<512;513>/*))`, registered: true, account: 'shared', module: 'MuSig2 Accounts' },
     ] },
   { fp: 'f23a9e01', alias: 'Laptop Hot Key', network: 'Signet', routes: ['hot'], hasHot: true,
     devicesSeen: [], xpubs: [{ path: "m/84'/1'/0'", xpub: DEMO_XPUB_T.replace('Ctk', 'Hk2'), used: false }], descriptors: [] },
