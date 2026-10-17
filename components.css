@@ -156,6 +156,11 @@
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 
+/* Disabled, like a disabled Input; the chevron dims with the text. */
+.s-combo.is-disabled { background: var(--bg-secondary); color: var(--text-secondary); border-color: var(--border-light); cursor: default; }
+.s-combo.is-disabled::after { border-left-color: var(--border-light); }
+.s-combo.is-disabled > .chev { background: var(--text-secondary); }
+
 /* ---------------- Checkbox (theme/Checkbox.cpp, paint-based) ---------------- */
 .s-check { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font: var(--size-caption) var(--font-sans); color: var(--text); user-select: none; }
 .s-check .box {

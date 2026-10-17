@@ -1,7 +1,10 @@
-/* Silent UI Kit — Menu tab (MenuTab.cpp) + CreateAccount / ConfirmDelete modals. */
+/* Silent UI Kit: Menu tab (MenuTab.cpp) + CreateAccount / ConfirmDelete modals.
+   One create button per creator: the silent payment wallet (CreateAccount) and the
+   shared MuSig2 wallet (CreateSharedAccount, Musig.jsx). */
 
 function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys }) {
   const [creating, setCreating] = React.useState(false);
+  const [sharing, setSharing] = React.useState(false);
   const [deleting, setDeleting] = React.useState(null);
   return (
     <Stack align="center" justify="center" style={{ flex: 1, overflow: 'auto',
@@ -21,10 +24,15 @@ function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys 
         })}
       </Stack>
 
-      <Btn id="create_new_wallet" onClick={() => setCreating(true)} />
+      <Stack gap="s">
+        <Btn id="create_new_wallet" onClick={() => setCreating(true)} />
+        <Btn id="create_shared_wallet" onClick={() => setSharing(true)} />
+      </Stack>
 
       {creating ? <CreateAccount existing={wallets} onOpenKeys={onOpenKeys ? () => { setCreating(false); onOpenKeys(); } : null} onCancel={() => setCreating(false)}
         onCreate={(name) => { onCreate(name); setCreating(false); }} /> : null}
+      {sharing ? <CreateSharedAccount existing={wallets} onCancel={() => setSharing(false)}
+        onCreate={(name) => { onCreate(name); setSharing(false); }} /> : null}
       {deleting ? <ConfirmDelete name={deleting} onCancel={() => setDeleting(null)}
         onConfirm={() => { onDelete(deleting); setDeleting(null); }} /> : null}
     </Stack>

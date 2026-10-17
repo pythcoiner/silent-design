@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- @dsCard group="Generic Components" name="Generic — Modal & Status" subtitle="Dialog shell + ModalStatus — spinner / icon · title · subtitle" viewport="700x300" -->
+<!-- @dsCard group="Generic Components" name="Generic — Modal & Status" subtitle="Dialog shell + ModalStatus: spinner / icon · title · subtitle; the sent modal with its txid card" viewport="900x340" -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <link rel="stylesheet" href="../colors_and_type.css" /><link rel="stylesheet" href="../components.css" />
 <style>
   html, body { margin: 0; background: var(--bg); }
-  .wrap { padding: 26px; font-family: var(--font-sans); display: flex; justify-content: center; }
+  .wrap { padding: 26px; font-family: var(--font-sans); display: flex; justify-content: center; align-items: flex-start; gap: 26px; flex-wrap: wrap; }
   .modal { width: 380px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 15px; box-sizing: border-box; }
   .mhead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
   .mtitle { font: var(--weight-demibold) var(--size-h3) var(--font-sans); color: var(--text); }
@@ -15,6 +15,11 @@
   @keyframes s-spin { to { transform: rotate(360deg); } }
   .stitle { font: 500 15px var(--font-sans); color: var(--text); }
   .ssub { font: 13px var(--font-sans); color: var(--text-muted); text-align: center; max-width: 280px; line-height: 1.6; }
+  .ok { color: var(--success); display: inline-flex; }
+  /* the sent modal: the txid chunked in groups of 4 (alternating dim), wrapping, copy on the right */
+  .txid-card { display: flex; align-items: center; gap: var(--space-xs); margin-top: 15px; }
+  .txid { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 0.4em; font: var(--size-body)/1.75 var(--font-mono); color: var(--text); }
+  .txid span:nth-child(even) { color: var(--text-muted); }
 </style>
   <link rel="stylesheet" href="specimen-shell.css" />
 </head>
@@ -29,6 +34,20 @@
         <span class="spin"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg></span>
         <div class="stitle">Confirm on your device…</div>
         <div class="ssub">Review the transaction details and approve to sign.</div>
+      </div>
+    </div>
+    <div class="modal">
+      <div class="mhead">
+        <span class="mtitle">Confirm Transaction</span>
+        <button class="s-btn s-btn--inline-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+      </div>
+      <div class="status">
+        <span class="ok"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <div class="ssub">Transaction Sent<br /><br />Txid:</div>
+      </div>
+      <div class="s-card s-card--inset s-card--pad-m txid-card">
+        <div class="txid"><span>5018</span><span>95f3</span><span>cc36</span><span>d5e3</span><span>5514</span><span>b5ff</span><span>7af5</span><span>5c9b</span><span>0822</span><span>e114</span><span>560e</span><span>be6f</span><span>dab2</span><span>3806</span><span>7db0</span><span>76e2</span></div>
+        <button class="s-btn s-btn--inline-icon" title="Copy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button>
       </div>
     </div>
   </div>

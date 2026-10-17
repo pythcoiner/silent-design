@@ -228,12 +228,15 @@ export function Legend({ color, children }) {
 
 /* The dropdown is portalled to <body> with fixed positioning, so it overlays
    everything and is never clipped by a table cell, scroll area or modal body.
-   Qt: QComboBox popup (a top-level window). */
-export function ComboBox({ value, options, onChange, width = 200 }) {
+   Qt: QComboBox popup (a top-level window). The highlighted item keeps the text
+   colour on the hover background. `disabled`: bgSecondary, textSecondary text and
+   chevron, borderLight border (like a disabled Input), and it does not open. */
+export function ComboBox({ value, options, onChange, width = 200, disabled = false }) {
   const [open, setOpen] = React.useState(false);
   const [rect, setRect] = React.useState(null);
   const ref = React.useRef(null);
   const toggle = () => {
+    if (disabled) return;
     if (!open && ref.current) setRect(ref.current.getBoundingClientRect());
     setOpen(o => !o);
   };
@@ -262,9 +265,9 @@ export function ComboBox({ value, options, onChange, width = 200 }) {
     </div>, document.body) : null;
   return (
     <div ref={ref} style={{ position: 'relative', width, flex: 'none' }}>
-      <span className="s-combo" style={{ width: '100%', boxSizing: 'border-box', display: 'flex', alignItems: 'center', paddingRight: 26 }} onClick={toggle}>
+      <span className={`s-combo${disabled ? ' is-disabled' : ''}`} aria-disabled={disabled || undefined} style={{ width: '100%', boxSizing: 'border-box', display: 'flex', alignItems: 'center', paddingRight: 26 }} onClick={toggle}>
         <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{value}</span>
-        <span style={{ position: 'absolute', right: 9, top: '50%', transform: 'translateY(-50%)', zIndex: 1, color: 'var(--text)', display: 'inline-flex' }}>
+        <span style={{ position: 'absolute', right: 9, top: '50%', transform: 'translateY(-50%)', zIndex: 1, color: disabled ? 'var(--text-secondary)' : 'var(--text)', display: 'inline-flex' }}>
           <Icon name="chevron_down" size={12} />
         </span>
       </span>

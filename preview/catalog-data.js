@@ -31,7 +31,7 @@ window.CATALOG_GROUPS = [
     ['components-word-grid', 'Word grid', '', ['WordGrid']],
     ['components-scan-progress', 'Scan progress', '', ['ScanProgress']],
     ['components-route-icons', 'Route icons · section header · modal actions', 'span2', ['RouteIcons', 'SectionHeader', 'ModalActions']],
-    ['components-modal-status', 'Modal & status', 'span2', ['Modal', 'ModalStatus', 'Spinner']],
+    ['components-modal-status', 'Modal & status', 'span2', ['Modal', 'ModalStatus', 'Spinner', 'SentModal']],
     ['components-stepper', 'Stepper & disclosure', '', ['Stepper', 'FoldSection', 'Tooltip']],
     ['components-form-rows', 'Form rows', 'span2', ['Field', 'FieldGroup', 'PaymentRow', 'ValidatedInput', 'KeyValue']],
     ['components-table', 'Table', 'span2', ['Table']],
