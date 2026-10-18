@@ -276,13 +276,14 @@ export function ComboBox({ value, options, onChange, width = 200, disabled = fal
     <div style={{
       position: 'fixed', top: rect.bottom + 2, left: rect.left, width: rect.width, zIndex: 1000,
       background: 'var(--input-bg)', border: '1px solid var(--input-border)', borderRadius: 'var(--radius-button)',
-      overflow: 'hidden', boxSizing: 'border-box', fontFamily: 'var(--font-sans)',
+      /* rows inset and rounded: a highlighted first or last row stays inside the corners */
+      padding: 'var(--pad-xxs)', overflow: 'hidden', boxSizing: 'border-box', fontFamily: 'var(--font-sans)',
     }} onMouseDown={e => e.stopPropagation()}>
       {options.map(opt => {
         const off = disabledOptions.includes(opt);
         return (
           <div key={opt} className={off ? undefined : 'combo-item'} aria-disabled={off || undefined}
-            style={{ padding: '6px 10px', fontSize: 'var(--size-body)', color: off ? 'var(--text-muted)' : 'var(--text)', cursor: off ? 'default' : 'pointer', background: opt === value && !off ? 'var(--surface-hover)' : 'transparent' }}
+            style={{ padding: '6px 10px', borderRadius: 'var(--radius-input)', fontSize: 'var(--size-body)', color: off ? 'var(--text-muted)' : 'var(--text)', cursor: off ? 'default' : 'pointer', background: opt === value && !off ? 'var(--surface-hover)' : 'transparent' }}
             onMouseDown={off ? undefined : () => { onChange && onChange(opt); setOpen(false); }}>
             {opt}
           </div>
