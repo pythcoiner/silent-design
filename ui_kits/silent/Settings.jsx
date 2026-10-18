@@ -11,7 +11,53 @@ function TestableRow({ label, value, onChange, placeholder, width = 440, network
   );
 }
 
+/* A Multikey Wallet's Settings (core Settings.cpp + musig SettingsExtras.cpp): its one
+   server, Electrum, then its descriptor, cosigners and Delete. */
+function MusigSettingsScreen({ wallet }) {
+  const [electrum, setElectrum] = React.useState(wallet.electrum);
+  // Both sections open, as the app shows them; each folds on its own.
+  const [open, setOpen] = React.useState({ conn: true, account: true });
+  const [deleting, setDeleting] = React.useState(false);
+  React.useEffect(() => { setElectrum(wallet.electrum); setOpen({ conn: true, account: true }); setDeleting(false); }, [wallet]);
+  const toggle = (id) => setOpen((cur) => ({ ...cur, [id]: !cur[id] }));
+  return (
+    <ScreenWrap title="Settings">
+      <Stack>
+        <FoldSection id="conn" label="Connection" open={open.conn} onToggle={toggle}>
+          <FieldGroup>
+            <TestableRow label="Electrum Server:" value={electrum} onChange={setElectrum} placeholder="host:port (e.g. 127.0.0.1:50001)" />
+          </FieldGroup>
+        </FoldSection>
+        <Row justify="center" gap="s" style={{ marginTop: 'var(--space-l)' }}>
+          <Btn id="connect_electrum" disabled={!electrum} />
+          <Btn id="save_settings" disabled={!electrum} />
+        </Row>
+
+        <Ruler />
+        <FoldSection id="account" label="Account" open={open.account} onToggle={toggle}>
+          <FieldGroup>
+            <Field label="Descriptor" align="flex-start"><CopyField value={wallet.descriptor} wrap grow /></Field>
+            <Field label="Cosigners"><Text variant="mono">{wallet.cosigners}</Text></Field>
+          </FieldGroup>
+        </FoldSection>
+        <Row justify="center" style={{ marginTop: 'var(--space-l)' }}>
+          <Btn id="delete" onClick={() => setDeleting(true)} />
+        </Row>
+      </Stack>
+      {deleting && window.ConfirmDelete ? <ConfirmDelete name={wallet.name} onCancel={() => setDeleting(false)}
+        onConfirm={() => setDeleting(false)} /> : null}
+    </ScreenWrap>
+  );
+}
+
 function SettingsScreen({ wallet }) {
+  if (wallet.kind === 'musig') {
+    return <MusigSettingsScreen wallet={wallet} />;
+  }
+  return <SpSettingsScreen wallet={wallet} />;
+}
+
+function SpSettingsScreen({ wallet }) {
   const [blindbit, setBlindbit] = React.useState(wallet.blindbit);
   const [electrum, setElectrum] = React.useState(wallet.electrum);
   const [network, setNetwork] = React.useState(wallet.network);
@@ -60,4 +106,4 @@ function SettingsScreen({ wallet }) {
   );
 }
 
-Object.assign(window, { SettingsScreen, TestableRow });
+Object.assign(window, { SettingsScreen, MusigSettingsScreen, TestableRow });

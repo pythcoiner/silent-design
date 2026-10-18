@@ -331,9 +331,101 @@ function MusigSendPanel({ round, cosigners, lost, prepared = true, sent: initial
   );
 }
 
+/* The whole Send view of a Multikey Wallet (musig/views/Send.cpp): Payments (address and
+   amount in BTC), Coins selection (the coins picked by hand), the fee rate, the spend
+   path the picked coins allow, Prepare, then the signing card replacing nothing: it sits
+   under Prepare until the transaction is broadcast or cancelled. `initial.picked`: the
+   outpoints picked; `initial.round`: the card's round once prepared. */
+function MusigSendScreen({ wallet, initial = {} }) {
+  const blank = () => ({ address: '', amount: '' });
+  const [payments, setPayments] = React.useState(initial.payments || [blank()]);
+  const [picked, setPicked] = React.useState(initial.picked || []);
+  const [fee, setFee] = React.useState('1');
+  const [round, setRound] = React.useState(initial.round || null);   // null | 1 | 2 | 'ready'
+  const [sent, setSent] = React.useState(false);
+  const cosigners = wallet.cosigners.split(', ');
+  const leaf = `Key path: ${cosigners.join(' + ')}`;
+  const prepared = round !== null;
+
+  const setPayment = (i, p) => setPayments(ps => ps.map((x, j) => (j === i ? p : x)));
+  const payState = (p) => p.address && p.amount && /^(bc1|tb1|bcrt1)/i.test(p.address) && parseFloat(p.amount) > 0;
+  const feeOk = parseFloat(fee) > 0;
+  const reason = !picked.length ? 'No coin to spend yet'
+    : !payments.every(payState) ? 'Transaction is not valid' : null;
+  const sats = picked.length ? 111 + 43 * payments.length + 58 * picked.length : 0;
+  const counts = (n, p) => cosigners.map(alias => ({ alias, nonces: n, partialSigs: p, expected: 1 }));
+  const card = { 1: counts(0, 0), 2: counts(1, 0), ready: counts(1, 1) };
+
+  const coinColumns = [
+    { header: '', width: 34, cellStyle: () => ({ padding: '0 6px' }),
+      render: (r) => <Checkbox checked={picked.includes(r.outpoint)} disabled={prepared}
+        onChange={(v) => setPicked(ps => (v ? [...ps, r.outpoint] : ps.filter(o => o !== r.outpoint)))} /> },
+    { key: 'outpoint', header: 'OutPoint', width: 175, mono: true },
+    { header: 'Label', grow: true, muted: (r) => !r.label, render: (r) => r.label || '-' },
+    { header: 'Value', width: 150, align: 'right', render: (r) => `${r.value} BTC` },
+  ];
+
+  return (
+    <ScreenWrap title="Send">
+      <Stack gap="xs">
+        <SectionLabel>Payments</SectionLabel>
+        {payments.map((p, i) => (
+          <Card key={i} corner={payments.length > 1 && !prepared
+            ? <Btn id="remove_payment" onClick={() => setPayments(ps => ps.filter((_, j) => j !== i))} /> : null}>
+            <PaymentRow label="Address:">
+              <Row>
+                <Input mono grow placeholder="Address" disabled={prepared} value={p.address}
+                  onChange={e => setPayment(i, { ...p, address: e.target.value })} />
+              </Row>
+            </PaymentRow>
+            <PaymentRow label="Amount:">
+              <Row gap="xs">
+                <Input mono width={150} placeholder="0.002" disabled={prepared} value={p.amount}
+                  onChange={e => setPayment(i, { ...p, amount: e.target.value })} />
+                <Text variant="body">BTC</Text>
+              </Row>
+            </PaymentRow>
+          </Card>
+        ))}
+        <Row style={{ marginTop: 'var(--space-s)' }}><Spacer />
+          <Btn id="add_payment" disabled={prepared} onClick={() => setPayments(ps => [...ps, blank()])} /></Row>
+      </Stack>
+      <Ruler />
+      <Stack gap="xs">
+        <SectionLabel>Coins selection</SectionLabel>
+        <Table columns={coinColumns} rows={wallet.coins} rowKey={(r) => r.outpoint} />
+      </Stack>
+      <Row gap="xs" style={{ marginTop: 'var(--space-m)' }}>
+        <Text variant="secondary">Fee Rate:</Text>
+        <Input mono width={100} value={fee} disabled={prepared} onChange={e => setFee(e.target.value)} />
+        <Text variant="body">sats/vb</Text>
+        <ValidationMark state={feeOk ? 'valid' : 'invalid'} />
+        {sats ? <Text variant="caption" style={{ marginLeft: 'var(--space-m)' }}>Fee: {sats} sats</Text> : null}
+      </Row>
+      <div style={{ marginTop: 'var(--space-m)' }}>
+        <SpendPathPicker leaves={[leaf]} value={leaf} locked={prepared} />
+      </div>
+      <Row gap="s" style={{ marginTop: 'var(--space-m)' }}>
+        {reason && !prepared ? <Text variant="caption">{reason}</Text> : null}
+        <Spacer />
+        <Btn id="prepare" disabled={!!reason || !feeOk || prepared} onClick={() => setRound(1)} />
+      </Row>
+      {prepared ? (
+        <div style={{ marginTop: 'var(--space-m)' }}>
+          <MusigSigningCard round={round} cosigners={card[round]}
+            onCancel={() => setRound(null)}
+            onSign={() => setRound(r => (r === 1 ? 2 : 'ready'))}
+            onBroadcast={() => setSent(true)} />
+        </div>
+      ) : null}
+      {sent ? <SentModal txid={MUSIG_TXID} onClose={() => { setSent(false); setRound(null); setPicked([]); }} /> : null}
+    </ScreenWrap>
+  );
+}
+
 Object.assign(window, { MUSIG_KEYS, MUSIG_PATH, MUSIG_ADDRESS, PathEditor, PolicyPreview, PolicyReview,
-  VerifyFirstAddress, CreateSharedAccount, SpendPathPicker, MusigSigningCard, MusigSendPanel, musigCosigners });
+  VerifyFirstAddress, CreateSharedAccount, SpendPathPicker, MusigSigningCard, MusigSendPanel, MusigSendScreen, musigCosigners });
 
 /* File-level namespace (DS compiler indexes this file as `Musig`). */
 export const Musig = { PathEditor, PolicyPreview, PolicyReview, VerifyFirstAddress, CreateSharedAccount,
-  SpendPathPicker, MusigSigningCard, MusigSendPanel };
+  SpendPathPicker, MusigSigningCard, MusigSendPanel, MusigSendScreen };

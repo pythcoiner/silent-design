@@ -30,7 +30,31 @@ function Sidebar({ active, onSelect }) {
   );
 }
 
+/* A Multikey Wallet has no scanner: its bar is the Electrum half only, its switch off
+   and "Not configured" while the account has no Electrum server (MusigStatusBar.cpp). */
+function MusigStatusBar({ wallet }) {
+  const [electrum, setElectrum] = React.useState(false);
+  const text = !wallet.electrum ? 'Not configured'
+    : electrum ? `Connected to electrum at ${wallet.electrum}` : 'Electrum disconnected';
+  return (
+    <Row style={{ height: 'var(--statusbar-h)', flex: 'none', borderTop: '1px solid var(--border)',
+      background: 'var(--bg)', padding: '0 var(--pad-s)' }}>
+      <Row grow gap="s" style={{ minWidth: 0 }}>
+        <Toggle on={electrum} status disabled={!wallet.electrum} onClick={() => setElectrum(e => !e)} />
+        <Text variant="status" truncate>{text}</Text>
+      </Row>
+    </Row>
+  );
+}
+
 function StatusBar({ wallet }) {
+  if (wallet.kind === 'musig') {
+    return <MusigStatusBar wallet={wallet} />;
+  }
+  return <SpStatusBar wallet={wallet} />;
+}
+
+function SpStatusBar({ wallet }) {
   const [blindbit, setBlindbit] = React.useState(true);
   const [electrum, setElectrum] = React.useState(false);
 
@@ -57,4 +81,4 @@ function StatusBar({ wallet }) {
   );
 }
 
-Object.assign(window, { Sidebar, StatusBar, NAV_ITEMS });
+Object.assign(window, { Sidebar, StatusBar, MusigStatusBar, NAV_ITEMS });

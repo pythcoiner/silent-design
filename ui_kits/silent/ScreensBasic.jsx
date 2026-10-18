@@ -293,9 +293,12 @@ function ReceiveScreen({ wallet }) {
   const [segwit, setSegwit] = React.useState([]);    // newest first, items: { addr, label }
   const [taproot, setTaproot] = React.useState([]);
   const [copied, setCopied] = React.useState('');
-  const [open, setOpen] = React.useState('sp');
+  // One section per kind of address the account receives on (Receive.cpp): a Multikey
+  // Wallet only receives on Taproot.
+  const musig = wallet.kind === 'musig';
+  const [open, setOpen] = React.useState(musig ? 'tr' : 'sp');
   const [modal, setModal] = React.useState(null);    // 'sw' | 'tr'
-  React.useEffect(() => { setSegwit([]); setTaproot([]); setCopied(''); setOpen('sp'); setModal(null); }, [wallet]);
+  React.useEffect(() => { setSegwit([]); setTaproot([]); setCopied(''); setOpen(musig ? 'tr' : 'sp'); setModal(null); }, [wallet]);
   const toggle = (id) => setOpen((cur) => (cur === id ? '' : id));
   const copy = (text, key) => {
     copyToClipboard(text);
@@ -307,6 +310,7 @@ function ReceiveScreen({ wallet }) {
   return (
     <ScreenWrap title="Receive">
       <Stack>
+        {musig ? null : (<React.Fragment>
         <FoldSection id="sp" label="Silent Payment Address" open={open === 'sp'} onToggle={toggle}>
           <AddressRow address={SP_ADDRESS} verifyPlan={window.SP_VERIFY_PLAN} onCopy={() => copy(SP_ADDRESS, 'sp')} copied={copied === 'sp'} />
         </FoldSection>
@@ -322,6 +326,7 @@ function ReceiveScreen({ wallet }) {
         </FoldSection>
 
         <Ruler />
+        </React.Fragment>)}
         <FoldSection id="tr" label="Taproot Address" open={open === 'tr'} onToggle={toggle}>
           <AddressRow address={(taproot[0] || {}).addr || ''} placeholder="Not generated yet — click Generate" generatable
             label={(taproot[0] || {}).label || ''} onSetLabel={setLabel(setTaproot)} labelable
