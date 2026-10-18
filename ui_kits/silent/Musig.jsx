@@ -318,7 +318,7 @@ function VerifyFirstAddress({ signers = [], verified = [], checking = [], mismat
    fingerprints whose USB device is giving its xpub; `initial.registered`
    / `initial.registering`: fingerprints registered / in progress; `initial.registerFailed`:
    { fingerprint: why its device failed to register }, shown on its row until clicked again;
-   `initial.privacyMode`: the backup's privacy mode ticked; `initial.backupExcluded`: the
+   `initial.privacyMode` false: the backup's privacy mode unticked (ticked by default); `initial.backupExcluded`: the
    keys the BIP138 backup left out, named once backed up;
    `initial.editing`: a path index open in Edit Spend Path; `initial.checkable` false
    shows the no-checkable-key warning; `initial.verified` the matched check; `initial.checking`
@@ -355,7 +355,8 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
   const [mismatched, setMismatched] = React.useState(initial.mismatched || []);
   const [verifyFailed, setVerifyFailed] = React.useState(initial.verifyFailed || {});
   const [registerFailed, setRegisterFailed] = React.useState(initial.registerFailed || {});
-  const [privacyMode, setPrivacyMode] = React.useState(!!initial.privacyMode);
+  /* on by default: the backup's clear part names no derivation path unless asked to */
+  const [privacyMode, setPrivacyMode] = React.useState(initial.privacyMode !== false);
   const backupExcluded = initial.backupExcluded || [];
   /* the Register step's opt-out: continue with devices left unregistered */
   const [skipRegister, setSkipRegister] = React.useState(!!initial.skipRegister);
@@ -452,14 +453,14 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
         <PolicyReview paths={paths} keys={keys} />
         <Stack gap="s">
           <Row gap="s">
+            {/* privacy mode on the button's row: it sets what the button saves */}
+            <Row gap="xs"><Checkbox checked={privacyMode} onChange={setPrivacyMode} label="Privacy mode" />
+              <InfoTip label="Leaves the common derivation paths out of the backup's clear part: whoever finds the file learns less, a restore then looks for the paths itself." /></Row>
             <Spacer />
             {backedUp ? <Text variant="caption" color="success">Descriptor backed up.</Text> : null}
             <Btn id={backedUp ? 'backup_descriptor' : 'backup_descriptor_primary'} disabled={!!nameReason}
               onClick={() => saveDescriptorFile(trimmed).then(ok => ok && setBackedUp(true))} />
           </Row>
-          {/* privacy mode: the common derivation paths stay out of the backup's clear part */}
-          <Row><Spacer /><Checkbox checked={privacyMode} onChange={setPrivacyMode}
-            label="Privacy mode: leave the common derivation paths out of the backup" /></Row>
           {/* BIP138 names each key it leaves out of the encryption keys: its holder cannot decrypt */}
           {backedUp && backupExcluded.length ? (
             <Text variant="caption" color="warning">Left out of the backup, so their holders cannot decrypt it with them: {backupExcluded.join(', ')}</Text>
