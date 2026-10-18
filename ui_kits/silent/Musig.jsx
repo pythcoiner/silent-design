@@ -302,7 +302,8 @@ function VerifyFirstAddress({ signers = [], verified = [], onCheck }) {
    Create).
    Back on every step but the first.
    `initial.step`: paths | xpubs | review | register | verify | account; `initial.registered`
-   / `initial.registering`: fingerprints registered / in progress;
+   / `initial.registering`: fingerprints registered / in progress; `initial.registerFailed`:
+   { fingerprint: why its device failed to register }, shown on its row until clicked again;
    `initial.editing`: a path index open in Edit Spend Path; `initial.checkable` false
    shows the no-checkable-key warning; `initial.verified` the matched check. */
 const CREATE_STEPS = ['Spend Paths', 'Xpubs', 'Review', 'Register', 'Verify', 'Electrum'];
@@ -330,6 +331,7 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
   /* fingerprints registered; `registering` the one in progress */
   const [registered, setRegistered] = React.useState(initial.registered || []);
   const [registering, setRegistering] = React.useState(initial.registering || null);
+  const [registerFailed, setRegisterFailed] = React.useState(initial.registerFailed || {});
   /* the Register step's opt-out: continue with devices left unregistered */
   const [skipRegister, setSkipRegister] = React.useState(!!initial.skipRegister);
   /* Xpubs is skipped when every key of the paths already gave its xpub; Back from Review then returns to Spend Paths */
@@ -424,16 +426,23 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
     /* one row per signer: a device registers the account on click; hot keys need none */
     const need = used.filter(k => NEEDS_REGISTER[k.route]);
     const left = need.filter(k => !registered.includes(k.fp));
-    const register = (fp) => { setRegistering(fp); setTimeout(() => { setRegistered(r => [...r, fp]); setRegistering(null); }, 900); };
+    /* a click tries again after a failure, the failure cleared until it answers */
+    const register = (fp) => {
+      setRegisterFailed(f => { const n = { ...f }; delete n[fp]; return n; });
+      setRegistering(fp); setTimeout(() => { setRegistered(r => [...r, fp]); setRegistering(null); }, 900);
+    };
     body = (
       <Stack gap="s" style={{ alignSelf: 'stretch' }}>
         <Text variant="body">Click a device to register the account on it.</Text>
         <Stack gap="xs">
           {used.map(k => {
             const needs = !!NEEDS_REGISTER[k.route], done = registered.includes(k.fp), busy = registering === k.fp;
+            /* a failed device says why on its own row, in words, and stays clickable */
+            const failed = needs && !done && !busy ? registerFailed[k.fp] : null;
             return (
-              <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={k.fp} chevron={false}
-                disabled={!needs} status={<Pill id={!needs ? 'reg_not_needed' : done ? 'reg_registered' : busy ? 'reg_registering' : 'reg_pending'} />}
+              <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={failed || k.fp} chevron={false}
+                tone={failed ? 'error' : undefined} disabled={!needs}
+                status={<Pill id={!needs ? 'reg_not_needed' : done ? 'reg_registered' : busy ? 'reg_registering' : failed ? 'reg_failed' : 'reg_pending'} />}
                 onClick={needs && !done && !registering ? () => register(k.fp) : undefined} />
             );
           })}

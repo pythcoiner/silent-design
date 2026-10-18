@@ -159,6 +159,7 @@ export const PILLS = {
   reg_registered: { tone: 'success', label: 'Registered', icon: 'check', w: 'L' },
   reg_pending: { tone: 'warning', label: 'Not Registered', w: 'L' },
   reg_registering: { tone: 'off', label: 'Registering…', w: 'L' },
+  reg_failed: { tone: 'error', label: 'Failed', w: 'L' },
   reg_not_needed: { tone: 'off', label: 'Not Needed', w: 'L' },
   /* the MuSig2 Sign wizard: one per cosigner, each round (partial signature in = signer_signed) */
   musig_needed: { tone: 'warning', label: 'Needed', w: 'L' },
