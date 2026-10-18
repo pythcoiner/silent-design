@@ -565,10 +565,14 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
    Continue opens once every cosigner is in. Rounds cannot go back (a nonce is spent),
    so there is no Back; the header × closes and keeps the session, Sign Round N on
    the Send card reopens it. `lost`: the session-lost notice, back on round 1.
-   `round`: 1 | 2 | 'ready'; onRound(r) mirrors progress to the Send card. */
+   `round`: 1 | 2 | 'ready'; onRound(r) mirrors progress to the Send card.
+   Every key of the wallet has a row: the path's signers that can sign first, then
+   those that cannot (`offline`: fingerprints with no connected device, greyed, Not
+   Connected), then the wallet's keys the path does not use (`others`, greyed, Not in
+   Path). `single`: a single-key path (a timelocked one) signs once, no rounds. */
 const MUSIG_SIGN_STEPS = ['Nonces', 'Partial Signatures'];
-function MusigSignModal({ signers, round = 1, lost = false, txid = MUSIG_TXID, initial = {}, onRound, onBroadcast, onClose }) {
-  const [r, setR] = React.useState(round);
+function MusigSignModal({ signers, others = [], offline = [], single = false, round = 1, lost = false, txid = MUSIG_TXID, initial = {}, onRound, onBroadcast, onClose }) {
+  const [r, setR] = React.useState(single ? 2 : round);
   const [done, setDone] = React.useState(initial.done || (round === 2 ? { 1: signers.map(s => s.fp) } : round === 'ready' ? { 1: signers.map(s => s.fp), 2: signers.map(s => s.fp) } : {}));
   const [busy, setBusy] = React.useState(initial.busy || null);
   /* 'ready' (every partial signature in) stays on step 2, its button Broadcast */
@@ -576,10 +580,13 @@ function MusigSignModal({ signers, round = 1, lost = false, txid = MUSIG_TXID, i
   const stepIdx = sr - 1;
   const inRound = (done[sr] || []);
   const left = signers.filter(s => !inRound.includes(s.fp));
+  /* the signers that can sign ahead of those that cannot */
+  const usable = signers.filter(s => !offline.includes(s.fp) || inRound.includes(s.fp));
+  const unusable = signers.filter(s => !usable.includes(s));
   const add = (fp) => { setBusy(fp); setTimeout(() => {
     setDone(d => {
       const nd = { ...d, [sr]: [...(d[sr] || []), fp] };
-      if (sr === 2 && signers.every(s => nd[2].includes(s.fp))) { setR('ready'); onRound && onRound('ready'); }
+      if (sr === 2 && (single || signers.every(s => nd[2].includes(s.fp)))) { setR('ready'); onRound && onRound('ready'); }
       return nd;
     });
     setBusy(null);
@@ -588,7 +595,7 @@ function MusigSignModal({ signers, round = 1, lost = false, txid = MUSIG_TXID, i
 
   let body, actions;
   {
-    const what = sr === 1 ? 'its nonce' : 'its partial signature';
+    const what = single ? 'its signature' : sr === 1 ? 'its nonce' : 'its partial signature';
     body = (
       <Stack gap="s" style={{ alignSelf: 'stretch' }}>
         {lost && sr === 1 ? (
@@ -596,9 +603,9 @@ function MusigSignModal({ signers, round = 1, lost = false, txid = MUSIG_TXID, i
             A signer no longer holds its round 1 nonce: it restarted, or the transaction changed. Every nonce and partial signature was dropped, sign round 1 again with every cosigner.
           </Notice>
         ) : null}
-        <Text variant="body">Click each cosigner to add {what}.</Text>
+        <Text variant="body">{single ? `Click the cosigner to add ${what}.` : `Click each cosigner to add ${what}.`}</Text>
         <Stack gap="xs">
-          {signers.map(s => {
+          {usable.map(s => {
             const ok = inRound.includes(s.fp), on = busy === s.fp;
             return (
               <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} chevron={false}
@@ -606,6 +613,14 @@ function MusigSignModal({ signers, round = 1, lost = false, txid = MUSIG_TXID, i
                 onClick={!ok && !busy ? () => add(s.fp) : undefined} />
             );
           })}
+          {unusable.map(s => (
+            <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} chevron={false} disabled
+              status={<Pill id="signer_disconnected" />} />
+          ))}
+          {others.map(s => (
+            <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} chevron={false} disabled
+              status={<Pill id="signer_not_in_path" />} />
+          ))}
         </Stack>
       </Stack>
     );
@@ -620,7 +635,7 @@ function MusigSignModal({ signers, round = 1, lost = false, txid = MUSIG_TXID, i
   return (
     <Modal title="Sign" width={760} height="wizard" onClose={onClose}>
       <Stack gap="m" style={{ alignSelf: 'stretch', flex: 1 }}>
-        <WizardSteps steps={MUSIG_SIGN_STEPS} current={stepIdx} />
+        {single ? null : <WizardSteps steps={MUSIG_SIGN_STEPS} current={stepIdx} />}
         {body}
         <Spacer />
         {actions}
