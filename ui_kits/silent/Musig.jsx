@@ -163,7 +163,7 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
   const [step, setStep] = React.useState(initial.step || 'define');
   const [name, setName] = React.useState(initial.name || 'shared');
   const [network, setNetwork] = React.useState('Regtest');
-  const [electrum, setElectrum] = React.useState('127.0.0.1:60401');
+  const [electrum, setElectrum] = React.useState(REGTEST_ELECTRUM_URL);
   const [test, setTest] = React.useState(initial.test === undefined ? 'ok' : initial.test);
   const [paths, setPaths] = React.useState(initial.paths || [MUSIG_PATH]);
   const [fetched, setFetched] = React.useState(initial.fetched || ['28645006', 'b8688df1']);

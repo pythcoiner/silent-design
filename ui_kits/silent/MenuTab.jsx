@@ -51,9 +51,11 @@ function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys 
    "fetch" context); [Taproot] and [Segwit] its xpubs at 86'/c'/0' and 84'/c'/0'
    ("fetch-xpub"), which give the account its taproot and segwit addresses. Each runs
    the route steps in place of this modal, so modals never stack. */
+/* The Electrum server every new regtest account starts with (Qt: REGTEST_ELECTRUM_URL). */
+const REGTEST_ELECTRUM_URL = 'minta.wizardsardine.com:60001';
 const ENDPOINT_DEFAULTS = {
   Bitcoin: { blindbit: 'https://blindbit.silentpayments.dev', electrum: 'electrum.blockstream.info:50002', auto: true },
-  Regtest: { blindbit: 'http://localhost:8080', electrum: '127.0.0.1:50001', auto: true },
+  Regtest: { blindbit: 'http://localhost:8080', electrum: REGTEST_ELECTRUM_URL, auto: true },
   Signet: { blindbit: '', electrum: '', auto: false },
   Testnet: { blindbit: '', electrum: '', auto: false },
 };
@@ -207,4 +209,4 @@ function ConfirmDelete({ name, onCancel, onConfirm }) {
   );
 }
 
-Object.assign(window, { MenuTab, AccountType, CreateAccount, ConfirmDelete, EndpointRow, ENDPOINT_DEFAULTS });
+Object.assign(window, { MenuTab, AccountType, CreateAccount, ConfirmDelete, EndpointRow, ENDPOINT_DEFAULTS, REGTEST_ELECTRUM_URL });
