@@ -168,6 +168,7 @@ export const PILLS = {
   /* the creator's Verify step: one per signer */
   addr_verified: { tone: 'success', label: 'Verified', icon: 'check', w: 'M' },
   addr_unchecked: { tone: 'off', label: 'Not Checked', w: 'M' },
+  addr_mismatch: { tone: 'error', label: 'Mismatch', w: 'M' },
   addr_no_screen: { tone: 'off', label: 'No Screen', w: 'M' },
   plugin_unloading: { tone: 'off', label: 'Unloading…', w: 'L' },
 };

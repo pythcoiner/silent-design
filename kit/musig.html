@@ -18,7 +18,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=31"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=16"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=35"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=36"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=10"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=12"></script>
@@ -31,7 +31,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=46"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=22"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=49"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=50"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
@@ -70,17 +70,21 @@
           { title: '1 Edit Spend Path: Alice mandatory, plus any 1 of Carol, Bob; relative 30 days', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0, paths: [{ ...MUSIG_PATH, mandatory: ['73c5da0a'], locktime: 'Relative', lockValue: '30', lockUnit: 'Days' }] }, 760) },
           { title: '1 Edit Spend Path: absolute renewable, 6 months from the tip', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0, paths: [{ ...MUSIG_PATH, locktime: 'Absolute renewable', lockValue: '6', lockUnit: 'Months' }] }, 760) },
           { title: '1 Edit Spend Path: date in the future (calendar picker)', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0, paths: [{ ...MUSIG_PATH, locktime: 'Date in the future', lockDate: '2027-06-01T12:00' }] }, 760) },
-          { title: '2 Xpubs: Alice (USB) still missing, click her row', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs' }, 760) },
+          { title: '2 Xpubs: Alice (USB) still missing, click her row: her device gives it with no window', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs' }, 760) },
+          { title: '2 Xpubs: Alice\'s USB device giving its xpub, On Device until it answers', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs', fetching: ['73c5da0a'] }, 760) },
           { title: '2 Xpubs: all fetched', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '3 Review: account name, the policy, Backup Descriptor (saves a BIP138 backup), its privacy mode', tag: 'PolicyReview', ...CS({ step: 'review', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '3 Review: descriptor backed up, Continue unlocked', tag: 'PolicyReview', ...CS({ step: 'review', backedUp: true, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '3 Review: backed up in privacy mode, a literal key left out of the backup named', tag: 'PolicyReview', ...CS({ step: 'review', backedUp: true, privacyMode: true, backupExcluded: ['0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798'], fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 780) },
           { title: '4 Register: one row per signer, click a device to register', tag: 'CreateSharedAccount', ...CS({ step: 'register', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
-          { title: '4 Register: registering with Carol', tag: 'CreateSharedAccount', ...CS({ step: 'register', registering: '28645006', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '4 Register: Carol and Alice registering at once, Bob still clickable', tag: 'CreateSharedAccount', ...CS({ step: 'register', registering: ['28645006', '73c5da0a'], fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '4 Register: Alice\'s USB device failed, the reason on its row, click to try again', tag: 'CreateSharedAccount', ...CS({ step: 'register', registerFailed: { '73c5da0a': 'Ledger could not register the account. Unplug it, plug it back in, then try again.' }, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '4 Register: Carol registered, Skip ticked for the others', tag: 'CreateSharedAccount', ...CS({ step: 'register', registered: ['28645006'], skipRegister: true, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '4 Register: every device registered', tag: 'CreateSharedAccount', ...CS({ step: 'register', registered: ['28645006', '73c5da0a', 'b8688df1'], fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
-          { title: '5 Verify: one row per signer, click a device to check', tag: 'VerifyFirstAddress', ...CS({ step: 'verify' }, 760) },
+          { title: '5 Verify: one row per signer, a click sends the address to that device, no picker', tag: 'VerifyFirstAddress', ...CS({ step: 'verify' }, 760) },
+          { title: '5 Verify: Alice\'s USB device showing the address, On Device, the others still clickable', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', checking: ['73c5da0a'] }, 760) },
+          { title: '5 Verify: Bob\'s device showed another address, Mismatch on his row', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', mismatched: ['b8688df1'], verified: ['28645006'] }, 760) },
+          { title: '5 Verify: Alice\'s USB device did not answer, why on her row, click to ask again', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', verifyFailed: { '73c5da0a': 'Ledger stopped responding. Unplug it, plug it back in, then try again.' } }, 760) },
           { title: '5 Verify: Carol checked, the others not yet', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', verified: ['28645006'] }, 760) },
           { title: '5 Verify: every device checked', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', verified: true }, 760) },
           { title: '5 Verify: no key can show it, the warning', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', checkable: false }, 760) },

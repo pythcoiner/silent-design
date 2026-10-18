@@ -267,10 +267,13 @@ function PolicyReview({ paths, keys = MUSIG_KEYS }) {
 const SHOWS_ADDRESS = { qr: true, usb: true };
 
 /* The verify page: the first receive address flush with its lead, then one row per
-   signer of the policy. A signer with a screen (QR, USB) opens its address check
-   on click and reads Verified once it matched; the others read No Screen. With no
-   signer able to show it, the warning instead. */
-function VerifyFirstAddress({ signers = [], verified = [], onCheck }) {
+   signer of the policy. A click on a signer with a screen sends it the address at
+   once, no signer picker: a USB device shows it with no window, its row On Device
+   until it answers (`checking`), every device at once; a QR one opens its QR step.
+   Verified once it matched, Mismatch when the device showed another address,
+   Failed with why on its row (`failed`: { fingerprint: why }); the others read No
+   Screen. With no signer able to show it, the warning instead. */
+function VerifyFirstAddress({ signers = [], verified = [], checking = [], mismatched = [], failed = {}, onCheck }) {
   const checkable = signers.filter(k => SHOWS_ADDRESS[k.route]);
   return (
     <Stack gap="m" style={{ alignSelf: 'stretch' }}>
@@ -279,11 +282,15 @@ function VerifyFirstAddress({ signers = [], verified = [], onCheck }) {
       <Row justify="center"><Card tone="inset" pad="m"><ChunkedAddress text={MUSIG_ADDRESS} oneRow /></Card></Row>
       <Stack gap="xs">
         {signers.map(k => {
-          const can = !!SHOWS_ADDRESS[k.route], done = verified.includes(k.fp);
+          const can = !!SHOWS_ADDRESS[k.route], done = verified.includes(k.fp), busy = checking.includes(k.fp);
+          const mismatch = mismatched.includes(k.fp);
+          /* a device that did not confirm says why on its own row, and stays clickable */
+          const why = can && !done && !busy ? (mismatch ? 'The device showed another address: do not use this one' : failed[k.fp]) : null;
           return (
-            <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={k.fp} chevron={false}
-              disabled={!can} status={<Pill id={!can ? 'addr_no_screen' : done ? 'addr_verified' : 'addr_unchecked'} />}
-              onClick={can ? () => onCheck && onCheck(k.fp) : undefined} />
+            <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={why || k.fp} chevron={false}
+              tone={why ? 'error' : undefined} disabled={!can}
+              status={<Pill id={!can ? 'addr_no_screen' : done ? 'addr_verified' : busy ? 'musig_on_device' : mismatch ? 'addr_mismatch' : why ? 'reg_failed' : 'addr_unchecked'} />}
+              onClick={can && !done && !busy ? () => onCheck && onCheck(k.fp) : undefined} />
           );
         })}
       </Stack>
@@ -298,19 +305,25 @@ function VerifyFirstAddress({ signers = [], verified = [], onCheck }) {
 
 /* Create Multikey Account: a wizard, one step per page under a WizardSteps trail.
    Spend Paths (network, one row per path opening Edit Spend Path) → Xpubs (every key
-   of the paths, fetched or missing; a missing row opens that key's signing flow;
-   skipped when none is missing) →
+   of the paths, fetched or missing; a missing USB key gives it on click with no
+   window, its row On Device until it answers; another route opens that key's
+   signing flow; skipped when none is missing) →
    Review (account name, the policy, Backup Descriptor right under it) → Register
    (one row per signer; a device registers on click, hot keys need none) → Verify (the first address on a device) → Electrum (the server, SSL, certificate check;
    Create).
+   Xpubs, Register and Verify ask every device at once: each row is clicked on its own,
+   a key busy on one request is not clickable until it answers.
    Back on every step but the first.
-   `initial.step`: paths | xpubs | review | register | verify | account; `initial.registered`
+   `initial.step`: paths | xpubs | review | register | verify | account; `initial.fetching`:
+   fingerprints whose USB device is giving its xpub; `initial.registered`
    / `initial.registering`: fingerprints registered / in progress; `initial.registerFailed`:
    { fingerprint: why its device failed to register }, shown on its row until clicked again;
    `initial.privacyMode`: the backup's privacy mode ticked; `initial.backupExcluded`: the
    keys the BIP138 backup left out, named once backed up;
    `initial.editing`: a path index open in Edit Spend Path; `initial.checkable` false
-   shows the no-checkable-key warning; `initial.verified` the matched check. */
+   shows the no-checkable-key warning; `initial.verified` the matched check; `initial.checking`
+   the devices showing the address now; `initial.mismatched` those that showed another;
+   `initial.verifyFailed`: { fingerprint: why its device did not answer }. */
 const CREATE_STEPS = ['Spend Paths', 'Xpubs', 'Review', 'Register', 'Verify', 'Electrum'];
 const CREATE_STEP_INDEX = { paths: 0, xpubs: 1, review: 2, register: 3, verify: 4, account: 5 };
 /* Routes whose device holds a registration of the account (hot keys need none). */
@@ -327,15 +340,20 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
   const [verifyCert, setVerifyCert] = React.useState(initial.verifyCert === undefined ? true : initial.verifyCert);
   const [paths, setPaths] = React.useState(initial.paths || [MUSIG_PATH]);
   const [fetched, setFetched] = React.useState(initial.fetched || ['28645006', 'b8688df1']);
+  const [fetching, setFetching] = React.useState(initial.fetching || []);
   const [flow, setFlow] = React.useState(null);   // null | { fetch: fp } | { verify: fp }
   const [editing, setEditing] = React.useState(initial.editing === undefined ? null : initial.editing);   // path index | null
   /* fingerprints whose device showed the same address; `initial.verified` true = every signer with a screen */
   const [verified, setVerified] = React.useState(Array.isArray(initial.verified) ? initial.verified
     : initial.verified ? keys.filter(k => SHOWS_ADDRESS[k.route]).map(k => k.fp) : []);
   const [backedUp, setBackedUp] = React.useState(!!initial.backedUp);
-  /* fingerprints registered; `registering` the one in progress */
+  /* fingerprints registered; `registering` those in progress, every device at once */
   const [registered, setRegistered] = React.useState(initial.registered || []);
-  const [registering, setRegistering] = React.useState(initial.registering || null);
+  const [registering, setRegistering] = React.useState(initial.registering || []);
+  /* the Verify step: devices showing the address now, those that showed another, failures */
+  const [checking, setChecking] = React.useState(initial.checking || []);
+  const [mismatched, setMismatched] = React.useState(initial.mismatched || []);
+  const [verifyFailed, setVerifyFailed] = React.useState(initial.verifyFailed || {});
   const [registerFailed, setRegisterFailed] = React.useState(initial.registerFailed || {});
   const [privacyMode, setPrivacyMode] = React.useState(!!initial.privacyMode);
   const backupExcluded = initial.backupExcluded || [];
@@ -348,6 +366,20 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
   const used = keys.filter(k => paths.some(p => p.keys[k.fp]));
   const missing = used.filter(k => !fetched.includes(k.fp));
   const trimmed = name.trim();
+  /* a key answers one request at a time, whichever step it is for */
+  const busy = fp => fetching.includes(fp) || registering.includes(fp) || checking.includes(fp);
+  const without = fp => list => list.filter(x => x !== fp);
+  /* a USB device answers with no window: its row On Device until it does */
+  const fetchOnDevice = fp => {
+    setFetching(f => [...f, fp]);
+    setTimeout(() => { setFetched(f => [...f, fp]); setFetching(without(fp)); }, 900);
+  };
+  const checkOnDevice = fp => {
+    setMismatched(without(fp));
+    setVerifyFailed(f => { const n = { ...f }; delete n[fp]; return n; });
+    setChecking(c => [...c, fp]);
+    setTimeout(() => { setVerified(v => [...v, fp]); setChecking(without(fp)); }, 900);
+  };
   const leaves = paths.reduce((sum, p) => sum + pathLeaves(p, keys), 0);
 
   if (flow && flow.fetch) {
@@ -365,9 +397,10 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
       onSave={np => { setPaths(isNew ? [...paths, np] : paths.map((x, k) => (k === editing ? np : x))); setEditing(null); }} />;
   }
   if (flow && flow.verify) {
-    // The kit treats closing the result as the device's match.
-    const plan = keys.filter(k => k.fp === flow.verify).map(k => ({ ...k, status: 'ready' }));
-    return <SigningFlow context="verify" plan={plan} address={MUSIG_ADDRESS}
+    // The clicked key's own route, no signer picker. The kit treats closing the result
+    // as the device's match.
+    const key = keys.find(k => k.fp === flow.verify);
+    return <SigningFlow context="verify" keyRow={{ fp: key.fp, alias: key.alias, route: key.route }} address={MUSIG_ADDRESS}
       onCancel={() => { setVerified(v => (v.includes(flow.verify) ? v : [...v, flow.verify])); setFlow(null); }} />;
   }
 
@@ -393,8 +426,9 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
         <Stack gap="xs">
           {used.map(k => (
             <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={k.fp}
-              status={<Pill id={fetched.includes(k.fp) ? 'xpub_fetched' : 'xpub_missing'} />}
-              chevron={false} onClick={fetched.includes(k.fp) ? undefined : () => setFlow({ fetch: k.fp })} />
+              status={<Pill id={fetched.includes(k.fp) ? 'xpub_fetched' : fetching.includes(k.fp) ? 'musig_on_device' : 'xpub_missing'} />}
+              chevron={false} onClick={fetched.includes(k.fp) || busy(k.fp) ? undefined
+                : k.route === 'usb' ? () => fetchOnDevice(k.fp) : () => setFlow({ fetch: k.fp })} />
           ))}
         </Stack>
       </Stack>
@@ -445,21 +479,21 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
     /* a click tries again after a failure, the failure cleared until it answers */
     const register = (fp) => {
       setRegisterFailed(f => { const n = { ...f }; delete n[fp]; return n; });
-      setRegistering(fp); setTimeout(() => { setRegistered(r => [...r, fp]); setRegistering(null); }, 900);
+      setRegistering(r => [...r, fp]); setTimeout(() => { setRegistered(r => [...r, fp]); setRegistering(without(fp)); }, 900);
     };
     body = (
       <Stack gap="s" style={{ alignSelf: 'stretch' }}>
         <Text variant="body">Click a device to register the account on it.</Text>
         <Stack gap="xs">
           {used.map(k => {
-            const needs = !!NEEDS_REGISTER[k.route], done = registered.includes(k.fp), busy = registering === k.fp;
+            const needs = !!NEEDS_REGISTER[k.route], done = registered.includes(k.fp), on = registering.includes(k.fp);
             /* a failed device says why on its own row, in words, and stays clickable */
-            const failed = needs && !done && !busy ? registerFailed[k.fp] : null;
+            const failed = needs && !done && !on ? registerFailed[k.fp] : null;
             return (
               <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={failed || k.fp} chevron={false}
                 tone={failed ? 'error' : undefined} disabled={!needs}
-                status={<Pill id={!needs ? 'reg_not_needed' : done ? 'reg_registered' : busy ? 'reg_registering' : failed ? 'reg_failed' : 'reg_pending'} />}
-                onClick={needs && !done && !registering ? () => register(k.fp) : undefined} />
+                status={<Pill id={!needs ? 'reg_not_needed' : done ? 'reg_registered' : on ? 'reg_registering' : failed ? 'reg_failed' : 'reg_pending'} />}
+                onClick={needs && !done && !busy(k.fp) ? () => register(k.fp) : undefined} />
             );
           })}
         </Stack>
@@ -470,10 +504,10 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
       <Checkbox checked={skipRegister} onChange={setSkipRegister}
         label="Skip: continue without registering every device (register them later from the Keys tab)" />
     ) : null;
-    const reason = registering ? 'Registering…'
+    const reason = registering.length ? 'Registering…'
       : left.length && !skipRegister ? `${left.length} device${left.length > 1 ? 's' : ''} still to register.` : null;
     actions = (
-      <ModalActions onBack={registering ? null : () => setStep('review')} reason={reason}>
+      <ModalActions onBack={registering.length ? null : () => setStep('review')} reason={reason}>
         <Btn id="continue" disabled={!!reason} onClick={() => setStep('verify')} />
       </ModalActions>
     );
@@ -503,7 +537,8 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
     );
   } else {
     const signers = checkable ? used : used.map(k => ({ ...k, route: 'hot' }));
-    body = <VerifyFirstAddress signers={signers} verified={verified} onCheck={fp => setFlow({ verify: fp })} />;
+    body = <VerifyFirstAddress signers={signers} verified={verified} checking={checking} mismatched={mismatched} failed={verifyFailed}
+      onCheck={fp => (busy(fp) ? null : keys.find(k => k.fp === fp).route === 'usb' ? checkOnDevice(fp) : setFlow({ verify: fp }))} />;
     /* optional: Continue is always open */
     actions = (
       <ModalActions onBack={() => setStep('register')}>
