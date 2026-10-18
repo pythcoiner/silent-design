@@ -674,13 +674,14 @@ const MUSIG_LEAVES = ['Carol + Alice', 'Carol + Bob', 'Alice + Bob', 'Dave after
 const MUSIG_LOCKED_LEAVES = ['Dave after 4320 blocks (locked)'];
 
 /* A path its timelock still holds is listed greyed out and cannot be picked. */
-function SpendPathPicker({ leaves = MUSIG_LEAVES, lockedLeaves = MUSIG_LOCKED_LEAVES, value = 'Alice + Bob', locked = false, onChange }) {
+/* `width`: the Send panel passes '100%', as wide as the coins table above it. */
+function SpendPathPicker({ leaves = MUSIG_LEAVES, lockedLeaves = MUSIG_LOCKED_LEAVES, value = 'Alice + Bob', locked = false, onChange, width = 400 }) {
   const [picked, setPicked] = React.useState(value);
   return (
     <Stack gap="xs">
       <SectionLabel>Spend path</SectionLabel>
       <ComboBox value={onChange ? value : picked} options={leaves} disabledOptions={lockedLeaves} disabled={locked}
-        onChange={onChange || setPicked} width={400} />
+        onChange={onChange || setPicked} width={width} />
     </Stack>
   );
 }

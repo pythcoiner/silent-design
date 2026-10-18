@@ -188,7 +188,7 @@ function SendScreen({ wallet, initial = {} }) {
       {/* Multikey: the spend path the picked coins allow, part of composing the send */}
       {musig ? (
         <div style={{ marginTop: 'var(--space-m)' }}>
-          <SpendPathPicker leaves={[keyPath]} value={path} locked={held} onChange={setPath} />
+          <SpendPathPicker leaves={[keyPath]} value={path} locked={held} onChange={setPath} width="100%" />
         </div>
       ) : null}
 
