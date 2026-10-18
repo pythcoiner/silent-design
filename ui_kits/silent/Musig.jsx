@@ -569,8 +569,8 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
    `round`: 1 | 2 | 'ready'; onRound(r) mirrors progress to the Send card.
    Every key of the wallet has a row: the path's signers that can sign first, then
    those that cannot, then the wallet's keys the path does not use, then the connected
-   devices that are no key of the wallet. Each greyed row says why after its
-   fingerprint: `offline` (fingerprints, Not Connected), `unsupported` (fingerprints
+   devices that are no key of the wallet. Each greyed row says why on its row, just
+   left of its pill: `offline` (fingerprints, Not Connected), `unsupported` (fingerprints
    whose device cannot sign MuSig2, Unsupported), `others` (Not in Path), `strangers`
    (connected devices, Not in Wallet). `single`: a single-key path (a timelocked one)
    signs once, no rounds. */
@@ -628,16 +628,16 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
             const off = offline.includes(s.fp);
             return (
               <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} chevron={false} disabled
-                sub={`${s.fp} · ${off ? SIGN_WHY.offline : SIGN_WHY.unsupported}`}
+                sub={s.fp} note={off ? SIGN_WHY.offline : SIGN_WHY.unsupported}
                 status={<Pill id={off ? 'signer_disconnected' : 'signer_unsupported'} />} />
             );
           })}
           {others.map(s => (
-            <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={`${s.fp} · ${SIGN_WHY.others}`} chevron={false} disabled
+            <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} note={SIGN_WHY.others} chevron={false} disabled
               status={<Pill id="signer_not_in_path" />} />
           ))}
           {strangers.map(s => (
-            <SelectRow key={s.fp} icon={ROUTE_KINDS.usb.icon} title={s.alias} sub={`${s.fp} · ${SIGN_WHY.strangers}`} chevron={false} disabled
+            <SelectRow key={s.fp} icon={ROUTE_KINDS.usb.icon} title={s.alias} sub={s.fp} note={SIGN_WHY.strangers} chevron={false} disabled
               status={<Pill id="signer_not_in_wallet" />} />
           ))}
         </Stack>

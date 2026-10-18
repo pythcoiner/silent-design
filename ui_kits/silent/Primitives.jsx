@@ -165,7 +165,7 @@ export function Badge({ tone = 'neutral', icon, iconSize = 14, width, children, 
    `twoLine`: a title-only row keeps the height of a title + sub row.
    `tone` 'add': the list's closing "add one" row — icon and title centred, no chevron.
    Qt: a QFrame row with an HBox; selected/disabled are QSS dynamic properties. */
-export function SelectRow({ twoLine, icon, iconSize = 18, title, sub, meta, status, trailing, onClick, chevron, selected, current, disabled, tone, metaWidth, statusWidth, trailingWidth, style }) {
+export function SelectRow({ twoLine, icon, iconSize = 18, title, sub, meta, note, status, trailing, onClick, chevron, selected, current, disabled, tone, metaWidth, statusWidth, trailingWidth, style }) {
   const clickable = !!onClick && !disabled;
   const add = tone === 'add';
   const showChev = add ? false : chevron != null ? chevron : clickable && !trailing && selected == null;
@@ -191,6 +191,8 @@ export function SelectRow({ twoLine, icon, iconSize = 18, title, sub, meta, stat
         </span>
       )}
       {meta || metaWidth ? <span className="s-select-row__meta" style={metaWidth ? { width: metaWidth } : undefined}>{meta}</span> : null}
+      {/* a short sentence just left of the status: why a row is greyed out */}
+      {note ? <span className="s-select-row__note">{note}</span> : null}
       {status || statusWidth ? <span style={{ flex: 'none', display: 'inline-flex', width: statusWidth }}>{status}</span> : null}
       {trailingWidth ? (
         <span style={{ flex: 'none', width: trailingWidth, display: 'inline-flex', justifyContent: 'flex-end' }} onClick={trailing ? e => e.stopPropagation() : undefined}>

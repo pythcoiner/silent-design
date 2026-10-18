@@ -301,6 +301,7 @@
 .s-select-row__title { font: var(--weight-demibold) var(--size-body) var(--font-sans); }
 .s-select-row__sub { font-size: var(--size-caption); color: var(--text-muted); line-height: 1.45; }
 .s-select-row__meta { flex: none; font: var(--size-caption) var(--font-mono); color: var(--text-muted); }
+.s-select-row__note { flex: none; font: var(--size-caption) var(--font-sans); color: var(--text-muted); }
 .s-select-row__chev { flex: none; display: inline-flex; color: var(--text-muted); }
 /* Two-line: a title-only row as tall as a title + sub row (a pick-list next to
    device / key rows keeps one row height); the title centres in it. */
