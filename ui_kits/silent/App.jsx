@@ -41,6 +41,9 @@ function App() {
   const [active, setActive] = React.useState('savings');
   const [screens, setScreens] = React.useState({ savings: 'history' });
   const [settingsOpen, setSettingsOpen] = React.useState(false);
+  // Kit-only state simulator (KitSim.jsx): states the UI cannot reach by clicking.
+  const [sim, setSim] = useTweaks(SIM_DEFAULTS);
+  const keysSimKey = ['keysDevices', 'keysKeys', 'keysRegistering'].map(k => String(sim[k])).join('|');
 
   React.useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
 
@@ -79,6 +82,9 @@ function App() {
         <SilentMark size={20} style={{ color: 'var(--accent)' }} />
         <Text variant="body" weight="demibold" style={{ color: theme === 'light' ? '#333' : '#bbb' }}>Silent — UI Kit</Text>
         <Spacer />
+        <button type="button" onClick={() => window.postMessage({ type: '__kit_toggle_tweaks' }, '*')}
+          style={{ font: 'inherit', fontSize: 12, fontWeight: 600, padding: '4px 10px', borderRadius: 6, cursor: 'pointer',
+            border: '1px solid var(--border)', background: 'var(--bg)', color: 'var(--text)' }}>Simulate</button>
         {/* App width selector (kit-only) — slider/ruler with a pointer */}
         <Row gap={10} style={{ marginRight: 8 }}>
           <Text variant="caption" weight="demibold" style={{ color: theme === 'light' ? '#777' : '#888' }}>Width</Text>
@@ -120,14 +126,16 @@ function App() {
         {/* Content */}
         <Row grow align="stretch" style={{ minHeight: 0, background: 'var(--bg)', position: 'relative' }}>
           {/* Keys stays mounted so its state survives tab switches */}
-          <div style={{ display: active === 'keys' ? 'flex' : 'none', flex: 1, minWidth: 0, minHeight: 0 }}><KeysScreen /></div>
+          <div style={{ display: active === 'keys' ? 'flex' : 'none', flex: 1, minWidth: 0, minHeight: 0 }}><KeysScreen key={keysSimKey} {...simKeysProps(sim)} /></div>
           {active === 'keys' ? null : active === 'menu' ? (
             <MenuTab wallets={known} openWallets={openTabs} onOpenKeys={() => setActive('keys')}
+              musigSim={simMusigProps(sim)} musigSimKey={sim.musigCached + '|' + sim.musigRoutes}
               onOpen={openWallet} onCreate={createWallet} onDelete={deleteWallet} />
           ) : (
             <AccountView wallet={ensureWallet(active)} screen={screens[active] || 'history'}
               onScreen={(s) => setScreens(prev => ({ ...prev, [active]: s }))} />
           )}
+          <KitSimPanel t={sim} setTweak={setSim} />
           {settingsOpen ? <GlobalSettingsModal theme={themeName} onTheme={setThemeName} onClose={() => setSettingsOpen(false)} /> : null}
         </Row>
       </Stack>

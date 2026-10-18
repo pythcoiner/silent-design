@@ -14,13 +14,13 @@
 <script src="harness.js"></script>
 </head>
 <body>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=5"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=26"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=7"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=30"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=5"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=13"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=25"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=11"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=15"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=32"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=12"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=10"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=32"></script>
@@ -30,13 +30,13 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=41"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=12"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=9"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=22"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=43"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
     const noop = () => {};
-    const CS = (initial, h = 820) => ({ span: 'span2', ...F(<CreateSharedAccount existing={KNOWN_WALLETS} onCancel={noop} onCreate={noop} initial={initial} />, h) });
+    const CS = (initial, h = 760) => ({ span: 'span2', ...F(<CreateSharedAccount existing={KNOWN_WALLETS} onCancel={noop} onCreate={noop} initial={initial} />, h) });
     const card = (props, h = 360) => ({ span: 'span2', frame: true, height: h, el: <div style={{ padding: 'var(--space-m)' }}><MusigSigningCard onCancel={noop} onSign={noop} onBroadcast={noop} {...props} /></div> });
     const panel = (props, h = 460) => ({ span: 'span2', frame: true, height: h, el: <div style={{ position: 'relative', height: '100%', boxSizing: 'border-box', padding: 'var(--space-m)' }}><MusigSendPanel {...props} /></div> });
     function LauncherDemo() {
@@ -64,14 +64,28 @@
           { title: 'Status bar: no Electrum server yet', tag: 'MusigStatusBar', span: 'full', frame: true, height: 60, el: <StatusBar wallet={{ ...WALLETS.multikey, electrum: '' }} /> },
         ]},
         { name: 'Create Multikey Account', items: [
-          { title: 'Define: path editor, live policy preview', tag: 'CreateSharedAccount', ...CS({}, 980) },
-          { title: 'Define: Electrum not tested yet', tag: 'CreateSharedAccount', ...CS({ test: null }, 980) },
-          { title: 'Fetch: an account xpub still missing', tag: 'CreateSharedAccount', ...CS({ step: 'fetch' }, 420) },
-          { title: 'Review: policy, descriptor, checksum', tag: 'PolicyReview', ...CS({ step: 'review', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 900) },
-          { title: 'Register: registering with a key', tag: 'PolicyReview', ...CS({ step: 'register', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 900) },
-          { title: 'Verify: check the first address on a device', tag: 'VerifyFirstAddress', ...CS({ step: 'verify' }, 460) },
-          { title: 'Verify: the device shows the same address', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', verified: true }, 480) },
-          { title: 'Verify: no key can show it, the warning', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', checkable: false }, 520) },
+          { title: '1 Spend Paths: network, one row per path, Add a Spend Path (click a row)', tag: 'SpendPathList', ...CS({ step: 'paths' }, 760) },
+          { title: '1 Spend Paths: two paths, the second named Recovery', tag: 'SpendPathList', ...CS({ step: 'paths', paths: [MUSIG_PATH, { ...MUSIG_NEW_PATH, label: 'Recovery', lockValue: '90', keys: { '3f635a63': 'Internal' } }] }, 760) },
+          { title: '1 Edit Spend Path: the path editor', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0 }, 760) },
+          { title: '1 Edit Spend Path: a new path, no key yet', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 1 }, 760) },
+          { title: '1 Edit Spend Path: Alice mandatory, plus any 1 of Carol, Bob; relative 30 days', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0, paths: [{ ...MUSIG_PATH, mandatory: ['73c5da0a'], locktime: 'Relative', lockValue: '30', lockUnit: 'Days' }] }, 760) },
+          { title: '1 Edit Spend Path: absolute renewable, 6 months from the tip', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0, paths: [{ ...MUSIG_PATH, locktime: 'Absolute renewable', lockValue: '6', lockUnit: 'Months' }] }, 760) },
+          { title: '1 Edit Spend Path: date in the future (calendar picker)', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0, paths: [{ ...MUSIG_PATH, locktime: 'Date in the future', lockDate: '2027-06-01T12:00' }] }, 760) },
+          { title: '2 Xpubs: Alice (USB) still missing, click her row', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs' }, 760) },
+          { title: '2 Xpubs: all fetched', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '3 Review: account name, the policy, Backup Descriptor (opens the save dialog)', tag: 'PolicyReview', ...CS({ step: 'review', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '3 Review: descriptor backed up, Continue unlocked', tag: 'PolicyReview', ...CS({ step: 'review', backedUp: true, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '4 Register: one row per signer, click a device to register', tag: 'CreateSharedAccount', ...CS({ step: 'register', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '4 Register: registering with Carol', tag: 'CreateSharedAccount', ...CS({ step: 'register', registering: '28645006', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '4 Register: Carol registered, Skip ticked for the others', tag: 'CreateSharedAccount', ...CS({ step: 'register', registered: ['28645006'], skipRegister: true, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '4 Register: every device registered', tag: 'CreateSharedAccount', ...CS({ step: 'register', registered: ['28645006', '73c5da0a', 'b8688df1'], fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '5 Verify: one row per signer, click a device to check', tag: 'VerifyFirstAddress', ...CS({ step: 'verify' }, 760) },
+          { title: '5 Verify: Carol checked, the others not yet', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', verified: ['28645006'] }, 760) },
+          { title: '5 Verify: every device checked', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', verified: true }, 760) },
+          { title: '5 Verify: no key can show it, the warning', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', checkable: false }, 760) },
+          { title: '6 Electrum: server, SSL, certificate check, Create', tag: 'CreateSharedAccount', ...CS({ step: 'account', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '6 Electrum: not tested yet', tag: 'CreateSharedAccount', ...CS({ step: 'account', test: null, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '6 Electrum: SSL with a self-signed certificate (check off)', tag: 'CreateSharedAccount', ...CS({ step: 'account', verifyCert: false, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
         ]},
         { name: 'Send: spend path', items: [
           { title: 'Spend path picker, before Prepare', tag: 'SpendPathPicker', ...panel({ prepared: false }, 220) },

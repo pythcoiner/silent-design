@@ -52,6 +52,13 @@ export function Input({ mono = false, width, grow = false, className = '', ...re
   return <input className={`s-input ${mono ? 's-input--mono' : ''} ${className}`} style={style} {...dom} />;
 }
 
+/* DateTimeInput — a date and time with a calendar popup; `min` / `value` are
+   'YYYY-MM-DDTHH:MM'. Qt: QDateTimeEdit with setCalendarPopup(true). */
+export function DateTimeInput({ value, min, onChange, width = 220, disabled }) {
+  return <input type="datetime-local" className="s-input s-input--datetime" value={value || ''} min={min}
+    disabled={disabled} onChange={e => onChange && onChange(e.target.value)} style={{ width, boxSizing: 'border-box' }} />;
+}
+
 /* TextArea — multiline input (Qt theme::TextEdit). */
 export function TextArea({ mono = false, width, height = 50, className = '', style, ...rest }) {
   const dom = { ...rest }; delete dom.mono; delete dom.width; delete dom.height;
@@ -154,21 +161,34 @@ export function Badge({ tone = 'neutral', icon, iconSize = 14, width, children, 
    (slots keep their width when empty; the chevron sits in the trailing slot).
    `trailing` holds an action (e.g. a labelled Button); its clicks don't open the row.
    Rendered as a div[role=button] so a trailing Button is valid markup.
+   `twoLine`: a title-only row keeps the height of a title + sub row.
+   `tone` 'add': the list's closing "add one" row — icon and title centred, no chevron.
    Qt: a QFrame row with an HBox; selected/disabled are QSS dynamic properties. */
-export function SelectRow({ icon, iconSize = 18, title, sub, meta, status, trailing, onClick, chevron, selected, current, disabled, tone, metaWidth, statusWidth, trailingWidth, style }) {
+export function SelectRow({ twoLine, icon, iconSize = 18, title, sub, meta, status, trailing, onClick, chevron, selected, current, disabled, tone, metaWidth, statusWidth, trailingWidth, style }) {
   const clickable = !!onClick && !disabled;
-  const showChev = chevron != null ? chevron : clickable && !trailing && selected == null;
-  const cls = 's-select-row' + (tone === 'error' ? ' s-select-row--error' : '') + (selected || current ? ' is-selected' : '') + (disabled ? ' is-disabled' : '') + (!onClick && !disabled && !selected && !current ? ' is-static' : '');
+  const add = tone === 'add';
+  const showChev = add ? false : chevron != null ? chevron : clickable && !trailing && selected == null;
+  const cls = 's-select-row' + (tone === 'error' ? ' s-select-row--error' : '') + (add ? ' s-select-row--add' : '') + (twoLine ? ' s-select-row--two-line' : '') + (selected || current ? ' is-selected' : '') + (disabled ? ' is-disabled' : '') + (!onClick && !disabled && !selected && !current ? ' is-static' : '');
   return (
     <div className={cls} style={style} role={onClick ? 'button' : undefined}
       tabIndex={clickable ? 0 : undefined} aria-disabled={disabled || undefined} aria-pressed={selected != null ? !!selected : undefined}
       onClick={clickable ? onClick : undefined}
       onKeyDown={clickable ? (e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } }) : undefined}>
       {icon ? <span className="s-select-row__icon"><Icon name={icon} size={iconSize} /></span> : null}
-      <span className="s-select-row__body">
-        <span className="s-select-row__title">{title}</span>
-        {sub ? <span className="s-select-row__sub">{sub}</span> : null}
-      </span>
+      {twoLine && !sub ? (
+        /* a hidden title + sub ghost sets the height; the real title centres over it */
+        <span className="s-select-row__body s-select-row__body--ghosted">
+          <span className="s-select-row__ghost" aria-hidden="true">
+            <span className="s-select-row__title">&nbsp;</span><span className="s-select-row__sub">&nbsp;</span>
+          </span>
+          <span className="s-select-row__title">{title}</span>
+        </span>
+      ) : (
+        <span className="s-select-row__body">
+          <span className="s-select-row__title">{title}</span>
+          {sub ? <span className="s-select-row__sub">{sub}</span> : null}
+        </span>
+      )}
       {meta || metaWidth ? <span className="s-select-row__meta" style={metaWidth ? { width: metaWidth } : undefined}>{meta}</span> : null}
       {status || statusWidth ? <span style={{ flex: 'none', display: 'inline-flex', width: statusWidth }}>{status}</span> : null}
       {trailingWidth ? (
@@ -331,7 +351,7 @@ export function Tab({ label, active, closable, onClick, onClose }) {
   );
 }
 
-Object.assign(window, { Button, Input, TextArea, Display, Field, FieldGroup, Checkbox, Toggle, Spinner, Card, Badge, SelectRow, Notice, ModalStatus, Legend, ComboBox, ValidationMark, BalanceHeader, Tab, useMeasure });
+Object.assign(window, { Button, Input, DateTimeInput, TextArea, Display, Field, FieldGroup, Checkbox, Toggle, Spinner, Card, Badge, SelectRow, Notice, ModalStatus, Legend, ComboBox, ValidationMark, BalanceHeader, Tab, useMeasure });
 
 /* File-level namespace (DS compiler indexes this file as `Primitives`). */
-export const Primitives = { Button, Input, TextArea, Display, Field, FieldGroup, Checkbox, Toggle, Spinner, Card, Badge, SelectRow, Notice, ModalStatus, Legend, ComboBox, ValidationMark, BalanceHeader, Tab };
+export const Primitives = { Button, Input, DateTimeInput, TextArea, Display, Field, FieldGroup, Checkbox, Toggle, Spinner, Card, Badge, SelectRow, Notice, ModalStatus, Legend, ComboBox, ValidationMark, BalanceHeader, Tab };

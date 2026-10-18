@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- @dsCard group="Generic Components" name="Generic — Pills" subtitle="Every status pill as a hardcoded catalog entry (20) — PillWidth enum · tones · families · disabled row" viewport="900x1500" -->
+<!-- @dsCard group="Generic Components" name="Generic — Pills" subtitle="Every status pill as a hardcoded catalog entry (31) — PillWidth enum · tones · families · disabled row" viewport="900x1760" -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -62,6 +62,26 @@
     <div class="lbl">network · 1</div>
     <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
       <span class="id">pill_network</span><span class="role">neutral</span><span class="role">Auto</span><span class="cell"><span class="s-badge s-badge--neutral">Signet</span></span>
+    </div>
+    <div class="lbl">xpub · 4</div>
+    <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
+      <span class="id">pill_xpub_used</span><span class="role">success</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-m">Used</span></span>
+      <span class="id">pill_xpub_unused</span><span class="role">off</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--off s-badge--w-m">Not Used</span></span>
+      <span class="id">pill_xpub_fetched</span><span class="role">success</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-m"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Fetched</span></span>
+      <span class="id">pill_xpub_missing</span><span class="role">warning</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--warning s-badge--w-m">Missing</span></span>
+    </div>
+    <div class="lbl">reg · 4</div>
+    <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
+      <span class="id">pill_reg_registered</span><span class="role">success</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-l"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Registered</span></span>
+      <span class="id">pill_reg_pending</span><span class="role">warning</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--warning s-badge--w-l">Not Registered</span></span>
+      <span class="id">pill_reg_registering</span><span class="role">off</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--off s-badge--w-l">Registering…</span></span>
+      <span class="id">pill_reg_not_needed</span><span class="role">off</span><span class="role">L</span><span class="cell"><span class="s-badge s-badge--off s-badge--w-l">Not Needed</span></span>
+    </div>
+    <div class="lbl">addr · 3</div>
+    <div class="tbl" style="grid-template-columns:230px 70px 70px minmax(0,1fr)"><span class="h">id</span><span class="h">tone</span><span class="h">width</span><span class="h">pill</span>
+      <span class="id">pill_addr_verified</span><span class="role">success</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--success s-badge--w-m"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Verified</span></span>
+      <span class="id">pill_addr_unchecked</span><span class="role">off</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--off s-badge--w-m">Not Checked</span></span>
+      <span class="id">pill_addr_no_screen</span><span class="role">off</span><span class="role">M</span><span class="cell"><span class="s-badge s-badge--off s-badge--w-m">No Screen</span></span>
     </div>
     <div class="lbl">In a disabled row</div>
     <div class="s-select-row is-disabled" style="max-width:520px"><span class="s-select-row__body"><span class="s-select-row__title">Spare Key</span><span class="s-select-row__sub">None of this key’s routes can sign.</span></span><span class="s-badge s-badge--error s-badge--w-l">No Usable Route</span></div>

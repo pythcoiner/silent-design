@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"SilentDesignSystem_243e89","components":[{"name":"QRCard","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"QRCode","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"ChunkedAddress","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"Address","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"Icon","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"SilentMark","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"Icons","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"Stack","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Row","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Spacer","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Divider","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Text","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Eyebrow","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Amount","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Layout","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Modal","sourcePath":"ui_kits/silent/Modal.jsx"},{"name":"Button","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Input","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"TextArea","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Display","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"FieldGroup","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Field","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Checkbox","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Toggle","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Spinner","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Card","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Badge","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"SelectRow","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Notice","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ModalStatus","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Legend","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ComboBox","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ValidationMark","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"BalanceHeader","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Tab","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Primitives","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"BTN_WIDTH","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"BUTTONS","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Btn","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"PILL_WIDTH","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"PILLS","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Pill","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Variants","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"SectionLabel","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FieldLabel","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"PaymentRow","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ValidatedInput","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Stepper","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Tooltip","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FoldSection","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"IndexPill","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"KeyValue","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Table","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"TransactionSummary","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"CoinTable","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"SectionHeader","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Section","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"CopyField","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ShortValue","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WordInputGrid","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WordGrid","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ROUTE_KINDS","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"RouteIcons","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ScanProgress","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FieldNote","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"EmptyState","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FoldChevron","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ScrollArea","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ModalActions","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Widgets","sourcePath":"ui_kits/silent/Widgets.jsx"}],"sourceHashes":{"kit/harness.js":"f9051916dc0a","preview/catalog-data.js":"83b26d012d9f","preview/specimen-back.js":"3061a81bb3fc","preview/specimen-shell.js":"33523c9cd69a","ui_kits/silent/AddKey.jsx":"568331aa3b36","ui_kits/silent/Address.jsx":"be526ece7360","ui_kits/silent/App.jsx":"ad3eaf24a82b","ui_kits/silent/Data.jsx":"0ad36d0c1b04","ui_kits/silent/GlobalSettings.jsx":"7c590eee3244","ui_kits/silent/Icons.jsx":"d68d8fc500da","ui_kits/silent/Keys.jsx":"3d278a629c2b","ui_kits/silent/Layout.jsx":"28af04d5dc8a","ui_kits/silent/LayoutDoc.jsx":"125392df58ba","ui_kits/silent/MenuTab.jsx":"376c1e73122e","ui_kits/silent/Modal.jsx":"5463ec561da4","ui_kits/silent/Primitives.jsx":"c3e3ea1e4106","ui_kits/silent/ScreensBasic.jsx":"cf5e76faf56d","ui_kits/silent/Send.jsx":"77a3ebc0987a","ui_kits/silent/Settings.jsx":"2de778bf6478","ui_kits/silent/Sidebar.jsx":"a7568ec62d21","ui_kits/silent/Signing.jsx":"74f2bf5a9962","ui_kits/silent/TxFlow.jsx":"e4eedeff4032","ui_kits/silent/Variants.jsx":"8f4dc62bc11a","ui_kits/silent/Widgets.jsx":"412c0d4b9518"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"SilentDesignSystem_243e89","components":[{"name":"QRCard","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"QRCode","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"ChunkedAddress","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"Address","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"Icon","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"SilentMark","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"Icons","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"Stack","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Row","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Spacer","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Divider","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Text","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Eyebrow","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Amount","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Layout","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Modal","sourcePath":"ui_kits/silent/Modal.jsx"},{"name":"Musig","sourcePath":"ui_kits/silent/Musig.jsx"},{"name":"Button","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Input","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"DateTimeInput","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"TextArea","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Display","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"FieldGroup","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Field","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Checkbox","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Toggle","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Spinner","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Card","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Badge","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"SelectRow","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Notice","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ModalStatus","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Legend","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ComboBox","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ValidationMark","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"BalanceHeader","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Tab","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Primitives","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"BTN_WIDTH","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"BUTTONS","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Btn","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"PILL_WIDTH","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"PILLS","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Pill","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Variants","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"SectionLabel","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FieldLabel","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"PaymentRow","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ValidatedInput","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Stepper","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Tooltip","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"InfoTip","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FoldSection","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"IndexPill","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"KeyValue","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Table","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"TransactionSummary","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"CoinTable","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"SectionHeader","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Section","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"CopyField","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ShortValue","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WordInputGrid","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WordGrid","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ROUTE_KINDS","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"RouteIcons","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ScanProgress","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FieldNote","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"EmptyState","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FoldChevron","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ScrollArea","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WizardSteps","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ModalActions","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Widgets","sourcePath":"ui_kits/silent/Widgets.jsx"}],"sourceHashes":{"kit/harness.js":"f9051916dc0a","preview/catalog-data.js":"d01de65e5bef","preview/specimen-back.js":"3061a81bb3fc","preview/specimen-shell.js":"33523c9cd69a","ui_kits/silent/AddKey.jsx":"bf4b83d6bd51","ui_kits/silent/Address.jsx":"84a3f5956c00","ui_kits/silent/App.jsx":"412fe92271f1","ui_kits/silent/Data.jsx":"5dbae6f418fe","ui_kits/silent/GlobalSettings.jsx":"a9ac4baf28c0","ui_kits/silent/Icons.jsx":"4e23dcbf0c35","ui_kits/silent/Keys.jsx":"6aa2295c44bc","ui_kits/silent/KitSim.jsx":"de8179ccedad","ui_kits/silent/Layout.jsx":"28af04d5dc8a","ui_kits/silent/LayoutDoc.jsx":"125392df58ba","ui_kits/silent/MenuTab.jsx":"069c1f3adcdd","ui_kits/silent/Modal.jsx":"d7a16c58299f","ui_kits/silent/Musig.jsx":"f190052ebffa","ui_kits/silent/Primitives.jsx":"5ea3f449929d","ui_kits/silent/ScreensBasic.jsx":"41a718fc3c1c","ui_kits/silent/Send.jsx":"977f8bb1a210","ui_kits/silent/Settings.jsx":"4ceed86b8f0b","ui_kits/silent/Sidebar.jsx":"a4ba12e4bb5d","ui_kits/silent/Signing.jsx":"a6746034a32e","ui_kits/silent/TxFlow.jsx":"e4eedeff4032","ui_kits/silent/Variants.jsx":"c58ad18868eb","ui_kits/silent/Widgets.jsx":"535e74cfac7d","ui_kits/silent/tweaks-panel.jsx":"94b5a57450b3"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -103,7 +103,7 @@ try { (() => {
    where `fns` are the component FUNCTION names that produce the specimen — the
    canonical way to refer to it (e.g. window.<NS>.Button). Token/brand cards
    have no producing function, so `fns` is empty. */
-window.CATALOG_GROUPS = [['Type', 'Font scale, text roles & Bitcoin amounts', [['type-display', 'Display & headings', 'span2', ['Text']], ['type-body', 'Body & labels', '', ['Text']], ['type-mono', 'Monospace', '', ['Text']], ['components-typography', 'Text variants', 'span2', ['Text']], ['components-amount', 'Amount', '', ['Amount']]]], ['Layout', 'Flex primitives — map 1:1 to Qt layouts', [['components-layout', 'Stack · Row · Spacer · Divider', 'full', ['Stack', 'Row', 'Spacer', 'Divider']]]], ['Generic Components', 'Atomic, reusable building blocks', [['components-buttons', 'Buttons', 'full', ['Button', 'Btn']], ['components-inputs', 'Inputs & fields', 'full', ['Input', 'Display', 'TextArea']], ['components-combobox', 'ComboBox', '', ['ComboBox']], ['components-checkbox', 'Checkbox', '', ['Checkbox']], ['components-toggle', 'Toggle', '', ['Toggle']], ['components-validation', 'Validation', '', ['ValidationMark']], ['components-cards', 'Cards & surfaces', 'span2', ['Card']], ['components-badge', 'Pills', 'span2', ['Badge', 'Pill']], ['components-variants', 'Widget variants', 'full', ['Text', 'Icon', 'Card', 'Input', 'FieldNote', 'SectionHeader', 'Section', 'ScrollArea', 'EmptyState', 'Tab', 'IndexPill']], ['components-select-row', 'Select row', 'span2', ['SelectRow']], ['components-notice', 'Notice', 'span2', ['Notice']], ['components-copy-field', 'Copy field', '', ['CopyField']], ['components-word-grid', 'Word grid', '', ['WordGrid']], ['components-scan-progress', 'Scan progress', '', ['ScanProgress']], ['components-route-icons', 'Route icons · section header · modal actions', 'span2', ['RouteIcons', 'SectionHeader', 'ModalActions']], ['components-modal-status', 'Modal & status', 'span2', ['Modal', 'ModalStatus', 'Spinner']], ['components-stepper', 'Stepper & disclosure', '', ['Stepper', 'FoldSection', 'Tooltip']], ['components-form-rows', 'Form rows', 'span2', ['Field', 'FieldGroup', 'PaymentRow', 'ValidatedInput', 'KeyValue']], ['components-table', 'Table', 'span2', ['Table']]]], ['Components', 'App-specific compositions', [['components-menu', 'Sidebar menu', '', ['Sidebar']], ['components-balance', 'Balance header', 'span2', ['BalanceHeader']], ['components-plugin-row', 'Plugin row', 'span2', ['PluginRow']]]], ['Colors', 'Palette & semantic roles, both themes', [['colors-accent', 'Accent', '', []], ['colors-semantic', 'Semantic', '', []], ['colors-text', 'Text', '', []], ['colors-light-neutrals', 'Light neutrals', 'full', []], ['colors-dark-neutrals', 'Dark neutrals', 'full', []]]], ['Spacing', 'Spacing scale, corner radii & layout metrics', [['spacing-scale', 'Spacing scale', 'span2', []], ['radii', 'Corner radii', '', []], ['layout-metrics', 'Layout metrics', '', []]]], ['Brand', 'Wordmark, lockups & iconography', [['brand-wordmark', 'Wordmark & lockups', 'span2', []], ['brand-iconography', 'Iconography', 'span2', []]]]];
+window.CATALOG_GROUPS = [['Type', 'Font scale, text roles & Bitcoin amounts', [['type-display', 'Display & headings', 'span2', ['Text']], ['type-body', 'Body & labels', '', ['Text']], ['type-mono', 'Monospace', '', ['Text']], ['components-typography', 'Text variants', 'span2', ['Text']], ['components-amount', 'Amount', '', ['Amount']]]], ['Layout', 'Flex primitives — map 1:1 to Qt layouts', [['components-layout', 'Stack · Row · Spacer · Divider', 'full', ['Stack', 'Row', 'Spacer', 'Divider']]]], ['Generic Components', 'Atomic, reusable building blocks', [['components-buttons', 'Buttons', 'full', ['Button', 'Btn']], ['components-inputs', 'Inputs & fields', 'full', ['Input', 'DateTimeInput', 'Display', 'TextArea']], ['components-combobox', 'ComboBox', '', ['ComboBox']], ['components-checkbox', 'Checkbox', '', ['Checkbox']], ['components-toggle', 'Toggle', '', ['Toggle']], ['components-validation', 'Validation', '', ['ValidationMark']], ['components-cards', 'Cards & surfaces', 'span2', ['Card']], ['components-badge', 'Pills', 'span2', ['Badge', 'Pill']], ['components-variants', 'Widget variants', 'full', ['Text', 'Icon', 'Card', 'Input', 'FieldNote', 'SectionHeader', 'Section', 'ScrollArea', 'EmptyState', 'Tab', 'IndexPill']], ['components-select-row', 'Select row', 'span2', ['SelectRow']], ['components-notice', 'Notice', 'span2', ['Notice']], ['components-copy-field', 'Copy field & chunked address', 'span2', ['CopyField', 'ChunkedAddress']], ['components-word-grid', 'Word grid', '', ['WordGrid']], ['components-scan-progress', 'Scan progress', '', ['ScanProgress']], ['components-route-icons', 'Route icons · section header · modal actions', 'span2', ['RouteIcons', 'SectionHeader', 'ModalActions']], ['components-modal-status', 'Modal & status', 'span2', ['Modal', 'ModalStatus', 'Spinner', 'SentModal']], ['components-stepper', 'Stepper, disclosure & wizard steps', 'span2', ['Stepper', 'FoldSection', 'Tooltip', 'InfoTip', 'WizardSteps']], ['components-form-rows', 'Form rows', 'span2', ['Field', 'FieldGroup', 'PaymentRow', 'ValidatedInput', 'KeyValue']], ['components-table', 'Table', 'span2', ['Table']]]], ['Components', 'App-specific compositions', [['components-menu', 'Sidebar menu', '', ['Sidebar']], ['components-balance', 'Balance header', 'span2', ['BalanceHeader']], ['components-plugin-row', 'Plugin row', 'span2', ['PluginRow']]]], ['Colors', 'Palette & semantic roles, both themes', [['colors-accent', 'Accent', '', []], ['colors-semantic', 'Semantic', '', []], ['colors-text', 'Text', '', []], ['colors-light-neutrals', 'Light neutrals', 'full', []], ['colors-dark-neutrals', 'Dark neutrals', 'full', []]]], ['Spacing', 'Spacing scale, corner radii & layout metrics', [['spacing-scale', 'Spacing scale', 'span2', []], ['radii', 'Corner radii', '', []], ['layout-metrics', 'Layout metrics', '', []]]], ['Brand', 'Wordmark, lockups & iconography', [['brand-wordmark', 'Wordmark & lockups', 'span2', []], ['brand-iconography', 'Iconography', 'span2', []]]]];
 window.CATALOG_SLUG = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 /* Unique component function names within a group, in first-seen order. */
 window.CATALOG_FNS = items => {
@@ -253,18 +253,24 @@ const xpubOk = x => /^[xt]pub[1-9A-HJ-NP-Za-km-z]{100,}$/.test((x || '').trim())
 /* Same row as Cached Xpubs (XpubTable), read-only. The fingerprint is in the
    modal title bar. */
 const originPath = o => 'm/' + (o || '').replace(/^\[[0-9a-f]{8}\/?/, '').replace(/\]$/, '');
+/* rows: every xpub the device or file returned; a lone origin + xpub otherwise */
 function KeyReview({
   origin,
-  xpub
+  xpub,
+  rows
 }) {
   return /*#__PURE__*/React.createElement(XpubTable, {
-    rows: [{
+    rows: rows || [{
       path: originPath(origin),
       xpub
     }],
     copy: false
   });
 }
+
+/* The Choose a Password body, centred at the app's width rather than spanning the
+   modal. Qt: the HotKeyFlow password view at its content width. */
+const HOT_PASSWORD_WIDTH = 320;
 function AliasField({
   value,
   onChange
@@ -294,6 +300,11 @@ function AddKeyModal({
   const [fileErr, setFileErr] = React.useState(initial.fileError || null);
   const [sdErr, setSdErr] = React.useState(initial.sdError || false);
   // hot key
+  /* the QR request's tuning, changed in QR Settings behind the gear left of Next */
+  const [qrSettings, setQrSettings] = React.useState(!!initial.qrSettings);
+  const [qrContrast, setQrContrast] = React.useState(3);
+  const [qrDensity, setQrDensity] = React.useState(3);
+  const [qrSpeed, setQrSpeed] = React.useState(3);
   const [hotKind, setHotKind] = React.useState(initial.hotKind || 'gen12'); // gen12 | gen24 | import
   const [typed, setTyped] = React.useState(initial.typed || '');
   const [inWords, setInWords] = React.useState(() => {
@@ -316,18 +327,23 @@ function AddKeyModal({
     title: "Fingerprint already registered"
   }, "Key ", fpOf, " is already registered as \u201C", existing.find(k => k.fp === fpOf).alias, "\u201D.") : null;
   const aliasReason = !alias.trim() ? 'Enter an alias.' : existing.some(k => k.alias === alias.trim()) ? 'Another key already has this alias.' : null;
-  const add = (o, x, routes, hasHot) => onAdd && onAdd({
+  const add = (o, x, routes, hasHot, rows) => onAdd && onAdd({
     fp: originFp(o) || 'f00dcafe',
     alias: alias.trim(),
     routes,
     hasHot,
     devicesSeen: [],
-    xpubs: [{
+    xpubs: rows || [{
       path: 'm/' + o.slice(10, -1),
       xpub: x
     }],
     descriptors: []
   });
+  /* the QR request asks one xpub per account type, each at account 0 */
+  const accountRows = ["84'", "86'", "48'", "87'"].map(p => ({
+    path: `m/${p}/${coin}/0'${p === "48'" ? "/2'" : ''}`,
+    xpub: xp
+  }));
   let title = 'Add a Key',
     width = 600,
     body;
@@ -349,40 +365,56 @@ function AddKeyModal({
     })));
   } else if (step === 'qr') {
     title = 'Add a Key · QR Code';
+    // The request code, on the step and again in QR Settings.
+    const requestCode = /*#__PURE__*/React.createElement(QRCard, {
+      size: 360,
+      bg: `hsl(220 14% ${40 + (qrContrast - 1) * 15}%)`
+    }, /*#__PURE__*/React.createElement("div", {
+      style: {
+        width: '100%',
+        height: '100%'
+      },
+      dangerouslySetInnerHTML: {
+        __html: qrSvg(`UR:CRYPTO-REQUEST/XPUBS/${network.toUpperCase()}/${accountRows.map(r => r.path.slice(2).replace(/'/g, 'H').replace(/\//g, '-')).join(',')}`)
+      }
+    }));
     body = /*#__PURE__*/React.createElement(Stack, {
       gap: "m",
       align: "center"
-    }, /*#__PURE__*/React.createElement(Text, {
-      variant: "body",
-      color: "secondary",
-      align: "center"
-    }, "Scan this request with the device. It answers with its key origin and xpub."), /*#__PURE__*/React.createElement(QRCode, {
-      text: `UR:CRYPTO-REQUEST/XPUB/${network.toUpperCase()}/M-84H-${coin === "0'" ? '0' : '1'}H-0H`,
-      size: 240
-    }), /*#__PURE__*/React.createElement(ModalActions, {
-      onBack: () => setStep('mode'),
-      style: {
-        width: '100%'
-      }
+    }, requestCode, /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setStep('mode')
     }, /*#__PURE__*/React.createElement(Btn, {
+      id: "qr_settings",
+      onClick: () => setQrSettings(true)
+    }), /*#__PURE__*/React.createElement(Btn, {
       id: "next_scan_the_answer",
       onClick: () => setStep('qr-scan')
-    })));
+    })), qrSettings ? /*#__PURE__*/React.createElement(QrSettingsModal, {
+      contrast: qrContrast,
+      density: qrDensity,
+      speed: qrSpeed,
+      onContrast: setQrContrast,
+      onDensity: setQrDensity,
+      onSpeed: setQrSpeed,
+      onClose: () => setQrSettings(false)
+    }, requestCode) : null);
   } else if (step === 'qr-scan') {
     title = 'Add a Key · Scan the Answer';
-    width = 640;
     body = /*#__PURE__*/React.createElement(CameraStep, {
       context: "add",
       force: initial.camera,
       progress: initial.progress,
       scanError: initial.scanError,
       onBack: () => setStep('qr'),
-      onCancel: onClose,
+      onCancel: onClose
+      /* the answer names the device (vendor + model): it is the default alias, editable */,
       onDone: () => {
         setRes({
           origin: `[7e02da41/84'/${coin}/0']`,
-          xpub: xp
+          xpub: xp,
+          rows: accountRows
         });
+        setAlias('Coldcard Mk4');
         setStep('review');
       }
     });
@@ -419,7 +451,8 @@ function AddKeyModal({
       title: "Cannot import this file"
     }, fileMsg) : null) : null, loaded ? /*#__PURE__*/React.createElement(KeyReview, {
       origin: res.origin,
-      xpub: res.xpub
+      xpub: res.xpub,
+      rows: res.rows
     }) : null, loaded ? dupNotice : null, loaded ? /*#__PURE__*/React.createElement(AliasField, {
       value: alias,
       onChange: setAlias
@@ -432,7 +465,7 @@ function AddKeyModal({
     }, loaded ? /*#__PURE__*/React.createElement(Btn, {
       id: "add_key",
       disabled: dup || !!aliasReason,
-      onClick: () => add(res.origin, res.xpub, [mode === 'sd' ? 'sd' : 'qr'], false)
+      onClick: () => add(res.origin, res.xpub, [mode === 'sd' ? 'sd' : 'qr'], false, res.rows)
     }) : /*#__PURE__*/React.createElement(Btn, {
       id: "open_file",
       onClick: () => {
@@ -562,6 +595,12 @@ function AddKeyModal({
     const reason = aliasReason || (!pw ? 'Choose a password.' : short ? 'Use at least 8 characters.' : pw !== pw2 ? 'The two passwords must match.' : null);
     body = /*#__PURE__*/React.createElement(Stack, {
       gap: "s"
+    }, /*#__PURE__*/React.createElement(Stack, {
+      gap: "s",
+      style: {
+        width: HOT_PASSWORD_WIDTH,
+        alignSelf: 'center'
+      }
     }, /*#__PURE__*/React.createElement(Text, {
       as: "div",
       variant: "body",
@@ -587,7 +626,7 @@ function AddKeyModal({
       onChange: e => setPw2(e.target.value)
     })), mismatch ? /*#__PURE__*/React.createElement(FieldNote, {
       tone: "error"
-    }, "The passwords do not match.") : null), /*#__PURE__*/React.createElement(ModalActions, {
+    }, "The passwords do not match.") : null)), /*#__PURE__*/React.createElement(ModalActions, {
       onBack: () => setStep(hotKind === 'import' ? 'hot-choose' : 'hot-backup'),
       reason: reason
     }, /*#__PURE__*/React.createElement(Btn, {
@@ -775,16 +814,30 @@ function QRCode({
   }))) : null);
 }
 
-/* ChunkedAddress — an address/txid shown as alternating-dimmed 4-char mono
-   groups; click to toggle to one unbroken string. Long silent-payment strings
-   wrap to two centered rows. */
+/* ChunkedAddress — an address/txid shown as alternating-dimmed mono groups; a
+   click cycles groups of 4, groups of 6, then one unbroken string. Long
+   silent-payment strings (over 56 characters) wrap to two centered rows, or,
+   with `wrap`, to as many rows as the width needs (the verify card). `align`:
+   center (default) or left, flush with the text above it (the creator's verify page).
+   `oneRow`: the whole address on a single row whatever its length (the creator's
+   verify page; the container must be wide enough). */
+const CHUNK_CYCLE = {
+  4: 6,
+  6: 0,
+  0: 4
+};
 function ChunkedAddress({
-  text
+  text,
+  wrap = false,
+  align = 'center',
+  oneRow = false
 }) {
-  const [chunked, setChunked] = React.useState(true);
+  const left = align === 'left';
+  const [size, setSize] = React.useState(4); // characters per group, 0 = one string
+  const chunked = size > 0;
   const lines = React.useMemo(() => {
-    const chunks = text.match(/.{1,4}/g) || [];
-    const rows = chunks.length > 14 ? 2 : 1; // long SP → 2 rows, others → 1
+    const chunks = chunked ? text.match(new RegExp(`.{1,${size}}`, 'g')) || [] : [];
+    const rows = !oneRow && !wrap && text.length > 56 ? 2 : 1; // long SP → 2 rows, others → 1
     const base = Math.floor(chunks.length / rows);
     const extra = chunks.length % rows; // first `extra` rows get +1
     const out = [];
@@ -795,25 +848,27 @@ function ChunkedAddress({
       i += n;
     }
     return out;
-  }, [text]);
+  }, [text, size, oneRow, wrap]);
   let idx = 0; // running chunk index for alternating dim
   return /*#__PURE__*/React.createElement("div", {
     className: "t-mono",
-    onClick: () => setChunked(c => !c),
-    title: chunked ? 'Show as one string' : 'Show in chunks',
+    onClick: () => setSize(n => CHUNK_CYCLE[n]),
+    title: size === 4 ? 'Show in groups of 6' : size === 6 ? 'Show as one string' : 'Show in groups of 4',
     style: {
       lineHeight: 1.75,
-      textAlign: 'center',
+      textAlign: left ? 'left' : 'center',
       cursor: 'pointer',
       userSelect: 'none',
-      wordBreak: chunked ? 'normal' : 'break-all'
+      wordBreak: chunked || oneRow ? 'normal' : 'break-all',
+      whiteSpace: oneRow ? 'nowrap' : undefined
     }
   }, chunked ? lines.map((row, r) => /*#__PURE__*/React.createElement("div", {
     key: r,
     style: {
       display: 'flex',
-      justifyContent: 'center',
-      gap: '0.4em'
+      justifyContent: left ? 'flex-start' : 'center',
+      gap: '0.4em',
+      flexWrap: wrap ? 'wrap' : 'nowrap'
     }
   }, row.map(c => {
     const i = idx++;
@@ -847,6 +902,7 @@ Object.assign(__ds_scope, { QRCard, QRCode, ChunkedAddress, Address });
 
 // ui_kits/silent/App.jsx
 try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
 /* Silent UI Kit — App shell: QTabWidget tabs (MainWindow.cpp) + AccountView.
    Tab order: Keys (non-closable) · wallets · + menu; Settings gear in the end slot
    opens the global Settings modal (GlobalSettings.jsx), which owns the theme.
@@ -894,7 +950,10 @@ function AccountView({
       display: isSend ? 'flex' : 'none',
       minHeight: 0
     }
-  }, /*#__PURE__*/React.createElement(SendScreen, {
+  }, wallet.kind === 'musig' ? /*#__PURE__*/React.createElement(MusigSendScreen, {
+    key: wallet.name,
+    wallet: wallet
+  }) : /*#__PURE__*/React.createElement(SendScreen, {
     wallet: wallet
   })), OtherComp ? /*#__PURE__*/React.createElement(OtherComp, {
     wallet: wallet
@@ -915,6 +974,9 @@ function App() {
     savings: 'history'
   });
   const [settingsOpen, setSettingsOpen] = React.useState(false);
+  // Kit-only state simulator (KitSim.jsx): states the UI cannot reach by clicking.
+  const [sim, setSim] = useTweaks(SIM_DEFAULTS);
+  const keysSimKey = ['keysDevices', 'keysKeys', 'keysRegistering'].map(k => String(sim[k])).join('|');
   React.useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
@@ -978,7 +1040,23 @@ function App() {
     style: {
       color: theme === 'light' ? '#333' : '#bbb'
     }
-  }, "Silent \u2014 UI Kit"), /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Row, {
+  }, "Silent \u2014 UI Kit"), /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => window.postMessage({
+      type: '__kit_toggle_tweaks'
+    }, '*'),
+    style: {
+      font: 'inherit',
+      fontSize: 12,
+      fontWeight: 600,
+      padding: '4px 10px',
+      borderRadius: 6,
+      cursor: 'pointer',
+      border: '1px solid var(--border)',
+      background: 'var(--bg)',
+      color: 'var(--text)'
+    }
+  }, "Simulate"), /*#__PURE__*/React.createElement(Row, {
     gap: 10,
     style: {
       marginRight: 8
@@ -1071,10 +1149,14 @@ function App() {
       minWidth: 0,
       minHeight: 0
     }
-  }, /*#__PURE__*/React.createElement(KeysScreen, null)), active === 'keys' ? null : active === 'menu' ? /*#__PURE__*/React.createElement(MenuTab, {
+  }, /*#__PURE__*/React.createElement(KeysScreen, _extends({
+    key: keysSimKey
+  }, simKeysProps(sim)))), active === 'keys' ? null : active === 'menu' ? /*#__PURE__*/React.createElement(MenuTab, {
     wallets: known,
     openWallets: openTabs,
     onOpenKeys: () => setActive('keys'),
+    musigSim: simMusigProps(sim),
+    musigSimKey: sim.musigCached + '|' + sim.musigRoutes,
     onOpen: openWallet,
     onCreate: createWallet,
     onDelete: deleteWallet
@@ -1085,6 +1167,9 @@ function App() {
       ...prev,
       [active]: s
     }))
+  }), /*#__PURE__*/React.createElement(KitSimPanel, {
+    t: sim,
+    setTweak: setSim
   }), settingsOpen ? /*#__PURE__*/React.createElement(GlobalSettingsModal, {
     theme: themeName,
     onTheme: setThemeName,
@@ -1194,11 +1279,49 @@ const WALLETS = {
       height: '801200',
       amount: '0.50000000'
     }]
+  },
+  /* A Multikey Wallet (kind 'musig', MusigAccountController): Taproot coins only, one
+     Electrum server and no BlindBit, its descriptor and cosigners in Settings. */
+  multikey: {
+    name: 'multikey',
+    kind: 'musig',
+    network: 'Regtest',
+    electrum: 'minta.wizardsardine.com:60001',
+    descriptor: "tr(musig([73c5da0a/87'/1'/0'/2]tpubDEGU7K8ab62XbG1bKoCnHDtUx44DxVKyAQVS96EN1EUVTQRW2KnFEvTtmnUJSonudSK8HcXTexf56Kir1JzoQAzFRHfvNLEcqV7KxUHZVYa,[b8688df1/87'/1'/0'/2]tpubDDzMtUDKwjvTehAmAfwYiBGzUFDcF8AyEaJf78JhQam5knvsGTgqF7VvhuuDZLYityND66FG88sS3q28Yi5Ysumvx5DfMgdm6nc6zntvpHM)/<0;1>/*)#cr6rql33",
+    cosigners: '73c5da0a, b8688df1',
+    confirmed: '0.01200000 BTC',
+    confirmedCount: '2 coins',
+    unconfirmed: '0.00000000 BTC',
+    unconfirmedCount: '0 coins',
+    coins: [{
+      type: 'Taproot',
+      height: '1204',
+      outpoint: '5c9e01…7a3d:0',
+      label: 'Funding',
+      value: '0.01000000'
+    }, {
+      type: 'Taproot',
+      height: '1211',
+      outpoint: 'd2f48b…09e6:1',
+      label: '',
+      value: '0.00200000'
+    }],
+    history: [{
+      dir: 'Incoming',
+      txid: '5c9e01…e7a3d0',
+      height: '1204',
+      amount: '0.01000000'
+    }, {
+      dir: 'Incoming',
+      txid: 'd2f48b…a09e61',
+      height: '1211',
+      amount: '0.00200000'
+    }]
   }
 };
 
 // Wallets shown in the Menu tab list (some openable)
-const KNOWN_WALLETS = ['savings', 'cold-storage', 'testing'];
+const KNOWN_WALLETS = ['savings', 'cold-storage', 'testing', 'multikey'];
 const NETWORKS = ['Regtest', 'Signet', 'Testnet', 'Bitcoin'];
 const MNEMONIC_WORDS = 'vault echo silent ridge amber cosmic pledge orbit timber walnut velvet jungle harbor signal modest crater nimble fabric'.split(' ');
 function fakeMnemonic() {
@@ -1247,6 +1370,11 @@ const KEYS = [{
     registered: false,
     account: 'testing',
     module: 'SP Accounts'
+  }, {
+    desc: `tr(${DEMO_XPUB_T}/<2147483646;2147483647>/*,pk(musig([73c5da0a/87'/1'/0'/2]${DEMO_XPUB_T},[5be0c7d2/87'/1'/0'/1]${DEMO_XPUB_T.replace('ULj', 'Vv3')})/<512;513>/*))`,
+    registered: true,
+    account: 'shared',
+    module: 'MuSig2 Accounts'
   }]
 }, {
   fp: 'f23a9e01',
@@ -1484,6 +1612,9 @@ const VERIFY_PLAN = [{
   route: 'qr',
   status: 'ready'
 }];
+/* A silent payment address is only checked over QR codes: no USB device protocol
+   supports it. */
+const SP_VERIFY_PLAN = VERIFY_PLAN.filter(r => r.route === 'qr');
 const OTHER_DEVICES = [{
   name: 'Coldcard Mk4',
   fp: '7e02da41'
@@ -1492,6 +1623,7 @@ Object.assign(window, {
   SIGNING_PLAN,
   SIGNING_PLAN_ALL,
   VERIFY_PLAN,
+  SP_VERIFY_PLAN,
   OTHER_DEVICES
 });
 const defaultXpubPath = network => network === 'Bitcoin' ? "m/84'/0'/0'" : "m/84'/1'/0'";
@@ -1524,7 +1656,9 @@ try { (() => {
    never overlaps a tab. */
 
 const GS_WIDTH = 1040; /* issue #4: 1040 × 640 */
-
+/* One body width whatever the rows hold: longer texts wrap in it.
+   Qt: metric::SETTINGS_BODY_WIDTH. */
+const GS_BODY_WIDTH = 666;
 function SettingsGear({
   onClick
 }) {
@@ -1851,7 +1985,10 @@ function GlobalSettingsModal({
     }));
   } else {
     body = /*#__PURE__*/React.createElement(Stack, {
-      gap: "s"
+      gap: "s",
+      style: {
+        width: GS_BODY_WIDTH
+      }
     }, /*#__PURE__*/React.createElement(GeneralSection, {
       theme: theme,
       themes: themes,
@@ -1934,6 +2071,8 @@ const ICON_PATHS = {
   usb: '<circle cx="10" cy="7" r="1"/><circle cx="4" cy="20" r="1"/><path d="M4.7 19.3 19 5"/><path d="m21 3-3 1 2 2Z"/><path d="M9.26 7.68 5 12l2 5"/><path d="m10 14 5 2 3.5-3.5"/><path d="m18 12 1-1 1 1-1 1Z"/>',
   bitcoin: '<path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-3.94-.694m5.155-6.2L8.29 4.26m5.908 1.042.348-1.97M7.48 20.364l3.126-17.727"/>',
   layout: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>',
+  /* account types: the multikey (shared) wallet */
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
   /* keys, signer and device flows (issue #2) */
   key: '<path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/>',
   puzzle: '<path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/>',
@@ -1957,6 +2096,8 @@ const ICON_TONE = {
   warning: 'var(--warning)',
   error: 'var(--error)'
 };
+/* name 'silent' draws the brand mark (SilentMark) at the icon size, e.g. the
+   Silent Payment Wallet account type. */
 function Icon({
   name,
   size = 24,
@@ -1965,6 +2106,14 @@ function Icon({
   className = '',
   style = {}
 }) {
+  if (name === 'silent') return /*#__PURE__*/React.createElement(SilentMark, {
+    size: size,
+    className: className,
+    style: {
+      color: tone ? ICON_TONE[tone] : undefined,
+      ...style
+    }
+  });
   const inner = ICON_PATHS[name] || '';
   return /*#__PURE__*/React.createElement("svg", {
     className: className,
@@ -2316,8 +2465,7 @@ function KeysScreen({
     })
   }))) : /*#__PURE__*/React.createElement(EmptyState, {
     icon: "usb",
-    title: "No Device Connected",
-    subtitle: `Connect a hardware wallet over USB and unlock it. It appears here while it runs on ${network}.`
+    title: "No Device Connected"
   })), section('keys', /*#__PURE__*/React.createElement(SectionHeader, {
     label: "Keys",
     count: netKeys.length || null,
@@ -2337,7 +2485,6 @@ function KeysScreen({
   }))) : /*#__PURE__*/React.createElement(EmptyState, {
     icon: "key",
     title: `No Key on ${network}`,
-    subtitle: "Add a key to sign transactions, verify addresses and create accounts.",
     action: addBtn
   })))), regDevice ? /*#__PURE__*/React.createElement(RegisterDeviceModal, {
     device: regDevice,
@@ -2498,6 +2645,46 @@ function PasswordStep({
   })));
 }
 
+/* UnsealModal — the one password prompt that unseals a hot key's mnemonic, opened on
+   top of whatever needs it: Reveal Mnemonic, signing, a descriptor or xpub fetch. Once the
+   password is taken it works under its spinner (shown at least 500ms) and closes.
+   `back={false}` drops Back where the header cross is the only way out (Reveal Mnemonic). */
+function UnsealModal({
+  title,
+  prompt,
+  proceedId = 'proceed',
+  busyTitle,
+  busySubtitle,
+  error,
+  initialBusy = false,
+  back = true,
+  onCancel,
+  onDone
+}) {
+  const [busy, setBusy] = React.useState(initialBusy);
+  React.useEffect(() => {
+    if (!busy || initialBusy) return;
+    const t = setTimeout(() => onDone && onDone(), 900);
+    return () => clearTimeout(t);
+  }, [busy]);
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: title,
+    width: 520,
+    onClose: onCancel
+  }, busy ? /*#__PURE__*/React.createElement(ModalStatus, {
+    spinner: true,
+    title: busyTitle,
+    subtitle: busySubtitle,
+    pad: "var(--space-m) 0"
+  }) : /*#__PURE__*/React.createElement(PasswordStep, {
+    prompt: prompt,
+    proceedId: proceedId,
+    error: error,
+    onBack: back ? onCancel : undefined,
+    onProceed: () => setBusy(true)
+  }));
+}
+
 /* ---------------- 3.3 Key detail ---------------- */
 
 function RouteTable({
@@ -2646,8 +2833,10 @@ function RemoveKeyConfirm({
 }
 
 /* XpubTable — the one way an xpub list is shown: path (mono, muted) · short xpub.
-   Used by Cached Xpubs (with copy, Used pill and a trailing + row) and by the
-   Add a Key review (read-only: no copy, no pill). */
+   Used by Cached Xpubs (with copy, Used pill, a remove cross disabled while used,
+   and a trailing + row) and by the Add a Key review (read-only: no copy, no pill). */
+/* The add row's action ends the table, under the removes when there are any, as the
+   routes' + does. */
 function XpubTable({
   rows,
   copy = true,
@@ -2664,7 +2853,7 @@ function XpubTable({
     rowClass: x => x.__add ? 'is-bare' : '',
     columns: [{
       header: 'Path',
-      width: 120,
+      width: 140,
       mono: true,
       render: x => x.__add ? null : x.path
     }, {
@@ -2679,14 +2868,15 @@ function XpubTable({
       header: '',
       width: 120,
       align: 'right',
-      render: x => x.__add ? addRow.action : pill ? /*#__PURE__*/React.createElement(Pill, {
+      render: x => x.__add ? pill ? null : addRow.action : pill ? /*#__PURE__*/React.createElement(Pill, {
         id: x.used ? 'xpub_used' : 'xpub_unused'
       }) : null
-    }] : []), ...(pill ? [{
+    }] : []), /* 50: the 30px button inside the cell's padding, ending where the routes' + does */
+    ...(pill ? [{
       header: '',
-      width: 30,
+      width: 50,
       align: 'right',
-      render: x => x.__add ? null : /*#__PURE__*/React.createElement(Btn, {
+      render: x => x.__add ? addRow.action : /*#__PURE__*/React.createElement(Btn, {
         id: "remove_xpub",
         disabled: x.used,
         title: x.used ? 'An account uses this xpub' : 'Remove Xpub'
@@ -2733,10 +2923,12 @@ const XPUB_PURPOSES = [{
   id: 'custom',
   label: 'Custom Path'
 }];
+/* No device but a hot key: the password is asked, then the xpub is derived. */
 function FetchXpubStep({
   network,
   device,
   hot = false,
+  qrKey = null,
   existing = [],
   onBack,
   onFetched,
@@ -2758,6 +2950,7 @@ function FetchXpubStep({
   const [custom, setCustom] = React.useState(initial.custom || '');
   const [busy, setBusy] = React.useState(!!initial.busy);
   const [askPassword, setAskPassword] = React.useState(!!initial.password);
+  const [askQr, setAskQr] = React.useState(!!initial.qr);
   const p = XPUB_PURPOSES.find(x => x.id === purpose);
   /* 48 splits the path around the account AND the script type; others only the account */
   const pathParts = p.tpl ? p.tpl(coin, '\u0000', '\u0001').split(/[\u0000\u0001]/) : ['', ''];
@@ -2776,13 +2969,32 @@ function FetchXpubStep({
     subtitle: device ? `Confirm on ${deviceName(device)} if it asks.` : null,
     pad: "var(--space-m) 0"
   });
-  if (askPassword) return /*#__PURE__*/React.createElement(PasswordStep, {
-    onBack: () => setAskPassword(false),
-    onProceed: () => {
+  // A hot key: the unseal modal over this one derives the xpub under its own spinner.
+  const unseal = askPassword ? /*#__PURE__*/React.createElement(UnsealModal, {
+    title: "Fetch Xpub",
+    proceedId: "get_xpub_hot",
+    busyTitle: "Fetching the xpub\u2026",
+    onCancel: () => setAskPassword(false),
+    onDone: () => {
       setAskPassword(false);
-      fetchNow();
+      onFetched(path);
     }
-  });
+  }) : null;
+  // No device and no hot secret: the key's QR route, its request code and answer scan
+  // in the signing flow over this modal.
+  const qrFlow = askQr && qrKey ? /*#__PURE__*/React.createElement(SigningFlow, {
+    context: "fetch-xpub",
+    keyRow: {
+      fp: qrKey.fp,
+      alias: qrKey.alias,
+      route: 'qr'
+    },
+    onCancel: () => setAskQr(false),
+    onDone: () => {
+      setAskQr(false);
+      onFetched(path);
+    }
+  }) : null;
   return /*#__PURE__*/React.createElement(Stack, {
     gap: "m"
   }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
@@ -2837,8 +3049,8 @@ function FetchXpubStep({
   }, /*#__PURE__*/React.createElement(Btn, {
     id: "fetch_this_xpub",
     disabled: !!reason,
-    onClick: () => device || !hot ? fetchNow() : setAskPassword(true)
-  })));
+    onClick: () => device ? fetchNow() : hot ? setAskPassword(true) : qrKey ? setAskQr(true) : fetchNow()
+  })), unseal, qrFlow);
 }
 function KeyDetail({
   k,
@@ -2851,7 +3063,7 @@ function KeyDetail({
 }) {
   const [step, setStep] = React.useState(initial.step || 'detail'); // detail | password | reveal | remove
   const [alias, setAlias] = React.useState(initial.alias != null ? initial.alias : k.alias);
-  const [aliasMsg, setAliasMsg] = React.useState(initial.aliasMsg || null); // { ok } | { error }
+  const [aliasMsg, setAliasMsg] = React.useState(initial.aliasMsg || null); // { error }
   const st = keyStatus(k, devices);
   const device = (devices || []).find(d => d.fp === k.fp && d.state === 'ready');
   const [xpubs, setXpubs] = React.useState(k.xpubs);
@@ -2891,9 +3103,7 @@ function KeyDetail({
       ...k,
       alias: a
     });
-    setAliasMsg({
-      ok: true
-    });
+    setAliasMsg(null);
   };
   const addXpub = path => {
     setXpubs(xs => [...xs, {
@@ -2905,12 +3115,15 @@ function KeyDetail({
   };
   const title = {
     detail: k.alias,
-    'fetch-xpub': 'Fetch Xpub',
-    password: 'Reveal Mnemonic',
-    reveal: 'Reveal Mnemonic',
+    'fetch-xpub': k.alias,
+    password: k.alias,
+    reveal: k.alias,
     remove: 'Remove Key'
   }[step];
-  return /*#__PURE__*/React.createElement(Modal, {
+  // Fetch Xpub opens its own modal over the key detail, which stays underneath.
+  const qrRoute = (k.routes || []).includes('qr');
+  const fetchOpen = step === 'fetch-xpub' && (device || k.hasHot || qrRoute);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Modal, {
     title: title,
     width: 600,
     onClose: onClose,
@@ -2923,24 +3136,7 @@ function KeyDetail({
     }, k.fp), /*#__PURE__*/React.createElement(Pill, {
       id: st
     }))
-  }, step === 'fetch-xpub' && (device || k.hasHot) ? /*#__PURE__*/React.createElement(FetchXpubStep, {
-    network: k.network,
-    device: device,
-    hot: k.hasHot,
-    existing: xpubs,
-    initial: initial.fetch || {},
-    onBack: () => setStep('detail'),
-    onFetched: addXpub
-  }) : step === 'password' ? /*#__PURE__*/React.createElement(PasswordStep, {
-    proceedId: "show_mnemonic",
-    error: initial.pwError || null,
-    onBack: () => setStep('detail'),
-    onProceed: () => setStep('reveal')
-  }) : step === 'reveal' ? /*#__PURE__*/React.createElement(RevealMnemonic, {
-    words: HOT_WORDS[k.fp] || MNEMONIC_WORDS.slice(0, 12),
-    initialHidden: !!initial.hidden,
-    onDone: () => setStep('detail')
-  }) : step === 'remove' ? /*#__PURE__*/React.createElement(RemoveKeyConfirm, {
+  }, step === 'remove' ? /*#__PURE__*/React.createElement(RemoveKeyConfirm, {
     k: k,
     onCancel: () => setStep('detail'),
     onConfirm: onRemove
@@ -2963,11 +3159,7 @@ function KeyDetail({
   }), alias.trim() !== k.alias ? /*#__PURE__*/React.createElement(Btn, {
     id: "save_alias",
     onClick: saveAlias
-  }) : null), aliasMsg && aliasMsg.ok ? /*#__PURE__*/React.createElement(Text, {
-    as: "div",
-    variant: "caption",
-    color: "success"
-  }, "Saved") : null, aliasMsg && aliasMsg.error ? /*#__PURE__*/React.createElement(Text, {
+  }) : null), aliasMsg && aliasMsg.error ? /*#__PURE__*/React.createElement(Text, {
     as: "div",
     variant: "caption",
     color: "error"
@@ -3015,12 +3207,12 @@ function KeyDetail({
       empty: xpubs.length ? null : /*#__PURE__*/React.createElement(Text, {
         variant: "body",
         color: "muted"
-      }, device || k.hasHot ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'),
+      }, device || k.hasHot || qrRoute ? 'No xpub cached yet.' : 'No xpub cached. Connect the device to fetch them.'),
       action: /*#__PURE__*/React.createElement(Btn, {
         id: "fetch_xpub",
-        disabled: !device && !k.hasHot,
+        disabled: !device && !k.hasHot && !qrRoute,
         onClick: () => setStep('fetch-xpub'),
-        title: device ? `Fetch xpubs from ${deviceName(device)}` : k.hasHot ? 'Derive xpubs from the hot key, with its password' : 'Connect the device to fetch xpubs'
+        title: device ? `Fetch xpubs from ${deviceName(device)}` : k.hasHot ? 'Derive xpubs from the hot key, with its password' : qrRoute ? 'Fetch xpubs over QR codes' : 'Connect the device to fetch xpubs'
       })
     }
   })), /*#__PURE__*/React.createElement(Section, {
@@ -3066,7 +3258,36 @@ function KeyDetail({
   }) : null, /*#__PURE__*/React.createElement(Btn, {
     id: "remove_key",
     onClick: () => setStep('remove')
-  }))));
+  })))), step === 'password' ? /*#__PURE__*/React.createElement(UnsealModal, {
+    title: "Reveal Mnemonic",
+    proceedId: "show_mnemonic",
+    busyTitle: "Opening the key\u2026",
+    error: initial.pwError || null,
+    back: false,
+    onCancel: () => setStep('detail'),
+    onDone: () => setStep('reveal')
+  }) : null, step === 'reveal' ? /*#__PURE__*/React.createElement(Modal, {
+    title: "Reveal Mnemonic",
+    width: 600,
+    onClose: () => setStep('detail')
+  }, /*#__PURE__*/React.createElement(RevealMnemonic, {
+    words: HOT_WORDS[k.fp] || MNEMONIC_WORDS.slice(0, 12),
+    initialHidden: !!initial.hidden,
+    onDone: () => setStep('detail')
+  })) : null, fetchOpen ? /*#__PURE__*/React.createElement(Modal, {
+    title: "Fetch Xpub",
+    width: 600,
+    onClose: () => setStep('detail')
+  }, /*#__PURE__*/React.createElement(FetchXpubStep, {
+    network: k.network,
+    device: device,
+    hot: k.hasHot,
+    qrKey: qrRoute ? k : null,
+    existing: xpubs,
+    initial: initial.fetch || {},
+    onBack: () => setStep('detail'),
+    onFetched: addXpub
+  })) : null);
 }
 Object.assign(window, {
   XpubTable,
@@ -3079,6 +3300,7 @@ Object.assign(window, {
   KeyRow,
   KeyDetail,
   PasswordStep,
+  UnsealModal,
   RevealMnemonic,
   RemoveKeyConfirm,
   RouteTable,
@@ -3091,6 +3313,212 @@ Object.assign(window, {
   HOT_WORDS
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Keys.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/silent/KitSim.jsx
+try { (() => {
+/* Silent UI Kit — state simulator (dev chrome, not part of the product).
+   Only states the UI itself can't reach (connected hardware, stored keys, frozen
+   transient states). Anything clickable in the kit (network, tabs, modals) is not here.
+   The screen remounts when a value changes. Simulated devices/keys exist on every network. */
+
+const SIM_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "keysDevices": "mixed",
+  "keysKeys": "all",
+  "keysRegistering": false,
+  "musigCached": "some",
+  "musigRoutes": "mixed"
+} /*EDITMODE-END*/;
+const SIM_DEVICE_SETS = {
+  mixed: {
+    label: 'Mixed (all states)',
+    ids: ['hid-0001', 'hid-0002', 'hid-0003', 'hid-0004', 'hid-0005']
+  },
+  none: {
+    label: 'None connected',
+    ids: []
+  },
+  registered: {
+    label: 'One, registered',
+    ids: ['hid-0001']
+  },
+  unregistered: {
+    label: 'One, not registered',
+    ids: ['hid-0002']
+  },
+  locked: {
+    label: 'One, locked',
+    ids: ['hid-0004']
+  },
+  unsupported: {
+    label: 'One, unsupported',
+    ids: ['hid-0005']
+  },
+  many: {
+    label: 'Many (scrolls)',
+    ids: 'many'
+  }
+};
+const SIM_KEY_SETS = {
+  all: {
+    label: 'All routes',
+    fps: ['73c5da0a', 'f23a9e01', '5be0c7d2', '9a41e6b3']
+  },
+  none: {
+    label: 'None',
+    fps: []
+  },
+  connected: {
+    label: 'One, connected (USB)',
+    fps: ['73c5da0a']
+  },
+  hot: {
+    label: 'One, hot key',
+    fps: ['f23a9e01']
+  },
+  offline: {
+    label: 'One, offline (SD · QR)',
+    fps: ['5be0c7d2']
+  },
+  many: {
+    label: 'Many (scrolls)',
+    fps: 'many'
+  }
+};
+/* Create Multikey Account, step 2 Xpubs: which account xpubs the app already
+   holds (cached from an earlier fetch), and the route each key fetches through. */
+const SIM_MUSIG_CACHED = {
+  some: {
+    label: 'Some (Carol, Bob)',
+    fps: ['28645006', 'b8688df1']
+  },
+  none: {
+    label: 'None',
+    fps: []
+  },
+  one_missing: {
+    label: 'All but Alice',
+    fps: ['28645006', 'b8688df1', '3f635a63']
+  },
+  all: {
+    label: 'All',
+    fps: 'all'
+  }
+};
+const SIM_MUSIG_ROUTES = {
+  mixed: {
+    label: 'Mixed (QR · USB · hot)',
+    route: null
+  },
+  qr: {
+    label: 'All QR',
+    route: 'qr'
+  },
+  usb: {
+    label: 'All USB',
+    route: 'usb'
+  },
+  sd: {
+    label: 'All SD card',
+    route: 'sd'
+  },
+  hot: {
+    label: 'All hot keys',
+    route: 'hot'
+  }
+};
+function simMusigProps(t) {
+  const r = (SIM_MUSIG_ROUTES[t.musigRoutes] || SIM_MUSIG_ROUTES.mixed).route;
+  const keys = MUSIG_KEYS.map(k => r ? {
+    ...k,
+    route: r
+  } : k);
+  const c = (SIM_MUSIG_CACHED[t.musigCached] || SIM_MUSIG_CACHED.some).fps;
+  return {
+    keys,
+    initial: {
+      fetched: c === 'all' ? keys.map(k => k.fp) : c
+    }
+  };
+}
+const simHex = i => (0x1a2b3c4d + i * 0x9e3779b1 >>> 0).toString(16).padStart(8, '0').slice(0, 8);
+function simKeysProps(t) {
+  const onAll = list => NETWORKS.flatMap(network => list.map(x => ({
+    ...x,
+    network
+  })));
+  const ds = SIM_DEVICE_SETS[t.keysDevices] || SIM_DEVICE_SETS.mixed;
+  let devices = ds.ids === 'many' ? Array.from({
+    length: 12
+  }, (_, i) => ({
+    ...DEVICES[i % DEVICES.length],
+    id: 'hid-sim-' + i,
+    fp: DEVICES[i % DEVICES.length].fp ? simHex(i) : null
+  })) : ds.ids.map(id => DEVICES.find(d => d.id === id));
+  devices = onAll(devices);
+  const ks = SIM_KEY_SETS[t.keysKeys] || SIM_KEY_SETS.all;
+  const base = KEYS.filter(k => k.network === 'Signet');
+  let keys = ks.fps === 'many' ? Array.from({
+    length: 14
+  }, (_, i) => ({
+    ...base[i % base.length],
+    fp: i < base.length ? base[i].fp : simHex(100 + i),
+    alias: base[i % base.length].alias + (i < base.length ? '' : ' ' + (i + 1))
+  })) : ks.fps.map(fp => KEYS.find(k => k.fp === fp));
+  keys = onAll(keys);
+  const regTarget = devices.find(d => d.state === 'ready' && d.fp && !keys.some(k => k.fp === d.fp));
+  return {
+    initialDevices: devices,
+    initialKeys: keys,
+    initialRegistering: t.keysRegistering && regTarget ? regTarget.id : null
+  };
+}
+function KitSimPanel({
+  t,
+  setTweak
+}) {
+  const opt = sets => Object.entries(sets).map(([value, s]) => ({
+    value,
+    label: s.label
+  }));
+  return /*#__PURE__*/React.createElement(TweaksPanel, {
+    title: "Simulate"
+  }, /*#__PURE__*/React.createElement(TweakSection, {
+    label: "Keys tab"
+  }), /*#__PURE__*/React.createElement(TweakSelect, {
+    label: "Connected devices",
+    value: t.keysDevices,
+    options: opt(SIM_DEVICE_SETS),
+    onChange: v => setTweak('keysDevices', v)
+  }), /*#__PURE__*/React.createElement(TweakSelect, {
+    label: "Stored keys",
+    value: t.keysKeys,
+    options: opt(SIM_KEY_SETS),
+    onChange: v => setTweak('keysKeys', v)
+  }), /*#__PURE__*/React.createElement(TweakToggle, {
+    label: "Freeze \u201Cregistering\u201D",
+    value: t.keysRegistering,
+    onChange: v => setTweak('keysRegistering', v)
+  }), /*#__PURE__*/React.createElement(TweakSection, {
+    label: "Multikey wizard \xB7 Xpubs"
+  }), /*#__PURE__*/React.createElement(TweakSelect, {
+    label: "Xpubs already held",
+    value: t.musigCached,
+    options: opt(SIM_MUSIG_CACHED),
+    onChange: v => setTweak('musigCached', v)
+  }), /*#__PURE__*/React.createElement(TweakSelect, {
+    label: "Key routes",
+    value: t.musigRoutes,
+    options: opt(SIM_MUSIG_ROUTES),
+    onChange: v => setTweak('musigRoutes', v)
+  }));
+}
+Object.assign(window, {
+  SIM_DEFAULTS,
+  simKeysProps,
+  simMusigProps,
+  KitSimPanel
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/KitSim.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/Layout.jsx
 try { (() => {
@@ -3781,17 +4209,36 @@ Object.assign(window, {
 
 // ui_kits/silent/MenuTab.jsx
 try { (() => {
-/* Silent UI Kit — Menu tab (MenuTab.cpp) + CreateAccount / ConfirmDelete modals. */
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+/* Silent UI Kit: Menu tab (MenuTab.cpp) + AccountType / CreateAccount / ConfirmDelete
+   modals. One create button opens AccountType (AccountType.cpp), which lists the
+   creators: the silent payment wallet (CreateAccount), the shared MuSig2 wallet
+   (CreateSharedAccount, Musig.jsx), then those of the enabled plugins. */
 
+const ACCOUNT_TYPES = [{
+  id: 'sp',
+  title: 'Silent Payment Wallet',
+  icon: 'silent'
+}, {
+  id: 'shared',
+  title: 'Multikey Wallet',
+  icon: 'users'
+}];
+
+/* musigSim / musigSimKey: the kit simulator's keys + cached xpubs for the wizard (dev only). */
 function MenuTab({
   wallets,
   openWallets,
   onOpen,
   onCreate,
   onDelete,
-  onOpenKeys
+  onOpenKeys,
+  musigSim,
+  musigSimKey
 }) {
+  const [picking, setPicking] = React.useState(false);
   const [creating, setCreating] = React.useState(false);
+  const [sharing, setSharing] = React.useState(false);
   const [deleting, setDeleting] = React.useState(null);
   return /*#__PURE__*/React.createElement(Stack, {
     align: "center",
@@ -3824,12 +4271,20 @@ function MenuTab({
       onClick: () => onOpen(name)
     }), /*#__PURE__*/React.createElement(Btn, {
       id: "delete_wallet",
+      disabled: open,
       onClick: () => setDeleting(name)
     }));
   })), /*#__PURE__*/React.createElement(Btn, {
-    id: "create_new_wallet",
-    onClick: () => setCreating(true)
-  }), creating ? /*#__PURE__*/React.createElement(CreateAccount, {
+    id: "create_account",
+    onClick: () => setPicking(true)
+  }), picking ? /*#__PURE__*/React.createElement(AccountType, {
+    types: ACCOUNT_TYPES,
+    onCancel: () => setPicking(false),
+    onPick: id => {
+      setPicking(false);
+      (id === 'sp' ? setCreating : setSharing)(true);
+    }
+  }) : null, creating ? /*#__PURE__*/React.createElement(CreateAccount, {
     existing: wallets,
     onOpenKeys: onOpenKeys ? () => {
       setCreating(false);
@@ -3840,7 +4295,16 @@ function MenuTab({
       onCreate(name);
       setCreating(false);
     }
-  }) : null, deleting ? /*#__PURE__*/React.createElement(ConfirmDelete, {
+  }) : null, sharing ? /*#__PURE__*/React.createElement(CreateSharedAccount, _extends({
+    key: musigSimKey
+  }, musigSim || {}, {
+    existing: wallets,
+    onCancel: () => setSharing(false),
+    onCreate: name => {
+      onCreate(name);
+      setSharing(false);
+    }
+  })) : null, deleting ? /*#__PURE__*/React.createElement(ConfirmDelete, {
     name: deleting,
     onCancel: () => setDeleting(null),
     onConfirm: () => {
@@ -3850,8 +4314,12 @@ function MenuTab({
   }) : null);
 }
 
-/* 3.11 Create account from a key. The descriptor fetch runs the route steps in
-   the "fetch" context — rendered in place of this modal, so modals never stack. */
+/* 3.11 Create account from a key. [Silent Payment] fetches its sp() descriptor (the
+   "fetch" context); [Taproot] and [Segwit] its xpubs at 86'/c'/0' and 84'/c'/0'
+   ("fetch-xpub"), which give the account its taproot and segwit addresses. Each runs
+   the route steps in place of this modal, so modals never stack. */
+/* The Electrum server every new regtest account starts with (Qt: REGTEST_ELECTRUM_URL). */
+const REGTEST_ELECTRUM_URL = 'minta.wizardsardine.com:60001';
 const ENDPOINT_DEFAULTS = {
   Bitcoin: {
     blindbit: 'https://blindbit.silentpayments.dev',
@@ -3860,7 +4328,7 @@ const ENDPOINT_DEFAULTS = {
   },
   Regtest: {
     blindbit: 'http://localhost:8080',
-    electrum: '127.0.0.1:50001',
+    electrum: REGTEST_ELECTRUM_URL,
     auto: true
   },
   Signet: {
@@ -3875,6 +4343,8 @@ const ENDPOINT_DEFAULTS = {
   }
 };
 const descriptorRoute = k => k.routes.find(r => r === 'qr' || r === 'hot') || null;
+/* An xpub also comes from the key's USB device. Qt: KeysModule::xpubRoute. */
+const xpubRoute = k => k.routes.find(r => r === 'usb' || r === 'qr' || r === 'hot') || null;
 function EndpointRow({
   label,
   value,
@@ -3911,7 +4381,9 @@ function CreateAccount({
   const [network, setNetwork] = React.useState(initial.network || 'Regtest');
   const [keyFp, setKeyFp] = React.useState(initial.keyFp || null);
   const [desc, setDesc] = React.useState(initial.desc || null); // { value, network }
-  const [fetching, setFetching] = React.useState(false);
+  const [taproot, setTaproot] = React.useState(initial.taproot || null); // { value, network }
+  const [segwit, setSegwit] = React.useState(initial.segwit || null); // { value, network }
+  const [fetching, setFetching] = React.useState(null); // 'sp' | 'taproot' | 'segwit'
   const [blindbit, setBlindbit] = React.useState(ENDPOINT_DEFAULTS[initial.network || 'Regtest'].blindbit);
   const [electrum, setElectrum] = React.useState(ENDPOINT_DEFAULTS[initial.network || 'Regtest'].electrum);
   const [tests, setTests] = React.useState(initial.tests || {}); // { blindbit, electrum }: 'testing' | 'ok' | { error }
@@ -3931,6 +4403,9 @@ function CreateAccount({
   const pickNetwork = n => {
     setNetwork(n);
     setKeyFp(null);
+    setDesc(null);
+    setTaproot(null);
+    setSegwit(null);
     const d = ENDPOINT_DEFAULTS[n];
     setBlindbit(d.blindbit);
     setElectrum(d.electrum);
@@ -3947,11 +4422,12 @@ function CreateAccount({
     }
   }, []);
   const netKeys = keys.filter(k => k.network === network);
-  const elsewhere = keys.filter(k => k.network !== network);
   const key = netKeys.find(k => k.fp === keyFp);
   const trimmed = name.trim();
-  const reason = !trimmed ? 'Enter an account name.' : /\s/.test(name) ? 'The account name cannot contain spaces.' : existing.includes(trimmed) ? `An account named “${trimmed}” already exists.` : !desc ? 'Get the descriptor of a key first.' : desc.network !== network ? `The descriptor is for ${desc.network}, not ${network}. Get it again.` : tests.blindbit !== 'ok' || tests.electrum !== 'ok' ? 'Test both backends first.' : null;
-  if (fetching && key) {
+  const reason = !trimmed ? 'Enter an account name.' : /\s/.test(name) ? 'The account name cannot contain spaces.' : existing.includes(trimmed) ? `An account named “${trimmed}” already exists.` : !desc ? 'Get the silent payment descriptor of a key first.' : desc.network !== network ? `The descriptor is for ${desc.network}, not ${network}. Get it again.` : tests.blindbit !== 'ok' || tests.electrum !== 'ok' ? 'Test both backends first.' : null;
+  const coin = network === 'Bitcoin' ? 0 : 1;
+  const demoXpub = network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T;
+  if (fetching === 'sp' && key) {
     return /*#__PURE__*/React.createElement(SigningFlow, {
       context: "fetch",
       keyRow: {
@@ -3959,13 +4435,33 @@ function CreateAccount({
         alias: key.alias,
         route: descriptorRoute(key)
       },
-      onCancel: () => setFetching(false),
+      onCancel: () => setFetching(null),
       onDone: () => {
         setDesc({
-          value: `sp([${key.fp}/352'/${network === 'Bitcoin' ? 0 : 1}'/0']${network === 'Bitcoin' ? DEMO_XPUB_M : DEMO_XPUB_T})#k7f3qz9d`,
+          value: `sp([${key.fp}/352'/${coin}'/0']${demoXpub})#k7f3qz9d`,
           network
         });
-        setFetching(false);
+        setFetching(null);
+      }
+    });
+  }
+  if ((fetching === 'taproot' || fetching === 'segwit') && key) {
+    const tr = fetching === 'taproot';
+    return /*#__PURE__*/React.createElement(SigningFlow, {
+      context: "fetch-xpub",
+      keyRow: {
+        fp: key.fp,
+        alias: key.alias,
+        route: xpubRoute(key)
+      },
+      onCancel: () => setFetching(null),
+      onDone: () => {
+        const value = tr ? `tr([${key.fp}/86'/${coin}'/0']${demoXpub}/<0;1>/*)#p8fcdvc7` : `wpkh([${key.fp}/84'/${coin}'/0']${demoXpub}/<0;1>/*)#203wua0q`;
+        (tr ? setTaproot : setSegwit)({
+          value,
+          network
+        });
+        setFetching(null);
       }
     });
   }
@@ -4003,7 +4499,11 @@ function CreateAccount({
       selected: route ? keyFp === k.fp : undefined,
       onClick: route ? () => {
         setKeyFp(k.fp);
-        if (keyFp !== k.fp) setDesc(null);
+        if (keyFp !== k.fp) {
+          setDesc(null);
+          setTaproot(null);
+          setSegwit(null);
+        }
       } : undefined
     });
   }) : keys.length === 0 ? /*#__PURE__*/React.createElement(EmptyState, {
@@ -4016,25 +4516,20 @@ function CreateAccount({
     }) : null
   }) : /*#__PURE__*/React.createElement(EmptyState, {
     icon: "key",
-    title: `No Key on ${network}`,
-    subtitle: `${elsewhere.length === 1 ? '1 key is' : elsewhere.length + ' keys are'} registered on ${[...new Set(elsewhere.map(k => k.network))].join(', ')}. Pick that network, or add a ${network} key.`,
-    action: onOpenKeys ? /*#__PURE__*/React.createElement(Btn, {
-      id: "open_keys_tab",
-      onClick: onOpenKeys
-    }) : null
+    title: `No Key on ${network}`
   }), netKeys.length ? /*#__PURE__*/React.createElement(Row, {
     gap: "s"
-  }, /*#__PURE__*/React.createElement(Btn, {
-    id: 'get_silent_payment',
-    disabled: !key,
-    onClick: () => setFetching(true)
-  }), !key ? /*#__PURE__*/React.createElement(Text, {
+  }, [['get_silent_payment', 'sp', desc], ['get_taproot', 'taproot', taproot], ['get_segwit', 'segwit', segwit]].map(([id, what, got]) => /*#__PURE__*/React.createElement(Btn, {
+    key: id,
+    id: id,
+    disabled: !key || !!got,
+    icon: got ? 'check' : undefined,
+    iconSize: 16,
+    iconTone: "success",
+    onClick: () => setFetching(what)
+  })), !key ? /*#__PURE__*/React.createElement(Text, {
     variant: "caption"
-  }, "Pick a key first.") : null) : null, desc ? /*#__PURE__*/React.createElement(CopyField, {
-    value: desc.value,
-    wrap: true,
-    title: "Copy descriptor"
-  }) : null), /*#__PURE__*/React.createElement(Stack, {
+  }, "Pick a key first.") : null) : null), /*#__PURE__*/React.createElement(Stack, {
     gap: "xs"
   }, /*#__PURE__*/React.createElement(SectionLabel, null, "Backends"), /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(EndpointRow, {
     label: "BlindBit URL:",
@@ -4068,6 +4563,28 @@ function CreateAccount({
     onClick: () => onCreate(trimmed)
   }))));
 }
+function AccountType({
+  types,
+  onCancel,
+  onPick
+}) {
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: "Account Type",
+    width: 520,
+    onClose: onCancel
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "s",
+    style: {
+      alignSelf: 'stretch'
+    }
+  }, types.map(t => /*#__PURE__*/React.createElement(SelectRow, {
+    key: t.id,
+    twoLine: true,
+    icon: t.icon || 'puzzle',
+    title: t.title,
+    onClick: () => onPick(t.id)
+  }))));
+}
 function ConfirmDelete({
   name,
   onCancel,
@@ -4089,10 +4606,12 @@ function ConfirmDelete({
 }
 Object.assign(window, {
   MenuTab,
+  AccountType,
   CreateAccount,
   ConfirmDelete,
   EndpointRow,
-  ENDPOINT_DEFAULTS
+  ENDPOINT_DEFAULTS,
+  REGTEST_ELECTRUM_URL
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/MenuTab.jsx", error: String((e && e.message) || e) }); }
 
@@ -4113,15 +4632,20 @@ try { (() => {
    Never add a Close / OK / Cancel button — the × is the only close control; a
    sub-step that returns to the previous one uses Back (ModalActions onBack).
    When the content is taller than the window, the body scrolls between a pinned
-   header and a pinned button bar (ModalActions is sticky). */
+   header and a pinned button bar (ModalActions is sticky).
+   `height`: 'auto' (default, fits the content) | 'wizard' (fixed --modal-wizard-h, so
+   every step of a wizard keeps one size; the body fills it and the actions sit at
+   the bottom — the step's Stack takes flex 1 with a Spacer before ModalActions). */
 
 function Modal({
   title,
   width = 500,
+  height = 'auto',
   onClose,
   children,
   headerRight
 }) {
+  const fixed = height === 'wizard';
   return /*#__PURE__*/React.createElement("div", {
     onClick: onClose,
     style: {
@@ -4141,6 +4665,9 @@ function Modal({
       maxHeight: '90%',
       overflow: 'auto',
       boxSizing: 'border-box',
+      height: fixed ? 'var(--modal-wizard-h)' : undefined,
+      display: fixed ? 'flex' : undefined,
+      flexDirection: 'column',
       background: 'var(--bg)',
       border: '1px solid var(--border)',
       borderRadius: 'var(--radius-input)',
@@ -4176,13 +4703,1230 @@ function Modal({
   }, headerRight || null, onClose ? /*#__PURE__*/React.createElement(Btn, {
     id: "modal_close",
     onClick: onClose
-  }) : null)), children));
+  }) : null)), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      flex: fixed ? '1 0 auto' : undefined,
+      '--modal-body-w': `calc(${typeof width === 'number' ? width + 'px' : width} - 2 * var(--space-m) - 2px)`
+    }
+  }, children)));
 }
 Object.assign(window, {
   Modal
 });
 Object.assign(__ds_scope, { Modal });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Modal.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/silent/Musig.jsx
+try { (() => {
+/* Silent UI Kit: MuSig2 multikey wallets (src/modules/musig).
+   - CreateSharedAccount: the "Create Multikey Account" wizard (creator/CreatePolicy.cpp):
+     Spend Paths, Xpubs, Review (name, backup), Register, Verify, Electrum (Create), under a WizardSteps trail.
+   - SpendPathPicker: the Send spend path picker (views/Send.cpp), one entry per leaf
+     named by its signers, locked while a signing session runs.
+   - MusigSigningCard: the two MuSig2 rounds on Send: the round line, one row per
+     cosigner with its nonce and partial signature counts, the lost-session notice,
+     Cancel then Sign Round N, or Broadcast once every partial signature is in, which
+     ends on the shared SentModal (Send.jsx) with the txid.
+   Composes catalog components only. */
+
+const MUSIG_KEYS = [{
+  fp: '28645006',
+  alias: 'Carol',
+  route: 'qr'
+}, /* on a USB device: its xpub is the one missing by default (step 2 Xpubs) */
+{
+  fp: '73c5da0a',
+  alias: 'Alice',
+  route: 'usb'
+}, {
+  fp: 'b8688df1',
+  alias: 'Bob',
+  route: 'qr'
+}, /* not in the path: its key type combo is disabled */
+{
+  fp: '3f635a63',
+  alias: 'Dave',
+  route: 'hot'
+}];
+/* Timelock kinds: Relative (a count after each coin is received), Absolute renewable
+   (a block height, entered as a count from the tip: height = tip + count) and Date in
+   the future (a date and time). Counts take a unit; one block is ten minutes. */
+const MUSIG_LOCKTIMES = ['No timelock', 'Relative', 'Absolute renewable', 'Date in the future'];
+const MUSIG_LOCK_UNITS = ['Blocks', 'Days', 'Weeks', 'Months'];
+const MUSIG_UNIT_BLOCKS = {
+  Blocks: 1,
+  Days: 144,
+  Weeks: 1008,
+  Months: 4320
+};
+const MUSIG_TIP = 905210; // the chain tip the kit run assumes
+const MUSIG_MAX_RELATIVE = 65535; // BIP68: a relative timelock counts at most 65535 blocks
+const lockBlocks = path => (parseInt(path.lockValue, 10) || 0) * (MUSIG_UNIT_BLOCKS[path.lockUnit || 'Blocks'] || 1);
+const nowLocal = () => {
+  const d = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
+  return d.toISOString().slice(0, 16);
+};
+const fmtDate = v => new Date(v).toLocaleString('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit'
+});
+/* why a path's timelock is not ready, or null */
+const lockReason = path => {
+  if (path.locktime === 'Relative' || path.locktime === 'Absolute renewable') {
+    if (!path.lockValue) return 'Enter the timelock.';
+    if (path.locktime === 'Relative' && lockBlocks(path) > MUSIG_MAX_RELATIVE) return 'A relative timelock is at most 65535 blocks (about 15 months).';
+  }
+  if (path.locktime === 'Date in the future') {
+    if (!path.lockDate) return 'Pick the date.';
+    if (path.lockDate <= nowLocal()) return 'Pick a date in the future.';
+  }
+  return null;
+};
+const MUSIG_KEY_TYPES = ['Internal', 'External', 'Cosigner', 'Safety Net'];
+const MUSIG_ROLE_STEP = {
+  Internal: 0,
+  External: 1,
+  Cosigner: 2,
+  'Safety Net': 3
+};
+const MUSIG_MAX_LEAVES = 32;
+const MUSIG_ADDRESS = 'bcrt1pfml94fqkjkwhlpeeychsxxwvwqkclmw02zv8y6nkmshcdsts6jjsl989et';
+const MUSIG_CHECKSUM = 'wtsttqhs';
+const MUSIG_DESCRIPTOR = "tr(tpubD6NzVbkrYhZ4Wfhvyz5kokDUBLHfzhT59KSamkRVNZhq6EguZVuAf88eJVm6G3ua8YfPChCkyn2CsS7naTCBW1nL4B1Ri2BvhJKMcEvPPeJ/<2147483646;2147483647>/*,{{pk(musig([28645006/87'/1'/0'/2]tpubDF145QGMpKCb3rFmV6vAufhPQw3Bxahpp4MChSswzes7PFiNnowe3YuH2qebeurohdeeFH853C2et8rLA2kpPPZZKSV7e45nmibbewbMKtn,[73c5da0a/87'/1'/0'/0]tpubDEGU7K8ab62XTwHGRuoStbzPj9mR6XQ9jizcU5hpBemm3zenWwhcohKsgxzjQ6w1LbiA7mD8RPfvPjdAcXi4eERN32AMYFszF6j7KRWfWyc)/<512;513>/*),pk(musig([28645006/87'/1'/0'/2]tpubDF145QGMpKCb3rFmV6vAufhPQw3Bxahpp4MChSswzes7PFiNnowe3YuH2qebeurohdeeFH853C2et8rLA2kpPPZZKSV7e45nmibbewbMKtn,[b8688df1/87'/1'/0'/1]tpubDDzMtUDKwjvTaYWcQ8nSBbxmjatm1qwAHYJjbGJGATrNzTGtiQLfXR6fqrC6h1RJ1r6CNTxXjZczuzoJU9BhNjtRF8sEE254oRcx1uK6Hmt)/<514;515>/*)},{pk(musig([73c5da0a/87'/1'/0'/0]tpubDEGU7K8ab62XTwHGRuoStbzPj9mR6XQ9jizcU5hpBemm3zenWwhcohKsgxzjQ6w1LbiA7mD8RPfvPjdAcXi4eERN32AMYFszF6j7KRWfWyc,[b8688df1/87'/1'/0'/1]tpubDDzMtUDKwjvTaYWcQ8nSBbxmjatm1qwAHYJjbGJGATrNzTGtiQLfXR6fqrC6h1RJ1r6CNTxXjZczuzoJU9BhNjtRF8sEE254oRcx1uK6Hmt)/<516;517>/*),pk(tpubD6NzVbkrYhZ4Wfhvyz5kokDUBLHfzhT59KSamkRVNZhq6EguZVuAf88eJVm6G3ua8YfPChCkyn2CsS7naTCBW1nL4B1Ri2BvhJKMcEvPPeJ/<2147483644;2147483645>/*)}})";
+
+/* A spend path: the picked keys and their key type, the keys that must sign on
+   every spend (`mandatory`), the signatures required in total (`threshold`, counting
+   the mandatory ones) and the timelock with its value. The default of the app run:
+   2 of Carol, Alice, Bob, no timelock. */
+const MUSIG_PATH = {
+  label: '',
+  threshold: 2,
+  mandatory: [],
+  locktime: 'No timelock',
+  lockValue: '',
+  lockUnit: 'Blocks',
+  lockDate: '',
+  keys: {
+    '28645006': 'Cosigner',
+    '73c5da0a': 'Internal',
+    'b8688df1': 'External'
+  }
+};
+const MUSIG_NEW_PATH = {
+  label: '',
+  threshold: 1,
+  mandatory: [],
+  locktime: 'Relative',
+  lockValue: '',
+  lockUnit: 'Days',
+  lockDate: '',
+  keys: {}
+};
+
+/* a path's name: the optional one the user gave, else "Spend Path N" */
+const pathTitle = (path, i) => path.label && path.label.trim() || `Spend Path ${i + 1}`;
+const choose = (n, k) => {
+  let r = 1;
+  for (let i = 1; i <= k; i++) r = r * (n - k + i) / i;
+  return Math.round(r);
+};
+const pathKeys = (path, keys) => keys.filter(k => path.keys[k.fp]);
+const pathMandatory = (path, keys) => pathKeys(path, keys).filter(k => (path.mandatory || []).includes(k.fp));
+const pathLeaves = (path, keys) => {
+  const n = pathKeys(path, keys).length,
+    m = pathMandatory(path, keys).length;
+  if (!n) return 0;
+  return choose(n - m, Math.max(0, Math.min(path.threshold, n) - m));
+};
+const names = ks => ks.map(k => k.alias).join(', ');
+/* about how long a block count lasts, at ten minutes a block */
+const blocksSpan = v => {
+  const h = (parseInt(v, 10) || 0) / 6;
+  return h < 48 ? `about ${Math.round(h)} hours` : h < 24 * 60 ? `about ${Math.round(h / 24)} days` : `about ${Math.round(h / 24 / 30)} months`;
+};
+const lockWords = path => {
+  if (!path.locktime || path.locktime === 'No timelock') return '';
+  if (lockReason(path)) return ', once the timelock is set';
+  const v = path.lockValue,
+    unit = (path.lockUnit || 'Blocks').toLowerCase();
+  const count = `${v} ${parseInt(v, 10) === 1 ? unit.replace(/s$/, '') : unit}`;
+  if (path.locktime === 'Relative') return `, ${count} after a coin is received`;
+  if (path.locktime === 'Absolute renewable') return `, from block ${MUSIG_TIP + lockBlocks(path)}, renewable`;
+  return `, from ${fmtDate(path.lockDate)}`;
+};
+/* "Alice signs, plus any 1 of Bob, Carol" — the signers only */
+const signerWords = (path, keys) => pathWords({
+  ...path,
+  locktime: 'No timelock'
+}, keys);
+/* the timelock alone, as a sentence: "30 days after a coin is received" */
+const lockLine = path => {
+  const w = lockWords(path).replace(/^, /, '');
+  return w ? w[0].toUpperCase() + w.slice(1) : 'No timelock';
+};
+/* "Alice signs, plus any 1 of Bob, Carol, after 4320 blocks (about 30 days)" */
+const pathWords = (path, keys) => {
+  const ks = pathKeys(path, keys),
+    n = ks.length;
+  if (!n) return 'No key picked yet';
+  const must = pathMandatory(path, keys),
+    others = ks.filter(k => !must.includes(k));
+  const t = Math.min(path.threshold, n),
+    k = t - must.length;
+  let w;
+  if (n === 1) w = `${names(ks)} signs alone`;else if (t >= n) w = `${names(ks)} sign together`;else if (!must.length) w = `Any ${t} of ${names(ks)} sign`;else w = `${names(must)} ${must.length > 1 ? 'sign' : 'signs'}, plus any ${k} of ${names(others)}`;
+  return w + lockWords(path);
+};
+
+/* One spend path (creator/PathEditor.cpp): an optional Name (else "Spend Path N"), Keys (pick each key, and whether it is
+   mandatory on every spend; picked keys are always Internal; at least one key stays
+   optional), then one line each for Signatures (mandatory + 1 up to all picked) and
+   Timelock (kind, then a count and its unit, or a date and time). Qt: VBox(Section + QTableWidget, QFormLayout). */
+function PathEditor({
+  path,
+  keys = MUSIG_KEYS,
+  onChange
+}) {
+  const picked = pathKeys(path, keys);
+  const n = picked.length,
+    m = pathMandatory(path, keys).length;
+  /* the threshold stays within [mandatory + 1, picked] */
+  const clampT = (v, nn, mm) => Math.min(Math.max(v, mm + 1, 1), Math.max(nn, 1));
+  const t = clampT(path.threshold, n, m);
+  const set = patch => {
+    if (!onChange) return;
+    const next = {
+      ...path,
+      ...patch
+    };
+    const nn = pathKeys(next, keys).length,
+      mm = pathMandatory(next, keys).length;
+    onChange({
+      ...next,
+      threshold: clampT(next.threshold, nn, mm)
+    });
+  };
+  const toggleKey = (fp, on) => set({
+    keys: {
+      ...path.keys,
+      [fp]: on ? 'Internal' : undefined
+    },
+    mandatory: on ? path.mandatory || [] : (path.mandatory || []).filter(x => x !== fp)
+  });
+  const toggleMust = (fp, on) => set({
+    mandatory: on ? [...(path.mandatory || []), fp] : (path.mandatory || []).filter(x => x !== fp)
+  });
+  const lo = Math.min(m + 1, Math.max(n, 1));
+  const thresholds = Array.from({
+    length: Math.max(n - lo + 1, 1)
+  }, (_, i) => lo + i === n ? `All ${n}` : `${lo + i} of ${n}`);
+  const keyColumns = [{
+    header: '',
+    width: 40,
+    cellStyle: () => ({
+      padding: '0 6px',
+      textOverflow: 'clip'
+    }),
+    render: r => /*#__PURE__*/React.createElement(Checkbox, {
+      checked: !!path.keys[r.fp],
+      onChange: on => toggleKey(r.fp, on)
+    })
+  }, {
+    header: 'Key',
+    grow: true,
+    render: r => r.alias
+  }, {
+    key: 'fp',
+    header: 'Fingerprint',
+    width: 110,
+    mono: true,
+    muted: () => true
+  }, {
+    header: 'Mandatory',
+    width: 90,
+    render: r => path.keys[r.fp] && n > 1 ? /*#__PURE__*/React.createElement(Checkbox, {
+      checked: (path.mandatory || []).includes(r.fp),
+      onChange: on => toggleMust(r.fp, on),
+      disabled: !(path.mandatory || []).includes(r.fp) && m + 1 >= n
+    }) : null
+  }];
+  const counted = path.locktime === 'Relative' || path.locktime === 'Absolute renewable';
+  const blocks = lockBlocks(path);
+  /* what the count stands for: blocks as time, other units as blocks; the height for Absolute */
+  const lockHint = !counted || !path.lockValue ? null : path.locktime === 'Absolute renewable' ? `block ${MUSIG_TIP + blocks}` : (path.lockUnit || 'Blocks') === 'Blocks' ? blocksSpan(path.lockValue) : `${blocks} blocks`;
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m",
+    style: {
+      alignSelf: 'stretch'
+    }
+  }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
+    label: "Name:"
+  }, /*#__PURE__*/React.createElement(Input, {
+    width: 260,
+    value: path.label || '',
+    placeholder: "Optional",
+    onChange: e => set({
+      label: e.target.value
+    })
+  }))), /*#__PURE__*/React.createElement(Section, {
+    label: "Keys",
+    dense: true
+  }, /*#__PURE__*/React.createElement(Table, {
+    columns: keyColumns,
+    rows: keys,
+    rowKey: r => r.fp
+  })), /*#__PURE__*/React.createElement(FieldGroup, null, n > 1 ? /*#__PURE__*/React.createElement(Field, {
+    label: "Signatures:"
+  }, /*#__PURE__*/React.createElement(ComboBox, {
+    value: t === n ? `All ${n}` : `${t} of ${n}`,
+    options: thresholds,
+    width: 200,
+    onChange: v => set({
+      threshold: v.startsWith('All') ? n : parseInt(v, 10)
+    })
+  })) : null, /*#__PURE__*/React.createElement(Field, {
+    label: "Timelock:"
+  }, /*#__PURE__*/React.createElement(ComboBox, {
+    value: path.locktime,
+    options: MUSIG_LOCKTIMES,
+    width: 200,
+    onChange: locktime => set({
+      locktime,
+      lockValue: '',
+      lockDate: ''
+    })
+  }), counted ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Input, {
+    mono: true,
+    width: 90,
+    value: path.lockValue || '',
+    placeholder: "0",
+    onChange: e => set({
+      lockValue: e.target.value.replace(/[^0-9]/g, '')
+    })
+  }), /*#__PURE__*/React.createElement(ComboBox, {
+    value: path.lockUnit || 'Blocks',
+    options: MUSIG_LOCK_UNITS,
+    width: 120,
+    onChange: lockUnit => set({
+      lockUnit
+    })
+  })) : null, path.locktime === 'Date in the future' ? /*#__PURE__*/React.createElement(DateTimeInput, {
+    value: path.lockDate,
+    min: nowLocal(),
+    onChange: lockDate => set({
+      lockDate
+    })
+  }) : null, lockHint ? /*#__PURE__*/React.createElement(Text, {
+    variant: "caption"
+  }, lockHint) : null)));
+}
+
+/* The Spend Paths list: one row per path (its timelock under the title, its signers
+   in words on the right) opening Edit Spend Path, then the Add a Spend Path row. */
+function SpendPathList({
+  paths,
+  keys = MUSIG_KEYS,
+  onOpen,
+  onAdd
+}) {
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs",
+    style: {
+      alignSelf: 'stretch'
+    }
+  }, paths.map((p, i) => /*#__PURE__*/React.createElement(SelectRow, {
+    key: i,
+    title: pathTitle(p, i),
+    sub: lockLine(p),
+    meta: signerWords(p, keys),
+    onClick: () => onOpen(i)
+  })), onAdd ? /*#__PURE__*/React.createElement(SelectRow, {
+    tone: "add",
+    icon: "plus",
+    title: "Add a Spend Path",
+    onClick: onAdd
+  }) : null);
+}
+
+/* Edit Spend Path: replaces the wizard (one modal at a time) and works on a draft;
+   Save Path writes it back, Back drops it, Remove Path deletes it (not the last). */
+function EditSpendPath({
+  index,
+  path,
+  keys = MUSIG_KEYS,
+  removable,
+  onSave,
+  onRemove,
+  onBack,
+  onClose
+}) {
+  const [draft, setDraft] = React.useState(path);
+  const reason = !pathKeys(draft, keys).length ? 'Pick at least one key.' : lockReason(draft);
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: pathTitle(draft, index - 1),
+    width: 760,
+    height: "wizard",
+    onClose: onClose
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "m",
+    style: {
+      alignSelf: 'stretch',
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement(PathEditor, {
+    path: draft,
+    keys: keys,
+    onChange: setDraft
+  }), /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(ModalActions, {
+    onBack: onBack,
+    reason: reason
+  }, removable ? /*#__PURE__*/React.createElement(Btn, {
+    id: "remove_spend_path",
+    onClick: onRemove
+  }) : null, /*#__PURE__*/React.createElement(Btn, {
+    id: "save_spend_path",
+    disabled: !!reason,
+    onClick: () => onSave(draft)
+  }))));
+}
+
+/* The live preview under the paths: the leaf count against the cap, then each path
+   in plain words. */
+function PolicyPreview({
+  paths,
+  keys = MUSIG_KEYS
+}) {
+  const leaves = paths.reduce((sum, p) => sum + pathLeaves(p, keys), 0);
+  return /*#__PURE__*/React.createElement(Card, {
+    tone: "inset",
+    pad: "m"
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(SectionLabel, null, "Policy"), /*#__PURE__*/React.createElement(Text, {
+    variant: "body"
+  }, leaves, " of ", MUSIG_MAX_LEAVES, " tap leaves"), paths.map((p, i) => /*#__PURE__*/React.createElement(Text, {
+    key: i,
+    variant: "body"
+  }, "Spend Path ", i + 1, ": ", pathWords(p, keys)))));
+}
+
+/* Backup Descriptor: the native save dialog (showSaveFilePicker) with the account
+   name as the file name; where the browser has none, a plain download. Resolves
+   true once written, false when the user cancels. Qt: QFileDialog::getSaveFileName. */
+async function saveDescriptorFile(name, text) {
+  const fileName = `${name || 'account'}-descriptor.txt`;
+  if (window.showSaveFilePicker) {
+    try {
+      const h = await window.showSaveFilePicker({
+        suggestedName: fileName,
+        types: [{
+          description: 'Descriptor',
+          accept: {
+            'text/plain': ['.txt']
+          }
+        }]
+      });
+      const w = await h.createWritable();
+      await w.write(text);
+      await w.close();
+      return true;
+    } catch (e) {
+      if (e && e.name === 'AbortError') return false;
+    }
+  }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], {
+    type: 'text/plain'
+  }));
+  a.download = fileName;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  return true;
+}
+
+/* Review: the policy only — each path's signers in words, its timelock, and its
+   keys (alias, fingerprint, mandatory). The descriptor is not shown; the wizard's
+   Review step backs it up right under the policy. */
+function PolicyReview({
+  paths,
+  keys = MUSIG_KEYS
+}) {
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "s",
+    style: {
+      alignSelf: 'stretch'
+    }
+  }, paths.map((p, i) => /*#__PURE__*/React.createElement(Card, {
+    key: i,
+    tone: "inset",
+    pad: "m"
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "xxs"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "section"
+  }, pathTitle(p, i), ": ", signerWords(p, keys)), /*#__PURE__*/React.createElement(Text, {
+    variant: "caption"
+  }, lockLine(p)), pathKeys(p, keys).map(k => /*#__PURE__*/React.createElement(Row, {
+    key: k.fp,
+    gap: "s"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "body"
+  }, k.alias), /*#__PURE__*/React.createElement(Text, {
+    variant: "mono",
+    color: "muted"
+  }, k.fp), (p.mandatory || []).includes(k.fp) ? /*#__PURE__*/React.createElement(Text, {
+    variant: "caption"
+  }, "Mandatory") : null))))));
+}
+
+/* Routes whose device has a screen that can show an address. */
+const SHOWS_ADDRESS = {
+  qr: true,
+  usb: true
+};
+
+/* The verify page: the first receive address flush with its lead, then one row per
+   signer of the policy. A signer with a screen (QR, USB) opens its address check
+   on click and reads Verified once it matched; the others read No Screen. With no
+   signer able to show it, the warning instead. */
+function VerifyFirstAddress({
+  signers = [],
+  verified = [],
+  onCheck
+}) {
+  const checkable = signers.filter(k => SHOWS_ADDRESS[k.route]);
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m",
+    style: {
+      alignSelf: 'stretch'
+    }
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "body"
+  }, checkable.length ? 'Optionally, check this address on your signing devices: click a signer.' : 'This is the first receive address of the wallet.'), /*#__PURE__*/React.createElement(Row, {
+    justify: "center"
+  }, /*#__PURE__*/React.createElement(Card, {
+    tone: "inset",
+    pad: "m"
+  }, /*#__PURE__*/React.createElement(ChunkedAddress, {
+    text: MUSIG_ADDRESS,
+    oneRow: true
+  }))), /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs"
+  }, signers.map(k => {
+    const can = !!SHOWS_ADDRESS[k.route],
+      done = verified.includes(k.fp);
+    return /*#__PURE__*/React.createElement(SelectRow, {
+      key: k.fp,
+      icon: ROUTE_KINDS[k.route].icon,
+      title: k.alias,
+      sub: k.fp,
+      chevron: false,
+      disabled: !can,
+      status: /*#__PURE__*/React.createElement(Pill, {
+        id: !can ? 'addr_no_screen' : done ? 'addr_verified' : 'addr_unchecked'
+      }),
+      onClick: can ? () => onCheck && onCheck(k.fp) : undefined
+    });
+  })), !checkable.length ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "warning",
+    title: "The address is not checked"
+  }, "No key of this wallet is on a device with a screen (USB or QR): none can show this address. Create the wallet only if you trust this computer.") : null);
+}
+
+/* Create Multikey Account: a wizard, one step per page under a WizardSteps trail.
+   Spend Paths (network, one row per path opening Edit Spend Path) → Xpubs (every key
+   of the paths, fetched or missing; a missing row opens that key's signing flow;
+   skipped when none is missing) →
+   Review (account name, the policy, Backup Descriptor right under it) → Register
+   (one row per signer; a device registers on click, hot keys need none) → Verify (the first address on a device) → Electrum (the server, SSL, certificate check;
+   Create).
+   Back on every step but the first.
+   `initial.step`: paths | xpubs | review | register | verify | account; `initial.registered`
+   / `initial.registering`: fingerprints registered / in progress;
+   `initial.editing`: a path index open in Edit Spend Path; `initial.checkable` false
+   shows the no-checkable-key warning; `initial.verified` the matched check. */
+const CREATE_STEPS = ['Spend Paths', 'Xpubs', 'Review', 'Register', 'Verify', 'Electrum'];
+const CREATE_STEP_INDEX = {
+  paths: 0,
+  xpubs: 1,
+  review: 2,
+  register: 3,
+  verify: 4,
+  account: 5
+};
+/* Routes whose device holds a registration of the account (hot keys need none). */
+const NEEDS_REGISTER = {
+  qr: true,
+  usb: true,
+  sd: true
+};
+function CreateSharedAccount({
+  existing = [],
+  keys = MUSIG_KEYS,
+  onCancel,
+  onCreate,
+  initial = {}
+}) {
+  const [step, setStep] = React.useState(initial.step || 'paths');
+  const [name, setName] = React.useState(initial.name || 'shared');
+  const [network, setNetwork] = React.useState('Regtest');
+  const [electrum, setElectrum] = React.useState(REGTEST_ELECTRUM_URL);
+  const [test, setTest] = React.useState(initial.test === undefined ? 'ok' : initial.test);
+  /* Electrum transport: SSL, and the certificate check (off for a self-signed one) */
+  const [ssl, setSsl] = React.useState(initial.ssl === undefined ? true : initial.ssl);
+  const [verifyCert, setVerifyCert] = React.useState(initial.verifyCert === undefined ? true : initial.verifyCert);
+  const [paths, setPaths] = React.useState(initial.paths || [MUSIG_PATH]);
+  const [fetched, setFetched] = React.useState(initial.fetched || ['28645006', 'b8688df1']);
+  const [flow, setFlow] = React.useState(null); // null | { fetch: fp } | { verify: fp }
+  const [editing, setEditing] = React.useState(initial.editing === undefined ? null : initial.editing); // path index | null
+  /* fingerprints whose device showed the same address; `initial.verified` true = every signer with a screen */
+  const [verified, setVerified] = React.useState(Array.isArray(initial.verified) ? initial.verified : initial.verified ? keys.filter(k => SHOWS_ADDRESS[k.route]).map(k => k.fp) : []);
+  const [backedUp, setBackedUp] = React.useState(!!initial.backedUp);
+  /* fingerprints registered; `registering` the one in progress */
+  const [registered, setRegistered] = React.useState(initial.registered || []);
+  const [registering, setRegistering] = React.useState(initial.registering || null);
+  /* the Register step's opt-out: continue with devices left unregistered */
+  const [skipRegister, setSkipRegister] = React.useState(!!initial.skipRegister);
+  /* Xpubs is skipped when every key of the paths already gave its xpub; Back from Review then returns to Spend Paths */
+  const [skippedXpubs, setSkippedXpubs] = React.useState(false);
+  const checkable = initial.checkable !== false;
+  const used = keys.filter(k => paths.some(p => p.keys[k.fp]));
+  const missing = used.filter(k => !fetched.includes(k.fp));
+  const trimmed = name.trim();
+  const leaves = paths.reduce((sum, p) => sum + pathLeaves(p, keys), 0);
+  if (flow && flow.fetch) {
+    const key = keys.find(k => k.fp === flow.fetch);
+    return /*#__PURE__*/React.createElement(SigningFlow, {
+      context: "fetch-xpub",
+      keyRow: {
+        fp: key.fp,
+        alias: key.alias,
+        route: key.route
+      },
+      onCancel: () => setFlow(null),
+      onDone: () => {
+        setFetched(f => [...f, key.fp]);
+        setFlow(null);
+      }
+    });
+  }
+  if (editing !== null) {
+    const isNew = editing >= paths.length;
+    const path = isNew ? MUSIG_NEW_PATH : paths[editing];
+    return /*#__PURE__*/React.createElement(EditSpendPath, {
+      key: editing,
+      index: editing + 1,
+      path: path,
+      keys: keys,
+      removable: !isNew && paths.length > 1,
+      onClose: onCancel,
+      onBack: () => setEditing(null),
+      onRemove: () => {
+        setPaths(paths.filter((_, k) => k !== editing));
+        setEditing(null);
+      },
+      onSave: np => {
+        setPaths(isNew ? [...paths, np] : paths.map((x, k) => k === editing ? np : x));
+        setEditing(null);
+      }
+    });
+  }
+  if (flow && flow.verify) {
+    // The kit treats closing the result as the device's match.
+    const plan = keys.filter(k => k.fp === flow.verify).map(k => ({
+      ...k,
+      status: 'ready'
+    }));
+    return /*#__PURE__*/React.createElement(SigningFlow, {
+      context: "verify",
+      plan: plan,
+      address: MUSIG_ADDRESS,
+      onCancel: () => {
+        setVerified(v => v.includes(flow.verify) ? v : [...v, flow.verify]);
+        setFlow(null);
+      }
+    });
+  }
+  let body,
+    actions,
+    foot = null;
+  if (step === 'paths') {
+    const reason = leaves === 0 ? 'Pick the keys of each path.' : null;
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "m",
+      style: {
+        alignSelf: 'stretch'
+      }
+    }, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Field, {
+      label: "Network:"
+    }, /*#__PURE__*/React.createElement(ComboBox, {
+      value: network,
+      options: NETWORKS,
+      onChange: setNetwork,
+      width: 240
+    }))), /*#__PURE__*/React.createElement(SpendPathList, {
+      paths: paths,
+      keys: keys,
+      onOpen: setEditing,
+      onAdd: () => setEditing(paths.length)
+    }));
+    actions = /*#__PURE__*/React.createElement(ModalActions, {
+      reason: reason
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "continue",
+      disabled: !!reason,
+      onClick: () => {
+        const skip = !missing.length;
+        setSkippedXpubs(skip);
+        setStep(skip ? 'review' : 'xpubs');
+      }
+    }));
+  } else if (step === 'xpubs') {
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "s",
+      style: {
+        alignSelf: 'stretch'
+      }
+    }, /*#__PURE__*/React.createElement(Text, {
+      variant: "body"
+    }, "Click a missing key to fetch its xpub."), /*#__PURE__*/React.createElement(Text, {
+      variant: "caption"
+    }, used.length - missing.length, " of ", used.length, " account xpubs fetched"), /*#__PURE__*/React.createElement(Stack, {
+      gap: "xs"
+    }, used.map(k => /*#__PURE__*/React.createElement(SelectRow, {
+      key: k.fp,
+      icon: ROUTE_KINDS[k.route].icon,
+      title: k.alias,
+      sub: k.fp,
+      status: /*#__PURE__*/React.createElement(Pill, {
+        id: fetched.includes(k.fp) ? 'xpub_fetched' : 'xpub_missing'
+      }),
+      chevron: false,
+      onClick: fetched.includes(k.fp) ? undefined : () => setFlow({
+        fetch: k.fp
+      })
+    }))));
+    actions = /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setStep('paths'),
+      reason: missing.length ? `${missing.length} account xpub${missing.length > 1 ? 's' : ''} still missing.` : null
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "continue",
+      disabled: !!missing.length,
+      onClick: () => setStep('review')
+    }));
+  } else if (step === 'review') {
+    /* the account is named here: the descriptor backup takes its name */
+    const nameReason = !trimmed ? 'Enter an account name.' : existing.includes(trimmed) ? `An account named “${trimmed}” already exists.` : null;
+    const reason = nameReason || (backedUp ? null : 'Back up the descriptor first.');
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "m",
+      style: {
+        alignSelf: 'stretch'
+      }
+    }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
+      label: "Account Name:"
+    }, /*#__PURE__*/React.createElement(Input, {
+      width: 240,
+      value: name,
+      onChange: e => {
+        setName(e.target.value);
+        setBackedUp(false);
+      }
+    }))), /*#__PURE__*/React.createElement(PolicyReview, {
+      paths: paths,
+      keys: keys
+    }), /*#__PURE__*/React.createElement(Row, {
+      gap: "s"
+    }, /*#__PURE__*/React.createElement(Spacer, null), backedUp ? /*#__PURE__*/React.createElement(Text, {
+      variant: "caption",
+      color: "success"
+    }, "Descriptor backed up.") : null, /*#__PURE__*/React.createElement(Btn, {
+      id: backedUp ? 'backup_descriptor' : 'backup_descriptor_primary',
+      disabled: !!nameReason,
+      onClick: () => saveDescriptorFile(trimmed, MUSIG_DESCRIPTOR + '#' + MUSIG_CHECKSUM).then(ok => ok && setBackedUp(true))
+    })));
+    actions = /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setStep(skippedXpubs ? 'paths' : 'xpubs'),
+      reason: reason
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "continue",
+      disabled: !!reason,
+      onClick: () => setStep('register')
+    }));
+  } else if (step === 'register') {
+    /* one row per signer: a device registers the account on click; hot keys need none */
+    const need = used.filter(k => NEEDS_REGISTER[k.route]);
+    const left = need.filter(k => !registered.includes(k.fp));
+    const register = fp => {
+      setRegistering(fp);
+      setTimeout(() => {
+        setRegistered(r => [...r, fp]);
+        setRegistering(null);
+      }, 900);
+    };
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "s",
+      style: {
+        alignSelf: 'stretch'
+      }
+    }, /*#__PURE__*/React.createElement(Text, {
+      variant: "body"
+    }, "Click a device to register the account on it."), /*#__PURE__*/React.createElement(Stack, {
+      gap: "xs"
+    }, used.map(k => {
+      const needs = !!NEEDS_REGISTER[k.route],
+        done = registered.includes(k.fp),
+        busy = registering === k.fp;
+      return /*#__PURE__*/React.createElement(SelectRow, {
+        key: k.fp,
+        icon: ROUTE_KINDS[k.route].icon,
+        title: k.alias,
+        sub: k.fp,
+        chevron: false,
+        disabled: !needs,
+        status: /*#__PURE__*/React.createElement(Pill, {
+          id: !needs ? 'reg_not_needed' : done ? 'reg_registered' : busy ? 'reg_registering' : 'reg_pending'
+        }),
+        onClick: needs && !done && !registering ? () => register(k.fp) : undefined
+      });
+    })));
+    /* sits at the bottom, right above the button bar */
+    foot = left.length ? /*#__PURE__*/React.createElement(Checkbox, {
+      checked: skipRegister,
+      onChange: setSkipRegister,
+      label: "Skip: continue without registering every device (register them later from the Keys tab)"
+    }) : null;
+    const reason = registering ? 'Registering…' : left.length && !skipRegister ? `${left.length} device${left.length > 1 ? 's' : ''} still to register.` : null;
+    actions = /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: registering ? null : () => setStep('review'),
+      reason: reason
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "continue",
+      disabled: !!reason,
+      onClick: () => setStep('verify')
+    }));
+  } else if (step === 'account') {
+    /* last: the Electrum server the account syncs through, then Create */
+    const reason = test !== 'ok' ? 'Test the Electrum server first.' : null;
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "m",
+      style: {
+        alignSelf: 'stretch'
+      }
+    }, /*#__PURE__*/React.createElement(Text, {
+      variant: "body"
+    }, "An Electrum server is needed to fetch the on-chain history."), /*#__PURE__*/React.createElement(Notice, {
+      tone: "warning",
+      title: "Use your own Electrum server"
+    }, "A server run by someone else sees every address and transaction of this account."), /*#__PURE__*/React.createElement(FieldGroup, {
+      gap: "s"
+    }, /*#__PURE__*/React.createElement(EndpointRow, {
+      label: "Electrum:",
+      value: electrum,
+      onChange: v => {
+        setElectrum(v);
+        setTest(null);
+      },
+      test: test,
+      onTest: () => {
+        setTest('testing');
+        setTimeout(() => setTest('ok'), 700);
+      }
+    }), /*#__PURE__*/React.createElement(Field, {
+      label: "SSL:"
+    }, /*#__PURE__*/React.createElement(Toggle, {
+      on: ssl,
+      onClick: () => {
+        setSsl(!ssl);
+        setTest(null);
+      }
+    })), /*#__PURE__*/React.createElement(Field, {
+      label: /*#__PURE__*/React.createElement(Row, {
+        gap: "xs"
+      }, "Verify Certificate: ", /*#__PURE__*/React.createElement(InfoTip, {
+        label: "Turn off for a server with a self-signed certificate."
+      }))
+    }, /*#__PURE__*/React.createElement(Toggle, {
+      on: ssl && verifyCert,
+      disabled: !ssl,
+      onClick: () => {
+        setVerifyCert(!verifyCert);
+        setTest(null);
+      }
+    }))));
+    actions = /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setStep('verify'),
+      reason: reason
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "create",
+      disabled: !!reason,
+      onClick: () => onCreate && onCreate(trimmed)
+    }));
+  } else {
+    const signers = checkable ? used : used.map(k => ({
+      ...k,
+      route: 'hot'
+    }));
+    body = /*#__PURE__*/React.createElement(VerifyFirstAddress, {
+      signers: signers,
+      verified: verified,
+      onCheck: fp => setFlow({
+        verify: fp
+      })
+    });
+    /* optional: Continue is always open */
+    actions = /*#__PURE__*/React.createElement(ModalActions, {
+      onBack: () => setStep('register')
+    }, /*#__PURE__*/React.createElement(Btn, {
+      id: "continue",
+      onClick: () => setStep('account')
+    }));
+  }
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: "Create Multikey Account",
+    width: 760,
+    height: "wizard",
+    onClose: onCancel
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "m",
+    style: {
+      alignSelf: 'stretch',
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement(WizardSteps, {
+    steps: CREATE_STEPS,
+    current: CREATE_STEP_INDEX[step]
+  }), body, /*#__PURE__*/React.createElement(Spacer, null), foot, actions));
+}
+
+/* Spend path leaves of the selected coins, by their signers' aliases. */
+const MUSIG_LEAVES = ['Carol + Alice', 'Carol + Bob', 'Alice + Bob'];
+function SpendPathPicker({
+  leaves = MUSIG_LEAVES,
+  value = 'Alice + Bob',
+  locked = false,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(SectionLabel, null, "Spend path"), /*#__PURE__*/React.createElement(ComboBox, {
+    value: value,
+    options: leaves,
+    disabled: locked,
+    onChange: onChange,
+    width: 400
+  }));
+}
+const MUSIG_ROUND_LINE = {
+  1: 'Round 1 of 2: every cosigner adds its nonce',
+  2: 'Round 2 of 2: every cosigner adds its partial signature',
+  ready: 'Every partial signature is in'
+};
+const MUSIG_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
+
+/* The signing card. `round`: 1 | 2 | 'ready'; `cosigners`: [{ alias, nonces,
+   partialSigs, expected }]; `lost`: the session-lost notice (back on round 1). */
+function MusigSigningCard({
+  round = 1,
+  cosigners,
+  lost = false,
+  txid = MUSIG_TXID,
+  onCancel,
+  onSign,
+  onBroadcast
+}) {
+  return /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement(Stack, {
+    gap: "s"
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "xl"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "secondary"
+  }, "TxID"), /*#__PURE__*/React.createElement(Text, {
+    variant: "mono"
+  }, txid)), /*#__PURE__*/React.createElement(Text, {
+    variant: "section"
+  }, MUSIG_ROUND_LINE[round]), cosigners.map(c => /*#__PURE__*/React.createElement(Row, {
+    key: c.alias,
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "body"
+  }, c.alias), /*#__PURE__*/React.createElement(Text, {
+    variant: "caption"
+  }, "Nonces ", c.nonces, "/", c.expected), /*#__PURE__*/React.createElement(Text, {
+    variant: "caption"
+  }, "Partial signatures ", c.partialSigs, "/", c.expected), /*#__PURE__*/React.createElement(Spacer, null), round === 'ready' ? /*#__PURE__*/React.createElement(Pill, {
+    id: "signer_signed"
+  }) : null)), lost ? /*#__PURE__*/React.createElement(Notice, {
+    tone: "warning",
+    title: "A signer no longer holds its round 1 nonce: it restarted, or the transaction changed. Every nonce and partial signature was dropped, sign round 1 again with every cosigner."
+  }, "MuSig2 session missing or mismatch") : null, /*#__PURE__*/React.createElement(Row, {
+    gap: "s"
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "cancel_signed",
+    onClick: onCancel
+  }), /*#__PURE__*/React.createElement(Spacer, null), round === 'ready' ? /*#__PURE__*/React.createElement(Btn, {
+    id: "broadcast",
+    onClick: onBroadcast
+  }) : /*#__PURE__*/React.createElement(Btn, {
+    id: "sign_round",
+    args: round,
+    onClick: onSign
+  }))));
+}
+
+/* The Send states of the app run, for the gallery. */
+const musigCosigners = (nonces, partialSigs) => ['Alice', 'Bob'].map(alias => ({
+  alias,
+  nonces,
+  partialSigs,
+  expected: 1
+}));
+
+/* The new part of the MuSig2 Send screen: the spend path, Prepare, then the card.
+   Broadcast (round 'ready') opens SentModal; `sent` opens on it, for the gallery. */
+function MusigSendPanel({
+  round,
+  cosigners,
+  lost,
+  prepared = true,
+  sent: initialSent = false
+}) {
+  const [sent, setSent] = React.useState(initialSent);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(SpendPathPicker, {
+    locked: prepared
+  }), /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Btn, {
+    id: "prepare",
+    disabled: prepared
+  })), prepared ? /*#__PURE__*/React.createElement(MusigSigningCard, {
+    round: round,
+    cosigners: cosigners,
+    lost: lost,
+    onBroadcast: () => setSent(true)
+  }) : null), sent ? /*#__PURE__*/React.createElement(SentModal, {
+    txid: MUSIG_TXID,
+    onClose: () => setSent(false)
+  }) : null);
+}
+
+/* The whole Send view of a Multikey Wallet (musig/views/Send.cpp): Payments (address and
+   amount in BTC), Coins selection (the coins picked by hand), the fee rate, the spend
+   path the picked coins allow, Prepare, then the signing card replacing nothing: it sits
+   under Prepare until the transaction is broadcast or cancelled. `initial.picked`: the
+   outpoints picked; `initial.round`: the card's round once prepared. */
+function MusigSendScreen({
+  wallet,
+  initial = {}
+}) {
+  const blank = () => ({
+    address: '',
+    amount: ''
+  });
+  const [payments, setPayments] = React.useState(initial.payments || [blank()]);
+  const [picked, setPicked] = React.useState(initial.picked || []);
+  const [fee, setFee] = React.useState('1');
+  const [round, setRound] = React.useState(initial.round || null); // null | 1 | 2 | 'ready'
+  const [sent, setSent] = React.useState(false);
+  const cosigners = wallet.cosigners.split(', ');
+  const leaf = `Key path: ${cosigners.join(' + ')}`;
+  const prepared = round !== null;
+  const setPayment = (i, p) => setPayments(ps => ps.map((x, j) => j === i ? p : x));
+  const payState = p => p.address && p.amount && /^(bc1|tb1|bcrt1)/i.test(p.address) && parseFloat(p.amount) > 0;
+  const feeOk = parseFloat(fee) > 0;
+  const reason = !picked.length ? 'No coin to spend yet' : !payments.every(payState) ? 'Transaction is not valid' : null;
+  const sats = picked.length ? 111 + 43 * payments.length + 58 * picked.length : 0;
+  const counts = (n, p) => cosigners.map(alias => ({
+    alias,
+    nonces: n,
+    partialSigs: p,
+    expected: 1
+  }));
+  const card = {
+    1: counts(0, 0),
+    2: counts(1, 0),
+    ready: counts(1, 1)
+  };
+  const coinColumns = [{
+    header: '',
+    width: 34,
+    cellStyle: () => ({
+      padding: '0 6px'
+    }),
+    render: r => /*#__PURE__*/React.createElement(Checkbox, {
+      checked: picked.includes(r.outpoint),
+      disabled: prepared,
+      onChange: v => setPicked(ps => v ? [...ps, r.outpoint] : ps.filter(o => o !== r.outpoint))
+    })
+  }, {
+    key: 'outpoint',
+    header: 'OutPoint',
+    width: 175,
+    mono: true
+  }, {
+    header: 'Label',
+    grow: true,
+    muted: r => !r.label,
+    render: r => r.label || '-'
+  }, {
+    header: 'Value',
+    width: 150,
+    align: 'right',
+    render: r => `${r.value} BTC`
+  }];
+  return /*#__PURE__*/React.createElement(ScreenWrap, {
+    title: "Send"
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(SectionLabel, null, "Payments"), payments.map((p, i) => /*#__PURE__*/React.createElement(Card, {
+    key: i,
+    corner: payments.length > 1 && !prepared ? /*#__PURE__*/React.createElement(Btn, {
+      id: "remove_payment",
+      onClick: () => setPayments(ps => ps.filter((_, j) => j !== i))
+    }) : null
+  }, /*#__PURE__*/React.createElement(PaymentRow, {
+    label: "Address:"
+  }, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Input, {
+    mono: true,
+    grow: true,
+    placeholder: "Address",
+    disabled: prepared,
+    value: p.address,
+    onChange: e => setPayment(i, {
+      ...p,
+      address: e.target.value
+    })
+  }))), /*#__PURE__*/React.createElement(PaymentRow, {
+    label: "Amount:"
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(Input, {
+    mono: true,
+    width: 150,
+    placeholder: "0.002",
+    disabled: prepared,
+    value: p.amount,
+    onChange: e => setPayment(i, {
+      ...p,
+      amount: e.target.value
+    })
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "body"
+  }, "BTC"))))), /*#__PURE__*/React.createElement(Row, {
+    style: {
+      marginTop: 'var(--space-s)'
+    }
+  }, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Btn, {
+    id: "add_payment",
+    disabled: prepared,
+    onClick: () => setPayments(ps => [...ps, blank()])
+  }))), /*#__PURE__*/React.createElement(Ruler, null), /*#__PURE__*/React.createElement(Stack, {
+    gap: "xs"
+  }, /*#__PURE__*/React.createElement(SectionLabel, null, "Coins selection"), /*#__PURE__*/React.createElement(Table, {
+    columns: coinColumns,
+    rows: wallet.coins,
+    rowKey: r => r.outpoint
+  })), /*#__PURE__*/React.createElement(Row, {
+    gap: "xs",
+    style: {
+      marginTop: 'var(--space-m)'
+    }
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "secondary"
+  }, "Fee Rate:"), /*#__PURE__*/React.createElement(Input, {
+    mono: true,
+    width: 100,
+    value: fee,
+    disabled: prepared,
+    onChange: e => setFee(e.target.value)
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "body"
+  }, "sats/vb"), /*#__PURE__*/React.createElement(ValidationMark, {
+    state: feeOk ? 'valid' : 'invalid'
+  }), sats ? /*#__PURE__*/React.createElement(Text, {
+    variant: "caption",
+    style: {
+      marginLeft: 'var(--space-m)'
+    }
+  }, "Fee: ", sats, " sats") : null), /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 'var(--space-m)'
+    }
+  }, /*#__PURE__*/React.createElement(SpendPathPicker, {
+    leaves: [leaf],
+    value: leaf,
+    locked: prepared
+  })), /*#__PURE__*/React.createElement(Row, {
+    gap: "s",
+    style: {
+      marginTop: 'var(--space-m)'
+    }
+  }, reason && !prepared ? /*#__PURE__*/React.createElement(Text, {
+    variant: "caption"
+  }, reason) : null, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Btn, {
+    id: "prepare",
+    disabled: !!reason || !feeOk || prepared,
+    onClick: () => setRound(1)
+  })), prepared ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 'var(--space-m)'
+    }
+  }, /*#__PURE__*/React.createElement(MusigSigningCard, {
+    round: round,
+    cosigners: card[round],
+    onCancel: () => setRound(null),
+    onSign: () => setRound(r => r === 1 ? 2 : 'ready'),
+    onBroadcast: () => setSent(true)
+  })) : null, sent ? /*#__PURE__*/React.createElement(SentModal, {
+    txid: MUSIG_TXID,
+    onClose: () => {
+      setSent(false);
+      setRound(null);
+      setPicked([]);
+    }
+  }) : null);
+}
+Object.assign(window, {
+  MUSIG_KEYS,
+  MUSIG_PATH,
+  MUSIG_NEW_PATH,
+  MUSIG_ADDRESS,
+  PathEditor,
+  SpendPathList,
+  EditSpendPath,
+  PolicyPreview,
+  PolicyReview,
+  VerifyFirstAddress,
+  CreateSharedAccount,
+  SpendPathPicker,
+  MusigSigningCard,
+  MusigSendPanel,
+  MusigSendScreen,
+  musigCosigners
+});
+
+/* File-level namespace (DS compiler indexes this file as `Musig`). */
+const Musig = {
+  PathEditor,
+  SpendPathList,
+  EditSpendPath,
+  PolicyPreview,
+  PolicyReview,
+  VerifyFirstAddress,
+  CreateSharedAccount,
+  SpendPathPicker,
+  MusigSigningCard,
+  MusigSendPanel,
+  MusigSendScreen
+};
+Object.assign(__ds_scope, { Musig });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Musig.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/Primitives.jsx
 try { (() => {
@@ -4215,6 +5959,7 @@ function Button({
   className = '',
   icon,
   iconSize = 20,
+  iconTone,
   ...rest
 }) {
   const cls = {
@@ -4232,12 +5977,13 @@ function Button({
   const dom = {
     ...rest
   };
-  ['role', 'className', 'icon', 'iconSize', 'children'].forEach(k => delete dom[k]);
+  ['role', 'className', 'icon', 'iconSize', 'iconTone', 'children'].forEach(k => delete dom[k]);
   return /*#__PURE__*/React.createElement("button", _extends({
     className: `${cls} ${className}`.trim()
   }, dom), icon ? /*#__PURE__*/React.createElement(Icon, {
     name: icon,
-    size: iconSize
+    size: iconSize,
+    tone: iconTone
   }) : null, children);
 }
 
@@ -4268,6 +6014,29 @@ function Input({
     className: `s-input ${mono ? 's-input--mono' : ''} ${className}`,
     style: style
   }, dom));
+}
+
+/* DateTimeInput — a date and time with a calendar popup; `min` / `value` are
+   'YYYY-MM-DDTHH:MM'. Qt: QDateTimeEdit with setCalendarPopup(true). */
+function DateTimeInput({
+  value,
+  min,
+  onChange,
+  width = 220,
+  disabled
+}) {
+  return /*#__PURE__*/React.createElement("input", {
+    type: "datetime-local",
+    className: "s-input s-input--datetime",
+    value: value || '',
+    min: min,
+    disabled: disabled,
+    onChange: e => onChange && onChange(e.target.value),
+    style: {
+      width,
+      boxSizing: 'border-box'
+    }
+  });
 }
 
 /* TextArea — multiline input (Qt theme::TextEdit). */
@@ -4471,8 +6240,11 @@ function Badge({
    (slots keep their width when empty; the chevron sits in the trailing slot).
    `trailing` holds an action (e.g. a labelled Button); its clicks don't open the row.
    Rendered as a div[role=button] so a trailing Button is valid markup.
+   `twoLine`: a title-only row keeps the height of a title + sub row.
+   `tone` 'add': the list's closing "add one" row — icon and title centred, no chevron.
    Qt: a QFrame row with an HBox; selected/disabled are QSS dynamic properties. */
 function SelectRow({
+  twoLine,
   icon,
   iconSize = 18,
   title,
@@ -4492,8 +6264,9 @@ function SelectRow({
   style
 }) {
   const clickable = !!onClick && !disabled;
-  const showChev = chevron != null ? chevron : clickable && !trailing && selected == null;
-  const cls = 's-select-row' + (tone === 'error' ? ' s-select-row--error' : '') + (selected || current ? ' is-selected' : '') + (disabled ? ' is-disabled' : '') + (!onClick && !disabled && !selected && !current ? ' is-static' : '');
+  const add = tone === 'add';
+  const showChev = add ? false : chevron != null ? chevron : clickable && !trailing && selected == null;
+  const cls = 's-select-row' + (tone === 'error' ? ' s-select-row--error' : '') + (add ? ' s-select-row--add' : '') + (twoLine ? ' s-select-row--two-line' : '') + (selected || current ? ' is-selected' : '') + (disabled ? ' is-disabled' : '') + (!onClick && !disabled && !selected && !current ? ' is-static' : '');
   return /*#__PURE__*/React.createElement("div", {
     className: cls,
     style: style,
@@ -4513,7 +6286,21 @@ function SelectRow({
   }, /*#__PURE__*/React.createElement(Icon, {
     name: icon,
     size: iconSize
-  })) : null, /*#__PURE__*/React.createElement("span", {
+  })) : null, twoLine && !sub ?
+  /*#__PURE__*/
+  /* a hidden title + sub ghost sets the height; the real title centres over it */
+  React.createElement("span", {
+    className: "s-select-row__body s-select-row__body--ghosted"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__ghost",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__title"
+  }, "\xA0"), /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__sub"
+  }, "\xA0")), /*#__PURE__*/React.createElement("span", {
+    className: "s-select-row__title"
+  }, title)) : /*#__PURE__*/React.createElement("span", {
     className: "s-select-row__body"
   }, /*#__PURE__*/React.createElement("span", {
     className: "s-select-row__title"
@@ -4669,17 +6456,21 @@ function Legend({
 
 /* The dropdown is portalled to <body> with fixed positioning, so it overlays
    everything and is never clipped by a table cell, scroll area or modal body.
-   Qt: QComboBox popup (a top-level window). */
+   Qt: QComboBox popup (a top-level window). The highlighted item keeps the text
+   colour on the hover background. `disabled`: bgSecondary, textSecondary text and
+   chevron, borderLight border (like a disabled Input), and it does not open. */
 function ComboBox({
   value,
   options,
   onChange,
-  width = 200
+  width = 200,
+  disabled = false
 }) {
   const [open, setOpen] = React.useState(false);
   const [rect, setRect] = React.useState(null);
   const ref = React.useRef(null);
   const toggle = () => {
+    if (disabled) return;
     if (!open && ref.current) setRect(ref.current.getBoundingClientRect());
     setOpen(o => !o);
   };
@@ -4737,7 +6528,8 @@ function ComboBox({
       flex: 'none'
     }
   }, /*#__PURE__*/React.createElement("span", {
-    className: "s-combo",
+    className: `s-combo${disabled ? ' is-disabled' : ''}`,
+    "aria-disabled": disabled || undefined,
     style: {
       width: '100%',
       boxSizing: 'border-box',
@@ -4761,7 +6553,7 @@ function ComboBox({
       top: '50%',
       transform: 'translateY(-50%)',
       zIndex: 1,
-      color: 'var(--text)',
+      color: disabled ? 'var(--text-secondary)' : 'var(--text)',
       display: 'inline-flex'
     }
   }, /*#__PURE__*/React.createElement(Icon, {
@@ -4883,6 +6675,7 @@ function Tab({
 Object.assign(window, {
   Button,
   Input,
+  DateTimeInput,
   TextArea,
   Display,
   Field,
@@ -4907,6 +6700,7 @@ Object.assign(window, {
 const Primitives = {
   Button,
   Input,
+  DateTimeInput,
   TextArea,
   Display,
   Field,
@@ -4925,7 +6719,7 @@ const Primitives = {
   BalanceHeader,
   Tab
 };
-Object.assign(__ds_scope, { Button, Input, TextArea, Display, FieldGroup, Field, Checkbox, Toggle, Spinner, Card, Badge, SelectRow, Notice, ModalStatus, Legend, ComboBox, ValidationMark, BalanceHeader, Tab, Primitives });
+Object.assign(__ds_scope, { Button, Input, DateTimeInput, TextArea, Display, FieldGroup, Field, Checkbox, Toggle, Spinner, Card, Badge, SelectRow, Notice, ModalStatus, Legend, ComboBox, ValidationMark, BalanceHeader, Tab, Primitives });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Primitives.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/silent/ScreensBasic.jsx
@@ -5288,7 +7082,7 @@ function AddressRow({
   labelable,
   label = '',
   onSetLabel,
-  verifiable = true
+  verifyPlan = window.VERIFY_PLAN
 }) {
   const [verify, setVerify] = React.useState(false);
   if (!address) {
@@ -5322,7 +7116,7 @@ function AddressRow({
     style: {
       width: '100%'
     }
-  }, verifiable ? /*#__PURE__*/React.createElement(Tooltip, {
+  }, /*#__PURE__*/React.createElement(Tooltip, {
     label: "Verify on signing device"
   }, /*#__PURE__*/React.createElement(Btn, {
     id: "verify_on_device",
@@ -5330,7 +7124,7 @@ function AddressRow({
     style: {
       flex: 'none'
     }
-  })) : null, /*#__PURE__*/React.createElement(ChunkedAddress, {
+  })), /*#__PURE__*/React.createElement(ChunkedAddress, {
     text: address
   }), /*#__PURE__*/React.createElement(Btn, {
     id: copied ? 'copied' : 'copy_address',
@@ -5344,31 +7138,12 @@ function AddressRow({
     id: "awaiting_payment",
     args: prevCount,
     onClick: onShowPrev
-  }) : null) : null, !verifiable ? /*#__PURE__*/React.createElement(SpVerifyNote, null) : null), verify ? /*#__PURE__*/React.createElement(SigningFlow, {
+  }) : null) : null), verify ? /*#__PURE__*/React.createElement(SigningFlow, {
     context: "verify",
-    plan: window.VERIFY_PLAN,
+    plan: verifyPlan,
     address: address,
     onCancel: () => setVerify(false)
   }) : null);
-}
-
-/* SP addresses can't be checked on a device yet (the QR protocol has no SP
-   address verification): an honest, non-clickable note instead of a button. */
-function SpVerifyNote() {
-  return /*#__PURE__*/React.createElement(Row, {
-    gap: "xs",
-    justify: "center",
-    style: {
-      color: 'var(--text-muted)',
-      maxWidth: 520
-    }
-  }, /*#__PURE__*/React.createElement(Icon, {
-    name: "info",
-    size: 14
-  }), /*#__PURE__*/React.createElement(Text, {
-    variant: "caption",
-    align: "center"
-  }, "Silent payment addresses can't be checked on a signing device yet. No device protocol supports it."));
 }
 function PrevAddressesModal({
   title,
@@ -5473,13 +7248,16 @@ function ReceiveScreen({
   const [segwit, setSegwit] = React.useState([]); // newest first, items: { addr, label }
   const [taproot, setTaproot] = React.useState([]);
   const [copied, setCopied] = React.useState('');
-  const [open, setOpen] = React.useState('sp');
+  // One section per kind of address the account receives on (Receive.cpp): a Multikey
+  // Wallet only receives on Taproot.
+  const musig = wallet.kind === 'musig';
+  const [open, setOpen] = React.useState(musig ? 'tr' : 'sp');
   const [modal, setModal] = React.useState(null); // 'sw' | 'tr'
   React.useEffect(() => {
     setSegwit([]);
     setTaproot([]);
     setCopied('');
-    setOpen('sp');
+    setOpen(musig ? 'tr' : 'sp');
     setModal(null);
   }, [wallet]);
   const toggle = id => setOpen(cur => cur === id ? '' : id);
@@ -5498,14 +7276,14 @@ function ReceiveScreen({
   } : it));
   return /*#__PURE__*/React.createElement(ScreenWrap, {
     title: "Receive"
-  }, /*#__PURE__*/React.createElement(Stack, null, /*#__PURE__*/React.createElement(FoldSection, {
+  }, /*#__PURE__*/React.createElement(Stack, null, musig ? null : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(FoldSection, {
     id: "sp",
     label: "Silent Payment Address",
     open: open === 'sp',
     onToggle: toggle
   }, /*#__PURE__*/React.createElement(AddressRow, {
     address: SP_ADDRESS,
-    verifiable: false,
+    verifyPlan: window.SP_VERIFY_PLAN,
     onCopy: () => copy(SP_ADDRESS, 'sp'),
     copied: copied === 'sp'
   })), /*#__PURE__*/React.createElement(Ruler, null), /*#__PURE__*/React.createElement(FoldSection, {
@@ -5515,7 +7293,7 @@ function ReceiveScreen({
     onToggle: toggle
   }, /*#__PURE__*/React.createElement(AddressRow, {
     address: (segwit[0] || {}).addr || '',
-    placeholder: "Not generated yet \u2014 click Generate",
+    placeholder: "Not generated yet. Click Generate.",
     generatable: true,
     label: (segwit[0] || {}).label || '',
     onSetLabel: setLabel(setSegwit),
@@ -5528,14 +7306,14 @@ function ReceiveScreen({
     }, ...l]),
     onCopy: () => copy((segwit[0] || {}).addr, 'sw'),
     copied: copied === 'sw'
-  })), /*#__PURE__*/React.createElement(Ruler, null), /*#__PURE__*/React.createElement(FoldSection, {
+  })), /*#__PURE__*/React.createElement(Ruler, null)), /*#__PURE__*/React.createElement(FoldSection, {
     id: "tr",
     label: "Taproot Address",
     open: open === 'tr',
     onToggle: toggle
   }, /*#__PURE__*/React.createElement(AddressRow, {
     address: (taproot[0] || {}).addr || '',
-    placeholder: "Not generated yet \u2014 click Generate",
+    placeholder: "Not generated yet. Click Generate.",
     generatable: true,
     label: (taproot[0] || {}).label || '',
     onSetLabel: setLabel(setTaproot),
@@ -5568,7 +7346,6 @@ Object.assign(window, {
   DashboardLayout,
   Ruler,
   AddressRow,
-  SpVerifyNote,
   PrevAddressesModal,
   genAddr,
   DASH_MIN_W,
@@ -5584,7 +7361,7 @@ Object.assign(window, {
 
 // ui_kits/silent/Send.jsx
 try { (() => {
-/* Silent UI Kit — Send screen (Send.cpp + broadcast modal). Signing runs
+/* Silent UI Kit: Send screen (Send.cpp + broadcast and sent modals). Signing runs
    through SigningFlow (Signing.jsx): picker → route steps, in one modal.
    Two-pane layout: payments + coin selection on the left, a persistent
    transaction summary / send rail on the right (with a tx-shape diagram). */
@@ -6063,7 +7840,10 @@ function SendScreen({
       setSigned(true);
       setModal(null);
     }
-  }) : null, modal && modal.type === 'scan' ? /*#__PURE__*/React.createElement(Modal, {
+  }) : null, modal && modal.type === 'scan' ?
+  /*#__PURE__*/
+  /* The bare text read goes into the address input, which checks it. */
+  React.createElement(Modal, {
     title: "Scan Address",
     width: 600,
     onClose: () => setModal(null)
@@ -6079,17 +7859,28 @@ function SendScreen({
       setModal(null);
     }
   })) : null, modal && modal.type === 'broadcast' ? /*#__PURE__*/React.createElement(BroadcastModal, {
+    onDone: () => setModal({
+      type: 'sent'
+    }),
+    onClose: () => {
+      clearAll();
+      setModal(null);
+    }
+  }) : null, modal && modal.type === 'sent' ? /*#__PURE__*/React.createElement(SentModal, {
     onClose: () => {
       clearAll();
       setModal(null);
     }
   }) : null);
 }
+
+/* The broadcast spinner; once the server takes the transaction, `onDone` opens SentModal. */
 function BroadcastModal({
+  onDone,
   onClose
 }) {
   React.useEffect(() => {
-    const t = setTimeout(onClose, 3000);
+    const t = setTimeout(onDone, 3000);
     return () => clearTimeout(t);
   }, []);
   return /*#__PURE__*/React.createElement(Modal, {
@@ -6102,9 +7893,61 @@ function BroadcastModal({
     pad: "var(--space-xl) 0 var(--space-l)"
   }));
 }
+const SENT_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
+
+/* SentModal: the broadcast succeeded (Qt: MessageModal, Tone::Success, with the txid as
+   its value). The status, then the whole txid chunked (wrapping) in an inset card with a
+   copy button. No action bar: the header × closes it. Both Send screens end here. */
+function SentModal({
+  txid = SENT_TXID,
+  onClose
+}) {
+  const [copied, setCopied] = React.useState(false);
+  const copy = () => {
+    try {
+      navigator.clipboard && navigator.clipboard.writeText(txid);
+    } catch (e) {}
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1200);
+  };
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: "Confirm Transaction",
+    width: 460,
+    onClose: onClose
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "m",
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/React.createElement(ModalStatus, {
+    icon: "circle_check",
+    iconColor: "var(--success)",
+    subtitle: /*#__PURE__*/React.createElement(React.Fragment, null, "Transaction Sent", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "Txid:"),
+    pad: "var(--space-m) 0 0"
+  }), /*#__PURE__*/React.createElement(Card, {
+    tone: "inset",
+    pad: "m"
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "xs",
+    align: "center"
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement(ChunkedAddress, {
+    text: txid,
+    wrap: true
+  })), /*#__PURE__*/React.createElement(Btn, {
+    id: copied ? 'copied_value' : 'copy_value',
+    onClick: copy
+  })))));
+}
 Object.assign(window, {
   SendScreen,
   BroadcastModal,
+  SentModal,
+  SENT_TXID,
   RecipientCard,
   looksLikeAmount,
   looksLikeAddress,
@@ -6118,18 +7961,24 @@ Object.assign(window, {
 try { (() => {
 /* Silent UI Kit — Settings screen (Settings.cpp). */
 
+/* `onVerified(bool)` reports whether the row's last Test passed with its current url:
+   Settings.cpp enables a row's Connect on it, and Save once every row passed. */
 function TestableRow({
   label,
   value,
   onChange,
   placeholder,
   width = 440,
-  network
+  onVerified
 }) {
   const [state, setState] = React.useState('idle'); // idle | testing | ok
+  const report = next => {
+    setState(next);
+    if (onVerified) onVerified(next === 'ok');
+  };
   const test = () => {
-    setState('testing');
-    setTimeout(() => setState('ok'), 800);
+    report('testing');
+    setTimeout(() => report('ok'), 800);
   };
   return /*#__PURE__*/React.createElement(Field, {
     label: label
@@ -6139,27 +7988,133 @@ function TestableRow({
     placeholder: placeholder,
     onChange: e => {
       onChange(e.target.value);
-      setState('idle');
+      report('idle');
     }
   }), /*#__PURE__*/React.createElement(Btn, {
     id: state === 'testing' ? 'testing' : state === 'ok' ? 'test_ok' : 'test',
     onClick: test,
-    disabled: state === 'testing'
+    disabled: state === 'testing' || state === 'idle' && !value.trim()
   }));
 }
+
+/* A Multikey Wallet's Settings (core Settings.cpp + musig SettingsExtras.cpp): its one
+   server, Electrum, then its descriptor, cosigners and Delete. */
+function MusigSettingsScreen({
+  wallet
+}) {
+  const [electrum, setElectrum] = React.useState(wallet.electrum);
+  const [verified, setVerified] = React.useState(false);
+  // Both sections open, as the app shows them; each folds on its own.
+  const [open, setOpen] = React.useState({
+    conn: true,
+    account: true
+  });
+  const [deleting, setDeleting] = React.useState(false);
+  React.useEffect(() => {
+    setElectrum(wallet.electrum);
+    setVerified(false);
+    setOpen({
+      conn: true,
+      account: true
+    });
+    setDeleting(false);
+  }, [wallet]);
+  const toggle = id => setOpen(cur => ({
+    ...cur,
+    [id]: !cur[id]
+  }));
+  return /*#__PURE__*/React.createElement(ScreenWrap, {
+    title: "Settings"
+  }, /*#__PURE__*/React.createElement(Stack, null, /*#__PURE__*/React.createElement(FoldSection, {
+    id: "conn",
+    label: "Connection",
+    open: open.conn,
+    onToggle: toggle
+  }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(TestableRow, {
+    label: "Electrum Server:",
+    value: electrum,
+    onChange: setElectrum,
+    placeholder: "host:port (e.g. 127.0.0.1:50001)",
+    onVerified: setVerified
+  }))), /*#__PURE__*/React.createElement(Row, {
+    justify: "center",
+    gap: "s",
+    style: {
+      marginTop: 'var(--space-l)'
+    }
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "connect_electrum",
+    disabled: !verified
+  }), /*#__PURE__*/React.createElement(Btn, {
+    id: "save_settings",
+    disabled: !verified
+  })), /*#__PURE__*/React.createElement(Ruler, null), /*#__PURE__*/React.createElement(FoldSection, {
+    id: "account",
+    label: "Account",
+    open: open.account,
+    onToggle: toggle
+  }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
+    label: "Descriptor",
+    align: "flex-start"
+  }, /*#__PURE__*/React.createElement(CopyField, {
+    value: wallet.descriptor,
+    wrap: true,
+    grow: true
+  })), /*#__PURE__*/React.createElement(Field, {
+    label: "Cosigners"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "mono"
+  }, wallet.cosigners)))), /*#__PURE__*/React.createElement(Row, {
+    justify: "center",
+    style: {
+      marginTop: 'var(--space-l)'
+    }
+  }, /*#__PURE__*/React.createElement(Btn, {
+    id: "delete",
+    onClick: () => setDeleting(true)
+  }))), deleting && window.ConfirmDelete ? /*#__PURE__*/React.createElement(ConfirmDelete, {
+    name: wallet.name,
+    onCancel: () => setDeleting(false),
+    onConfirm: () => setDeleting(false)
+  }) : null);
+}
 function SettingsScreen({
+  wallet
+}) {
+  if (wallet.kind === 'musig') {
+    return /*#__PURE__*/React.createElement(MusigSettingsScreen, {
+      wallet: wallet
+    });
+  }
+  return /*#__PURE__*/React.createElement(SpSettingsScreen, {
+    wallet: wallet
+  });
+}
+function SpSettingsScreen({
   wallet
 }) {
   const [blindbit, setBlindbit] = React.useState(wallet.blindbit);
   const [electrum, setElectrum] = React.useState(wallet.electrum);
   const [network, setNetwork] = React.useState(wallet.network);
+  const [verified, setVerified] = React.useState({
+    blindbit: false,
+    electrum: false
+  });
   const [open, setOpen] = React.useState('');
   React.useEffect(() => {
     setBlindbit(wallet.blindbit);
     setElectrum(wallet.electrum);
     setNetwork(wallet.network);
+    setVerified({
+      blindbit: false,
+      electrum: false
+    });
     setOpen('');
   }, [wallet]);
+  const verify = which => ok => setVerified(cur => ({
+    ...cur,
+    [which]: ok
+  }));
   const toggle = id => setOpen(cur => cur === id ? '' : id);
   return /*#__PURE__*/React.createElement(ScreenWrap, {
     title: "Settings"
@@ -6172,12 +8127,14 @@ function SettingsScreen({
     label: "BlindBit URL:",
     value: blindbit,
     onChange: setBlindbit,
-    placeholder: "https://blindbit.example.com"
+    placeholder: "https://blindbit.example.com",
+    onVerified: verify('blindbit')
   }), /*#__PURE__*/React.createElement(TestableRow, {
     label: "Electrum Server:",
     value: electrum,
     onChange: setElectrum,
-    placeholder: "host:port"
+    placeholder: "host:port",
+    onVerified: verify('electrum')
   }), /*#__PURE__*/React.createElement(Field, {
     label: "Network:"
   }, /*#__PURE__*/React.createElement(ComboBox, {
@@ -6218,15 +8175,19 @@ function SettingsScreen({
       marginTop: 'var(--space-l)'
     }
   }, /*#__PURE__*/React.createElement(Btn, {
-    id: "connect_blindbit"
+    id: "connect_blindbit",
+    disabled: !verified.blindbit
   }), /*#__PURE__*/React.createElement(Btn, {
-    id: "connect_electrum"
+    id: "connect_electrum",
+    disabled: !verified.electrum
   }), /*#__PURE__*/React.createElement(Btn, {
-    id: "save_settings"
+    id: "save_settings",
+    disabled: !verified.blindbit || !verified.electrum
   }))));
 }
 Object.assign(window, {
   SettingsScreen,
+  MusigSettingsScreen,
   TestableRow
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Settings.jsx", error: String((e && e.message) || e) }); }
@@ -6288,7 +8249,51 @@ function Sidebar({
     size: 20
   }), "Settings"));
 }
+
+/* A Multikey Wallet has no scanner: its bar is the Electrum half only, its switch off
+   and "Not configured" while the account has no Electrum server (MusigStatusBar.cpp). */
+function MusigStatusBar({
+  wallet
+}) {
+  const [electrum, setElectrum] = React.useState(false);
+  const text = !wallet.electrum ? 'Not configured' : electrum ? `Connected to electrum at ${wallet.electrum}` : 'Electrum disconnected';
+  return /*#__PURE__*/React.createElement(Row, {
+    style: {
+      height: 'var(--statusbar-h)',
+      flex: 'none',
+      borderTop: '1px solid var(--border)',
+      background: 'var(--bg)',
+      padding: '0 var(--pad-s)'
+    }
+  }, /*#__PURE__*/React.createElement(Row, {
+    grow: true,
+    gap: "s",
+    style: {
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement(Toggle, {
+    on: electrum,
+    status: true,
+    disabled: !wallet.electrum,
+    onClick: () => setElectrum(e => !e)
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "status",
+    truncate: true
+  }, text)));
+}
 function StatusBar({
+  wallet
+}) {
+  if (wallet.kind === 'musig') {
+    return /*#__PURE__*/React.createElement(MusigStatusBar, {
+      wallet: wallet
+    });
+  }
+  return /*#__PURE__*/React.createElement(SpStatusBar, {
+    wallet: wallet
+  });
+}
+function SpStatusBar({
   wallet
 }) {
   const [blindbit, setBlindbit] = React.useState(true);
@@ -6341,6 +8346,7 @@ function StatusBar({
 Object.assign(window, {
   Sidebar,
   StatusBar,
+  MusigStatusBar,
   NAV_ITEMS
 });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Sidebar.jsx", error: String((e && e.message) || e) }); }
@@ -6353,11 +8359,6 @@ try { (() => {
    Cancelling returns quietly; it is never reported as a failure. */
 
 const FLOW_COPY = {
-  /* A payment address read off a plain QR code (Send), no device involved: only the scan. */
-  'scan-address': {
-    scanTitle: 'Scan Address',
-    scanHint: 'Show the address QR code to the camera.'
-  },
   sign: {
     title: 'Sign Transaction',
     pickerLead: 'Each key below must sign this transaction.',
@@ -6399,6 +8400,26 @@ const FLOW_COPY = {
     hotPrompt: a => `Enter the password of “${a}” to get its silent payment descriptor.`,
     hotBtn: 'get_descriptor_hot',
     hotBusy: 'Getting the descriptor…'
+  },
+  /* An account's taproot or segwit xpub: from the key's cache, else over its USB, QR or hot route. */
+  'fetch-xpub': {
+    title: 'Get Xpub',
+    pickerLead: '',
+    usbTitle: 'Confirm on the Device',
+    usbWait: d => `Approve the xpub export on ${d}.`,
+    qrTitle: 'Show Xpub Request',
+    qrHint: 'Scan this code with the device to request its xpub.',
+    scanTitle: 'Scan Xpub',
+    scanHint: 'Hold the xpub code from the device in front of the camera.',
+    sdTitle: 'Get Xpub',
+    hotPrompt: a => `Enter the password of “${a}” to get its xpub.`,
+    hotBtn: 'get_xpub_hot',
+    hotBusy: 'Getting the xpub…'
+  },
+  /* A payment address read off a plain QR code (Send), no device involved: only the scan. */
+  'scan-address': {
+    scanTitle: 'Scan Address',
+    scanHint: 'Show the address QR code to the camera.'
   }
 };
 const SIGNER_STATUS = {
@@ -6617,6 +8638,52 @@ function SdStep({
   })));
 }
 const QR_PAYLOAD = 'cHNidP8BAHECAAAAAfwzq1kY2hVi9k3lQ8nT0pXrWb7mGv4Lh2Jd9sKfP1aoAAAAAAAD9____AoCWmAAAAAAAFgAUq3Zr8tN1dJ0hLmC4wVfYx2kPbT5AQg8AAAAAABYAFLuh7cP2mZ9oXkqR3sVbTtMu1nQwAAAAAAEBH0BCDwAAAAAAFgAU8aQxk2nF0pZ7Lm3vBtWcYxRd9KsiBgL0nT8qWvLh2Jd9sKfP1ao9k3lQ8nT0pXrWb7mGv4Lh0Yz1a8tVAAAA';
+
+/* QR Settings: contrast, density and speed of a QR code that keeps playing, shown
+   above the steppers (`children`, the code of the step it was opened from) so each
+   change shows here. Opened from the gear left of Next on every QR code step. */
+function QrSettingsModal({
+  contrast,
+  density,
+  speed,
+  onContrast,
+  onDensity,
+  onSpeed,
+  onClose,
+  children
+}) {
+  const tune = (label, hint, v, set) => /*#__PURE__*/React.createElement(Stack, {
+    align: "center",
+    gap: "xxs",
+    style: {
+      width: 150
+    }
+  }, /*#__PURE__*/React.createElement(Stepper, {
+    label: label,
+    value: v,
+    min: 1,
+    max: 5,
+    onChange: set
+  }), /*#__PURE__*/React.createElement(Text, {
+    variant: "caption",
+    align: "center"
+  }, hint));
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: "QR Settings",
+    width: 560,
+    onClose: onClose
+  }, /*#__PURE__*/React.createElement(Stack, {
+    align: "center",
+    gap: "l"
+  }, children, /*#__PURE__*/React.createElement(Row, {
+    gap: "l",
+    justify: "center",
+    align: "flex-start"
+  }, tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, onContrast), tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, onDensity), tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, onSpeed))));
+}
+
+/* The tuning sits in a QR Settings overlay behind a gear left of Next, as Camera Settings
+   does for a scan: the code keeps playing behind it. */
 function QrDisplayStep({
   context = 'sign',
   address,
@@ -6653,43 +8720,16 @@ function QrDisplayStep({
     ecOrder: ['L', 'M']
   }), [parts, frame]);
   const bg = `hsl(220 14% ${40 + (contrast - 1) * 15}%)`;
-  const tune = (label, hint, v, set) => /*#__PURE__*/React.createElement(Stack, {
-    align: "center",
-    gap: "xxs",
-    style: {
-      width: 150
-    }
-  }, /*#__PURE__*/React.createElement(Stepper, {
-    label: label,
-    value: v,
-    min: 1,
-    max: 5,
-    onChange: set
-  }), /*#__PURE__*/React.createElement(Text, {
-    variant: "caption",
-    align: "center"
-  }, hint));
-  return /*#__PURE__*/React.createElement(Stack, {
+  // The playing code with its part counter: on the step, and again in QR Settings.
+  const code = size => /*#__PURE__*/React.createElement(Stack, {
     align: "center",
     gap: "m"
-  }, /*#__PURE__*/React.createElement(Text, {
-    variant: "body",
-    color: "secondary",
-    align: "center"
-  }, c.qrHint), context === 'verify' && address ? /*#__PURE__*/React.createElement(Card, {
-    tone: "inset",
-    pad: "m",
-    style: {
-      width: '100%'
-    }
-  }, /*#__PURE__*/React.createElement(ChunkedAddress, {
-    text: address
-  })) : null, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'relative'
     }
   }, /*#__PURE__*/React.createElement(QRCard, {
-    size: 400,
+    size: size,
     pad: 16,
     radius: 12,
     bg: bg,
@@ -6719,7 +8759,24 @@ function QrDisplayStep({
     variant: "mono",
     color: "secondary",
     weight: "demibold"
-  }, rebuilding ? 'Part – / –' : `Part ${frame + 1} / ${parts.length}`), /*#__PURE__*/React.createElement(ModalActions, {
+  }, rebuilding ? 'Part – / –' : `Part ${frame + 1} / ${parts.length}`));
+  return /*#__PURE__*/React.createElement(Stack, {
+    align: "center",
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "body",
+    color: "secondary",
+    align: "center"
+  }, c.qrHint), context === 'verify' && address ? /*#__PURE__*/React.createElement(Card, {
+    tone: "inset",
+    pad: "m",
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/React.createElement(ChunkedAddress, {
+    text: address,
+    wrap: true
+  })) : null, code(400), /*#__PURE__*/React.createElement(ModalActions, {
     style: {
       width: '100%'
     },
@@ -6731,15 +8788,15 @@ function QrDisplayStep({
     id: "next_scan_the_answer",
     disabled: rebuilding,
     onClick: onNext
-  })), showSettings ? /*#__PURE__*/React.createElement(Modal, {
-    title: "QR Settings",
-    width: 560,
+  })), showSettings ? /*#__PURE__*/React.createElement(QrSettingsModal, {
+    contrast: contrast,
+    density: density,
+    speed: speed,
+    onContrast: setContrast,
+    onDensity: changeDensity,
+    onSpeed: setSpeed,
     onClose: () => setShowSettings(false)
-  }, /*#__PURE__*/React.createElement(Row, {
-    gap: "l",
-    justify: "center",
-    align: "flex-start"
-  }, tune('Contrast', 'Background brightness. Raise it if the device misreads the code.', contrast, setContrast), tune('Density', 'Data per frame. Lower it for older cameras; it adds parts.', density, changeDensity), tune('Speed', 'Frames per second. Lower it if the device misses parts.', speed, setSpeed))) : null);
+  }, code(360)) : null);
 }
 const CAMERA_STATES = {
   starting: {
@@ -6772,76 +8829,24 @@ const SCAN_ERRORS = {
     body: 'Silent needs the whole signed transaction (PSBT). On the device, choose to export the signed PSBT, then scan again.'
   }
 };
-function CameraStep({
-  context = 'sign',
-  force,
-  progress,
-  scanError,
-  settings,
-  onBack,
-  onCancel,
-  onDone
+
+/* The 4:3 camera preview on its dark surface, the camera state drawn over it while
+   there is no live picture. The scan step and Camera Settings each show one, fed by
+   the same stream. */
+function CameraView({
+  stream,
+  status,
+  contrast
 }) {
-  const c = FLOW_COPY[context];
-  const videoRef = React.useRef(null),
-    streamRef = React.useRef(null);
-  const [cams, setCams] = React.useState([]);
-  const [status, setStatus] = React.useState(force || 'starting'); // starting | live | none | denied | failed
-  const [got, setGot] = React.useState(progress ? progress[0] : 0);
-  const total = progress ? progress[1] : 6;
-  const [err, setErr] = React.useState(scanError || null);
-  const [showSettings, setShowSettings] = React.useState(!!settings);
-  const [camIdx, setCamIdx] = React.useState(0);
-  const [contrast, setContrast] = React.useState(3);
-  const start = React.useCallback(async id => {
-    if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
-    try {
-      if (!navigator.mediaDevices) throw new Error('none');
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: id ? {
-          deviceId: {
-            exact: id
-          }
-        } : true,
-        audio: false
-      });
-      streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play().catch(() => {});
-      }
-      setStatus('live');
-      const all = await navigator.mediaDevices.enumerateDevices();
-      setCams(all.filter(d => d.kind === 'videoinput'));
-    } catch (e) {
-      setStatus(e && e.message === 'none' ? 'none' : id ? 'failed' : 'denied');
-    }
-  }, []);
+  const ref = React.useRef(null);
   React.useEffect(() => {
-    if (!force) start();
-    return () => {
-      if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
-    };
-  }, []);
-  React.useEffect(() => {
-    // demo: parts arrive while the preview is live
-    if (status !== 'live' || err || force || progress) return;
-    if (got >= total) {
-      const t = setTimeout(() => onDone && onDone(), 600);
-      return () => clearTimeout(t);
+    if (ref.current && stream) {
+      ref.current.srcObject = stream;
+      ref.current.play().catch(() => {});
     }
-    const t = setTimeout(() => setGot(g => g + 1), 650);
-    return () => clearTimeout(t);
-  }, [status, got, err]);
-  const labels = cams.length ? cams.map((d, i) => d.label || `Camera ${i + 1}`) : ['Default Camera'];
+  }, [stream, status]);
   const st = CAMERA_STATES[status];
-  const e = err ? SCAN_ERRORS[err] : null;
-  return /*#__PURE__*/React.createElement(Stack, {
-    gap: "m"
-  }, /*#__PURE__*/React.createElement(Text, {
-    variant: "body",
-    color: "secondary"
-  }, c.scanHint), /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     style: {
       position: 'relative',
       width: '100%',
@@ -6852,7 +8857,7 @@ function CameraStep({
       border: '1px solid var(--border-light)'
     }
   }, /*#__PURE__*/React.createElement("video", {
-    ref: videoRef,
+    ref: ref,
     muted: true,
     playsInline: true,
     style: {
@@ -6885,7 +8890,78 @@ function CameraStep({
     variant: "body",
     align: "center",
     color: "inverse-muted"
-  }, st.body) : null) : null), status === 'live' || progress ? /*#__PURE__*/React.createElement(ScanProgress, {
+  }, st.body) : null) : null);
+}
+function CameraStep({
+  context = 'sign',
+  force,
+  progress,
+  scanError,
+  settings,
+  onBack,
+  onCancel,
+  onDone
+}) {
+  const c = FLOW_COPY[context];
+  const streamRef = React.useRef(null);
+  const [stream, setStream] = React.useState(null);
+  const [cams, setCams] = React.useState([]);
+  const [status, setStatus] = React.useState(force || 'starting'); // starting | live | none | denied | failed
+  const [got, setGot] = React.useState(progress ? progress[0] : 0);
+  const total = progress ? progress[1] : 6;
+  const [err, setErr] = React.useState(scanError || null);
+  const [showSettings, setShowSettings] = React.useState(!!settings);
+  const [camIdx, setCamIdx] = React.useState(0);
+  const [contrast, setContrast] = React.useState(3);
+  const start = React.useCallback(async id => {
+    if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
+    try {
+      if (!navigator.mediaDevices) throw new Error('none');
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: id ? {
+          deviceId: {
+            exact: id
+          }
+        } : true,
+        audio: false
+      });
+      streamRef.current = stream;
+      setStream(stream);
+      setStatus('live');
+      const all = await navigator.mediaDevices.enumerateDevices();
+      setCams(all.filter(d => d.kind === 'videoinput'));
+    } catch (e) {
+      setStatus(e && e.message === 'none' ? 'none' : id ? 'failed' : 'denied');
+    }
+  }, []);
+  React.useEffect(() => {
+    if (!force) start();
+    return () => {
+      if (streamRef.current) streamRef.current.getTracks().forEach(t => t.stop());
+    };
+  }, []);
+  React.useEffect(() => {
+    // demo: parts arrive while the preview is live
+    if (status !== 'live' || err || force || progress) return;
+    if (got >= total) {
+      const t = setTimeout(() => onDone && onDone(), 600);
+      return () => clearTimeout(t);
+    }
+    const t = setTimeout(() => setGot(g => g + 1), 650);
+    return () => clearTimeout(t);
+  }, [status, got, err]);
+  const labels = cams.length ? cams.map((d, i) => d.label || `Camera ${i + 1}`) : ['Default Camera'];
+  const e = err ? SCAN_ERRORS[err] : null;
+  return /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(Text, {
+    variant: "body",
+    color: "secondary"
+  }, c.scanHint), /*#__PURE__*/React.createElement(CameraView, {
+    stream: stream,
+    status: status,
+    contrast: contrast
+  }), status === 'live' || progress ? /*#__PURE__*/React.createElement(ScanProgress, {
     got: got,
     total: total,
     done: got >= total
@@ -6910,12 +8986,19 @@ function CameraStep({
   }) : null), showSettings ?
   /*#__PURE__*/
   /* settings overlay: the one allowed modal-on-modal (see Modal.jsx) — small,
-     closes back to the live scan */
+     closes back to the live scan. It shows the stream too, so a camera or
+     contrast change is seen while the scan step sits behind it. */
   React.createElement(Modal, {
     title: "Camera Settings",
     width: 460,
     onClose: () => setShowSettings(false)
-  }, /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "m"
+  }, /*#__PURE__*/React.createElement(CameraView, {
+    stream: stream,
+    status: status,
+    contrast: contrast
+  }), /*#__PURE__*/React.createElement(FieldGroup, null, /*#__PURE__*/React.createElement(Field, {
     label: "Camera Source:"
   }, /*#__PURE__*/React.createElement(ComboBox, {
     value: labels[camIdx] || labels[0],
@@ -6934,8 +9017,11 @@ function CameraStep({
     min: 1,
     max: 5,
     onChange: setContrast
-  })))) : null);
+  }))))) : null);
 }
+
+/* A hot key: the flow waits under a spinner while the generic unseal modal, opened over
+   it, takes the password and works. Closing the prompt goes back to the picker. */
 function HotStep({
   context = 'sign',
   keyAlias,
@@ -6945,25 +9031,22 @@ function HotStep({
   pwError
 }) {
   const c = FLOW_COPY[context];
-  const [busy, setBusy] = React.useState(initialBusy);
-  React.useEffect(() => {
-    if (!busy || initialBusy) return;
-    const t = setTimeout(() => onDone && onDone(), 1400);
-    return () => clearTimeout(t);
-  }, [busy]);
-  if (busy) return /*#__PURE__*/React.createElement(ModalStatus, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(ModalStatus, {
     spinner: true,
     title: c.hotBusy,
     subtitle: `With “${keyAlias}”.`,
     pad: "var(--space-m) 0"
-  });
-  return /*#__PURE__*/React.createElement(PasswordStep, {
+  }), /*#__PURE__*/React.createElement(UnsealModal, {
+    title: c.title,
     prompt: c.hotPrompt(keyAlias),
     proceedId: c.hotBtn,
     error: pwError,
+    busyTitle: c.hotBusy,
+    busySubtitle: `With “${keyAlias}”.`,
+    initialBusy: initialBusy,
     onCancel: onCancel,
-    onProceed: () => setBusy(true)
-  });
+    onDone: onDone
+  }));
 }
 
 /* ---------------- 3.10 Verify result ---------------- */
@@ -7050,7 +9133,7 @@ function SigningFlow({
       row: r,
       result: 'matched'
     });
-    if (context === 'fetch') return onDone && onDone(r);
+    if (context === 'fetch' || context === 'fetch-xpub') return onDone && onDone(r);
     const next = rows.map(x => x.fp === r.fp ? {
       ...x,
       status: 'signed'
@@ -7154,6 +9237,7 @@ Object.assign(window, {
   SignerPicker,
   UsbStep,
   SdStep,
+  QrSettingsModal,
   QrDisplayStep,
   CameraStep,
   HotStep,
@@ -7646,6 +9730,12 @@ const BUTTONS = {
     label: 'Check',
     w: 'M'
   },
+  /* the creator's address check once a device matched it: asks again, secondary */
+  check_address_again: {
+    role: 'default',
+    label: 'Check',
+    w: 'M'
+  },
   continue: {
     role: 'primary',
     label: 'Continue',
@@ -7695,6 +9785,11 @@ const BUTTONS = {
     iconSize: 16,
     w: 'XL'
   },
+  prepare: {
+    role: 'primary',
+    label: 'Prepare',
+    w: 'M'
+  },
   proceed: {
     role: 'primary',
     label: 'Proceed',
@@ -7709,6 +9804,19 @@ const BUTTONS = {
     role: 'primary',
     label: 'Save Settings',
     w: 'L'
+  },
+  /* Review step, before the backup: the step's main action; once saved, backup_descriptor (default) */
+  backup_descriptor_primary: {
+    role: 'primary',
+    label: 'Backup Descriptor',
+    icon: 'download',
+    iconSize: 16,
+    w: 'XL'
+  },
+  save_spend_path: {
+    role: 'primary',
+    label: 'Save Path',
+    w: 'M'
   },
   save_unsigned_psbt: {
     role: 'primary',
@@ -7737,6 +9845,12 @@ const BUTTONS = {
     label: 'Sign',
     w: 'M'
   },
+  sign_round: {
+    role: 'primary',
+    label: 'Sign Round {n}',
+    args: true,
+    w: 'M'
+  },
   try_again: {
     role: 'primary',
     label: 'Try Again',
@@ -7756,6 +9870,18 @@ const BUTTONS = {
     role: 'default',
     label: '+ Add Payment',
     w: 'L'
+  },
+  add_spend_path: {
+    role: 'default',
+    label: '+ Add a Spend Path',
+    w: 'L'
+  },
+  backup_descriptor: {
+    role: 'default',
+    label: 'Backup Descriptor',
+    icon: 'download',
+    iconSize: 16,
+    w: 'XL'
   },
   clear: {
     role: 'default',
@@ -7854,6 +9980,11 @@ const BUTTONS = {
   remove_key: {
     role: 'destructive',
     label: 'Remove Key',
+    w: 'M'
+  },
+  remove_spend_path: {
+    role: 'destructive',
+    label: 'Remove Path',
     w: 'M'
   },
   add_label: {
@@ -8003,9 +10134,9 @@ const BUTTONS = {
     dataLabel: true,
     w: 'LaunchEntry'
   },
-  create_new_wallet: {
+  create_account: {
     role: 'tab-create',
-    label: '+ Create New Wallet',
+    label: '+ Create Account',
     w: 'LaunchAdd'
   }
 };
@@ -8145,6 +10276,57 @@ const PILLS = {
   xpub_unused: {
     tone: 'off',
     label: 'Not Used',
+    w: 'M'
+  },
+  /* the creator's Xpubs step: one per key of the paths */
+  xpub_fetched: {
+    tone: 'success',
+    label: 'Fetched',
+    icon: 'check',
+    w: 'M'
+  },
+  xpub_missing: {
+    tone: 'warning',
+    label: 'Missing',
+    w: 'M'
+  },
+  /* the creator's Register step: one per signer */
+  reg_registered: {
+    tone: 'success',
+    label: 'Registered',
+    icon: 'check',
+    w: 'L'
+  },
+  reg_pending: {
+    tone: 'warning',
+    label: 'Not Registered',
+    w: 'L'
+  },
+  reg_registering: {
+    tone: 'off',
+    label: 'Registering…',
+    w: 'L'
+  },
+  reg_not_needed: {
+    tone: 'off',
+    label: 'Not Needed',
+    w: 'L'
+  },
+  /* the creator's Verify step: one per signer */
+  addr_verified: {
+    tone: 'success',
+    label: 'Verified',
+    icon: 'check',
+    w: 'M'
+  },
+  addr_unchecked: {
+    tone: 'off',
+    label: 'Not Checked',
+    w: 'M'
+  },
+  addr_no_screen: {
+    tone: 'off',
+    label: 'No Screen',
     w: 'M'
   },
   plugin_unloading: {
@@ -8372,6 +10554,26 @@ function Tooltip({
       borderTop: '4px solid var(--text)'
     }
   })) : null);
+}
+
+/* InfoTip — a muted (i) glyph next to a label; hovering shows `label` in a Tooltip.
+   Qt: a QLabel with the info icon and setToolTip. */
+function InfoTip({
+  label
+}) {
+  return /*#__PURE__*/React.createElement(Tooltip, {
+    label: label
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'inline-flex',
+      color: 'var(--text-muted)',
+      cursor: 'help'
+    },
+    "aria-label": typeof label === 'string' ? label : undefined
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "info",
+    size: 14
+  })));
 }
 
 /* FoldSection — disclosure: a chevron + eyebrow header that reveals its children. */
@@ -9042,6 +11244,38 @@ function ScrollArea({
   }, children);
 }
 
+/* WizardSteps — the step trail at the top of a wizard modal: one numbered dot per
+   step, joined by a rule; done steps show a check, the current one is accent and
+   bold, later ones muted. Display only (Back / Continue move between steps).
+   Qt: HBox of (QLabel dot, QLabel name) pairs with QFrame::HLine between. */
+function WizardSteps({
+  steps = [],
+  current = 0
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "s-wizard",
+    role: "list"
+  }, steps.map((label, i) => {
+    const state = i < current ? 'is-done' : i === current ? 'is-current' : '';
+    return /*#__PURE__*/React.createElement(React.Fragment, {
+      key: label
+    }, i > 0 ? /*#__PURE__*/React.createElement("span", {
+      className: 's-wizard__rule' + (i <= current ? ' is-done' : '')
+    }) : null, /*#__PURE__*/React.createElement("span", {
+      className: 's-wizard__step ' + state,
+      role: "listitem",
+      "aria-current": i === current ? 'step' : undefined
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "s-wizard__dot"
+    }, i < current ? /*#__PURE__*/React.createElement(Icon, {
+      name: "check",
+      size: 12
+    }) : i + 1), /*#__PURE__*/React.createElement("span", {
+      className: "s-wizard__label"
+    }, label)));
+  }));
+}
+
 /* ModalActions — a modal's footer: optional Back on the left, then the reason the
    primary action is disabled (when it is), then the actions. Every disabled
    primary says why. Qt: HBox(Button, stretch, Label, Button…). */
@@ -9053,15 +11287,25 @@ function ModalActions({
   style
 }) {
   /* Sticky: stays pinned to the bottom of a scrolling modal, so the buttons are
-     always reachable. Qt: the footer sits outside the dialog's QScrollArea. */
-  return /*#__PURE__*/React.createElement(Row, {
-    gap: "s",
+     always reachable. Qt: the footer sits outside the dialog's QScrollArea, so it
+     spans the modal while the step body is centred: the zero-width anchor keeps the
+     bar out of the body's width, the bar overflows it to the modal's inner width. */
+  return /*#__PURE__*/React.createElement("div", {
     style: {
+      alignSelf: 'center',
+      width: 0,
       position: 'sticky',
       bottom: 'calc(-1 * var(--space-m))',
       zIndex: 2,
+      margin: '0 0 calc(-1 * var(--space-m))'
+    }
+  }, /*#__PURE__*/React.createElement(Row, {
+    gap: "s",
+    style: {
+      width: 'var(--modal-body-w)',
+      marginLeft: 'calc(var(--modal-body-w) / -2)',
+      boxSizing: 'border-box',
       background: 'var(--bg)',
-      margin: '0 0 calc(-1 * var(--space-m))',
       padding: 'var(--space-s) 0 var(--space-m)',
       ...style
     }
@@ -9074,7 +11318,7 @@ function ModalActions({
     style: {
       maxWidth: 260
     }
-  }, reason) : null, children);
+  }, reason) : null, children));
 }
 Object.assign(window, {
   SectionLabel,
@@ -9102,7 +11346,9 @@ Object.assign(window, {
   ScrollArea,
   FieldNote,
   EmptyState,
-  FoldChevron
+  FoldChevron,
+  WizardSteps,
+  InfoTip
 });
 
 /* File-level namespace (DS compiler indexes this file as `Widgets`). */
@@ -9131,10 +11377,690 @@ const Widgets = {
   ScrollArea,
   FieldNote,
   EmptyState,
-  FoldChevron
+  FoldChevron,
+  WizardSteps,
+  InfoTip
 };
-Object.assign(__ds_scope, { SectionLabel, FieldLabel, PaymentRow, ValidatedInput, Stepper, Tooltip, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable, SectionHeader, Section, CopyField, ShortValue, WordInputGrid, WordGrid, ROUTE_KINDS, RouteIcons, ScanProgress, FieldNote, EmptyState, FoldChevron, ScrollArea, ModalActions, Widgets });
+Object.assign(__ds_scope, { SectionLabel, FieldLabel, PaymentRow, ValidatedInput, Stepper, Tooltip, InfoTip, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable, SectionHeader, Section, CopyField, ShortValue, WordInputGrid, WordGrid, ROUTE_KINDS, RouteIcons, ScanProgress, FieldNote, EmptyState, FoldChevron, ScrollArea, WizardSteps, ModalActions, Widgets });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Widgets.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/silent/tweaks-panel.jsx
+try { (() => {
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+// Copied omelette starter. Re-running copy_starter_component with this kind overwrites this file with the latest version (page content is unaffected).
+
+/* BEGIN USAGE */
+// tweaks-panel.jsx
+// Reusable Tweaks shell + form-control helpers.
+// Exports (to window): useTweaks, TweaksPanel, TweakSection, TweakRow, TweakSlider,
+//   TweakToggle, TweakRadio, TweakSelect, TweakText, TweakNumber, TweakColor, TweakButton.
+//
+// Owns the host protocol (listens for __activate_edit_mode / __deactivate_edit_mode,
+// posts __edit_mode_available / __edit_mode_set_keys / __edit_mode_dismissed) so
+// individual prototypes don't re-roll it. Ships a consistent set of controls so you
+// don't hand-draw <input type="range">, segmented radios, steppers, etc.
+//
+// Usage (in an HTML file that loads React + Babel):
+//
+//   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+//     "primaryColor": "#D97757",
+//     "palette": ["#D97757", "#29261b", "#f6f4ef"],
+//     "fontSize": 16,
+//     "density": "regular",
+//     "dark": false
+//   }/*EDITMODE-END*/;
+//
+//   function App() {
+//     const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+//     return (
+//       <div style={{ fontSize: t.fontSize, color: t.primaryColor }}>
+//         Hello
+//         <TweaksPanel>
+//           <TweakSection label="Typography" />
+//           <TweakSlider label="Font size" value={t.fontSize} min={10} max={32} unit="px"
+//                        onChange={(v) => setTweak('fontSize', v)} />
+//           <TweakRadio  label="Density" value={t.density}
+//                        options={['compact', 'regular', 'comfy']}
+//                        onChange={(v) => setTweak('density', v)} />
+//           <TweakSection label="Theme" />
+//           <TweakColor  label="Primary" value={t.primaryColor}
+//                        options={['#D97757', '#2A6FDB', '#1F8A5B', '#7A5AE0']}
+//                        onChange={(v) => setTweak('primaryColor', v)} />
+//           <TweakColor  label="Palette" value={t.palette}
+//                        options={[['#D97757', '#29261b', '#f6f4ef'],
+//                                  ['#475569', '#0f172a', '#f1f5f9']]}
+//                        onChange={(v) => setTweak('palette', v)} />
+//           <TweakToggle label="Dark mode" value={t.dark}
+//                        onChange={(v) => setTweak('dark', v)} />
+//         </TweaksPanel>
+//       </div>
+//     );
+//   }
+//
+// TweakRadio is the segmented control for 2–3 short options (auto-falls-back to
+// TweakSelect past ~16/~10 chars per label); reach for TweakSelect directly when
+// options are many or long. For color tweaks always curate 3-4 options rather than
+// a free picker; an option can also be a whole 2–5 color palette (the stored value
+// is the array). The Tweak* controls are a floor, not a ceiling — build custom
+// controls inside the panel if a tweak calls for UI they don't cover.
+/* END USAGE */
+// ─────────────────────────────────────────────────────────────────────────────
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-body::-webkit-scrollbar{width:8px}
+  .twk-body::-webkit-scrollbar-track{background:transparent;margin:2px}
+  .twk-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:4px;
+    border:2px solid transparent;background-clip:content-box}
+  .twk-body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.25);
+    border:2px solid transparent;background-clip:content-box}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;
+    color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;
+    background:#fff;border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg.dragging .twk-seg-thumb{transition:none}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;
+    overflow-wrap:anywhere}
+
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+
+  .twk-num{display:flex;align-items:center;box-sizing:border-box;min-width:0;height:26px;padding:0 0 0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;background:rgba(255,255,255,.6)}
+  .twk-num-lbl{font-weight:500;color:rgba(41,38,27,.6);cursor:ew-resize;
+    user-select:none;padding-right:8px}
+  .twk-num input{flex:1;min-width:0;height:100%;border:0;background:transparent;
+    font:inherit;font-variant-numeric:tabular-nums;text-align:right;padding:0 8px 0 0;
+    outline:none;color:inherit;-moz-appearance:textfield}
+  .twk-num input::-webkit-inner-spin-button,.twk-num input::-webkit-outer-spin-button{
+    -webkit-appearance:none;margin:0}
+  .twk-num-unit{padding-right:8px;color:rgba(41,38,27,.45)}
+
+  .twk-btn{appearance:none;height:26px;padding:0 12px;border:0;border-radius:7px;
+    background:rgba(0,0,0,.78);color:#fff;font:inherit;font-weight:500;cursor:default}
+  .twk-btn:hover{background:rgba(0,0,0,.88)}
+  .twk-btn.secondary{background:rgba(0,0,0,.06);color:inherit}
+  .twk-btn.secondary:hover{background:rgba(0,0,0,.1)}
+
+  .twk-swatch{appearance:none;-webkit-appearance:none;width:56px;height:22px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:6px;padding:0;cursor:default;
+    background:transparent;flex-shrink:0}
+  .twk-swatch::-webkit-color-swatch-wrapper{padding:0}
+  .twk-swatch::-webkit-color-swatch{border:0;border-radius:5.5px}
+  .twk-swatch::-moz-color-swatch{border:0;border-radius:5.5px}
+
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);
+    box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),
+    0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null ? keyOrEdits : {
+      [keyOrEdits]: val
+    };
+    setValues(prev => ({
+      ...prev,
+      ...edits
+    }));
+    window.parent.postMessage({
+      type: '__edit_mode_set_keys',
+      edits
+    }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', {
+      detail: edits
+    }));
+  }, []);
+  return [values, setTweak];
+}
+
+// ── TweaksPanel ─────────────────────────────────────────────────────────────
+// Floating shell. Registers the protocol listener BEFORE announcing
+// availability — if the announce ran first, the host's activate could land
+// before our handler exists and the toolbar toggle would silently no-op.
+// The close button posts __edit_mode_dismissed so the host's toolbar toggle
+// flips off in lockstep; the host echoes __deactivate_edit_mode back which
+// is what actually hides the panel.
+function TweaksPanel({
+  title = 'Tweaks',
+  children
+}) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({
+    x: 16,
+    y: 16
+  });
+  const PAD = 16;
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth,
+      h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y))
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', clampToViewport);
+      return () => window.removeEventListener('resize', clampToViewport);
+    }
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+  React.useEffect(() => {
+    const onMsg = e => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);else if (t === '__deactivate_edit_mode') setOpen(false);else if (t === '__kit_toggle_tweaks') setOpen(o => !o);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({
+      type: '__edit_mode_available'
+    }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({
+      type: '__edit_mode_dismissed'
+    }, '*');
+  };
+  const onDragStart = e => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX,
+      sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = ev => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy)
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  // data-om-starter: inert presence marker — Claude Design's starter-usage
+  // probe reads it. The closed panel renders nothing, so the marker rides
+  // the <html> element as an attribute instead of a rendered node — zero
+  // elements added, so page CSS (even structural selectors like
+  // :nth-child) can never observe it. It records that the page WIRES a
+  // tweaks panel, whether or not the panel is open. Keep this effect.
+  React.useEffect(() => {
+    document.documentElement.setAttribute('data-om-starter', 'tweaks-panel');
+    return () => document.documentElement.removeAttribute('data-om-starter');
+  }, []);
+  if (!open) return null;
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("style", null, __TWEAKS_STYLE), /*#__PURE__*/React.createElement("div", {
+    ref: dragRef,
+    className: "twk-panel",
+    "data-omelette-chrome": "",
+    style: {
+      right: offsetRef.current.x,
+      bottom: offsetRef.current.y
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-hd",
+    onMouseDown: onDragStart
+  }, /*#__PURE__*/React.createElement("b", null, title), /*#__PURE__*/React.createElement("button", {
+    className: "twk-x",
+    "aria-label": "Close tweaks",
+    onMouseDown: e => e.stopPropagation(),
+    onClick: dismiss
+  }, "\u2715")), /*#__PURE__*/React.createElement("div", {
+    className: "twk-body"
+  }, children)));
+}
+
+// ── Layout helpers ──────────────────────────────────────────────────────────
+
+function TweakSection({
+  label,
+  children
+}) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "twk-sect"
+  }, label), children);
+}
+function TweakRow({
+  label,
+  value,
+  children,
+  inline = false
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: inline ? 'twk-row twk-row-h' : 'twk-row'
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-lbl"
+  }, /*#__PURE__*/React.createElement("span", null, label), value != null && /*#__PURE__*/React.createElement("span", {
+    className: "twk-val"
+  }, value)), children);
+}
+
+// ── Controls ────────────────────────────────────────────────────────────────
+
+function TweakSlider({
+  label,
+  value,
+  min = 0,
+  max = 100,
+  step = 1,
+  unit = '',
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label,
+    value: `${value}${unit}`
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "range",
+    className: "twk-slider",
+    min: min,
+    max: max,
+    step: step,
+    value: value,
+    onChange: e => onChange(Number(e.target.value))
+  }));
+}
+function TweakToggle({
+  label,
+  value,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "twk-row twk-row-h"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-lbl"
+  }, /*#__PURE__*/React.createElement("span", null, label)), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "twk-toggle",
+    "data-on": value ? '1' : '0',
+    role: "switch",
+    "aria-checked": !!value,
+    onClick: () => onChange(!value)
+  }, /*#__PURE__*/React.createElement("i", null)));
+}
+function TweakRadio({
+  label,
+  value,
+  options,
+  onChange
+}) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  // The active value is read by pointer-move handlers attached for the lifetime
+  // of a drag — ref it so a stale closure doesn't fire onChange for every move.
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  // Segments wrap mid-word once per-segment width runs out. The track is
+  // ~248px (280 panel − 28 body pad − 4 seg pad), each button loses 12px
+  // to its own padding, and 11.5px system-ui averages ~6.3px/char — so 2
+  // options fit ~16 chars each, 3 fit ~10. Past that (or >3 options), fall
+  // back to a dropdown rather than wrap.
+  const labelLen = o => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({
+    2: 16,
+    3: 10
+  }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    // <select> emits strings — map back to the original option value so the
+    // fallback stays type-preserving (numbers, booleans) like the segment path.
+    const resolve = s => {
+      const m = options.find(o => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return /*#__PURE__*/React.createElement(TweakSelect, {
+      label: label,
+      value: value,
+      options: options,
+      onChange: s => onChange(resolve(s))
+    });
+  }
+  const opts = options.map(o => typeof o === 'object' ? o : {
+    value: o,
+    label: o
+  });
+  const idx = Math.max(0, opts.findIndex(o => o.value === value));
+  const n = opts.length;
+  const segAt = clientX => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor((clientX - r.left - 2) / inner * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+  const onPointerDown = e => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = ev => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: trackRef,
+    role: "radiogroup",
+    onPointerDown: onPointerDown,
+    className: dragging ? 'twk-seg dragging' : 'twk-seg'
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-seg-thumb",
+    style: {
+      left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+      width: `calc((100% - 4px) / ${n})`
+    }
+  }), opts.map(o => /*#__PURE__*/React.createElement("button", {
+    key: o.value,
+    type: "button",
+    role: "radio",
+    "aria-checked": o.value === value
+  }, o.label))));
+}
+function TweakSelect({
+  label,
+  value,
+  options,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("select", {
+    className: "twk-field",
+    value: value,
+    onChange: e => onChange(e.target.value)
+  }, options.map(o => {
+    const v = typeof o === 'object' ? o.value : o;
+    const l = typeof o === 'object' ? o.label : o;
+    return /*#__PURE__*/React.createElement("option", {
+      key: v,
+      value: v
+    }, l);
+  })));
+}
+function TweakText({
+  label,
+  value,
+  placeholder,
+  onChange
+}) {
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("input", {
+    className: "twk-field",
+    type: "text",
+    value: value,
+    placeholder: placeholder,
+    onChange: e => onChange(e.target.value)
+  }));
+}
+function TweakNumber({
+  label,
+  value,
+  min,
+  max,
+  step = 1,
+  unit = '',
+  onChange
+}) {
+  const clamp = n => {
+    if (min != null && n < min) return min;
+    if (max != null && n > max) return max;
+    return n;
+  };
+  const startRef = React.useRef({
+    x: 0,
+    val: 0
+  });
+  const onScrubStart = e => {
+    e.preventDefault();
+    startRef.current = {
+      x: e.clientX,
+      val: value
+    };
+    const decimals = (String(step).split('.')[1] || '').length;
+    const move = ev => {
+      const dx = ev.clientX - startRef.current.x;
+      const raw = startRef.current.val + dx * step;
+      const snapped = Math.round(raw / step) * step;
+      onChange(clamp(Number(snapped.toFixed(decimals))));
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "twk-num"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "twk-num-lbl",
+    onPointerDown: onScrubStart
+  }, label), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    value: value,
+    min: min,
+    max: max,
+    step: step,
+    onChange: e => onChange(clamp(Number(e.target.value)))
+  }), unit && /*#__PURE__*/React.createElement("span", {
+    className: "twk-num-unit"
+  }, unit));
+}
+
+// Relative-luminance contrast pick — checkmarks drawn over a swatch need to
+// read on both #111 and #fafafa without per-option configuration. Hex input
+// only (#rgb / #rrggbb); named or rgb()/hsl() colors fall through to "light".
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, c => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = n >> 16 & 255,
+    g = n >> 8 & 255,
+    b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+const __TwkCheck = ({
+  light
+}) => /*#__PURE__*/React.createElement("svg", {
+  viewBox: "0 0 14 14",
+  "aria-hidden": "true"
+}, /*#__PURE__*/React.createElement("path", {
+  d: "M3 7.2 5.8 10 11 4.2",
+  fill: "none",
+  strokeWidth: "2.2",
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  stroke: light ? 'rgba(0,0,0,.78)' : '#fff'
+}));
+
+// TweakColor — curated color/palette picker. Each option is either a single
+// hex string or an array of 1-5 hex strings; the card adapts — a lone color
+// renders solid, a palette renders colors[0] as the hero (left ~2/3) with the
+// rest stacked in a sharp column on the right. onChange emits the
+// option in the shape it was passed (string stays string, array stays array).
+// Without options it falls back to the native color input for back-compat.
+function TweakColor({
+  label,
+  value,
+  options,
+  onChange
+}) {
+  if (!options || !options.length) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: "twk-row twk-row-h"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "twk-lbl"
+    }, /*#__PURE__*/React.createElement("span", null, label)), /*#__PURE__*/React.createElement("input", {
+      type: "color",
+      className: "twk-swatch",
+      value: value,
+      onChange: e => onChange(e.target.value)
+    }));
+  }
+  // Native <input type=color> emits lowercase hex per the HTML spec, so
+  // compare case-insensitively. String() guards JSON.stringify(undefined),
+  // which returns the primitive undefined (no .toLowerCase).
+  const key = o => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return /*#__PURE__*/React.createElement(TweakRow, {
+    label: label
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "twk-chips",
+    role: "radiogroup"
+  }, options.map((o, i) => {
+    const colors = Array.isArray(o) ? o : [o];
+    const [hero, ...rest] = colors;
+    const sup = rest.slice(0, 4);
+    const on = key(o) === cur;
+    return /*#__PURE__*/React.createElement("button", {
+      key: i,
+      type: "button",
+      className: "twk-chip",
+      role: "radio",
+      "aria-checked": on,
+      "data-on": on ? '1' : '0',
+      "aria-label": colors.join(', '),
+      title: colors.join(' · '),
+      style: {
+        background: hero
+      },
+      onClick: () => onChange(o)
+    }, sup.length > 0 && /*#__PURE__*/React.createElement("span", null, sup.map((c, j) => /*#__PURE__*/React.createElement("i", {
+      key: j,
+      style: {
+        background: c
+      }
+    }))), on && /*#__PURE__*/React.createElement(__TwkCheck, {
+      light: __twkIsLight(hero)
+    }));
+  })));
+}
+function TweakButton({
+  label,
+  onClick,
+  secondary = false
+}) {
+  return /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: secondary ? 'twk-btn secondary' : 'twk-btn',
+    onClick: onClick
+  }, label);
+}
+Object.assign(window, {
+  useTweaks,
+  TweaksPanel,
+  TweakSection,
+  TweakRow,
+  TweakSlider,
+  TweakToggle,
+  TweakRadio,
+  TweakSelect,
+  TweakText,
+  TweakNumber,
+  TweakColor,
+  TweakButton
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/tweaks-panel.jsx", error: String((e && e.message) || e) }); }
 
 __ds_ns.QRCard = __ds_scope.QRCard;
 
@@ -9168,9 +12094,13 @@ __ds_ns.Layout = __ds_scope.Layout;
 
 __ds_ns.Modal = __ds_scope.Modal;
 
+__ds_ns.Musig = __ds_scope.Musig;
+
 __ds_ns.Button = __ds_scope.Button;
 
 __ds_ns.Input = __ds_scope.Input;
+
+__ds_ns.DateTimeInput = __ds_scope.DateTimeInput;
 
 __ds_ns.TextArea = __ds_scope.TextArea;
 
@@ -9234,6 +12164,8 @@ __ds_ns.Stepper = __ds_scope.Stepper;
 
 __ds_ns.Tooltip = __ds_scope.Tooltip;
 
+__ds_ns.InfoTip = __ds_scope.InfoTip;
+
 __ds_ns.FoldSection = __ds_scope.FoldSection;
 
 __ds_ns.IndexPill = __ds_scope.IndexPill;
@@ -9271,6 +12203,8 @@ __ds_ns.EmptyState = __ds_scope.EmptyState;
 __ds_ns.FoldChevron = __ds_scope.FoldChevron;
 
 __ds_ns.ScrollArea = __ds_scope.ScrollArea;
+
+__ds_ns.WizardSteps = __ds_scope.WizardSteps;
 
 __ds_ns.ModalActions = __ds_scope.ModalActions;
 

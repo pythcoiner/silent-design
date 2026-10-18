@@ -4,11 +4,12 @@
    (CreateSharedAccount, Musig.jsx), then those of the enabled plugins. */
 
 const ACCOUNT_TYPES = [
-  { id: 'sp', title: 'Silent Payment Wallet' },
-  { id: 'shared', title: 'Multikey Wallet' },
+  { id: 'sp', title: 'Silent Payment Wallet', icon: 'silent' },
+  { id: 'shared', title: 'Multikey Wallet', icon: 'users' },
 ];
 
-function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys }) {
+/* musigSim / musigSimKey: the kit simulator's keys + cached xpubs for the wizard (dev only). */
+function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys, musigSim, musigSimKey }) {
   const [picking, setPicking] = React.useState(false);
   const [creating, setCreating] = React.useState(false);
   const [sharing, setSharing] = React.useState(false);
@@ -39,7 +40,7 @@ function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys 
 
       {creating ? <CreateAccount existing={wallets} onOpenKeys={onOpenKeys ? () => { setCreating(false); onOpenKeys(); } : null} onCancel={() => setCreating(false)}
         onCreate={(name) => { onCreate(name); setCreating(false); }} /> : null}
-      {sharing ? <CreateSharedAccount existing={wallets} onCancel={() => setSharing(false)}
+      {sharing ? <CreateSharedAccount key={musigSimKey} {...(musigSim || {})} existing={wallets} onCancel={() => setSharing(false)}
         onCreate={(name) => { onCreate(name); setSharing(false); }} /> : null}
       {deleting ? <ConfirmDelete name={deleting} onCancel={() => setDeleting(null)}
         onConfirm={() => { onDelete(deleting); setDeleting(null); }} /> : null}
@@ -190,7 +191,7 @@ function AccountType({ types, onCancel, onPick }) {
     <Modal title="Account Type" width={520} onClose={onCancel}>
       {/* The rows span the modal (Qt: setWideBody). */}
       <Stack gap="s" style={{ alignSelf: 'stretch' }}>
-        {types.map(t => <SelectRow key={t.id} title={t.title} onClick={() => onPick(t.id)} />)}
+        {types.map(t => <SelectRow key={t.id} twoLine icon={t.icon || 'puzzle'} title={t.title} onClick={() => onPick(t.id)} />)}
       </Stack>
     </Modal>
   );
