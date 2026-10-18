@@ -317,7 +317,7 @@ function ReceiveScreen({ wallet }) {
 
         <Ruler />
         <FoldSection id="sw" label="Segwit Address" open={open === 'sw'} onToggle={toggle}>
-          <AddressRow address={(segwit[0] || {}).addr || ''} placeholder="Not generated yet — click Generate" generatable
+          <AddressRow address={(segwit[0] || {}).addr || ''} placeholder="Not generated yet. Click Generate." generatable
             label={(segwit[0] || {}).label || ''} onSetLabel={setLabel(setSegwit)} labelable
             prevCount={Math.max(0, segwit.length - 1)}
             onShowPrev={() => setModal('sw')}
@@ -328,7 +328,7 @@ function ReceiveScreen({ wallet }) {
         <Ruler />
         </React.Fragment>)}
         <FoldSection id="tr" label="Taproot Address" open={open === 'tr'} onToggle={toggle}>
-          <AddressRow address={(taproot[0] || {}).addr || ''} placeholder="Not generated yet — click Generate" generatable
+          <AddressRow address={(taproot[0] || {}).addr || ''} placeholder="Not generated yet. Click Generate." generatable
             label={(taproot[0] || {}).label || ''} onSetLabel={setLabel(setTaproot)} labelable
             prevCount={Math.max(0, taproot.length - 1)}
             onShowPrev={() => setModal('tr')}

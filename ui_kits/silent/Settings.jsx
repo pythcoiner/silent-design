@@ -1,12 +1,16 @@
 /* Silent UI Kit — Settings screen (Settings.cpp). */
 
-function TestableRow({ label, value, onChange, placeholder, width = 440, network }) {
+/* `onVerified(bool)` reports whether the row's last Test passed with its current url:
+   Settings.cpp enables a row's Connect on it, and Save once every row passed. */
+function TestableRow({ label, value, onChange, placeholder, width = 440, onVerified }) {
   const [state, setState] = React.useState('idle'); // idle | testing | ok
-  const test = () => { setState('testing'); setTimeout(() => setState('ok'), 800); };
+  const report = (next) => { setState(next); if (onVerified) onVerified(next === 'ok'); };
+  const test = () => { report('testing'); setTimeout(() => report('ok'), 800); };
   return (
     <Field label={label}>
-      <Input width={width} value={value} placeholder={placeholder} onChange={e => { onChange(e.target.value); setState('idle'); }} />
-      <Btn id={state === 'testing' ? 'testing' : state === 'ok' ? 'test_ok' : 'test'} onClick={test} disabled={state === 'testing'} />
+      <Input width={width} value={value} placeholder={placeholder} onChange={e => { onChange(e.target.value); report('idle'); }} />
+      <Btn id={state === 'testing' ? 'testing' : state === 'ok' ? 'test_ok' : 'test'} onClick={test}
+        disabled={state === 'testing' || (state === 'idle' && !value.trim())} />
     </Field>
   );
 }
@@ -15,22 +19,25 @@ function TestableRow({ label, value, onChange, placeholder, width = 440, network
    server, Electrum, then its descriptor, cosigners and Delete. */
 function MusigSettingsScreen({ wallet }) {
   const [electrum, setElectrum] = React.useState(wallet.electrum);
+  const [verified, setVerified] = React.useState(false);
   // Both sections open, as the app shows them; each folds on its own.
   const [open, setOpen] = React.useState({ conn: true, account: true });
   const [deleting, setDeleting] = React.useState(false);
-  React.useEffect(() => { setElectrum(wallet.electrum); setOpen({ conn: true, account: true }); setDeleting(false); }, [wallet]);
+  React.useEffect(() => { setElectrum(wallet.electrum); setVerified(false); setOpen({ conn: true, account: true }); setDeleting(false); }, [wallet]);
   const toggle = (id) => setOpen((cur) => ({ ...cur, [id]: !cur[id] }));
   return (
     <ScreenWrap title="Settings">
       <Stack>
         <FoldSection id="conn" label="Connection" open={open.conn} onToggle={toggle}>
           <FieldGroup>
-            <TestableRow label="Electrum Server:" value={electrum} onChange={setElectrum} placeholder="host:port (e.g. 127.0.0.1:50001)" />
+            <TestableRow label="Electrum Server:" value={electrum} onChange={setElectrum} placeholder="host:port (e.g. 127.0.0.1:50001)"
+              onVerified={setVerified} />
           </FieldGroup>
         </FoldSection>
+        {/* Connect and Save wait for a passing Test, as in the app. */}
         <Row justify="center" gap="s" style={{ marginTop: 'var(--space-l)' }}>
-          <Btn id="connect_electrum" disabled={!electrum} />
-          <Btn id="save_settings" disabled={!electrum} />
+          <Btn id="connect_electrum" disabled={!verified} />
+          <Btn id="save_settings" disabled={!verified} />
         </Row>
 
         <Ruler />
@@ -61,10 +68,13 @@ function SpSettingsScreen({ wallet }) {
   const [blindbit, setBlindbit] = React.useState(wallet.blindbit);
   const [electrum, setElectrum] = React.useState(wallet.electrum);
   const [network, setNetwork] = React.useState(wallet.network);
+  const [verified, setVerified] = React.useState({ blindbit: false, electrum: false });
   const [open, setOpen] = React.useState('');
   React.useEffect(() => {
-    setBlindbit(wallet.blindbit); setElectrum(wallet.electrum); setNetwork(wallet.network); setOpen('');
+    setBlindbit(wallet.blindbit); setElectrum(wallet.electrum); setNetwork(wallet.network);
+    setVerified({ blindbit: false, electrum: false }); setOpen('');
   }, [wallet]);
+  const verify = (which) => (ok) => setVerified((cur) => ({ ...cur, [which]: ok }));
   const toggle = (id) => setOpen((cur) => (cur === id ? '' : id));
 
   return (
@@ -72,8 +82,10 @@ function SpSettingsScreen({ wallet }) {
       <Stack>
         <FoldSection id="conn" label="Connection" open={open === 'conn'} onToggle={toggle}>
           <FieldGroup>
-            <TestableRow label="BlindBit URL:" value={blindbit} onChange={setBlindbit} placeholder="https://blindbit.example.com" />
-            <TestableRow label="Electrum Server:" value={electrum} onChange={setElectrum} placeholder="host:port" />
+            <TestableRow label="BlindBit URL:" value={blindbit} onChange={setBlindbit} placeholder="https://blindbit.example.com"
+              onVerified={verify('blindbit')} />
+            <TestableRow label="Electrum Server:" value={electrum} onChange={setElectrum} placeholder="host:port"
+              onVerified={verify('electrum')} />
             <Field label="Network:">
               <ComboBox value={network} options={NETWORKS} onChange={setNetwork} width={200} />
             </Field>
@@ -97,9 +109,10 @@ function SpSettingsScreen({ wallet }) {
         </FoldSection>
 
         <Row justify="center" gap="s" style={{ marginTop: 'var(--space-l)' }}>
-          <Btn id="connect_blindbit" />
-          <Btn id="connect_electrum" />
-          <Btn id="save_settings" />
+          {/* Each Connect waits for its row's passing Test, Save for every row's. */}
+          <Btn id="connect_blindbit" disabled={!verified.blindbit} />
+          <Btn id="connect_electrum" disabled={!verified.electrum} />
+          <Btn id="save_settings" disabled={!verified.blindbit || !verified.electrum} />
         </Row>
       </Stack>
     </ScreenWrap>
