@@ -28,10 +28,10 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=28"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=52"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=9"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=41"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=9"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
@@ -48,7 +48,7 @@
     Gallery.render({
       kicker: 'Multikey Wallet · components',
       title: 'MuSig2 multikey wallet: creator, spend path, signing rounds',
-      lede: 'The launcher has one Create Account button; its Account Type picker opens Create Multikey Account, which runs its steps in one modal: define the spend paths with a live policy preview, fetch the account xpubs a key still owes, review, register, then check the first address on a device. On Send the spend path picks the leaf; signing runs in two rounds, nonces then partial signatures, and a signer that lost its session sends every cosigner back to round 1. A Multikey account shares the core History, Coins, Receive and Settings panels, Receive with its Taproot section only and Settings with its one Electrum server, its descriptor and cosigners; its status bar is the Electrum half.',
+      lede: 'The launcher has one Create Account button; its Account Type picker opens Create Multikey Account, which runs its steps in one modal: define the spend paths with a live policy preview, fetch the account xpubs a key still owes, review, register, then check the first address on a device. Send is the core panel of every account, its signing step here the spend path, Prepare and the signing card; the spend path picks the leaf, and no fee is estimated before one is picked; signing runs in two rounds, nonces then partial signatures, and a signer that lost its session sends every cosigner back to round 1. A Multikey account shares the core History, Coins, Receive and Settings panels, Receive with its Taproot section only and Settings with its one Electrum server, its descriptor and cosigners; its status bar is the Electrum half.',
       groups: [
         { name: 'Launcher', items: [
           { title: 'Create Account, then Multikey Wallet in the Account Type picker', tag: 'MenuTab', span: 'full', frame: true, height: 560, el: <LauncherDemo /> },
@@ -56,8 +56,8 @@
         { name: 'Multikey account', items: [
           { title: 'History: the core panel, the account\'s Taproot history', tag: 'HistoryScreen', span: 'full', frame: true, height: 460, el: <HistoryScreen wallet={WALLETS.multikey} /> },
           { title: 'Coins: the core panel', tag: 'CoinsScreen', span: 'full', frame: true, height: 420, el: <CoinsScreen wallet={WALLETS.multikey} /> },
-          { title: 'Send: payments, coins selection, fee, spend path, Prepare (pick a coin, fill a payment, then Prepare and sign)', tag: 'MusigSendScreen', span: 'full', frame: true, height: 860, el: <MusigSendScreen wallet={WALLETS.multikey} /> },
-          { title: 'Send: prepared, round 2 next', tag: 'MusigSendScreen', span: 'full', frame: true, height: 1000, el: <MusigSendScreen wallet={WALLETS.multikey} initial={{ picked: ['5c9e01…7a3d:0'], round: 2, payments: [{ address: 'bcrt1pfml94fqkjkwhlpeeychsxxwvwqkclmw02zv8y6nkmshcdsts6jjsl989et', amount: '0.005' }] }} /> },
+          { title: 'Send: the core panel, its signing step the spend path and Prepare (fill a payment, then Prepare and sign)', tag: 'SendScreen', span: 'full', frame: true, height: 1100, el: <SendScreen wallet={WALLETS.multikey} /> },
+          { title: 'Send: prepared, round 2 next; payments and coins locked, fee and Clear hidden', tag: 'SendScreen', span: 'full', frame: true, height: 1300, el: <SendScreen wallet={WALLETS.multikey} initial={{ round: 2, payments: [{ address: 'bcrt1pfml94fqkjkwhlpeeychsxxwvwqkclmw02zv8y6nkmshcdsts6jjsl989et', amount: '0.005', usd: '', label: '', max: false }] }} /> },
           { title: 'Receive: the Taproot section only', tag: 'ReceiveScreen', span: 'full', frame: true, height: 460, el: <ReceiveScreen wallet={WALLETS.multikey} /> },
           { title: 'Settings: Electrum, then the account\'s descriptor, cosigners and Delete', tag: 'MusigSettingsScreen', span: 'full', frame: true, height: 640, el: <SettingsScreen wallet={WALLETS.multikey} /> },
           { title: 'Status bar: the Electrum half only, try the switch', tag: 'MusigStatusBar', span: 'full', frame: true, height: 60, el: <StatusBar wallet={WALLETS.multikey} /> },

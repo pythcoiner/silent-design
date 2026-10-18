@@ -58,25 +58,41 @@ function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete, onScan
   );
 }
 
-/* useMeasure lives in Primitives.jsx — shared by the dashboard layout and Send. */
-function SendScreen({ wallet }) {
-  const [outputs, setOutputs] = React.useState([{ address: '', amount: '', usd: '', label: '', max: false }]);
+/* The core Send panel (account/views/Send.cpp) of every account: payments, coins
+   selection, the transaction, then the account's signing step (SendSigning). An sp
+   account signs then broadcasts (sp/SpSigning.cpp); a Multikey Wallet picks its spend
+   path, prepares, then runs the MuSig2 rounds on the signing card
+   (musig/SigningSection.cpp). While the step holds a transaction, the payments and the
+   coins are locked and the fee inputs and Clear are hidden. `initial.round` opens a
+   Multikey Send prepared, at that round (1 | 2 | 'ready'), with `initial.payments`. */
+function SendScreen({ wallet, initial = {} }) {
+  const blankOutput = () => ({ address: '', amount: '', usd: '', label: '', max: false });
+  const musig = wallet.kind === 'musig';
+  const keyPath = musig ? `Key path: ${wallet.cosigners.split(', ').join(' + ')}` : null;
+  const [outputs, setOutputs] = React.useState(initial.payments || [blankOutput()]);
   const [feeRate, setFeeRate] = React.useState(true); // true = sats/vb, false = sats
   const [fee, setFee] = React.useState('1');
   const [auto, setAuto] = React.useState(true);
   const [selected, setSelected] = React.useState({});
   const [modal, setModal] = React.useState(null); // null | 'confirm' | 'sending' | 'sent'
   const [signed, setSigned] = React.useState(false);
+  const [path, setPath] = React.useState(keyPath);                 // the Multikey spend path
+  const [round, setRound] = React.useState(initial.round || null); // null | 1 | 2 | 'ready'
 
-  React.useEffect(() => { setOutputs([{ address: '', amount: '', usd: '', label: '', max: false }]); setSelected({}); setModal(null); setSigned(false); }, [wallet]);
+  React.useEffect(() => {
+    setOutputs(initial.payments || [blankOutput()]); setSelected({}); setModal(null); setSigned(false);
+    setPath(keyPath); setRound(initial.round || null);
+  }, [wallet]);
 
-  const clearAll = () => { clearOutputs(); setSelected({}); setSigned(false); };
+  // The signing step holds a transaction: signed (sp) or prepared (Multikey).
+  const held = musig ? round !== null : signed;
+  const clearAll = () => { clearOutputs(); setSelected({}); setSigned(false); setRound(null); };
 
   const anyMax = outputs.some(o => o.max);
   const setOut = (i, v) => setOutputs(outputs.map((o, k) => k === i ? v : o));
   const addOutput = () => setOutputs([...outputs, { address: '', amount: '', usd: '', label: '', max: false }]);
   const delOutput = (i) => setOutputs(outputs.filter((_, k) => k !== i));
-  const clearOutputs = () => setOutputs([{ address: '', amount: '', usd: '', label: '', max: false }]);
+  const clearOutputs = () => setOutputs([blankOutput()]);
 
   const valid = outputs.every(o => looksLikeAddress(o.address) && (o.max || looksLikeAmount(o.amount))) && looksLikeAmount(fee);
   const selCount = Object.values(selected).filter(Boolean).length;
@@ -163,8 +179,8 @@ function SendScreen({ wallet }) {
   );
 
   const renderPrimary = ({ sideBySide }) => (
-    <div inert={signed ? '' : undefined}
-      style={{ opacity: signed ? 0.55 : 1, transition: 'opacity 0.15s', position: 'relative' }}>
+    <div inert={held ? '' : undefined}
+      style={{ opacity: held ? 0.55 : 1, transition: 'opacity 0.15s', position: 'relative' }}>
       {/* Coins selection — always on top */}
       {coinsHeader}
       {coinsBodyFor(sideBySide)}
@@ -207,19 +223,42 @@ function SendScreen({ wallet }) {
     </Card>
   );
 
+  // A Multikey fee depends on its spend path: no estimate before one is picked.
+  const estimated = !musig || !!path;
   const summaryRows = (
     <TransactionSummary
       rows={[
         { label: 'Sending', value: fmt8(sendBtc), sub: sendUsd },
-        { label: 'Network fee', value: fmt8(feeBtc) },
-        changeV > 1e-9 ? { label: 'Change', value: fmt8(changeV) } : null,
+        { label: 'Network fee', value: estimated ? fmt8(feeBtc) : '--' },
+        changeV > 1e-9 && estimated ? { label: 'Change', value: fmt8(changeV) } : null,
       ]}
-      total={{ label: 'Total', value: fmt8(totalBtc) }} />
+      total={{ label: 'Total', value: estimated ? fmt8(totalBtc) : '--' }} />
   );
+
+  // Why a Multikey Prepare is disabled, shown under its spend path.
+  const prepareReason = !selCoins.length ? 'No coin to spend yet'
+    : !path ? 'Pick a spend path'
+    : !valid ? 'Transaction is not valid' : null;
+  const musigCard = { 1: [0, 0], 2: [1, 0], ready: [1, 1] };
+  const musigStep = musig ? (
+    <Stack gap="m">
+      <Stack gap="xs">
+        <SpendPathPicker leaves={[keyPath]} value={path} locked={held} onChange={setPath} />
+        {!held && prepareReason ? <Text variant="caption">{prepareReason}</Text> : null}
+      </Stack>
+      {held ? (
+        <MusigSigningCard round={round}
+          cosigners={wallet.cosigners.split(', ').map(alias => ({ alias, nonces: musigCard[round][0], partialSigs: musigCard[round][1], expected: 1 }))}
+          onCancel={() => setRound(null)}
+          onSign={() => setRound(r => (r === 1 ? 2 : 'ready'))}
+          onBroadcast={() => setModal({ type: 'sent', txid: MUSIG_TXID })} />
+      ) : null}
+    </Stack>
+  ) : null;
 
   const actionRow = (
     <Row align="flex-end" gap="s">
-      {signed ? null : (
+      {held ? null : (
       <div style={{ flex: 'none' }}>
         <FieldLabel>Fee rate</FieldLabel>
         <Row gap="s">
@@ -232,6 +271,13 @@ function SendScreen({ wallet }) {
       </div>
       )}
       <Spacer />
+      {musig ? (
+        /* The Multikey step's button: Prepare, disabled while it holds the transaction. */
+        <Row gap="s" style={{ flex: 'none' }}>
+          {held ? null : <Btn id="clear" onClick={clearAll} />}
+          <Btn id="prepare" disabled={held || !!prepareReason} onClick={() => setRound(1)} style={{ flex: 'none' }} />
+        </Row>
+      ) : (
       <Row gap="s" style={{ flex: 'none' }}>
         {signed ? (
           <Pill id="tx_signed" />
@@ -243,6 +289,7 @@ function SendScreen({ wallet }) {
           <Btn id="sign" disabled={!valid} onClick={() => setModal('signer')} style={{ flex: 'none' }} />
         )}
       </Row>
+      )}
     </Row>
   );
 
@@ -259,12 +306,14 @@ function SendScreen({ wallet }) {
           <div style={{ flex: '1 0 100px' }} />
           {summaryRows}
           <div style={{ marginTop: 'var(--space-m)' }}>{actionRow}</div>
+          {musigStep ? <div style={{ marginTop: 'var(--space-m)' }}>{musigStep}</div> : null}
         </React.Fragment>
       ) : (
         /* single column: summary, then buttons, then the diagram last */
         <Stack gap="m">
           {summaryRows}
           {actionRow}
+          {musigStep}
           {txDiagram}
         </Stack>
       )}
@@ -289,7 +338,7 @@ function SendScreen({ wallet }) {
         <BroadcastModal onDone={() => setModal({ type: 'sent' })} onClose={() => { clearAll(); setModal(null); }} />
       ) : null}
       {modal && modal.type === 'sent' ? (
-        <SentModal onClose={() => { clearAll(); setModal(null); }} />
+        <SentModal txid={modal.txid} onClose={() => { clearAll(); setModal(null); }} />
       ) : null}
     </React.Fragment>
   );
