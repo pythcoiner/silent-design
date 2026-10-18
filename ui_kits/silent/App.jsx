@@ -19,7 +19,8 @@ function AccountView({ wallet, screen, onScreen }) {
         <Sidebar active={screen} onSelect={onScreen} />
         <Stack grow style={{ background: 'var(--bg)' }}>
           <Stack grow style={{ display: isSend ? 'flex' : 'none', minHeight: 0 }}>
-            <SendScreen wallet={wallet} />
+            {/* A Multikey Wallet keeps its own Send (musig/views/Send.cpp). */}
+            {wallet.kind === 'musig' ? <MusigSendScreen key={wallet.name} wallet={wallet} /> : <SendScreen wallet={wallet} />}
           </Stack>
           {OtherComp ? <OtherComp wallet={wallet} /> : null}
         </Stack>

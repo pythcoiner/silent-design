@@ -1,4 +1,4 @@
-/* Silent UI Kit — Send screen (Send.cpp + broadcast modal). Signing runs
+/* Silent UI Kit: Send screen (Send.cpp + broadcast and sent modals). Signing runs
    through SigningFlow (Signing.jsx): picker → route steps, in one modal.
    Two-pane layout: payments + coin selection on the left, a persistent
    transaction summary / send rail on the right (with a tx-shape diagram). */
@@ -286,15 +286,19 @@ function SendScreen({ wallet }) {
         </Modal>
       ) : null}
       {modal && modal.type === 'broadcast' ? (
-        <BroadcastModal onClose={() => { clearAll(); setModal(null); }} />
+        <BroadcastModal onDone={() => setModal({ type: 'sent' })} onClose={() => { clearAll(); setModal(null); }} />
+      ) : null}
+      {modal && modal.type === 'sent' ? (
+        <SentModal onClose={() => { clearAll(); setModal(null); }} />
       ) : null}
     </React.Fragment>
   );
 }
 
-function BroadcastModal({ onClose }) {
+/* The broadcast spinner; once the server takes the transaction, `onDone` opens SentModal. */
+function BroadcastModal({ onDone, onClose }) {
   React.useEffect(() => {
-    const t = setTimeout(onClose, 3000);
+    const t = setTimeout(onDone, 3000);
     return () => clearTimeout(t);
   }, []);
   return (
@@ -304,6 +308,29 @@ function BroadcastModal({ onClose }) {
   );
 }
 
-Object.assign(window, { SendScreen, BroadcastModal,
+const SENT_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
+
+/* SentModal: the broadcast succeeded (Qt: MessageModal, Tone::Success, with the txid as
+   its value). The status, then the whole txid chunked (wrapping) in an inset card with a
+   copy button. No action bar: the header × closes it. Both Send screens end here. */
+function SentModal({ txid = SENT_TXID, onClose }) {
+  const [copied, setCopied] = React.useState(false);
+  const copy = () => { try { navigator.clipboard && navigator.clipboard.writeText(txid); } catch (e) {} setCopied(true); setTimeout(() => setCopied(false), 1200); };
+  return (
+    <Modal title="Confirm Transaction" width={460} onClose={onClose}>
+      <Stack gap="m" style={{ width: '100%' }}>
+        <ModalStatus icon="circle_check" iconColor="var(--success)" subtitle={<React.Fragment>Transaction Sent<br /><br />Txid:</React.Fragment>} pad="var(--space-m) 0 0" />
+        <Card tone="inset" pad="m">
+          <Row gap="xs" align="center">
+            <div style={{ flex: 1, minWidth: 0 }}><ChunkedAddress text={txid} wrap /></div>
+            <Btn id={copied ? 'copied_value' : 'copy_value'} onClick={copy} />
+          </Row>
+        </Card>
+      </Stack>
+    </Modal>
+  );
+}
+
+Object.assign(window, { SendScreen, BroadcastModal, SentModal, SENT_TXID,
   RecipientCard,
   looksLikeAmount, looksLikeAddress, btcToUsd, usdToBtc, USD_RATE });

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Silent, Multikey Wallet · components</title>
+<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="gallery.css" />
+<style>.s-qr svg { width: 100%; height: 100%; display: block; } @keyframes s-spin { to { transform: rotate(360deg); } } .s-spin { animation: s-spin 1s linear infinite; }</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="harness.js"></script>
+</head>
+<body>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=26"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=13"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=25"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=11"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=12"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=7"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=32"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=22"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=28"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=52"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=9"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=12"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
+    const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
+    const noop = () => {};
+    const CS = (initial, h = 820) => ({ span: 'span2', ...F(<CreateSharedAccount existing={KNOWN_WALLETS} onCancel={noop} onCreate={noop} initial={initial} />, h) });
+    const card = (props, h = 360) => ({ span: 'span2', frame: true, height: h, el: <div style={{ padding: 'var(--space-m)' }}><MusigSigningCard onCancel={noop} onSign={noop} onBroadcast={noop} {...props} /></div> });
+    const panel = (props, h = 460) => ({ span: 'span2', frame: true, height: h, el: <div style={{ position: 'relative', height: '100%', boxSizing: 'border-box', padding: 'var(--space-m)' }}><MusigSendPanel {...props} /></div> });
+    function LauncherDemo() {
+      const [wallets, setWallets] = React.useState(KNOWN_WALLETS);
+      return <MenuTab wallets={wallets} openWallets={[]} onOpen={noop}
+        onCreate={(n) => setWallets(w => w.includes(n) ? w : [...w, n])} onDelete={(n) => setWallets(w => w.filter(x => x !== n))} />;
+    }
+
+    Gallery.render({
+      kicker: 'Multikey Wallet · components',
+      title: 'MuSig2 multikey wallet: creator, spend path, signing rounds',
+      lede: 'The launcher has one Create Account button; its Account Type picker opens Create Multikey Account, which runs its steps in one modal: define the spend paths with a live policy preview, fetch the account xpubs a key still owes, review, register, then check the first address on a device. On Send the spend path picks the leaf; signing runs in two rounds, nonces then partial signatures, and a signer that lost its session sends every cosigner back to round 1. A Multikey account shares the core History, Coins, Receive and Settings panels, Receive with its Taproot section only and Settings with its one Electrum server, its descriptor and cosigners; its status bar is the Electrum half.',
+      groups: [
+        { name: 'Launcher', items: [
+          { title: 'Create Account, then Multikey Wallet in the Account Type picker', tag: 'MenuTab', span: 'full', frame: true, height: 560, el: <LauncherDemo /> },
+        ]},
+        { name: 'Multikey account', items: [
+          { title: 'History: the core panel, the account\'s Taproot history', tag: 'HistoryScreen', span: 'full', frame: true, height: 460, el: <HistoryScreen wallet={WALLETS.multikey} /> },
+          { title: 'Coins: the core panel', tag: 'CoinsScreen', span: 'full', frame: true, height: 420, el: <CoinsScreen wallet={WALLETS.multikey} /> },
+          { title: 'Send: payments, coins selection, fee, spend path, Prepare (pick a coin, fill a payment, then Prepare and sign)', tag: 'MusigSendScreen', span: 'full', frame: true, height: 860, el: <MusigSendScreen wallet={WALLETS.multikey} /> },
+          { title: 'Send: prepared, round 2 next', tag: 'MusigSendScreen', span: 'full', frame: true, height: 1000, el: <MusigSendScreen wallet={WALLETS.multikey} initial={{ picked: ['5c9e01…7a3d:0'], round: 2, payments: [{ address: 'bcrt1pfml94fqkjkwhlpeeychsxxwvwqkclmw02zv8y6nkmshcdsts6jjsl989et', amount: '0.005' }] }} /> },
+          { title: 'Receive: the Taproot section only', tag: 'ReceiveScreen', span: 'full', frame: true, height: 460, el: <ReceiveScreen wallet={WALLETS.multikey} /> },
+          { title: 'Settings: Electrum, then the account\'s descriptor, cosigners and Delete', tag: 'MusigSettingsScreen', span: 'full', frame: true, height: 640, el: <SettingsScreen wallet={WALLETS.multikey} /> },
+          { title: 'Status bar: the Electrum half only, try the switch', tag: 'MusigStatusBar', span: 'full', frame: true, height: 60, el: <StatusBar wallet={WALLETS.multikey} /> },
+          { title: 'Status bar: no Electrum server yet', tag: 'MusigStatusBar', span: 'full', frame: true, height: 60, el: <StatusBar wallet={{ ...WALLETS.multikey, electrum: '' }} /> },
+        ]},
+        { name: 'Create Multikey Account', items: [
+          { title: 'Define: path editor, live policy preview', tag: 'CreateSharedAccount', ...CS({}, 980) },
+          { title: 'Define: Electrum not tested yet', tag: 'CreateSharedAccount', ...CS({ test: null }, 980) },
+          { title: 'Fetch: an account xpub still missing', tag: 'CreateSharedAccount', ...CS({ step: 'fetch' }, 420) },
+          { title: 'Review: policy, descriptor, checksum', tag: 'PolicyReview', ...CS({ step: 'review', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 900) },
+          { title: 'Register: registering with a key', tag: 'PolicyReview', ...CS({ step: 'register', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 900) },
+          { title: 'Verify: check the first address on a device', tag: 'VerifyFirstAddress', ...CS({ step: 'verify' }, 460) },
+          { title: 'Verify: the device shows the same address', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', verified: true }, 480) },
+          { title: 'Verify: no key can show it, the warning', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', checkable: false }, 520) },
+        ]},
+        { name: 'Send: spend path', items: [
+          { title: 'Spend path picker, before Prepare', tag: 'SpendPathPicker', ...panel({ prepared: false }, 220) },
+          { title: 'Locked while a signing session runs', tag: 'SpendPathPicker', span: 'span2', frame: true, height: 160, el: <div style={{ padding: 'var(--space-m)' }}><SpendPathPicker locked /></div> },
+        ]},
+        { name: 'Send: signing rounds', items: [
+          { title: 'Prepared: round 1 next', tag: 'MusigSigningCard', ...card({ round: 1, cosigners: musigCosigners(0, 0) }) },
+          { title: 'After round 1: round 2 next', tag: 'MusigSigningCard', ...card({ round: 2, cosigners: musigCosigners(1, 0) }) },
+          { title: 'Lost session: back to round 1', tag: 'MusigSigningCard', ...card({ round: 1, cosigners: musigCosigners(0, 0), lost: true }, 460) },
+          { title: 'Ready to broadcast', tag: 'MusigSigningCard', ...card({ round: 'ready', cosigners: musigCosigners(1, 1) }) },
+          { title: 'Spend path, Prepare and the card together', tag: 'MusigSendPanel', ...panel({ round: 2, cosigners: musigCosigners(1, 0) }, 520) },
+          { title: 'Broadcast: ready, try Broadcast', tag: 'MusigSendPanel', ...panel({ round: 'ready', cosigners: musigCosigners(1, 1) }, 520) },
+          { title: 'Sent: the txid, chunked, with a copy button', tag: 'SentModal', ...panel({ round: 'ready', cosigners: musigCosigners(1, 1), sent: true }, 520) },
+        ]},
+      ],
+    });
+  </script>
+</body>
+</html>

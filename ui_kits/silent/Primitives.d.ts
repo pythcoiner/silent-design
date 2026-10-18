@@ -15,7 +15,7 @@ export declare function SelectRow(p: { icon?: string; iconSize?: number | string
 export declare function Notice(p: Children & { tone?: 'error' | 'warning' | 'success' | 'info'; title?: React.ReactNode; action?: React.ReactNode; icon?: string; style?: React.CSSProperties }): JSX.Element;
 export declare function ModalStatus(p: Children & { spinner?: boolean; icon?: string; iconSize?: number | string; iconColor?: string; title?: React.ReactNode; subtitle?: React.ReactNode; pad?: string }): JSX.Element;
 export declare function Legend(p: Children & { color: string }): JSX.Element;
-export declare function ComboBox(p: { value: string; options: string[]; onChange?: (v: string) => void; width?: number }): JSX.Element;
+export declare function ComboBox(p: { value: string; options: string[]; onChange?: (v: string) => void; width?: number; disabled?: boolean }): JSX.Element;
 export declare function ValidationMark(p: { state: 'valid' | 'invalid' | 'none' }): JSX.Element;
 export declare function BalanceHeader(p: { wallet: { confirmed: string; unconfirmed: string; confirmedCount?: React.ReactNode; unconfirmedCount?: React.ReactNode } }): JSX.Element;
 export declare function Tab(p: { label: React.ReactNode; active?: boolean; closable?: boolean; onClick?: () => void; onClose?: () => void }): JSX.Element;

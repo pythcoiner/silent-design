@@ -1,7 +1,17 @@
-/* Silent UI Kit — Menu tab (MenuTab.cpp) + CreateAccount / ConfirmDelete modals. */
+/* Silent UI Kit: Menu tab (MenuTab.cpp) + AccountType / CreateAccount / ConfirmDelete
+   modals. One create button opens AccountType (AccountType.cpp), which lists the
+   creators: the silent payment wallet (CreateAccount), the shared MuSig2 wallet
+   (CreateSharedAccount, Musig.jsx), then those of the enabled plugins. */
+
+const ACCOUNT_TYPES = [
+  { id: 'sp', title: 'Silent Payment Wallet' },
+  { id: 'shared', title: 'Multikey Wallet' },
+];
 
 function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys }) {
+  const [picking, setPicking] = React.useState(false);
   const [creating, setCreating] = React.useState(false);
+  const [sharing, setSharing] = React.useState(false);
   const [deleting, setDeleting] = React.useState(null);
   return (
     <Stack align="center" justify="center" style={{ flex: 1, overflow: 'auto',
@@ -21,10 +31,16 @@ function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys 
         })}
       </Stack>
 
-      <Btn id="create_new_wallet" onClick={() => setCreating(true)} />
+      <Btn id="create_account" onClick={() => setPicking(true)} />
+
+      {/* The picker closes before the creator opens: modals never stack. */}
+      {picking ? <AccountType types={ACCOUNT_TYPES} onCancel={() => setPicking(false)}
+        onPick={(id) => { setPicking(false); (id === 'sp' ? setCreating : setSharing)(true); }} /> : null}
 
       {creating ? <CreateAccount existing={wallets} onOpenKeys={onOpenKeys ? () => { setCreating(false); onOpenKeys(); } : null} onCancel={() => setCreating(false)}
         onCreate={(name) => { onCreate(name); setCreating(false); }} /> : null}
+      {sharing ? <CreateSharedAccount existing={wallets} onCancel={() => setSharing(false)}
+        onCreate={(name) => { onCreate(name); setSharing(false); }} /> : null}
       {deleting ? <ConfirmDelete name={deleting} onCancel={() => setDeleting(null)}
         onConfirm={() => { onDelete(deleting); setDeleting(null); }} /> : null}
     </Stack>
@@ -35,9 +51,11 @@ function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys 
    "fetch" context); [Taproot] and [Segwit] its xpubs at 86'/c'/0' and 84'/c'/0'
    ("fetch-xpub"), which give the account its taproot and segwit addresses. Each runs
    the route steps in place of this modal, so modals never stack. */
+/* The Electrum server every new regtest account starts with (Qt: REGTEST_ELECTRUM_URL). */
+const REGTEST_ELECTRUM_URL = 'minta.wizardsardine.com:60001';
 const ENDPOINT_DEFAULTS = {
   Bitcoin: { blindbit: 'https://blindbit.silentpayments.dev', electrum: 'electrum.blockstream.info:50002', auto: true },
-  Regtest: { blindbit: 'http://localhost:8080', electrum: '127.0.0.1:50001', auto: true },
+  Regtest: { blindbit: 'http://localhost:8080', electrum: REGTEST_ELECTRUM_URL, auto: true },
   Signet: { blindbit: '', electrum: '', auto: false },
   Testnet: { blindbit: '', electrum: '', auto: false },
 };
@@ -167,6 +185,17 @@ function CreateAccount({ existing, keys = window.KEYS, onCancel, onCreate, onOpe
   );
 }
 
+function AccountType({ types, onCancel, onPick }) {
+  return (
+    <Modal title="Account Type" width={520} onClose={onCancel}>
+      {/* The rows span the modal (Qt: setWideBody). */}
+      <Stack gap="s" style={{ alignSelf: 'stretch' }}>
+        {types.map(t => <SelectRow key={t.id} title={t.title} onClick={() => onPick(t.id)} />)}
+      </Stack>
+    </Modal>
+  );
+}
+
 function ConfirmDelete({ name, onCancel, onConfirm }) {
   return (
     <Modal title="Delete Wallet" width={420} onClose={onCancel}>
@@ -180,4 +209,4 @@ function ConfirmDelete({ name, onCancel, onConfirm }) {
   );
 }
 
-Object.assign(window, { MenuTab, CreateAccount, ConfirmDelete, EndpointRow, ENDPOINT_DEFAULTS });
+Object.assign(window, { MenuTab, AccountType, CreateAccount, ConfirmDelete, EndpointRow, ENDPOINT_DEFAULTS, REGTEST_ELECTRUM_URL });

@@ -40,10 +40,30 @@ const WALLETS = {
       { dir: 'Incoming', txid: 'aa11bb…22cc00', height: '801200', amount: '0.50000000' },
     ],
   },
+  /* A Multikey Wallet (kind 'musig', MusigAccountController): Taproot coins only, one
+     Electrum server and no BlindBit, its descriptor and cosigners in Settings. */
+  multikey: {
+    name: 'multikey',
+    kind: 'musig',
+    network: 'Regtest',
+    electrum: 'minta.wizardsardine.com:60001',
+    descriptor: "tr(musig([73c5da0a/87'/1'/0'/2]tpubDEGU7K8ab62XbG1bKoCnHDtUx44DxVKyAQVS96EN1EUVTQRW2KnFEvTtmnUJSonudSK8HcXTexf56Kir1JzoQAzFRHfvNLEcqV7KxUHZVYa,[b8688df1/87'/1'/0'/2]tpubDDzMtUDKwjvTehAmAfwYiBGzUFDcF8AyEaJf78JhQam5knvsGTgqF7VvhuuDZLYityND66FG88sS3q28Yi5Ysumvx5DfMgdm6nc6zntvpHM)/<0;1>/*)#cr6rql33",
+    cosigners: '73c5da0a, b8688df1',
+    confirmed: '0.01200000 BTC', confirmedCount: '2 coins',
+    unconfirmed: '0.00000000 BTC', unconfirmedCount: '0 coins',
+    coins: [
+      { type: 'Taproot', height: '1204', outpoint: '5c9e01…7a3d:0', label: 'Funding', value: '0.01000000' },
+      { type: 'Taproot', height: '1211', outpoint: 'd2f48b…09e6:1', label: '', value: '0.00200000' },
+    ],
+    history: [
+      { dir: 'Incoming', txid: '5c9e01…e7a3d0', height: '1204', amount: '0.01000000' },
+      { dir: 'Incoming', txid: 'd2f48b…a09e61', height: '1211', amount: '0.00200000' },
+    ],
+  },
 };
 
 // Wallets shown in the Menu tab list (some openable)
-const KNOWN_WALLETS = ['savings', 'cold-storage', 'testing'];
+const KNOWN_WALLETS = ['savings', 'cold-storage', 'testing', 'multikey'];
 
 const NETWORKS = ['Regtest', 'Signet', 'Testnet', 'Bitcoin'];
 
@@ -70,6 +90,7 @@ const KEYS = [
     descriptors: [
       { desc: desc('73c5da0a', "m/352'/1'/0'", DEMO_XPUB_T), registered: true, account: 'savings', module: 'SP Accounts' },
       { desc: desc('73c5da0a', "m/352'/1'/1'", DEMO_XPUB_T.replace('Lj', 'Qm')), registered: false, account: 'testing', module: 'SP Accounts' },
+      { desc: `tr(${DEMO_XPUB_T}/<2147483646;2147483647>/*,pk(musig([73c5da0a/87'/1'/0'/2]${DEMO_XPUB_T},[5be0c7d2/87'/1'/0'/1]${DEMO_XPUB_T.replace('ULj', 'Vv3')})/<512;513>/*))`, registered: true, account: 'shared', module: 'MuSig2 Accounts' },
     ] },
   { fp: 'f23a9e01', alias: 'Laptop Hot Key', network: 'Signet', routes: ['hot'], hasHot: true,
     devicesSeen: [], xpubs: [{ path: "m/84'/1'/0'", xpub: DEMO_XPUB_T.replace('Ctk', 'Hk2'), used: false }], descriptors: [] },

@@ -67,9 +67,11 @@ export function QRCode({ text, size = 132, zoom }) {
 /* ChunkedAddress — an address/txid shown as alternating-dimmed mono groups; a
    click cycles groups of 4, groups of 6, then one unbroken string. Long
    silent-payment strings (over 56 characters) wrap to two centered rows, or,
-   with `wrap`, to as many rows as the width needs (the verify card). */
+   with `wrap`, to as many rows as the width needs (the verify card). `align`:
+   center (default) or left, flush with the text above it (the creator's verify page). */
 const CHUNK_CYCLE = { 4: 6, 6: 0, 0: 4 };
-export function ChunkedAddress({ text, wrap = false }) {
+export function ChunkedAddress({ text, wrap = false, align = 'center' }) {
+  const left = align === 'left';
   const [size, setSize] = React.useState(4);          // characters per group, 0 = one string
   const chunked = size > 0;
   const lines = React.useMemo(() => {
@@ -91,11 +93,11 @@ export function ChunkedAddress({ text, wrap = false }) {
   return (
     <div className="t-mono" onClick={() => setSize((n) => CHUNK_CYCLE[n])}
       title={size === 4 ? 'Show in groups of 6' : size === 6 ? 'Show as one string' : 'Show in groups of 4'}
-      style={{ lineHeight: 1.75, textAlign: 'center', cursor: 'pointer', userSelect: 'none',
+      style={{ lineHeight: 1.75, textAlign: left ? 'left' : 'center', cursor: 'pointer', userSelect: 'none',
         wordBreak: chunked ? 'normal' : 'break-all' }}>
       {chunked
         ? lines.map((row, r) => (
-            <div key={r} style={{ display: 'flex', justifyContent: 'center', gap: '0.4em', flexWrap: wrap ? 'wrap' : 'nowrap' }}>
+            <div key={r} style={{ display: 'flex', justifyContent: left ? 'flex-start' : 'center', gap: '0.4em', flexWrap: wrap ? 'wrap' : 'nowrap' }}>
               {row.map((c) => {
                 const i = idx++;
                 return <span key={i} style={{ color: i % 2 ? 'var(--text-muted)' : 'var(--text)' }}>{c}</span>;

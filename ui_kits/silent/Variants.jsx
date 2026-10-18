@@ -40,6 +40,8 @@ export const BUTTONS = {
   add_key: { role: 'primary', label: 'Add Key', w: 'M' },
   broadcast: { role: 'primary', label: 'Broadcast', w: 'M' },
   check_address: { role: 'primary', label: 'Check', w: 'M' },
+  /* the creator's address check once a device matched it: asks again, secondary */
+  check_address_again: { role: 'default', label: 'Check', w: 'M' },
   continue: { role: 'primary', label: 'Continue', w: 'M' },
   create: { role: 'primary', label: 'Create', w: 'M' },
   done: { role: 'primary', label: 'Done', w: 'M' },
@@ -49,6 +51,7 @@ export const BUTTONS = {
   next_scan_the_answer: { role: 'primary', label: 'Next: Scan the Answer', w: 'XL' },
   ok: { role: 'primary', label: 'OK', w: 'M' },
   pick_another_file: { role: 'primary', label: 'Pick Another File…', icon: 'upload', iconSize: 16, w: 'XL' },
+  prepare: { role: 'primary', label: 'Prepare', w: 'M' },
   proceed: { role: 'primary', label: 'Proceed', w: 'M' },
   register: { role: 'primary', label: 'Register', w: 'M' },
   save_settings: { role: 'primary', label: 'Save Settings', w: 'L' },
@@ -57,10 +60,12 @@ export const BUTTONS = {
   show_mnemonic: { role: 'primary', label: 'Show Mnemonic', w: 'L' },
   sign: { role: 'primary', label: 'Sign', w: 'M' },
   sign_hot: { role: 'primary', label: 'Sign', w: 'M' },
+  sign_round: { role: 'primary', label: 'Sign Round {n}', args: true, w: 'M' },
   try_again: { role: 'primary', label: 'Try Again', w: 'M' },
   unlocking: { role: 'primary', label: 'Unlocking…', w: 'M' },
   add_a_key: { role: 'default', label: '+ Add a Key', w: 'M' },
   add_payment: { role: 'default', label: '+ Add Payment', w: 'L' },
+  add_spend_path: { role: 'default', label: '+ Add a Spend Path', w: 'L' },
   clear: { role: 'default', label: 'Clear', w: 'M' },
   cancel_signed: { role: 'destructive', label: 'Cancel', w: 'M' },
   connect_blindbit: { role: 'default', label: 'Connect Blindbit', w: 'L' },
@@ -102,7 +107,7 @@ export const BUTTONS = {
   save_label: { role: 'inline-icon', icon: 'check', iconSize: 15, title: 'Save', w: 'Icon' },
   verify_on_device_sm: { role: 'inline-icon', icon: 'usb', iconSize: 15, w: 'Icon' },
   open_wallet: { role: 'tab-open', label: '(wallet name)', dataLabel: true, w: 'LaunchEntry' },
-  create_new_wallet: { role: 'tab-create', label: '+ Create New Wallet', w: 'LaunchAdd' },
+  create_account: { role: 'tab-create', label: '+ Create Account', w: 'LaunchAdd' },
 };
 
 /* Btn — a catalog button. `label` only for entries marked dataLabel (the text is
