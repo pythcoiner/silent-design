@@ -35,12 +35,23 @@ function App() {
   // light palette in the kit; the app ships their own palettes.
   const [themeName, setThemeName] = React.useState('Light');
   const theme = themeName === 'Dark' || themeName === 'Midnight' ? 'dark' : 'light';
-  const [appW, setAppW] = React.useState('full');
+  const [appW, setAppW] = React.useState('1920');
   const [known, setKnown] = React.useState(KNOWN_WALLETS);
   const [openTabs, setOpenTabs] = React.useState(['savings']);
   const [active, setActive] = React.useState('savings');
   const [screens, setScreens] = React.useState({ savings: 'history' });
   const [settingsOpen, setSettingsOpen] = React.useState(false);
+  /* Kit width: a fixed width wider than the preview renders at its real width,
+     scaled down to fit, so wide layouts (two-column Send ≥ 1769) can be checked. */
+  const [paneW, setPaneW] = React.useState(window.innerWidth);
+  const toolbarRef = React.useRef(null);
+  const [toolbarH, setToolbarH] = React.useState(49);
+  React.useEffect(() => {
+    const on = () => { setPaneW(window.innerWidth); if (toolbarRef.current) setToolbarH(toolbarRef.current.offsetHeight); };
+    on(); window.addEventListener('resize', on); return () => window.removeEventListener('resize', on);
+  }, []);
+  const fixedW = appW === 'full' ? null : Number(appW);
+  const scale = fixedW && fixedW > paneW ? paneW / fixedW : 1;
   // Kit-only state simulator (KitSim.jsx): states the UI cannot reach by clicking.
   const [sim, setSim] = useTweaks(SIM_DEFAULTS);
   const keysSimKey = ['keysDevices', 'keysKeys', 'keysRegistering'].map(k => String(sim[k])).join('|');
@@ -77,6 +88,7 @@ function App() {
       background: appW === 'full' ? 'var(--bg)' : (theme === 'light' ? '#c9c9c9' : '#070707'),
     }}>
       {/* Kit toolbar (not part of the product — dev chrome, not translated to Qt) */}
+      <div ref={toolbarRef} style={{ flex: 'none' }}>
       <Row gap={10} style={{ flex: 'none', padding: '10px 16px',
         borderBottom: '1px solid var(--border)', background: theme === 'light' ? '#e8e8e8' : '#161616' }}>
         <SilentMark size={20} style={{ color: 'var(--accent)' }} />
@@ -90,18 +102,27 @@ function App() {
           <Text variant="caption" weight="demibold" style={{ color: theme === 'light' ? '#777' : '#888' }}>Width</Text>
           {/* Restricted so the window can't be sized below content-min + sidebar
               (760 + 200 = 960) — the content area never drops under its 760 min. */}
-          <input type="range" min={(window.DASH_MIN_W || 760) + 200} max={1920} step={20} value={appW === 'full' ? 1920 : Number(appW)}
-            onChange={e => setAppW(Number(e.target.value) >= 1920 ? 'full' : String(e.target.value))}
-            style={{ width: 160, accentColor: 'var(--accent)', cursor: 'pointer' }} />
+          <input type="range" min={(window.DASH_MIN_W || 760) + 200} max={2560} step={20} value={fixedW || paneW}
+            onChange={e => setAppW(String(e.target.value))}
+            style={{ width: 200, accentColor: 'var(--accent)', cursor: 'pointer' }} />
+          <button type="button" onClick={() => setAppW('full')}
+            style={{ font: 'inherit', fontSize: 11, fontWeight: 600, padding: '2px 8px', borderRadius: 6, cursor: 'pointer',
+              border: '1px solid var(--border)', background: appW === 'full' ? 'var(--accent)' : 'var(--bg)', color: appW === 'full' ? 'var(--on-accent)' : 'var(--text)' }}>Full</button>
           <Text variant="mono" weight="demibold" style={{ fontSize: 11, fontVariantNumeric: 'tabular-nums',
-            color: theme === 'light' ? '#555' : '#aaa', minWidth: 42, textAlign: 'right' }}>
-            {appW === 'full' ? 'Full' : appW}
+            color: theme === 'light' ? '#555' : '#aaa', minWidth: 96, textAlign: 'right' }}>
+            {(fixedW || paneW) + 'px' + (scale < 1 ? ' · ' + Math.round(scale * 100) + '%' : '')}
           </Text>
         </Row>
       </Row>
+      </div>
 
-      {/* App window */}
-      <Stack grow style={{
+      {/* App window — scaled to fit when the chosen width exceeds the preview */}
+      <div style={{ flex: 1, minHeight: 0, overflow: 'hidden', display: 'flex' }}>
+      <Stack grow style={scale < 1 ? {
+        flex: 'none', width: fixedW + 'px', height: `calc((100vh - ${toolbarH}px) / ${scale})`,
+        transform: `scale(${scale})`, transformOrigin: 'top left',
+        minHeight: 0, background: 'var(--bg)', overflow: 'hidden',
+      } : {
         width: '100%', maxWidth: appW === 'full' ? '100%' : appW + 'px', margin: '0 auto',
         minHeight: 0, background: 'var(--bg)', overflow: 'hidden',
         borderLeft: appW === 'full' ? 'none' : '1px solid var(--border)',
@@ -139,6 +160,7 @@ function App() {
           {settingsOpen ? <GlobalSettingsModal theme={themeName} onTheme={setThemeName} onClose={() => setSettingsOpen(false)} /> : null}
         </Row>
       </Stack>
+      </div>
     </Stack>
   );
 }

@@ -223,6 +223,7 @@
       "--weight-demibold",
       "--weight-normal",
       "--white",
+      "--wizard-rule-w",
       "--yellow",
       "--yellow-dark"
     ],
@@ -331,6 +332,7 @@
       "--select-row-pad-h": "spacing",
       "--select-row-pad-v": "spacing",
       "--modal-status-icon": "spacing",
+      "--wizard-rule-w": "spacing",
       "--modal-wizard-h": "spacing",
       "--btn-w-icon": "spacing",
       "--btn-w-icon-lg": "spacing",

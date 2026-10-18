@@ -61,7 +61,7 @@ function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete, onScan
 /* The core Send panel (account/views/Send.cpp) of every account: payments, coins
    selection, the transaction, then the account's signing step (SendSigning). An sp
    account signs then broadcasts (sp/SpSigning.cpp); a Multikey Wallet picks its spend
-   path, prepares, then runs the MuSig2 rounds on the signing card
+   path, signs (Sign starts the session), then runs the MuSig2 rounds on the signing card
    (musig/SigningSection.cpp). While the step holds a transaction, the payments and the
    coins are locked and the fee inputs and Clear are hidden. `initial.round` opens a
    Multikey Send prepared, at that round (1 | 2 | 'ready'), with `initial.payments`. */
@@ -185,6 +185,13 @@ function SendScreen({ wallet, initial = {} }) {
       {coinsHeader}
       {coinsBodyFor(sideBySide)}
 
+      {/* Multikey: the spend path the picked coins allow, part of composing the send */}
+      {musig ? (
+        <div style={{ marginTop: 'var(--space-m)' }}>
+          <SpendPathPicker leaves={[keyPath]} value={path} locked={held} onChange={setPath} />
+        </div>
+      ) : null}
+
       <Divider space="0" style={{ margin: 'var(--space-l) 0 var(--space-m)' }} />
 
       {/* Payments */}
@@ -235,26 +242,12 @@ function SendScreen({ wallet, initial = {} }) {
       total={{ label: 'Total', value: estimated ? fmt8(totalBtc) : '--' }} />
   );
 
-  // Why a Multikey Prepare is disabled, shown under its spend path.
+  // Why a Multikey Sign is disabled, shown with the Transaction actions (the spend path picker sits under Coins).
   const prepareReason = !selCoins.length ? 'No coin to spend yet'
     : !path ? 'Pick a spend path'
     : !valid ? 'Transaction is not valid' : null;
-  const musigCard = { 1: [0, 0], 2: [1, 0], ready: [1, 1] };
-  const musigStep = musig ? (
-    <Stack gap="m">
-      <Stack gap="xs">
-        <SpendPathPicker leaves={[keyPath]} value={path} locked={held} onChange={setPath} />
-        {!held && prepareReason ? <Text variant="caption">{prepareReason}</Text> : null}
-      </Stack>
-      {held ? (
-        <MusigSigningCard round={round}
-          cosigners={wallet.cosigners.split(', ').map(alias => ({ alias, nonces: musigCard[round][0], partialSigs: musigCard[round][1], expected: 1 }))}
-          onCancel={() => setRound(null)}
-          onSign={() => setRound(r => (r === 1 ? 2 : 'ready'))}
-          onBroadcast={() => setModal({ type: 'sent', txid: MUSIG_TXID })} />
-      ) : null}
-    </Stack>
-  ) : null;
+    /* Multikey: only the reason Sign is disabled; the rounds run in the Sign modal */
+  const musigStep = musig && !held && prepareReason ? <Text variant="caption">{prepareReason}</Text> : null;
 
   const actionRow = (
     <Row align="flex-end" gap="s">
@@ -272,10 +265,11 @@ function SendScreen({ wallet, initial = {} }) {
       )}
       <Spacer />
       {musig ? (
-        /* The Multikey step's button: Prepare, disabled while it holds the transaction. */
+        /* The Multikey step's button: Sign (starts the MuSig2 rounds), disabled while it holds the transaction. */
         <Row gap="s" style={{ flex: 'none' }}>
-          {held ? null : <Btn id="clear" onClick={clearAll} />}
-          <Btn id="prepare" disabled={held || !!prepareReason} onClick={() => setRound(1)} style={{ flex: 'none' }} />
+          {/* while a session runs: Cancel drops it, Sign reopens the Sign modal at its round */}
+          {held ? <Btn id="cancel_signed" onClick={() => setRound(null)} /> : <Btn id="clear" onClick={clearAll} />}
+          <Btn id="sign" disabled={!held && !!prepareReason} onClick={() => { if (!held) setRound(1); setModal({ type: 'musig' }); }} style={{ flex: 'none' }} />
         </Row>
       ) : (
       <Row gap="s" style={{ flex: 'none' }}>
@@ -337,6 +331,11 @@ function SendScreen({ wallet, initial = {} }) {
       {modal && modal.type === 'broadcast' ? (
         <BroadcastModal onDone={() => setModal({ type: 'sent' })} onClose={() => { clearAll(); setModal(null); }} />
       ) : null}
+      {modal && modal.type === 'musig' ? (
+        <MusigSignModal signers={musigSigners(wallet.cosigners.split(', '))} round={round}
+          onRound={setRound} onClose={() => setModal(null)}
+          onBroadcast={() => setModal({ type: 'sent', txid: MUSIG_TXID })} />
+      ) : null}
       {modal && modal.type === 'sent' ? (
         <SentModal txid={modal.txid} onClose={() => { clearAll(); setModal(null); }} />
       ) : null}
@@ -359,23 +358,12 @@ function BroadcastModal({ onDone, onClose }) {
 
 const SENT_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
 
-/* SentModal: the broadcast succeeded (Qt: MessageModal, Tone::Success, with the txid as
-   its value). The status, then the whole txid chunked (wrapping) in an inset card with a
-   copy button. No action bar: the header × closes it. Both Send screens end here. */
-function SentModal({ txid = SENT_TXID, onClose }) {
-  const [copied, setCopied] = React.useState(false);
-  const copy = () => { try { navigator.clipboard && navigator.clipboard.writeText(txid); } catch (e) {} setCopied(true); setTimeout(() => setCopied(false), 1200); };
+/* SentModal: the broadcast succeeded (Qt: MessageModal, Tone::Success). The status
+   only, no txid. No action bar: the header × closes it. Both Send screens end here. */
+function SentModal({ onClose }) {
   return (
-    <Modal title="Confirm Transaction" width={460} onClose={onClose}>
-      <Stack gap="m" style={{ width: '100%' }}>
-        <ModalStatus icon="circle_check" iconColor="var(--success)" subtitle={<React.Fragment>Transaction Sent<br /><br />Txid:</React.Fragment>} pad="var(--space-m) 0 0" />
-        <Card tone="inset" pad="m">
-          <Row gap="xs" align="center">
-            <div style={{ flex: 1, minWidth: 0 }}><ChunkedAddress text={txid} wrap /></div>
-            <Btn id={copied ? 'copied_value' : 'copy_value'} onClick={copy} />
-          </Row>
-        </Card>
-      </Stack>
+    <Modal title="Transaction Sent" width={460} onClose={onClose}>
+      <ModalStatus icon="circle_check" iconColor="var(--success)" title="The transaction was broadcast." pad="var(--space-l) 0" />
     </Modal>
   );
 }

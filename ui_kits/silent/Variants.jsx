@@ -160,6 +160,10 @@ export const PILLS = {
   reg_pending: { tone: 'warning', label: 'Not Registered', w: 'L' },
   reg_registering: { tone: 'off', label: 'Registering…', w: 'L' },
   reg_not_needed: { tone: 'off', label: 'Not Needed', w: 'L' },
+  /* the MuSig2 Sign wizard: one per cosigner, each round (partial signature in = signer_signed) */
+  musig_needed: { tone: 'warning', label: 'Needed', w: 'L' },
+  musig_on_device: { tone: 'off', label: 'On Device…', w: 'L' },
+  musig_nonce_added: { tone: 'success', label: 'Nonce', icon: 'check', w: 'L' },
   /* the creator's Verify step: one per signer */
   addr_verified: { tone: 'success', label: 'Verified', icon: 'check', w: 'M' },
   addr_unchecked: { tone: 'off', label: 'Not Checked', w: 'M' },

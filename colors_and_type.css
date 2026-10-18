@@ -188,6 +188,7 @@
   --select-row-pad-h:   14px;  /* SELECT_ROW_PADDING_H */
   --select-row-pad-v:   12px;  /* SELECT_ROW_PADDING_V */
   --modal-status-icon:  40px;  /* MODAL_STATUS_ICON_SIZE */
+  --wizard-rule-w:      40px;  /* design only: the fixed rule between two WizardSteps steps */
   --modal-wizard-h:     640px; /* design only: fixed height of every step of a wizard modal */
   /* BtnWidth enum — the only button widths; text buttons default to M. Design-only
      names; 50/200/300 match the app's Size enum (Size::XXS/M/L). */

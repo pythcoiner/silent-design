@@ -441,8 +441,8 @@ export function ScrollArea({ children, style }) {
   );
 }
 
-/* WizardSteps — the step trail at the top of a wizard modal: one numbered dot per
-   step, joined by a rule; done steps show a check, the current one is accent and
+/* WizardSteps — the step trail at the top of a wizard modal, centred: one numbered
+   dot per step, joined by a fixed-width rule (--wizard-rule-w); done steps show a check, the current one is accent and
    bold, later ones muted. Display only (Back / Continue move between steps).
    Qt: HBox of (QLabel dot, QLabel name) pairs with QFrame::HLine between. */
 export function WizardSteps({ steps = [], current = 0 }) {
