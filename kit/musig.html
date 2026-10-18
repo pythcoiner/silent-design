@@ -31,7 +31,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=46"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=22"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=55"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=56"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
@@ -99,6 +99,7 @@
         { name: 'Send: Sign wizard (opens from Sign)', items: [
           { title: '1 Nonces: click each cosigner', tag: 'MusigSignModal', ...MS({}) },
           { title: '1 Nonces: Alice on her device, Bob in', tag: 'MusigSignModal', ...MS({ initial: { done: { 1: ['b8688df1'] }, busy: '73c5da0a' } }) },
+          { title: '1 Nonces: Alice and Bob on their devices at once', tag: 'MusigSignModal', ...MS({ initial: { busy: ['73c5da0a', 'b8688df1'] } }) },
           { title: '1 Nonces: session lost, start again', tag: 'MusigSignModal', ...MS({ lost: true }) },
           { title: '2 Partial Signatures', tag: 'MusigSignModal', ...MS({ round: 2 }) },
           { title: '2 Partial Signatures: every one in, Broadcast', tag: 'MusigSignModal', ...MS({ round: 'ready' }) },

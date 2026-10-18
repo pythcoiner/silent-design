@@ -562,7 +562,8 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
 
 /* MuSig2 Sign: a wizard opened by Sign on a Multikey Send. Nonces (round 1) →
    Partial Signatures (round 2), which ends on Broadcast. Each round lists the spend path's
-   cosigners; a cosigner adds its part on click (its device, briefly "On Device…").
+   cosigners; a cosigner adds its part on click (its device, briefly "On Device…"),
+   every cosigner at once: the others stay clickable while one is on its device.
    Continue opens once every cosigner is in. Rounds cannot go back (a nonce is spent),
    so there is no Back; the header × closes and keeps the session, Sign Round N on
    the Send card reopens it. `lost`: the session-lost notice, back on round 1.
@@ -584,7 +585,8 @@ const MUSIG_SIGN_STEPS = ['Nonces', 'Partial Signatures'];
 function MusigSignModal({ signers, others = [], offline = [], unsupported = [], strangers = [], single = false, round = 1, lost = false, txid = MUSIG_TXID, initial = {}, onRound, onBroadcast, onClose }) {
   const [r, setR] = React.useState(single ? 2 : round);
   const [done, setDone] = React.useState(initial.done || (round === 2 ? { 1: signers.map(s => s.fp) } : round === 'ready' ? { 1: signers.map(s => s.fp), 2: signers.map(s => s.fp) } : {}));
-  const [busy, setBusy] = React.useState(initial.busy || null);
+  /* the cosigners on their device now: every one can be asked at once */
+  const [busy, setBusy] = React.useState([].concat(initial.busy || []));
   /* 'ready' (every partial signature in) stays on step 2, its button Broadcast */
   const sr = r === 'ready' ? 2 : r;
   const stepIdx = sr - 1;
@@ -594,13 +596,13 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
   const blocked = s => !inRound.includes(s.fp) && (offline.includes(s.fp) || unsupported.includes(s.fp));
   const usable = signers.filter(s => !blocked(s));
   const unusable = signers.filter(s => !usable.includes(s));
-  const add = (fp) => { setBusy(fp); setTimeout(() => {
+  const add = (fp) => { setBusy(b => [...b, fp]); setTimeout(() => {
     setDone(d => {
       const nd = { ...d, [sr]: [...(d[sr] || []), fp] };
       if (sr === 2 && (single || signers.every(s => nd[2].includes(s.fp)))) { setR('ready'); onRound && onRound('ready'); }
       return nd;
     });
-    setBusy(null);
+    setBusy(b => b.filter(x => x !== fp));
   }, 900); };
   const next = () => { setR(2); onRound && onRound(2); };
 
@@ -617,11 +619,11 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
         <Text variant="body">{single ? `Click the cosigner to add ${what}.` : `Click each cosigner to add ${what}.`}</Text>
         <Stack gap="xs">
           {usable.map(s => {
-            const ok = inRound.includes(s.fp), on = busy === s.fp;
+            const ok = inRound.includes(s.fp), on = busy.includes(s.fp);
             return (
               <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} chevron={false}
                 status={<Pill id={ok ? (sr === 1 ? 'musig_nonce_added' : 'signer_signed') : on ? 'musig_on_device' : 'musig_needed'} />}
-                onClick={!ok && !busy ? () => add(s.fp) : undefined} />
+                onClick={!ok && !on ? () => add(s.fp) : undefined} />
             );
           })}
           {unusable.map(s => {
@@ -643,7 +645,7 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
         </Stack>
       </Stack>
     );
-    const reason = busy ? 'On the device…' : left.length ? `${left.length} cosigner${left.length > 1 ? 's' : ''} still to go.` : null;
+    const reason = busy.length ? 'On the device…' : left.length ? `${left.length} cosigner${left.length > 1 ? 's' : ''} still to go.` : null;
     actions = (
       <ModalActions reason={reason}>
         {sr === 1 ? <Btn id="continue" disabled={!!reason} onClick={next} />
