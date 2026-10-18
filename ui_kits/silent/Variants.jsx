@@ -107,8 +107,7 @@ export const BUTTONS = {
   save_label: { role: 'inline-icon', icon: 'check', iconSize: 15, title: 'Save', w: 'Icon' },
   verify_on_device_sm: { role: 'inline-icon', icon: 'usb', iconSize: 15, w: 'Icon' },
   open_wallet: { role: 'tab-open', label: '(wallet name)', dataLabel: true, w: 'LaunchEntry' },
-  create_new_wallet: { role: 'tab-create', label: '+ Create New Wallet', w: 'LaunchAdd' },
-  create_shared_wallet: { role: 'tab-create', label: '+ Create Shared Wallet', w: 'LaunchAdd' },
+  create_account: { role: 'tab-create', label: '+ Create Account', w: 'LaunchAdd' },
 };
 
 /* Btn — a catalog button. `label` only for entries marked dataLabel (the text is

@@ -1,8 +1,15 @@
-/* Silent UI Kit: Menu tab (MenuTab.cpp) + CreateAccount / ConfirmDelete modals.
-   One create button per creator: the silent payment wallet (CreateAccount) and the
-   shared MuSig2 wallet (CreateSharedAccount, Musig.jsx). */
+/* Silent UI Kit: Menu tab (MenuTab.cpp) + AccountType / CreateAccount / ConfirmDelete
+   modals. One create button opens AccountType (AccountType.cpp), which lists the
+   creators: the silent payment wallet (CreateAccount), the shared MuSig2 wallet
+   (CreateSharedAccount, Musig.jsx), then those of the enabled plugins. */
+
+const ACCOUNT_TYPES = [
+  { id: 'sp', title: 'Silent Payment Wallet' },
+  { id: 'shared', title: 'Shared Wallet' },
+];
 
 function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys }) {
+  const [picking, setPicking] = React.useState(false);
   const [creating, setCreating] = React.useState(false);
   const [sharing, setSharing] = React.useState(false);
   const [deleting, setDeleting] = React.useState(null);
@@ -24,10 +31,11 @@ function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys 
         })}
       </Stack>
 
-      <Stack gap="s">
-        <Btn id="create_new_wallet" onClick={() => setCreating(true)} />
-        <Btn id="create_shared_wallet" onClick={() => setSharing(true)} />
-      </Stack>
+      <Btn id="create_account" onClick={() => setPicking(true)} />
+
+      {/* The picker closes before the creator opens: modals never stack. */}
+      {picking ? <AccountType types={ACCOUNT_TYPES} onCancel={() => setPicking(false)}
+        onPick={(id) => { setPicking(false); (id === 'sp' ? setCreating : setSharing)(true); }} /> : null}
 
       {creating ? <CreateAccount existing={wallets} onOpenKeys={onOpenKeys ? () => { setCreating(false); onOpenKeys(); } : null} onCancel={() => setCreating(false)}
         onCreate={(name) => { onCreate(name); setCreating(false); }} /> : null}
@@ -175,6 +183,17 @@ function CreateAccount({ existing, keys = window.KEYS, onCancel, onCreate, onOpe
   );
 }
 
+function AccountType({ types, onCancel, onPick }) {
+  return (
+    <Modal title="Account Type" width={520} onClose={onCancel}>
+      {/* The rows span the modal (Qt: setWideBody). */}
+      <Stack gap="s" style={{ alignSelf: 'stretch' }}>
+        {types.map(t => <SelectRow key={t.id} title={t.title} onClick={() => onPick(t.id)} />)}
+      </Stack>
+    </Modal>
+  );
+}
+
 function ConfirmDelete({ name, onCancel, onConfirm }) {
   return (
     <Modal title="Delete Wallet" width={420} onClose={onCancel}>
@@ -188,4 +207,4 @@ function ConfirmDelete({ name, onCancel, onConfirm }) {
   );
 }
 
-Object.assign(window, { MenuTab, CreateAccount, ConfirmDelete, EndpointRow, ENDPOINT_DEFAULTS });
+Object.assign(window, { MenuTab, AccountType, CreateAccount, ConfirmDelete, EndpointRow, ENDPOINT_DEFAULTS });
