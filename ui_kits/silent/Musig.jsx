@@ -633,13 +633,18 @@ function MusigSignModal({ signers, round = 1, lost = false, txid = MUSIG_TXID, i
 const musigSigners = (fps) => fps.map(fp => MUSIG_KEYS.find(k => k.fp === fp) || { fp, alias: fp, route: 'qr' });
 
 /* Spend path leaves of the selected coins, by their signers' aliases. */
-const MUSIG_LEAVES = ['Carol + Alice', 'Carol + Bob', 'Alice + Bob'];
+const MUSIG_LEAVES = ['Carol + Alice', 'Carol + Bob', 'Alice + Bob', 'Dave after 4320 blocks (locked)'];
+/* the paths a timelock still holds for the picked coins */
+const MUSIG_LOCKED_LEAVES = ['Dave after 4320 blocks (locked)'];
 
-function SpendPathPicker({ leaves = MUSIG_LEAVES, value = 'Alice + Bob', locked = false, onChange }) {
+/* A path its timelock still holds is listed greyed out and cannot be picked. */
+function SpendPathPicker({ leaves = MUSIG_LEAVES, lockedLeaves = MUSIG_LOCKED_LEAVES, value = 'Alice + Bob', locked = false, onChange }) {
+  const [picked, setPicked] = React.useState(value);
   return (
     <Stack gap="xs">
       <SectionLabel>Spend path</SectionLabel>
-      <ComboBox value={value} options={leaves} disabled={locked} onChange={onChange} width={400} />
+      <ComboBox value={onChange ? value : picked} options={leaves} disabledOptions={lockedLeaves} disabled={locked}
+        onChange={onChange || setPicked} width={400} />
     </Stack>
   );
 }

@@ -251,8 +251,10 @@ export function Legend({ color, children }) {
    everything and is never clipped by a table cell, scroll area or modal body.
    Qt: QComboBox popup (a top-level window). The highlighted item keeps the text
    colour on the hover background. `disabled`: bgSecondary, textSecondary text and
-   chevron, borderLight border (like a disabled Input), and it does not open. */
-export function ComboBox({ value, options, onChange, width = 200, disabled = false }) {
+   chevron, borderLight border (like a disabled Input), and it does not open.
+   `disabledOptions`: entries listed muted (textMuted), with no hover, that a click
+   does not pick. */
+export function ComboBox({ value, options, onChange, width = 200, disabled = false, disabledOptions = [] }) {
   const [open, setOpen] = React.useState(false);
   const [rect, setRect] = React.useState(null);
   const ref = React.useRef(null);
@@ -276,13 +278,16 @@ export function ComboBox({ value, options, onChange, width = 200, disabled = fal
       background: 'var(--input-bg)', border: '1px solid var(--input-border)', borderRadius: 'var(--radius-button)',
       overflow: 'hidden', boxSizing: 'border-box', fontFamily: 'var(--font-sans)',
     }} onMouseDown={e => e.stopPropagation()}>
-      {options.map(opt => (
-        <div key={opt} className="combo-item"
-          style={{ padding: '6px 10px', fontSize: 'var(--size-body)', color: 'var(--text)', cursor: 'pointer', background: opt === value ? 'var(--surface-hover)' : 'transparent' }}
-          onMouseDown={() => { onChange(opt); setOpen(false); }}>
-          {opt}
-        </div>
-      ))}
+      {options.map(opt => {
+        const off = disabledOptions.includes(opt);
+        return (
+          <div key={opt} className={off ? undefined : 'combo-item'} aria-disabled={off || undefined}
+            style={{ padding: '6px 10px', fontSize: 'var(--size-body)', color: off ? 'var(--text-muted)' : 'var(--text)', cursor: off ? 'default' : 'pointer', background: opt === value && !off ? 'var(--surface-hover)' : 'transparent' }}
+            onMouseDown={off ? undefined : () => { onChange && onChange(opt); setOpen(false); }}>
+            {opt}
+          </div>
+        );
+      })}
     </div>, document.body) : null;
   return (
     <div ref={ref} style={{ position: 'relative', width, flex: 'none' }}>

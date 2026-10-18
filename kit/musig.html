@@ -15,7 +15,7 @@
 </head>
 <body>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=7"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=31"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=32"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=16"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=36"></script>
@@ -31,7 +31,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=46"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=22"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=50"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=51"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
@@ -93,7 +93,7 @@
           { title: '6 Electrum: SSL with a self-signed certificate (check off)', tag: 'CreateSharedAccount', ...CS({ step: 'account', verifyCert: false, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
         ]},
         { name: 'Send: spend path', items: [
-          { title: 'Spend path picker, before Sign', tag: 'SpendPathPicker', span: 'span2', ...F(<div style={{ padding: 'var(--space-m)' }}><SpendPathPicker /></div>, 220) },
+          { title: 'Spend path picker, before Sign: a path its timelock still holds is greyed out in the list and cannot be picked (open it)', tag: 'SpendPathPicker', span: 'span2', ...F(<div style={{ padding: 'var(--space-m)' }}><SpendPathPicker /></div>, 260) },
           { title: 'Locked while a signing session runs', tag: 'SpendPathPicker', span: 'span2', frame: true, height: 160, el: <div style={{ padding: 'var(--space-m)' }}><SpendPathPicker locked /></div> },
         ]},
         { name: 'Send: Sign wizard (opens from Sign)', items: [
