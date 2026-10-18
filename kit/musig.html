@@ -31,7 +31,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=46"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=22"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=48"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=49"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
@@ -72,8 +72,9 @@
           { title: '1 Edit Spend Path: date in the future (calendar picker)', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0, paths: [{ ...MUSIG_PATH, locktime: 'Date in the future', lockDate: '2027-06-01T12:00' }] }, 760) },
           { title: '2 Xpubs: Alice (USB) still missing, click her row', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs' }, 760) },
           { title: '2 Xpubs: all fetched', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
-          { title: '3 Review: account name, the policy, Backup Descriptor (opens the save dialog)', tag: 'PolicyReview', ...CS({ step: 'review', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '3 Review: account name, the policy, Backup Descriptor (saves a BIP138 backup), its privacy mode', tag: 'PolicyReview', ...CS({ step: 'review', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '3 Review: descriptor backed up, Continue unlocked', tag: 'PolicyReview', ...CS({ step: 'review', backedUp: true, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '3 Review: backed up in privacy mode, a literal key left out of the backup named', tag: 'PolicyReview', ...CS({ step: 'review', backedUp: true, privacyMode: true, backupExcluded: ['0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798'], fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 780) },
           { title: '4 Register: one row per signer, click a device to register', tag: 'CreateSharedAccount', ...CS({ step: 'register', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '4 Register: registering with Carol', tag: 'CreateSharedAccount', ...CS({ step: 'register', registering: '28645006', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '4 Register: Alice\'s USB device failed, the reason on its row, click to try again', tag: 'CreateSharedAccount', ...CS({ step: 'register', registerFailed: { '73c5da0a': 'Ledger could not register the account. Unplug it, plug it back in, then try again.' }, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },

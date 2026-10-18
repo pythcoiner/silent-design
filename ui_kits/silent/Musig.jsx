@@ -219,18 +219,21 @@ function PolicyPreview({ paths, keys = MUSIG_KEYS }) {
 
 /* Backup Descriptor: the native save dialog (showSaveFilePicker) with the account
    name as the file name; where the browser has none, a plain download. Resolves
-   true once written, false when the user cancels. Qt: QFileDialog::getSaveFileName. */
-async function saveDescriptorFile(name, text) {
-  const fileName = `${name || 'account'}-descriptor.txt`;
+   true once written, false when the user cancels. Qt: QFileDialog::getSaveFileName,
+   then the bip138 crate encrypts the descriptor to its keys (any cosigner's xpub
+   decrypts it); the kit writes a stand-in with the BIP138 magic, it encrypts nothing. */
+async function saveDescriptorFile(name) {
+  const fileName = `${name || 'account'}.bip138`;
+  const blob = new Blob(['BIP138'], { type: 'application/octet-stream' });
   if (window.showSaveFilePicker) {
     try {
-      const h = await window.showSaveFilePicker({ suggestedName: fileName, types: [{ description: 'Descriptor', accept: { 'text/plain': ['.txt'] } }] });
-      const w = await h.createWritable(); await w.write(text); await w.close();
+      const h = await window.showSaveFilePicker({ suggestedName: fileName, types: [{ description: 'BIP138 backups', accept: { 'application/octet-stream': ['.bip138'] } }] });
+      const w = await h.createWritable(); await w.write(blob); await w.close();
       return true;
     } catch (e) { if (e && e.name === 'AbortError') return false; }
   }
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
+  a.href = URL.createObjectURL(blob);
   a.download = fileName; a.click(); URL.revokeObjectURL(a.href);
   return true;
 }
@@ -304,6 +307,8 @@ function VerifyFirstAddress({ signers = [], verified = [], onCheck }) {
    `initial.step`: paths | xpubs | review | register | verify | account; `initial.registered`
    / `initial.registering`: fingerprints registered / in progress; `initial.registerFailed`:
    { fingerprint: why its device failed to register }, shown on its row until clicked again;
+   `initial.privacyMode`: the backup's privacy mode ticked; `initial.backupExcluded`: the
+   keys the BIP138 backup left out, named once backed up;
    `initial.editing`: a path index open in Edit Spend Path; `initial.checkable` false
    shows the no-checkable-key warning; `initial.verified` the matched check. */
 const CREATE_STEPS = ['Spend Paths', 'Xpubs', 'Review', 'Register', 'Verify', 'Electrum'];
@@ -332,6 +337,8 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
   const [registered, setRegistered] = React.useState(initial.registered || []);
   const [registering, setRegistering] = React.useState(initial.registering || null);
   const [registerFailed, setRegisterFailed] = React.useState(initial.registerFailed || {});
+  const [privacyMode, setPrivacyMode] = React.useState(!!initial.privacyMode);
+  const backupExcluded = initial.backupExcluded || [];
   /* the Register step's opt-out: continue with devices left unregistered */
   const [skipRegister, setSkipRegister] = React.useState(!!initial.skipRegister);
   /* Xpubs is skipped when every key of the paths already gave its xpub; Back from Review then returns to Spend Paths */
@@ -409,12 +416,21 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
           <Field label="Account Name:"><Input width={240} value={name} onChange={e => { setName(e.target.value); setBackedUp(false); }} /></Field>
         </FieldGroup>
         <PolicyReview paths={paths} keys={keys} />
-        <Row gap="s">
-          <Spacer />
-          {backedUp ? <Text variant="caption" color="success">Descriptor backed up.</Text> : null}
-          <Btn id={backedUp ? 'backup_descriptor' : 'backup_descriptor_primary'} disabled={!!nameReason}
-            onClick={() => saveDescriptorFile(trimmed, MUSIG_DESCRIPTOR + '#' + MUSIG_CHECKSUM).then(ok => ok && setBackedUp(true))} />
-        </Row>
+        <Stack gap="s">
+          <Row gap="s">
+            <Spacer />
+            {backedUp ? <Text variant="caption" color="success">Descriptor backed up.</Text> : null}
+            <Btn id={backedUp ? 'backup_descriptor' : 'backup_descriptor_primary'} disabled={!!nameReason}
+              onClick={() => saveDescriptorFile(trimmed).then(ok => ok && setBackedUp(true))} />
+          </Row>
+          {/* privacy mode: the common derivation paths stay out of the backup's clear part */}
+          <Row><Spacer /><Checkbox checked={privacyMode} onChange={setPrivacyMode}
+            label="Privacy mode: leave the common derivation paths out of the backup" /></Row>
+          {/* BIP138 names each key it leaves out of the encryption keys: its holder cannot decrypt */}
+          {backedUp && backupExcluded.length ? (
+            <Text variant="caption" color="warning">Left out of the backup, so their holders cannot decrypt it with them: {backupExcluded.join(', ')}</Text>
+          ) : null}
+        </Stack>
       </Stack>
     );
     actions = (
