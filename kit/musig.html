@@ -18,7 +18,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=33"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=16"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=37"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=38"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=10"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=12"></script>
@@ -31,7 +31,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=46"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=22"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=53"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=54"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
@@ -104,6 +104,7 @@
           { title: '2 Partial Signatures: every one in, Broadcast', tag: 'MusigSignModal', ...MS({ round: 'ready' }) },
           { title: 'Timelocked path: Dave signs alone, no rounds; the wallet\'s other keys greyed, Not in Path', tag: 'MusigSignModal', ...MS({ single: true, signers: musigSigners(['3f635a63']), others: musigSigners(['73c5da0a', 'b8688df1']) }) },
           { title: '1 Nonces: Alice\'s USB device not connected, greyed after the signers that can sign; Carol not in this path', tag: 'MusigSignModal', ...MS({ signers: musigSigners(['73c5da0a', 'b8688df1']), offline: ['73c5da0a'], others: musigSigners(['28645006']) }) },
+          { title: '1 Nonces: every greyed row says why: not connected, unsupported (no MuSig2), not in this path, not in this wallet', tag: 'MusigSignModal', ...MS({ signers: musigSigners(['73c5da0a', 'b8688df1', '28645006']), offline: ['73c5da0a'], unsupported: ['28645006'], others: musigSigners(['3f635a63']), strangers: [{ fp: '9a1c55e0', alias: 'Jade' }] }) },
         ]},
         { name: 'Send: sent', items: [
           { title: 'Transaction Sent: the status only', tag: 'SentModal', span: 'span2', ...F(<SentModal onClose={noop} />, 460) },

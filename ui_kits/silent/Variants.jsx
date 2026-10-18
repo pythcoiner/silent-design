@@ -148,6 +148,8 @@ export const PILLS = {
   signer_no_route: { tone: 'error', label: 'No Usable Route', w: 'L' },
   signer_unregistered: { tone: 'error', label: 'Not Registered', w: 'L' },
   signer_not_in_path: { tone: 'off', label: 'Not in Path', w: 'L' },
+  signer_unsupported: { tone: 'warning', label: 'Unsupported', w: 'L' },
+  signer_not_in_wallet: { tone: 'off', label: 'Not in Wallet', w: 'L' },
   sd_step_done: { tone: 'success', label: 'Done', w: 'M' },
   tx_signed: { tone: 'success', label: 'Signed', icon: 'check', w: 'M' },
   network: { tone: 'neutral', label: '(network)', dataLabel: true, w: 'Auto' },

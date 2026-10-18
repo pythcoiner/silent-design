@@ -568,11 +568,20 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
    the Send card reopens it. `lost`: the session-lost notice, back on round 1.
    `round`: 1 | 2 | 'ready'; onRound(r) mirrors progress to the Send card.
    Every key of the wallet has a row: the path's signers that can sign first, then
-   those that cannot (`offline`: fingerprints with no connected device, greyed, Not
-   Connected), then the wallet's keys the path does not use (`others`, greyed, Not in
-   Path). `single`: a single-key path (a timelocked one) signs once, no rounds. */
+   those that cannot, then the wallet's keys the path does not use, then the connected
+   devices that are no key of the wallet. Each greyed row says why after its
+   fingerprint: `offline` (fingerprints, Not Connected), `unsupported` (fingerprints
+   whose device cannot sign MuSig2, Unsupported), `others` (Not in Path), `strangers`
+   (connected devices, Not in Wallet). `single`: a single-key path (a timelocked one)
+   signs once, no rounds. */
+const SIGN_WHY = {
+  offline: 'Its device is not connected: plug it in and unlock it.',
+  unsupported: 'Its device cannot sign MuSig2.',
+  others: 'Not a signer of this spend path.',
+  strangers: 'Not a key of this wallet.',
+};
 const MUSIG_SIGN_STEPS = ['Nonces', 'Partial Signatures'];
-function MusigSignModal({ signers, others = [], offline = [], single = false, round = 1, lost = false, txid = MUSIG_TXID, initial = {}, onRound, onBroadcast, onClose }) {
+function MusigSignModal({ signers, others = [], offline = [], unsupported = [], strangers = [], single = false, round = 1, lost = false, txid = MUSIG_TXID, initial = {}, onRound, onBroadcast, onClose }) {
   const [r, setR] = React.useState(single ? 2 : round);
   const [done, setDone] = React.useState(initial.done || (round === 2 ? { 1: signers.map(s => s.fp) } : round === 'ready' ? { 1: signers.map(s => s.fp), 2: signers.map(s => s.fp) } : {}));
   const [busy, setBusy] = React.useState(initial.busy || null);
@@ -582,7 +591,8 @@ function MusigSignModal({ signers, others = [], offline = [], single = false, ro
   const inRound = (done[sr] || []);
   const left = signers.filter(s => !inRound.includes(s.fp));
   /* the signers that can sign ahead of those that cannot */
-  const usable = signers.filter(s => !offline.includes(s.fp) || inRound.includes(s.fp));
+  const blocked = s => !inRound.includes(s.fp) && (offline.includes(s.fp) || unsupported.includes(s.fp));
+  const usable = signers.filter(s => !blocked(s));
   const unusable = signers.filter(s => !usable.includes(s));
   const add = (fp) => { setBusy(fp); setTimeout(() => {
     setDone(d => {
@@ -614,13 +624,21 @@ function MusigSignModal({ signers, others = [], offline = [], single = false, ro
                 onClick={!ok && !busy ? () => add(s.fp) : undefined} />
             );
           })}
-          {unusable.map(s => (
-            <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} chevron={false} disabled
-              status={<Pill id="signer_disconnected" />} />
-          ))}
+          {unusable.map(s => {
+            const off = offline.includes(s.fp);
+            return (
+              <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} chevron={false} disabled
+                sub={`${s.fp} · ${off ? SIGN_WHY.offline : SIGN_WHY.unsupported}`}
+                status={<Pill id={off ? 'signer_disconnected' : 'signer_unsupported'} />} />
+            );
+          })}
           {others.map(s => (
-            <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} chevron={false} disabled
+            <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={`${s.fp} · ${SIGN_WHY.others}`} chevron={false} disabled
               status={<Pill id="signer_not_in_path" />} />
+          ))}
+          {strangers.map(s => (
+            <SelectRow key={s.fp} icon={ROUTE_KINDS.usb.icon} title={s.alias} sub={`${s.fp} · ${SIGN_WHY.strangers}`} chevron={false} disabled
+              status={<Pill id="signer_not_in_wallet" />} />
           ))}
         </Stack>
       </Stack>
