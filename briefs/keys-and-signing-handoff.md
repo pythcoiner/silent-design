@@ -31,6 +31,7 @@ app" in `colors_and_type.css`.
 | `--tx-grad-1` | `#3d8bf0` | `TxFlow.jsx` gradient |
 | `--tx-grad-2` | `#8a5cf0` | `TxFlow.jsx` gradient |
 | `--camera-bg` | `#0c0e13` | `Send.jsx` PSBT scanner viewport |
+| `--wizard-rule-w` | `40px` | `WizardSteps`: the fixed rule between steps, trail centred |
 | `--modal-wizard-h` | `640px` | `Modal height="wizard"`: every step of Create Multikey Account (`Musig.jsx`) |
 
 ### `.s-tab` and `.s-check--sm` against the app

@@ -3,10 +3,8 @@
      Spend Paths, Xpubs, Review (name, backup), Register, Verify, Electrum (Create), under a WizardSteps trail.
    - SpendPathPicker: the Send spend path picker (views/Send.cpp), one entry per leaf
      named by its signers, locked while a signing session runs.
-   - MusigSigningCard: the two MuSig2 rounds on Send: the round line, one row per
-     cosigner with its nonce and partial signature counts, the lost-session notice,
-     Cancel then Sign Round N, or Broadcast once every partial signature is in, which
-     ends on the shared SentModal (Send.jsx) with the txid.
+   - MusigSignModal: Sign on a Multikey Send opens it: Nonces, then Partial
+     Signatures ending on Broadcast (then SentModal, Send.jsx).
    Composes catalog components only. */
 
 const MUSIG_KEYS = [
@@ -501,6 +499,79 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
   );
 }
 
+/* MuSig2 Sign: a wizard opened by Sign on a Multikey Send. Nonces (round 1) →
+   Partial Signatures (round 2), which ends on Broadcast. Each round lists the spend path's
+   cosigners; a cosigner adds its part on click (its device, briefly "On Device…").
+   Continue opens once every cosigner is in. Rounds cannot go back (a nonce is spent),
+   so there is no Back; the header × closes and keeps the session, Sign Round N on
+   the Send card reopens it. `lost`: the session-lost notice, back on round 1.
+   `round`: 1 | 2 | 'ready'; onRound(r) mirrors progress to the Send card. */
+const MUSIG_SIGN_STEPS = ['Nonces', 'Partial Signatures'];
+function MusigSignModal({ signers, round = 1, lost = false, txid = MUSIG_TXID, initial = {}, onRound, onBroadcast, onClose }) {
+  const [r, setR] = React.useState(round);
+  const [done, setDone] = React.useState(initial.done || (round === 2 ? { 1: signers.map(s => s.fp) } : round === 'ready' ? { 1: signers.map(s => s.fp), 2: signers.map(s => s.fp) } : {}));
+  const [busy, setBusy] = React.useState(initial.busy || null);
+  /* 'ready' (every partial signature in) stays on step 2, its button Broadcast */
+  const sr = r === 'ready' ? 2 : r;
+  const stepIdx = sr - 1;
+  const inRound = (done[sr] || []);
+  const left = signers.filter(s => !inRound.includes(s.fp));
+  const add = (fp) => { setBusy(fp); setTimeout(() => {
+    setDone(d => {
+      const nd = { ...d, [sr]: [...(d[sr] || []), fp] };
+      if (sr === 2 && signers.every(s => nd[2].includes(s.fp))) { setR('ready'); onRound && onRound('ready'); }
+      return nd;
+    });
+    setBusy(null);
+  }, 900); };
+  const next = () => { setR(2); onRound && onRound(2); };
+
+  let body, actions;
+  {
+    const what = sr === 1 ? 'its nonce' : 'its partial signature';
+    body = (
+      <Stack gap="s" style={{ alignSelf: 'stretch' }}>
+        {lost && sr === 1 ? (
+          <Notice tone="warning" title="MuSig2 session missing or mismatch">
+            A signer no longer holds its round 1 nonce: it restarted, or the transaction changed. Every nonce and partial signature was dropped, sign round 1 again with every cosigner.
+          </Notice>
+        ) : null}
+        <Text variant="body">Click each cosigner to add {what}.</Text>
+        <Stack gap="xs">
+          {signers.map(s => {
+            const ok = inRound.includes(s.fp), on = busy === s.fp;
+            return (
+              <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} chevron={false}
+                status={<Pill id={ok ? (sr === 1 ? 'musig_nonce_added' : 'signer_signed') : on ? 'musig_on_device' : 'musig_needed'} />}
+                onClick={!ok && !busy ? () => add(s.fp) : undefined} />
+            );
+          })}
+        </Stack>
+      </Stack>
+    );
+    const reason = busy ? 'On the device…' : left.length ? `${left.length} cosigner${left.length > 1 ? 's' : ''} still to go.` : null;
+    actions = (
+      <ModalActions reason={reason}>
+        {sr === 1 ? <Btn id="continue" disabled={!!reason} onClick={next} />
+          : <Btn id="broadcast" disabled={!!reason} onClick={onBroadcast} />}
+      </ModalActions>
+    );
+  }
+  return (
+    <Modal title="Sign" width={760} height="wizard" onClose={onClose}>
+      <Stack gap="m" style={{ alignSelf: 'stretch', flex: 1 }}>
+        <WizardSteps steps={MUSIG_SIGN_STEPS} current={stepIdx} />
+        {body}
+        <Spacer />
+        {actions}
+      </Stack>
+    </Modal>
+  );
+}
+
+/* A Multikey wallet's cosigners (fingerprints) as signer rows, named from MUSIG_KEYS. */
+const musigSigners = (fps) => fps.map(fp => MUSIG_KEYS.find(k => k.fp === fp) || { fp, alias: fp, route: 'qr' });
+
 /* Spend path leaves of the selected coins, by their signers' aliases. */
 const MUSIG_LEAVES = ['Carol + Alice', 'Carol + Bob', 'Alice + Bob'];
 
@@ -513,71 +584,11 @@ function SpendPathPicker({ leaves = MUSIG_LEAVES, value = 'Alice + Bob', locked 
   );
 }
 
-const MUSIG_ROUND_LINE = {
-  1: 'Round 1 of 2: every cosigner adds its nonce',
-  2: 'Round 2 of 2: every cosigner adds its partial signature',
-  ready: 'Every partial signature is in',
-};
 const MUSIG_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
 
-/* The signing card. `round`: 1 | 2 | 'ready'; `cosigners`: [{ alias, nonces,
-   partialSigs, expected }]; `lost`: the session-lost notice (back on round 1). */
-function MusigSigningCard({ round = 1, cosigners, lost = false, txid = MUSIG_TXID, onCancel, onSign, onBroadcast }) {
-  return (
-    <Card>
-      <Stack gap="s">
-        <Row gap="xl">
-          <Text variant="secondary">TxID</Text>
-          <Text variant="mono">{txid}</Text>
-        </Row>
-        <Text variant="section">{MUSIG_ROUND_LINE[round]}</Text>
-        {cosigners.map(c => (
-          <Row key={c.alias} gap="m">
-            <Text variant="body">{c.alias}</Text>
-            <Text variant="caption">Nonces {c.nonces}/{c.expected}</Text>
-            <Text variant="caption">Partial signatures {c.partialSigs}/{c.expected}</Text>
-            <Spacer />
-            {round === 'ready' ? <Pill id="signer_signed" /> : null}
-          </Row>
-        ))}
-        {lost ? (
-          <Notice tone="warning" title="A signer no longer holds its round 1 nonce: it restarted, or the transaction changed. Every nonce and partial signature was dropped, sign round 1 again with every cosigner.">
-            MuSig2 session missing or mismatch
-          </Notice>
-        ) : null}
-        <Row gap="s">
-          <Btn id="cancel_signed" onClick={onCancel} />
-          <Spacer />
-          {round === 'ready' ? <Btn id="broadcast" onClick={onBroadcast} />
-            : <Btn id="sign_round" args={round} onClick={onSign} />}
-        </Row>
-      </Stack>
-    </Card>
-  );
-}
-
-/* The Send states of the app run, for the gallery. */
-const musigCosigners = (nonces, partialSigs) => ['Alice', 'Bob'].map(alias => ({ alias, nonces, partialSigs, expected: 1 }));
-
-/* The new part of the MuSig2 Send screen: the spend path, Prepare, then the card.
-   Broadcast (round 'ready') opens SentModal; `sent` opens on it, for the gallery. */
-function MusigSendPanel({ round, cosigners, lost, prepared = true, sent: initialSent = false }) {
-  const [sent, setSent] = React.useState(initialSent);
-  return (
-    <React.Fragment>
-      <Stack gap="m">
-        <SpendPathPicker locked={prepared} />
-        <Row><Spacer /><Btn id="prepare" disabled={prepared} /></Row>
-        {prepared ? <MusigSigningCard round={round} cosigners={cosigners} lost={lost} onBroadcast={() => setSent(true)} /> : null}
-      </Stack>
-      {sent ? <SentModal txid={MUSIG_TXID} onClose={() => setSent(false)} /> : null}
-    </React.Fragment>
-  );
-}
-
-Object.assign(window, { MUSIG_KEYS, MUSIG_PATH, MUSIG_NEW_PATH, MUSIG_ADDRESS, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview,
-  VerifyFirstAddress, CreateSharedAccount, SpendPathPicker, MusigSigningCard, MusigSendPanel, musigCosigners, MUSIG_TXID });
+Object.assign(window, { MusigSignModal, musigSigners, MUSIG_KEYS, MUSIG_PATH, MUSIG_NEW_PATH, MUSIG_ADDRESS, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview,
+  VerifyFirstAddress, CreateSharedAccount, SpendPathPicker, MUSIG_TXID });
 
 /* File-level namespace (DS compiler indexes this file as `Musig`). */
-export const Musig = { PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview, VerifyFirstAddress, CreateSharedAccount,
-  SpendPathPicker, MusigSigningCard, MusigSendPanel };
+export const Musig = { MusigSignModal, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview, VerifyFirstAddress, CreateSharedAccount,
+  SpendPathPicker };

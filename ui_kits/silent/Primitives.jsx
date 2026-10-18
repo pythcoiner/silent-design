@@ -10,7 +10,8 @@ function useMeasure() {
     let raf;
     const tick = () => {
       if (ref.current) {
-        const next = ref.current.getBoundingClientRect().width;
+        // offsetWidth is the layout width: unaffected by a CSS transform (the kit's scaled-to-fit wide preview)
+        const next = ref.current.offsetWidth;
         setW(prev => Math.abs(prev - next) > 0.5 ? next : prev);
       }
       raf = requestAnimationFrame(tick);

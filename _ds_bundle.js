@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"SilentDesignSystem_243e89","components":[{"name":"QRCard","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"QRCode","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"ChunkedAddress","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"Address","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"Icon","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"SilentMark","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"Icons","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"Stack","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Row","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Spacer","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Divider","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Text","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Eyebrow","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Amount","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Layout","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Modal","sourcePath":"ui_kits/silent/Modal.jsx"},{"name":"Musig","sourcePath":"ui_kits/silent/Musig.jsx"},{"name":"Button","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Input","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"DateTimeInput","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"TextArea","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Display","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"FieldGroup","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Field","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Checkbox","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Toggle","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Spinner","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Card","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Badge","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"SelectRow","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Notice","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ModalStatus","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Legend","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ComboBox","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ValidationMark","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"BalanceHeader","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Tab","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Primitives","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"BTN_WIDTH","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"BUTTONS","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Btn","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"PILL_WIDTH","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"PILLS","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Pill","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Variants","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"SectionLabel","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FieldLabel","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"PaymentRow","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ValidatedInput","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Stepper","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Tooltip","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"InfoTip","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FoldSection","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"IndexPill","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"KeyValue","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Table","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"TransactionSummary","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"CoinTable","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"SectionHeader","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Section","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"CopyField","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ShortValue","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WordInputGrid","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WordGrid","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ROUTE_KINDS","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"RouteIcons","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ScanProgress","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FieldNote","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"EmptyState","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FoldChevron","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ScrollArea","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WizardSteps","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ModalActions","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Widgets","sourcePath":"ui_kits/silent/Widgets.jsx"}],"sourceHashes":{"kit/harness.js":"f9051916dc0a","preview/catalog-data.js":"d01de65e5bef","preview/specimen-back.js":"3061a81bb3fc","preview/specimen-shell.js":"33523c9cd69a","ui_kits/silent/AddKey.jsx":"bf4b83d6bd51","ui_kits/silent/Address.jsx":"84a3f5956c00","ui_kits/silent/App.jsx":"412fe92271f1","ui_kits/silent/Data.jsx":"5dbae6f418fe","ui_kits/silent/GlobalSettings.jsx":"a9ac4baf28c0","ui_kits/silent/Icons.jsx":"4e23dcbf0c35","ui_kits/silent/Keys.jsx":"6aa2295c44bc","ui_kits/silent/KitSim.jsx":"de8179ccedad","ui_kits/silent/Layout.jsx":"28af04d5dc8a","ui_kits/silent/LayoutDoc.jsx":"125392df58ba","ui_kits/silent/MenuTab.jsx":"069c1f3adcdd","ui_kits/silent/Modal.jsx":"d7a16c58299f","ui_kits/silent/Musig.jsx":"f190052ebffa","ui_kits/silent/Primitives.jsx":"5ea3f449929d","ui_kits/silent/ScreensBasic.jsx":"41a718fc3c1c","ui_kits/silent/Send.jsx":"977f8bb1a210","ui_kits/silent/Settings.jsx":"4ceed86b8f0b","ui_kits/silent/Sidebar.jsx":"a4ba12e4bb5d","ui_kits/silent/Signing.jsx":"a6746034a32e","ui_kits/silent/TxFlow.jsx":"e4eedeff4032","ui_kits/silent/Variants.jsx":"c58ad18868eb","ui_kits/silent/Widgets.jsx":"535e74cfac7d","ui_kits/silent/tweaks-panel.jsx":"94b5a57450b3"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"SilentDesignSystem_243e89","components":[{"name":"QRCard","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"QRCode","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"ChunkedAddress","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"Address","sourcePath":"ui_kits/silent/Address.jsx"},{"name":"Icon","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"SilentMark","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"Icons","sourcePath":"ui_kits/silent/Icons.jsx"},{"name":"Stack","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Row","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Spacer","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Divider","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Text","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Eyebrow","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Amount","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Layout","sourcePath":"ui_kits/silent/Layout.jsx"},{"name":"Modal","sourcePath":"ui_kits/silent/Modal.jsx"},{"name":"Musig","sourcePath":"ui_kits/silent/Musig.jsx"},{"name":"Button","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Input","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"DateTimeInput","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"TextArea","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Display","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"FieldGroup","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Field","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Checkbox","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Toggle","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Spinner","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Card","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Badge","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"SelectRow","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Notice","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ModalStatus","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Legend","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ComboBox","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"ValidationMark","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"BalanceHeader","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Tab","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"Primitives","sourcePath":"ui_kits/silent/Primitives.jsx"},{"name":"BTN_WIDTH","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"BUTTONS","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Btn","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"PILL_WIDTH","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"PILLS","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Pill","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"Variants","sourcePath":"ui_kits/silent/Variants.jsx"},{"name":"SectionLabel","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FieldLabel","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"PaymentRow","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ValidatedInput","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Stepper","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Tooltip","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"InfoTip","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FoldSection","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"IndexPill","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"KeyValue","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Table","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"TransactionSummary","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"CoinTable","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"SectionHeader","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Section","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"CopyField","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ShortValue","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WordInputGrid","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WordGrid","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ROUTE_KINDS","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"RouteIcons","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ScanProgress","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FieldNote","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"EmptyState","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"FoldChevron","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ScrollArea","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"WizardSteps","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"ModalActions","sourcePath":"ui_kits/silent/Widgets.jsx"},{"name":"Widgets","sourcePath":"ui_kits/silent/Widgets.jsx"}],"sourceHashes":{"kit/harness.js":"f9051916dc0a","preview/catalog-data.js":"d01de65e5bef","preview/specimen-back.js":"3061a81bb3fc","preview/specimen-shell.js":"33523c9cd69a","ui_kits/silent/AddKey.jsx":"bf4b83d6bd51","ui_kits/silent/Address.jsx":"84a3f5956c00","ui_kits/silent/App.jsx":"994290f99512","ui_kits/silent/Data.jsx":"5dbae6f418fe","ui_kits/silent/GlobalSettings.jsx":"a9ac4baf28c0","ui_kits/silent/Icons.jsx":"4e23dcbf0c35","ui_kits/silent/Keys.jsx":"6aa2295c44bc","ui_kits/silent/KitSim.jsx":"de8179ccedad","ui_kits/silent/Layout.jsx":"28af04d5dc8a","ui_kits/silent/LayoutDoc.jsx":"125392df58ba","ui_kits/silent/MenuTab.jsx":"069c1f3adcdd","ui_kits/silent/Modal.jsx":"d7a16c58299f","ui_kits/silent/Musig.jsx":"a03f9eba99a1","ui_kits/silent/Primitives.jsx":"6954e267150a","ui_kits/silent/ScreensBasic.jsx":"41a718fc3c1c","ui_kits/silent/Send.jsx":"2399e8f139e6","ui_kits/silent/Settings.jsx":"4ceed86b8f0b","ui_kits/silent/Sidebar.jsx":"a4ba12e4bb5d","ui_kits/silent/Signing.jsx":"a6746034a32e","ui_kits/silent/TxFlow.jsx":"e4eedeff4032","ui_kits/silent/Variants.jsx":"ffcb22ce2dff","ui_kits/silent/Widgets.jsx":"89c9a55cda56","ui_kits/silent/tweaks-panel.jsx":"94b5a57450b3"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
@@ -950,10 +950,8 @@ function AccountView({
       display: isSend ? 'flex' : 'none',
       minHeight: 0
     }
-  }, wallet.kind === 'musig' ? /*#__PURE__*/React.createElement(MusigSendScreen, {
+  }, /*#__PURE__*/React.createElement(SendScreen, {
     key: wallet.name,
-    wallet: wallet
-  }) : /*#__PURE__*/React.createElement(SendScreen, {
     wallet: wallet
   })), OtherComp ? /*#__PURE__*/React.createElement(OtherComp, {
     wallet: wallet
@@ -966,7 +964,7 @@ function App() {
   // light palette in the kit; the app ships their own palettes.
   const [themeName, setThemeName] = React.useState('Light');
   const theme = themeName === 'Dark' || themeName === 'Midnight' ? 'dark' : 'light';
-  const [appW, setAppW] = React.useState('full');
+  const [appW, setAppW] = React.useState('1920');
   const [known, setKnown] = React.useState(KNOWN_WALLETS);
   const [openTabs, setOpenTabs] = React.useState(['savings']);
   const [active, setActive] = React.useState('savings');
@@ -974,6 +972,22 @@ function App() {
     savings: 'history'
   });
   const [settingsOpen, setSettingsOpen] = React.useState(false);
+  /* Kit width: a fixed width wider than the preview renders at its real width,
+     scaled down to fit, so wide layouts (two-column Send ≥ 1769) can be checked. */
+  const [paneW, setPaneW] = React.useState(window.innerWidth);
+  const toolbarRef = React.useRef(null);
+  const [toolbarH, setToolbarH] = React.useState(49);
+  React.useEffect(() => {
+    const on = () => {
+      setPaneW(window.innerWidth);
+      if (toolbarRef.current) setToolbarH(toolbarRef.current.offsetHeight);
+    };
+    on();
+    window.addEventListener('resize', on);
+    return () => window.removeEventListener('resize', on);
+  }, []);
+  const fixedW = appW === 'full' ? null : Number(appW);
+  const scale = fixedW && fixedW > paneW ? paneW / fixedW : 1;
   // Kit-only state simulator (KitSim.jsx): states the UI cannot reach by clicking.
   const [sim, setSim] = useTweaks(SIM_DEFAULTS);
   const keysSimKey = ['keysDevices', 'keysKeys', 'keysRegistering'].map(k => String(sim[k])).join('|');
@@ -1020,6 +1034,11 @@ function App() {
     style: {
       height: '100vh',
       background: appW === 'full' ? 'var(--bg)' : theme === 'light' ? '#c9c9c9' : '#070707'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: toolbarRef,
+    style: {
+      flex: 'none'
     }
   }, /*#__PURE__*/React.createElement(Row, {
     gap: 10,
@@ -1070,28 +1089,58 @@ function App() {
   }, "Width"), /*#__PURE__*/React.createElement("input", {
     type: "range",
     min: (window.DASH_MIN_W || 760) + 200,
-    max: 1920,
+    max: 2560,
     step: 20,
-    value: appW === 'full' ? 1920 : Number(appW),
-    onChange: e => setAppW(Number(e.target.value) >= 1920 ? 'full' : String(e.target.value)),
+    value: fixedW || paneW,
+    onChange: e => setAppW(String(e.target.value)),
     style: {
-      width: 160,
+      width: 200,
       accentColor: 'var(--accent)',
       cursor: 'pointer'
     }
-  }), /*#__PURE__*/React.createElement(Text, {
+  }), /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    onClick: () => setAppW('full'),
+    style: {
+      font: 'inherit',
+      fontSize: 11,
+      fontWeight: 600,
+      padding: '2px 8px',
+      borderRadius: 6,
+      cursor: 'pointer',
+      border: '1px solid var(--border)',
+      background: appW === 'full' ? 'var(--accent)' : 'var(--bg)',
+      color: appW === 'full' ? 'var(--on-accent)' : 'var(--text)'
+    }
+  }, "Full"), /*#__PURE__*/React.createElement(Text, {
     variant: "mono",
     weight: "demibold",
     style: {
       fontSize: 11,
       fontVariantNumeric: 'tabular-nums',
       color: theme === 'light' ? '#555' : '#aaa',
-      minWidth: 42,
+      minWidth: 96,
       textAlign: 'right'
     }
-  }, appW === 'full' ? 'Full' : appW))), /*#__PURE__*/React.createElement(Stack, {
-    grow: true,
+  }, (fixedW || paneW) + 'px' + (scale < 1 ? ' · ' + Math.round(scale * 100) + '%' : ''))))), /*#__PURE__*/React.createElement("div", {
     style: {
+      flex: 1,
+      minHeight: 0,
+      overflow: 'hidden',
+      display: 'flex'
+    }
+  }, /*#__PURE__*/React.createElement(Stack, {
+    grow: true,
+    style: scale < 1 ? {
+      flex: 'none',
+      width: fixedW + 'px',
+      height: `calc((100vh - ${toolbarH}px) / ${scale})`,
+      transform: `scale(${scale})`,
+      transformOrigin: 'top left',
+      minHeight: 0,
+      background: 'var(--bg)',
+      overflow: 'hidden'
+    } : {
       width: '100%',
       maxWidth: appW === 'full' ? '100%' : appW + 'px',
       margin: '0 auto',
@@ -1174,7 +1223,7 @@ function App() {
     theme: themeName,
     onTheme: setThemeName,
     onClose: () => setSettingsOpen(false)
-  }) : null)));
+  }) : null))));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/App.jsx", error: String((e && e.message) || e) }); }
@@ -4726,10 +4775,8 @@ try { (() => {
      Spend Paths, Xpubs, Review (name, backup), Register, Verify, Electrum (Create), under a WizardSteps trail.
    - SpendPathPicker: the Send spend path picker (views/Send.cpp), one entry per leaf
      named by its signers, locked while a signing session runs.
-   - MusigSigningCard: the two MuSig2 rounds on Send: the round line, one row per
-     cosigner with its nonce and partial signature counts, the lost-session notice,
-     Cancel then Sign Round N, or Broadcast once every partial signature is in, which
-     ends on the shared SentModal (Send.jsx) with the txid.
+   - MusigSignModal: Sign on a Multikey Send opens it: Nonces, then Partial
+     Signatures ending on Broadcast (then SentModal, Send.jsx).
    Composes catalog components only. */
 
 const MUSIG_KEYS = [{
@@ -5605,6 +5652,125 @@ function CreateSharedAccount({
   }), body, /*#__PURE__*/React.createElement(Spacer, null), foot, actions));
 }
 
+/* MuSig2 Sign: a wizard opened by Sign on a Multikey Send. Nonces (round 1) →
+   Partial Signatures (round 2), which ends on Broadcast. Each round lists the spend path's
+   cosigners; a cosigner adds its part on click (its device, briefly "On Device…").
+   Continue opens once every cosigner is in. Rounds cannot go back (a nonce is spent),
+   so there is no Back; the header × closes and keeps the session, Sign Round N on
+   the Send card reopens it. `lost`: the session-lost notice, back on round 1.
+   `round`: 1 | 2 | 'ready'; onRound(r) mirrors progress to the Send card. */
+const MUSIG_SIGN_STEPS = ['Nonces', 'Partial Signatures'];
+function MusigSignModal({
+  signers,
+  round = 1,
+  lost = false,
+  txid = MUSIG_TXID,
+  initial = {},
+  onRound,
+  onBroadcast,
+  onClose
+}) {
+  const [r, setR] = React.useState(round);
+  const [done, setDone] = React.useState(initial.done || (round === 2 ? {
+    1: signers.map(s => s.fp)
+  } : round === 'ready' ? {
+    1: signers.map(s => s.fp),
+    2: signers.map(s => s.fp)
+  } : {}));
+  const [busy, setBusy] = React.useState(initial.busy || null);
+  /* 'ready' (every partial signature in) stays on step 2, its button Broadcast */
+  const sr = r === 'ready' ? 2 : r;
+  const stepIdx = sr - 1;
+  const inRound = done[sr] || [];
+  const left = signers.filter(s => !inRound.includes(s.fp));
+  const add = fp => {
+    setBusy(fp);
+    setTimeout(() => {
+      setDone(d => {
+        const nd = {
+          ...d,
+          [sr]: [...(d[sr] || []), fp]
+        };
+        if (sr === 2 && signers.every(s => nd[2].includes(s.fp))) {
+          setR('ready');
+          onRound && onRound('ready');
+        }
+        return nd;
+      });
+      setBusy(null);
+    }, 900);
+  };
+  const next = () => {
+    setR(2);
+    onRound && onRound(2);
+  };
+  let body, actions;
+  {
+    const what = sr === 1 ? 'its nonce' : 'its partial signature';
+    body = /*#__PURE__*/React.createElement(Stack, {
+      gap: "s",
+      style: {
+        alignSelf: 'stretch'
+      }
+    }, lost && sr === 1 ? /*#__PURE__*/React.createElement(Notice, {
+      tone: "warning",
+      title: "MuSig2 session missing or mismatch"
+    }, "A signer no longer holds its round 1 nonce: it restarted, or the transaction changed. Every nonce and partial signature was dropped, sign round 1 again with every cosigner.") : null, /*#__PURE__*/React.createElement(Text, {
+      variant: "body"
+    }, "Click each cosigner to add ", what, "."), /*#__PURE__*/React.createElement(Stack, {
+      gap: "xs"
+    }, signers.map(s => {
+      const ok = inRound.includes(s.fp),
+        on = busy === s.fp;
+      return /*#__PURE__*/React.createElement(SelectRow, {
+        key: s.fp,
+        icon: ROUTE_KINDS[s.route].icon,
+        title: s.alias,
+        sub: s.fp,
+        chevron: false,
+        status: /*#__PURE__*/React.createElement(Pill, {
+          id: ok ? sr === 1 ? 'musig_nonce_added' : 'signer_signed' : on ? 'musig_on_device' : 'musig_needed'
+        }),
+        onClick: !ok && !busy ? () => add(s.fp) : undefined
+      });
+    })));
+    const reason = busy ? 'On the device…' : left.length ? `${left.length} cosigner${left.length > 1 ? 's' : ''} still to go.` : null;
+    actions = /*#__PURE__*/React.createElement(ModalActions, {
+      reason: reason
+    }, sr === 1 ? /*#__PURE__*/React.createElement(Btn, {
+      id: "continue",
+      disabled: !!reason,
+      onClick: next
+    }) : /*#__PURE__*/React.createElement(Btn, {
+      id: "broadcast",
+      disabled: !!reason,
+      onClick: onBroadcast
+    }));
+  }
+  return /*#__PURE__*/React.createElement(Modal, {
+    title: "Sign",
+    width: 760,
+    height: "wizard",
+    onClose: onClose
+  }, /*#__PURE__*/React.createElement(Stack, {
+    gap: "m",
+    style: {
+      alignSelf: 'stretch',
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement(WizardSteps, {
+    steps: MUSIG_SIGN_STEPS,
+    current: stepIdx
+  }), body, /*#__PURE__*/React.createElement(Spacer, null), actions));
+}
+
+/* A Multikey wallet's cosigners (fingerprints) as signer rows, named from MUSIG_KEYS. */
+const musigSigners = fps => fps.map(fp => MUSIG_KEYS.find(k => k.fp === fp) || {
+  fp,
+  alias: fp,
+  route: 'qr'
+});
+
 /* Spend path leaves of the selected coins, by their signers' aliases. */
 const MUSIG_LEAVES = ['Carol + Alice', 'Carol + Bob', 'Alice + Bob'];
 function SpendPathPicker({
@@ -5623,276 +5789,10 @@ function SpendPathPicker({
     width: 400
   }));
 }
-const MUSIG_ROUND_LINE = {
-  1: 'Round 1 of 2: every cosigner adds its nonce',
-  2: 'Round 2 of 2: every cosigner adds its partial signature',
-  ready: 'Every partial signature is in'
-};
 const MUSIG_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
-
-/* The signing card. `round`: 1 | 2 | 'ready'; `cosigners`: [{ alias, nonces,
-   partialSigs, expected }]; `lost`: the session-lost notice (back on round 1). */
-function MusigSigningCard({
-  round = 1,
-  cosigners,
-  lost = false,
-  txid = MUSIG_TXID,
-  onCancel,
-  onSign,
-  onBroadcast
-}) {
-  return /*#__PURE__*/React.createElement(Card, null, /*#__PURE__*/React.createElement(Stack, {
-    gap: "s"
-  }, /*#__PURE__*/React.createElement(Row, {
-    gap: "xl"
-  }, /*#__PURE__*/React.createElement(Text, {
-    variant: "secondary"
-  }, "TxID"), /*#__PURE__*/React.createElement(Text, {
-    variant: "mono"
-  }, txid)), /*#__PURE__*/React.createElement(Text, {
-    variant: "section"
-  }, MUSIG_ROUND_LINE[round]), cosigners.map(c => /*#__PURE__*/React.createElement(Row, {
-    key: c.alias,
-    gap: "m"
-  }, /*#__PURE__*/React.createElement(Text, {
-    variant: "body"
-  }, c.alias), /*#__PURE__*/React.createElement(Text, {
-    variant: "caption"
-  }, "Nonces ", c.nonces, "/", c.expected), /*#__PURE__*/React.createElement(Text, {
-    variant: "caption"
-  }, "Partial signatures ", c.partialSigs, "/", c.expected), /*#__PURE__*/React.createElement(Spacer, null), round === 'ready' ? /*#__PURE__*/React.createElement(Pill, {
-    id: "signer_signed"
-  }) : null)), lost ? /*#__PURE__*/React.createElement(Notice, {
-    tone: "warning",
-    title: "A signer no longer holds its round 1 nonce: it restarted, or the transaction changed. Every nonce and partial signature was dropped, sign round 1 again with every cosigner."
-  }, "MuSig2 session missing or mismatch") : null, /*#__PURE__*/React.createElement(Row, {
-    gap: "s"
-  }, /*#__PURE__*/React.createElement(Btn, {
-    id: "cancel_signed",
-    onClick: onCancel
-  }), /*#__PURE__*/React.createElement(Spacer, null), round === 'ready' ? /*#__PURE__*/React.createElement(Btn, {
-    id: "broadcast",
-    onClick: onBroadcast
-  }) : /*#__PURE__*/React.createElement(Btn, {
-    id: "sign_round",
-    args: round,
-    onClick: onSign
-  }))));
-}
-
-/* The Send states of the app run, for the gallery. */
-const musigCosigners = (nonces, partialSigs) => ['Alice', 'Bob'].map(alias => ({
-  alias,
-  nonces,
-  partialSigs,
-  expected: 1
-}));
-
-/* The new part of the MuSig2 Send screen: the spend path, Prepare, then the card.
-   Broadcast (round 'ready') opens SentModal; `sent` opens on it, for the gallery. */
-function MusigSendPanel({
-  round,
-  cosigners,
-  lost,
-  prepared = true,
-  sent: initialSent = false
-}) {
-  const [sent, setSent] = React.useState(initialSent);
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Stack, {
-    gap: "m"
-  }, /*#__PURE__*/React.createElement(SpendPathPicker, {
-    locked: prepared
-  }), /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Btn, {
-    id: "prepare",
-    disabled: prepared
-  })), prepared ? /*#__PURE__*/React.createElement(MusigSigningCard, {
-    round: round,
-    cosigners: cosigners,
-    lost: lost,
-    onBroadcast: () => setSent(true)
-  }) : null), sent ? /*#__PURE__*/React.createElement(SentModal, {
-    txid: MUSIG_TXID,
-    onClose: () => setSent(false)
-  }) : null);
-}
-
-/* The whole Send view of a Multikey Wallet (musig/views/Send.cpp): Payments (address and
-   amount in BTC), Coins selection (the coins picked by hand), the fee rate, the spend
-   path the picked coins allow, Prepare, then the signing card replacing nothing: it sits
-   under Prepare until the transaction is broadcast or cancelled. `initial.picked`: the
-   outpoints picked; `initial.round`: the card's round once prepared. */
-function MusigSendScreen({
-  wallet,
-  initial = {}
-}) {
-  const blank = () => ({
-    address: '',
-    amount: ''
-  });
-  const [payments, setPayments] = React.useState(initial.payments || [blank()]);
-  const [picked, setPicked] = React.useState(initial.picked || []);
-  const [fee, setFee] = React.useState('1');
-  const [round, setRound] = React.useState(initial.round || null); // null | 1 | 2 | 'ready'
-  const [sent, setSent] = React.useState(false);
-  const cosigners = wallet.cosigners.split(', ');
-  const leaf = `Key path: ${cosigners.join(' + ')}`;
-  const prepared = round !== null;
-  const setPayment = (i, p) => setPayments(ps => ps.map((x, j) => j === i ? p : x));
-  const payState = p => p.address && p.amount && /^(bc1|tb1|bcrt1)/i.test(p.address) && parseFloat(p.amount) > 0;
-  const feeOk = parseFloat(fee) > 0;
-  const reason = !picked.length ? 'No coin to spend yet' : !payments.every(payState) ? 'Transaction is not valid' : null;
-  const sats = picked.length ? 111 + 43 * payments.length + 58 * picked.length : 0;
-  const counts = (n, p) => cosigners.map(alias => ({
-    alias,
-    nonces: n,
-    partialSigs: p,
-    expected: 1
-  }));
-  const card = {
-    1: counts(0, 0),
-    2: counts(1, 0),
-    ready: counts(1, 1)
-  };
-  const coinColumns = [{
-    header: '',
-    width: 34,
-    cellStyle: () => ({
-      padding: '0 6px'
-    }),
-    render: r => /*#__PURE__*/React.createElement(Checkbox, {
-      checked: picked.includes(r.outpoint),
-      disabled: prepared,
-      onChange: v => setPicked(ps => v ? [...ps, r.outpoint] : ps.filter(o => o !== r.outpoint))
-    })
-  }, {
-    key: 'outpoint',
-    header: 'OutPoint',
-    width: 175,
-    mono: true
-  }, {
-    header: 'Label',
-    grow: true,
-    muted: r => !r.label,
-    render: r => r.label || '-'
-  }, {
-    header: 'Value',
-    width: 150,
-    align: 'right',
-    render: r => `${r.value} BTC`
-  }];
-  return /*#__PURE__*/React.createElement(ScreenWrap, {
-    title: "Send"
-  }, /*#__PURE__*/React.createElement(Stack, {
-    gap: "xs"
-  }, /*#__PURE__*/React.createElement(SectionLabel, null, "Payments"), payments.map((p, i) => /*#__PURE__*/React.createElement(Card, {
-    key: i,
-    corner: payments.length > 1 && !prepared ? /*#__PURE__*/React.createElement(Btn, {
-      id: "remove_payment",
-      onClick: () => setPayments(ps => ps.filter((_, j) => j !== i))
-    }) : null
-  }, /*#__PURE__*/React.createElement(PaymentRow, {
-    label: "Address:"
-  }, /*#__PURE__*/React.createElement(Row, null, /*#__PURE__*/React.createElement(Input, {
-    mono: true,
-    grow: true,
-    placeholder: "Address",
-    disabled: prepared,
-    value: p.address,
-    onChange: e => setPayment(i, {
-      ...p,
-      address: e.target.value
-    })
-  }))), /*#__PURE__*/React.createElement(PaymentRow, {
-    label: "Amount:"
-  }, /*#__PURE__*/React.createElement(Row, {
-    gap: "xs"
-  }, /*#__PURE__*/React.createElement(Input, {
-    mono: true,
-    width: 150,
-    placeholder: "0.002",
-    disabled: prepared,
-    value: p.amount,
-    onChange: e => setPayment(i, {
-      ...p,
-      amount: e.target.value
-    })
-  }), /*#__PURE__*/React.createElement(Text, {
-    variant: "body"
-  }, "BTC"))))), /*#__PURE__*/React.createElement(Row, {
-    style: {
-      marginTop: 'var(--space-s)'
-    }
-  }, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Btn, {
-    id: "add_payment",
-    disabled: prepared,
-    onClick: () => setPayments(ps => [...ps, blank()])
-  }))), /*#__PURE__*/React.createElement(Ruler, null), /*#__PURE__*/React.createElement(Stack, {
-    gap: "xs"
-  }, /*#__PURE__*/React.createElement(SectionLabel, null, "Coins selection"), /*#__PURE__*/React.createElement(Table, {
-    columns: coinColumns,
-    rows: wallet.coins,
-    rowKey: r => r.outpoint
-  })), /*#__PURE__*/React.createElement(Row, {
-    gap: "xs",
-    style: {
-      marginTop: 'var(--space-m)'
-    }
-  }, /*#__PURE__*/React.createElement(Text, {
-    variant: "secondary"
-  }, "Fee Rate:"), /*#__PURE__*/React.createElement(Input, {
-    mono: true,
-    width: 100,
-    value: fee,
-    disabled: prepared,
-    onChange: e => setFee(e.target.value)
-  }), /*#__PURE__*/React.createElement(Text, {
-    variant: "body"
-  }, "sats/vb"), /*#__PURE__*/React.createElement(ValidationMark, {
-    state: feeOk ? 'valid' : 'invalid'
-  }), sats ? /*#__PURE__*/React.createElement(Text, {
-    variant: "caption",
-    style: {
-      marginLeft: 'var(--space-m)'
-    }
-  }, "Fee: ", sats, " sats") : null), /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 'var(--space-m)'
-    }
-  }, /*#__PURE__*/React.createElement(SpendPathPicker, {
-    leaves: [leaf],
-    value: leaf,
-    locked: prepared
-  })), /*#__PURE__*/React.createElement(Row, {
-    gap: "s",
-    style: {
-      marginTop: 'var(--space-m)'
-    }
-  }, reason && !prepared ? /*#__PURE__*/React.createElement(Text, {
-    variant: "caption"
-  }, reason) : null, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Btn, {
-    id: "prepare",
-    disabled: !!reason || !feeOk || prepared,
-    onClick: () => setRound(1)
-  })), prepared ? /*#__PURE__*/React.createElement("div", {
-    style: {
-      marginTop: 'var(--space-m)'
-    }
-  }, /*#__PURE__*/React.createElement(MusigSigningCard, {
-    round: round,
-    cosigners: card[round],
-    onCancel: () => setRound(null),
-    onSign: () => setRound(r => r === 1 ? 2 : 'ready'),
-    onBroadcast: () => setSent(true)
-  })) : null, sent ? /*#__PURE__*/React.createElement(SentModal, {
-    txid: MUSIG_TXID,
-    onClose: () => {
-      setSent(false);
-      setRound(null);
-      setPicked([]);
-    }
-  }) : null);
-}
 Object.assign(window, {
+  MusigSignModal,
+  musigSigners,
   MUSIG_KEYS,
   MUSIG_PATH,
   MUSIG_NEW_PATH,
@@ -5905,14 +5805,12 @@ Object.assign(window, {
   VerifyFirstAddress,
   CreateSharedAccount,
   SpendPathPicker,
-  MusigSigningCard,
-  MusigSendPanel,
-  MusigSendScreen,
-  musigCosigners
+  MUSIG_TXID
 });
 
 /* File-level namespace (DS compiler indexes this file as `Musig`). */
 const Musig = {
+  MusigSignModal,
   PathEditor,
   SpendPathList,
   EditSpendPath,
@@ -5920,10 +5818,7 @@ const Musig = {
   PolicyReview,
   VerifyFirstAddress,
   CreateSharedAccount,
-  SpendPathPicker,
-  MusigSigningCard,
-  MusigSendPanel,
-  MusigSendScreen
+  SpendPathPicker
 };
 Object.assign(__ds_scope, { Musig });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/silent/Musig.jsx", error: String((e && e.message) || e) }); }
@@ -5943,7 +5838,8 @@ function useMeasure() {
     let raf;
     const tick = () => {
       if (ref.current) {
-        const next = ref.current.getBoundingClientRect().width;
+        // offsetWidth is the layout width: unaffected by a CSS transform (the kit's scaled-to-fit wide preview)
+        const next = ref.current.offsetWidth;
         setW(prev => Math.abs(prev - next) > 0.5 ? next : prev);
       }
       raf = requestAnimationFrame(tick);
@@ -7492,39 +7388,52 @@ function RecipientCard({
   })) : null)));
 }
 
-/* useMeasure lives in Primitives.jsx — shared by the dashboard layout and Send. */
+/* The core Send panel (account/views/Send.cpp) of every account: payments, coins
+   selection, the transaction, then the account's signing step (SendSigning). An sp
+   account signs then broadcasts (sp/SpSigning.cpp); a Multikey Wallet picks its spend
+   path, signs (Sign starts the session), then runs the MuSig2 rounds on the signing card
+   (musig/SigningSection.cpp). While the step holds a transaction, the payments and the
+   coins are locked and the fee inputs and Clear are hidden. `initial.round` opens a
+   Multikey Send prepared, at that round (1 | 2 | 'ready'), with `initial.payments`. */
 function SendScreen({
-  wallet
+  wallet,
+  initial = {}
 }) {
-  const [outputs, setOutputs] = React.useState([{
+  const blankOutput = () => ({
     address: '',
     amount: '',
     usd: '',
     label: '',
     max: false
-  }]);
+  });
+  const musig = wallet.kind === 'musig';
+  const keyPath = musig ? `Key path: ${wallet.cosigners.split(', ').join(' + ')}` : null;
+  const [outputs, setOutputs] = React.useState(initial.payments || [blankOutput()]);
   const [feeRate, setFeeRate] = React.useState(true); // true = sats/vb, false = sats
   const [fee, setFee] = React.useState('1');
   const [auto, setAuto] = React.useState(true);
   const [selected, setSelected] = React.useState({});
   const [modal, setModal] = React.useState(null); // null | 'confirm' | 'sending' | 'sent'
   const [signed, setSigned] = React.useState(false);
+  const [path, setPath] = React.useState(keyPath); // the Multikey spend path
+  const [round, setRound] = React.useState(initial.round || null); // null | 1 | 2 | 'ready'
+
   React.useEffect(() => {
-    setOutputs([{
-      address: '',
-      amount: '',
-      usd: '',
-      label: '',
-      max: false
-    }]);
+    setOutputs(initial.payments || [blankOutput()]);
     setSelected({});
     setModal(null);
     setSigned(false);
+    setPath(keyPath);
+    setRound(initial.round || null);
   }, [wallet]);
+
+  // The signing step holds a transaction: signed (sp) or prepared (Multikey).
+  const held = musig ? round !== null : signed;
   const clearAll = () => {
     clearOutputs();
     setSelected({});
     setSigned(false);
+    setRound(null);
   };
   const anyMax = outputs.some(o => o.max);
   const setOut = (i, v) => setOutputs(outputs.map((o, k) => k === i ? v : o));
@@ -7536,13 +7445,7 @@ function SendScreen({
     max: false
   }]);
   const delOutput = i => setOutputs(outputs.filter((_, k) => k !== i));
-  const clearOutputs = () => setOutputs([{
-    address: '',
-    amount: '',
-    usd: '',
-    label: '',
-    max: false
-  }]);
+  const clearOutputs = () => setOutputs([blankOutput()]);
   const valid = outputs.every(o => looksLikeAddress(o.address) && (o.max || looksLikeAmount(o.amount))) && looksLikeAmount(fee);
   const selCount = Object.values(selected).filter(Boolean).length;
 
@@ -7664,13 +7567,22 @@ function SendScreen({
   const renderPrimary = ({
     sideBySide
   }) => /*#__PURE__*/React.createElement("div", {
-    inert: signed ? '' : undefined,
+    inert: held ? '' : undefined,
     style: {
-      opacity: signed ? 0.55 : 1,
+      opacity: held ? 0.55 : 1,
       transition: 'opacity 0.15s',
       position: 'relative'
     }
-  }, coinsHeader, coinsBodyFor(sideBySide), /*#__PURE__*/React.createElement(Divider, {
+  }, coinsHeader, coinsBodyFor(sideBySide), musig ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 'var(--space-m)'
+    }
+  }, /*#__PURE__*/React.createElement(SpendPathPicker, {
+    leaves: [keyPath],
+    value: path,
+    locked: held,
+    onChange: setPath
+  })) : null, /*#__PURE__*/React.createElement(Divider, {
     space: "0",
     style: {
       margin: 'var(--space-l) 0 var(--space-m)'
@@ -7727,6 +7639,9 @@ function SendScreen({
     size: 10,
     color: "muted"
   }, outItems.length, " output", outItems.length === 1 ? '' : 's')) : null);
+
+  // A Multikey fee depends on its spend path: no estimate before one is picked.
+  const estimated = !musig || !!path;
   const summaryRows = /*#__PURE__*/React.createElement(TransactionSummary, {
     rows: [{
       label: 'Sending',
@@ -7734,20 +7649,27 @@ function SendScreen({
       sub: sendUsd
     }, {
       label: 'Network fee',
-      value: fmt8(feeBtc)
-    }, changeV > 1e-9 ? {
+      value: estimated ? fmt8(feeBtc) : '--'
+    }, changeV > 1e-9 && estimated ? {
       label: 'Change',
       value: fmt8(changeV)
     } : null],
     total: {
       label: 'Total',
-      value: fmt8(totalBtc)
+      value: estimated ? fmt8(totalBtc) : '--'
     }
   });
+
+  // Why a Multikey Sign is disabled, shown with the Transaction actions (the spend path picker sits under Coins).
+  const prepareReason = !selCoins.length ? 'No coin to spend yet' : !path ? 'Pick a spend path' : !valid ? 'Transaction is not valid' : null;
+  /* Multikey: only the reason Sign is disabled; the rounds run in the Sign modal */
+  const musigStep = musig && !held && prepareReason ? /*#__PURE__*/React.createElement(Text, {
+    variant: "caption"
+  }, prepareReason) : null;
   const actionRow = /*#__PURE__*/React.createElement(Row, {
     align: "flex-end",
     gap: "s"
-  }, signed ? null : /*#__PURE__*/React.createElement("div", {
+  }, held ? null : /*#__PURE__*/React.createElement("div", {
     style: {
       flex: 'none'
     }
@@ -7773,7 +7695,33 @@ function SendScreen({
     style: {
       flex: 'none'
     }
-  }, feeRate ? 'sats/vB' : 'sats'))), /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Row, {
+  }, feeRate ? 'sats/vB' : 'sats'))), /*#__PURE__*/React.createElement(Spacer, null), musig ?
+  /*#__PURE__*/
+  /* The Multikey step's button: Sign (starts the MuSig2 rounds), disabled while it holds the transaction. */
+  React.createElement(Row, {
+    gap: "s",
+    style: {
+      flex: 'none'
+    }
+  }, held ? /*#__PURE__*/React.createElement(Btn, {
+    id: "cancel_signed",
+    onClick: () => setRound(null)
+  }) : /*#__PURE__*/React.createElement(Btn, {
+    id: "clear",
+    onClick: clearAll
+  }), /*#__PURE__*/React.createElement(Btn, {
+    id: "sign",
+    disabled: !held && !!prepareReason,
+    onClick: () => {
+      if (!held) setRound(1);
+      setModal({
+        type: 'musig'
+      });
+    },
+    style: {
+      flex: 'none'
+    }
+  })) : /*#__PURE__*/React.createElement(Row, {
     gap: "s",
     style: {
       flex: 'none'
@@ -7820,12 +7768,16 @@ function SendScreen({
     style: {
       marginTop: 'var(--space-m)'
     }
-  }, actionRow)) :
+  }, actionRow), musigStep ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginTop: 'var(--space-m)'
+    }
+  }, musigStep) : null) :
   /*#__PURE__*/
   /* single column: summary, then buttons, then the diagram last */
   React.createElement(Stack, {
     gap: "m"
-  }, summaryRows, actionRow, txDiagram));
+  }, summaryRows, actionRow, musigStep, txDiagram));
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DashboardLayout, {
     title: "Send",
     primary: renderPrimary,
@@ -7866,7 +7818,17 @@ function SendScreen({
       clearAll();
       setModal(null);
     }
+  }) : null, modal && modal.type === 'musig' ? /*#__PURE__*/React.createElement(MusigSignModal, {
+    signers: musigSigners(wallet.cosigners.split(', ')),
+    round: round,
+    onRound: setRound,
+    onClose: () => setModal(null),
+    onBroadcast: () => setModal({
+      type: 'sent',
+      txid: MUSIG_TXID
+    })
   }) : null, modal && modal.type === 'sent' ? /*#__PURE__*/React.createElement(SentModal, {
+    txid: modal.txid,
     onClose: () => {
       clearAll();
       setModal(null);
@@ -7895,53 +7857,21 @@ function BroadcastModal({
 }
 const SENT_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
 
-/* SentModal: the broadcast succeeded (Qt: MessageModal, Tone::Success, with the txid as
-   its value). The status, then the whole txid chunked (wrapping) in an inset card with a
-   copy button. No action bar: the header × closes it. Both Send screens end here. */
+/* SentModal: the broadcast succeeded (Qt: MessageModal, Tone::Success). The status
+   only, no txid. No action bar: the header × closes it. Both Send screens end here. */
 function SentModal({
-  txid = SENT_TXID,
   onClose
 }) {
-  const [copied, setCopied] = React.useState(false);
-  const copy = () => {
-    try {
-      navigator.clipboard && navigator.clipboard.writeText(txid);
-    } catch (e) {}
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1200);
-  };
   return /*#__PURE__*/React.createElement(Modal, {
-    title: "Confirm Transaction",
+    title: "Transaction Sent",
     width: 460,
     onClose: onClose
-  }, /*#__PURE__*/React.createElement(Stack, {
-    gap: "m",
-    style: {
-      width: '100%'
-    }
   }, /*#__PURE__*/React.createElement(ModalStatus, {
     icon: "circle_check",
     iconColor: "var(--success)",
-    subtitle: /*#__PURE__*/React.createElement(React.Fragment, null, "Transaction Sent", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("br", null), "Txid:"),
-    pad: "var(--space-m) 0 0"
-  }), /*#__PURE__*/React.createElement(Card, {
-    tone: "inset",
-    pad: "m"
-  }, /*#__PURE__*/React.createElement(Row, {
-    gap: "xs",
-    align: "center"
-  }, /*#__PURE__*/React.createElement("div", {
-    style: {
-      flex: 1,
-      minWidth: 0
-    }
-  }, /*#__PURE__*/React.createElement(ChunkedAddress, {
-    text: txid,
-    wrap: true
-  })), /*#__PURE__*/React.createElement(Btn, {
-    id: copied ? 'copied_value' : 'copy_value',
-    onClick: copy
-  })))));
+    title: "The transaction was broadcast.",
+    pad: "var(--space-l) 0"
+  }));
 }
 Object.assign(window, {
   SendScreen,
@@ -10312,6 +10242,23 @@ const PILLS = {
     label: 'Not Needed',
     w: 'L'
   },
+  /* the MuSig2 Sign wizard: one per cosigner, each round (partial signature in = signer_signed) */
+  musig_needed: {
+    tone: 'warning',
+    label: 'Needed',
+    w: 'L'
+  },
+  musig_on_device: {
+    tone: 'off',
+    label: 'On Device…',
+    w: 'L'
+  },
+  musig_nonce_added: {
+    tone: 'success',
+    label: 'Nonce',
+    icon: 'check',
+    w: 'L'
+  },
   /* the creator's Verify step: one per signer */
   addr_verified: {
     tone: 'success',
@@ -11244,8 +11191,8 @@ function ScrollArea({
   }, children);
 }
 
-/* WizardSteps — the step trail at the top of a wizard modal: one numbered dot per
-   step, joined by a rule; done steps show a check, the current one is accent and
+/* WizardSteps — the step trail at the top of a wizard modal, centred: one numbered
+   dot per step, joined by a fixed-width rule (--wizard-rule-w); done steps show a check, the current one is accent and
    bold, later ones muted. Display only (Back / Continue move between steps).
    Qt: HBox of (QLabel dot, QLabel name) pairs with QFrame::HLine between. */
 function WizardSteps({
