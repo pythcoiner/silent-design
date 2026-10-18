@@ -68,15 +68,17 @@ export function QRCode({ text, size = 132, zoom }) {
    click cycles groups of 4, groups of 6, then one unbroken string. Long
    silent-payment strings (over 56 characters) wrap to two centered rows, or,
    with `wrap`, to as many rows as the width needs (the verify card). `align`:
-   center (default) or left, flush with the text above it (the creator's verify page). */
+   center (default) or left, flush with the text above it (the creator's verify page).
+   `oneRow`: the whole address on a single row whatever its length (the creator's
+   verify page; the container must be wide enough). */
 const CHUNK_CYCLE = { 4: 6, 6: 0, 0: 4 };
-export function ChunkedAddress({ text, wrap = false, align = 'center' }) {
+export function ChunkedAddress({ text, wrap = false, align = 'center', oneRow = false }) {
   const left = align === 'left';
   const [size, setSize] = React.useState(4);          // characters per group, 0 = one string
   const chunked = size > 0;
   const lines = React.useMemo(() => {
     const chunks = chunked ? text.match(new RegExp(`.{1,${size}}`, 'g')) || [] : [];
-    const rows = !wrap && text.length > 56 ? 2 : 1;   // long SP → 2 rows, others → 1
+    const rows = !oneRow && !wrap && text.length > 56 ? 2 : 1;   // long SP → 2 rows, others → 1
     const base = Math.floor(chunks.length / rows);
     const extra = chunks.length % rows;                       // first `extra` rows get +1
     const out = [];
@@ -87,14 +89,14 @@ export function ChunkedAddress({ text, wrap = false, align = 'center' }) {
       i += n;
     }
     return out;
-  }, [text, size]);
+  }, [text, size, oneRow, wrap]);
 
   let idx = 0;  // running chunk index for alternating dim
   return (
     <div className="t-mono" onClick={() => setSize((n) => CHUNK_CYCLE[n])}
       title={size === 4 ? 'Show in groups of 6' : size === 6 ? 'Show as one string' : 'Show in groups of 4'}
       style={{ lineHeight: 1.75, textAlign: left ? 'left' : 'center', cursor: 'pointer', userSelect: 'none',
-        wordBreak: chunked ? 'normal' : 'break-all' }}>
+        wordBreak: chunked || oneRow ? 'normal' : 'break-all', whiteSpace: oneRow ? 'nowrap' : undefined }}>
       {chunked
         ? lines.map((row, r) => (
             <div key={r} style={{ display: 'flex', justifyContent: left ? 'flex-start' : 'center', gap: '0.4em', flexWrap: wrap ? 'wrap' : 'nowrap' }}>

@@ -13,9 +13,13 @@
    Never add a Close / OK / Cancel button — the × is the only close control; a
    sub-step that returns to the previous one uses Back (ModalActions onBack).
    When the content is taller than the window, the body scrolls between a pinned
-   header and a pinned button bar (ModalActions is sticky). */
+   header and a pinned button bar (ModalActions is sticky).
+   `height`: 'auto' (default, fits the content) | 'wizard' (fixed --modal-wizard-h, so
+   every step of a wizard keeps one size; the body fills it and the actions sit at
+   the bottom — the step's Stack takes flex 1 with a Spacer before ModalActions). */
 
-export function Modal({ title, width = 500, onClose, children, headerRight }) {
+export function Modal({ title, width = 500, height = 'auto', onClose, children, headerRight }) {
+  const fixed = height === 'wizard';
   return (
     <div onClick={onClose} style={{
       position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.45)',
@@ -23,6 +27,7 @@ export function Modal({ title, width = 500, onClose, children, headerRight }) {
     }}>
       <div onClick={e => e.stopPropagation()} style={{
         width, maxWidth: '92%', maxHeight: '90%', overflow: 'auto', boxSizing: 'border-box',
+        height: fixed ? 'var(--modal-wizard-h)' : undefined, display: fixed ? 'flex' : undefined, flexDirection: 'column',
         background: 'var(--bg)', border: '1px solid var(--border)', borderRadius: 'var(--radius-input)',
         padding: 'var(--space-m)',
       }}>
@@ -41,7 +46,7 @@ export function Modal({ title, width = 500, onClose, children, headerRight }) {
         </Row>
         {/* the body sits centred across the modal; ModalActions stretches (Qt: the step
             body between two spacers, the actions bar outside them) */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: fixed ? '1 0 auto' : undefined,
           '--modal-body-w': `calc(${typeof width === 'number' ? width + 'px' : width} - 2 * var(--space-m) - 2px)` }}>
           {children}
         </div>

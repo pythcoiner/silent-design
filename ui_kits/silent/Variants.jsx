@@ -55,6 +55,9 @@ export const BUTTONS = {
   proceed: { role: 'primary', label: 'Proceed', w: 'M' },
   register: { role: 'primary', label: 'Register', w: 'M' },
   save_settings: { role: 'primary', label: 'Save Settings', w: 'L' },
+  /* Review step, before the backup: the step's main action; once saved, backup_descriptor (default) */
+  backup_descriptor_primary: { role: 'primary', label: 'Backup Descriptor', icon: 'download', iconSize: 16, w: 'XL' },
+  save_spend_path: { role: 'primary', label: 'Save Path', w: 'M' },
   save_unsigned_psbt: { role: 'primary', label: 'Save Unsigned PSBT…', icon: 'download', iconSize: 16, w: 'XL' },
   seal_key: { role: 'primary', label: 'Seal Key', w: 'M' },
   show_mnemonic: { role: 'primary', label: 'Show Mnemonic', w: 'L' },
@@ -66,6 +69,7 @@ export const BUTTONS = {
   add_a_key: { role: 'default', label: '+ Add a Key', w: 'M' },
   add_payment: { role: 'default', label: '+ Add Payment', w: 'L' },
   add_spend_path: { role: 'default', label: '+ Add a Spend Path', w: 'L' },
+  backup_descriptor: { role: 'default', label: 'Backup Descriptor', icon: 'download', iconSize: 16, w: 'XL' },
   clear: { role: 'default', label: 'Clear', w: 'M' },
   cancel_signed: { role: 'destructive', label: 'Cancel', w: 'M' },
   connect_blindbit: { role: 'default', label: 'Connect Blindbit', w: 'L' },
@@ -85,6 +89,7 @@ export const BUTTONS = {
   testing: { role: 'default', label: 'Testing…', w: 'M' },
   delete: { role: 'destructive', label: 'Delete', w: 'M' },
   remove_key: { role: 'destructive', label: 'Remove Key', w: 'M' },
+  remove_spend_path: { role: 'destructive', label: 'Remove Path', w: 'M' },
   add_label: { role: 'inline', label: 'Add a Label', icon: 'plus', iconSize: 14, w: 'Auto' },
   awaiting_payment: { role: 'inline', label: 'Addr. awaiting payment ({n})', args: true, w: 'Auto' },
   hide_words: { role: 'inline', label: 'Hide Words', icon: 'eye_off', iconSize: 14, w: 'Auto' },
@@ -147,6 +152,18 @@ export const PILLS = {
   network: { tone: 'neutral', label: '(network)', dataLabel: true, w: 'Auto' },
   xpub_used: { tone: 'success', label: 'Used', w: 'M' },
   xpub_unused: { tone: 'off', label: 'Not Used', w: 'M' },
+  /* the creator's Xpubs step: one per key of the paths */
+  xpub_fetched: { tone: 'success', label: 'Fetched', icon: 'check', w: 'M' },
+  xpub_missing: { tone: 'warning', label: 'Missing', w: 'M' },
+  /* the creator's Register step: one per signer */
+  reg_registered: { tone: 'success', label: 'Registered', icon: 'check', w: 'L' },
+  reg_pending: { tone: 'warning', label: 'Not Registered', w: 'L' },
+  reg_registering: { tone: 'off', label: 'Registering…', w: 'L' },
+  reg_not_needed: { tone: 'off', label: 'Not Needed', w: 'L' },
+  /* the creator's Verify step: one per signer */
+  addr_verified: { tone: 'success', label: 'Verified', icon: 'check', w: 'M' },
+  addr_unchecked: { tone: 'off', label: 'Not Checked', w: 'M' },
+  addr_no_screen: { tone: 'off', label: 'No Screen', w: 'M' },
   plugin_unloading: { tone: 'off', label: 'Unloading…', w: 'L' },
 };
 

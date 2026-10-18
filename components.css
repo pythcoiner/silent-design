@@ -117,6 +117,10 @@
 .s-input:focus { border-color: var(--input-focus); }
 .s-input:disabled { background: var(--bg-secondary); color: var(--text-secondary); border-color: var(--border-light); }
 .s-input--mono { font-family: var(--font-mono); }
+/* DateTimeInput: the native calendar glyph takes the text colour */
+.s-input--datetime { font-family: var(--font-mono); color-scheme: light; }
+[data-theme="dark"] .s-input--datetime { color-scheme: dark; }
+.s-input--datetime::-webkit-calendar-picker-indicator { cursor: pointer; opacity: .7; }
 
 /* ---------------- Display: read-only field (theme/Display.cpp) ---------------- */
 .s-display {
@@ -298,6 +302,14 @@
 .s-select-row__sub { font-size: var(--size-caption); color: var(--text-muted); line-height: 1.45; }
 .s-select-row__meta { flex: none; font: var(--size-caption) var(--font-mono); color: var(--text-muted); }
 .s-select-row__chev { flex: none; display: inline-flex; color: var(--text-muted); }
+/* Two-line: a title-only row as tall as a title + sub row (a pick-list next to
+   device / key rows keeps one row height); the title centres in it. */
+.s-select-row__body--ghosted { display: grid; align-items: center; }
+.s-select-row__body--ghosted > * { grid-area: 1 / 1; }
+.s-select-row__ghost { visibility: hidden; display: flex; flex-direction: column; gap: var(--space-xxs); }
+/* Add tone: the closing "add one" row of a list — content centred, no chevron. */
+.s-select-row--add { justify-content: center; gap: var(--space-xs); }
+.s-select-row--add .s-select-row__body { flex: none; }
 
 /* ---------------- Notice (inline message block) ----------------
    Flat tinted block for in-place errors, warnings and explanations (failed
@@ -336,6 +348,17 @@
 .s-copy-field__v { flex: 1; min-width: 0; padding: 4px 0; font: var(--size-caption) var(--font-mono); color: var(--text); line-height: 1.5; }
 .s-copy-field__v.is-wrap { word-break: break-all; }
 .s-copy-field__v.is-truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------------- Wizard steps (step trail atop a wizard modal) ---------------- */
+.s-wizard { display: flex; align-items: center; gap: var(--space-xs); width: 100%; padding-bottom: var(--space-s); border-bottom: 1px solid var(--border-light); }
+.s-wizard__step { display: inline-flex; align-items: center; gap: var(--space-xs); flex: none; color: var(--text-muted); font: var(--weight-normal) var(--size-caption) var(--font-sans); }
+.s-wizard__dot { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: var(--radius-badge); border: 1px solid var(--border); font: var(--weight-demibold) var(--size-caption) var(--font-mono); }
+.s-wizard__rule { flex: 1; min-width: var(--space-s); height: 1px; background: var(--border-light); }
+.s-wizard__rule.is-done { background: var(--accent); }
+.s-wizard__step.is-done { color: var(--text-secondary); }
+.s-wizard__step.is-done .s-wizard__dot { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.s-wizard__step.is-current { color: var(--text); font-weight: var(--weight-demibold); }
+.s-wizard__step.is-current .s-wizard__dot { border-color: var(--accent); color: var(--accent); }
 
 /* ---------------- Scan progress (multi-part QR) ---------------- */
 .s-scan-progress { display: flex; gap: var(--space-xxs); width: 100%; }

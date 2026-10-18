@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- @dsCard group="Generic Components" name="Generic — Modal & Status" subtitle="Dialog shell + ModalStatus: spinner / icon · title · subtitle; the sent modal with its txid card" viewport="900x340" -->
+<!-- @dsCard group="Generic Components" name="Generic — Modal & Status" subtitle="Dialog shell (height auto · wizard) + ModalStatus: spinner / icon · title · subtitle; the sent modal with its txid card" viewport="900x340" -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -49,6 +49,12 @@
         <div class="txid"><span>5018</span><span>95f3</span><span>cc36</span><span>d5e3</span><span>5514</span><span>b5ff</span><span>7af5</span><span>5c9b</span><span>0822</span><span>e114</span><span>560e</span><span>be6f</span><span>dab2</span><span>3806</span><span>7db0</span><span>76e2</span></div>
         <button class="s-btn s-btn--inline-icon" title="Copy"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></button>
       </div>
+    </div>
+    <div class="modal" style="height:320px;display:flex;flex-direction:column">
+      <div class="mhead"><span class="mtitle">height="wizard"</span></div>
+      <div class="t-caption" style="color:var(--text-muted)">Fixed --modal-wizard-h (640px, shown at half scale): every wizard step keeps one size; the body fills it.</div>
+      <div style="flex:1"></div>
+      <div style="display:flex;gap:10px;justify-content:space-between"><button class="s-btn s-btn--w-m">Back</button><button class="s-btn s-btn--primary s-btn--w-m">Continue</button></div>
     </div>
   </div>
   <script src="catalog-data.js"></script>

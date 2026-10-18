@@ -24,7 +24,7 @@
     <div class="grid" id="g"></div>
   </div>
   <script>
-    const icons = ['history','coins','upload','download','settings','trash_2','pencil','x','chevron_down','copy','bitcoin','shield','check','plus','lock_open','eye_off','wallet','server','network','chevron_left'];
+    const icons = ['history','coins','upload','download','settings','trash_2','pencil','x','chevron_down','copy','bitcoin','shield','check','plus','lock_open','eye_off','wallet','users','server','network','chevron_left'];
     document.getElementById('g').innerHTML = icons.map(n =>
       `<div class="ic"><div class="gl" style="-webkit-mask-image:url(../assets/icons/${n}.svg);mask-image:url(../assets/icons/${n}.svg)"></div><div class="nm">${n.replace(/_/g,'-')}</div></div>`
     ).join('');
