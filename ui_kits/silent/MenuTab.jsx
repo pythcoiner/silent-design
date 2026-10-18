@@ -5,7 +5,7 @@
 
 const ACCOUNT_TYPES = [
   { id: 'sp', title: 'Silent Payment Wallet' },
-  { id: 'shared', title: 'Shared Wallet' },
+  { id: 'shared', title: 'Multikey Wallet' },
 ];
 
 function MenuTab({ wallets, openWallets, onOpen, onCreate, onDelete, onOpenKeys }) {

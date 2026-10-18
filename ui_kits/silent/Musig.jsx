@@ -1,5 +1,5 @@
-/* Silent UI Kit: MuSig2 shared wallets (src/modules/musig).
-   - CreateSharedAccount: the "Create Shared Account" modal (creator/CreatePolicy.cpp),
+/* Silent UI Kit: MuSig2 multikey wallets (src/modules/musig).
+   - CreateSharedAccount: the "Create Multikey Account" modal (creator/CreatePolicy.cpp),
      its steps replacing each other: Define (account, Electrum, the spend path editor
      and the live policy preview), Fetch (the account xpubs still missing, one signing
      flow per key), Review (policy, descriptor, checksum), Register, Verify (the first
@@ -156,7 +156,7 @@ function VerifyFirstAddress({ checkable, verified, onCheck }) {
   );
 }
 
-/* Create Shared Account. `initial.step`: define | fetch | review | register | verify;
+/* Create Multikey Account. `initial.step`: define | fetch | review | register | verify;
    `initial.checkable` false shows the no-checkable-key warning; `initial.verified`
    the matched check. */
 function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCreate, initial = {} }) {
@@ -248,7 +248,7 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
     );
   }
   return (
-    <Modal title="Create Shared Account" width={640} onClose={onCancel}>
+    <Modal title="Create Multikey Account" width={640} onClose={onCancel}>
       <Stack gap="m" style={{ alignSelf: 'stretch' }}>
         {body}
         {actions}

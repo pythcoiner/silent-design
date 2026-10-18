@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Silent, Shared Wallet · components</title>
+<title>Silent, Multikey Wallet · components</title>
 <link rel="stylesheet" href="../styles.css" />
 <link rel="stylesheet" href="gallery.css" />
 <style>.s-qr svg { width: 100%; height: 100%; display: block; } @keyframes s-spin { to { transform: rotate(360deg); } } .s-spin { animation: s-spin 1s linear infinite; }</style>
@@ -30,8 +30,8 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=9"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=6"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=18"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=4"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
@@ -46,14 +46,14 @@
     }
 
     Gallery.render({
-      kicker: 'Shared Wallet · components',
-      title: 'MuSig2 shared wallet: creator, spend path, signing rounds',
-      lede: 'The launcher has one Create Account button; its Account Type picker opens Create Shared Account, which runs its steps in one modal: define the spend paths with a live policy preview, fetch the account xpubs a key still owes, review, register, then check the first address on a device. On Send the spend path picks the leaf; signing runs in two rounds, nonces then partial signatures, and a signer that lost its session sends every cosigner back to round 1.',
+      kicker: 'Multikey Wallet · components',
+      title: 'MuSig2 multikey wallet: creator, spend path, signing rounds',
+      lede: 'The launcher has one Create Account button; its Account Type picker opens Create Multikey Account, which runs its steps in one modal: define the spend paths with a live policy preview, fetch the account xpubs a key still owes, review, register, then check the first address on a device. On Send the spend path picks the leaf; signing runs in two rounds, nonces then partial signatures, and a signer that lost its session sends every cosigner back to round 1.',
       groups: [
         { name: 'Launcher', items: [
-          { title: 'Create Account, then Shared Wallet in the Account Type picker', tag: 'MenuTab', span: 'full', frame: true, height: 560, el: <LauncherDemo /> },
+          { title: 'Create Account, then Multikey Wallet in the Account Type picker', tag: 'MenuTab', span: 'full', frame: true, height: 560, el: <LauncherDemo /> },
         ]},
-        { name: 'Create Shared Account', items: [
+        { name: 'Create Multikey Account', items: [
           { title: 'Define: path editor, live policy preview', tag: 'CreateSharedAccount', ...CS({}, 980) },
           { title: 'Define: Electrum not tested yet', tag: 'CreateSharedAccount', ...CS({ test: null }, 980) },
           { title: 'Fetch: an account xpub still missing', tag: 'CreateSharedAccount', ...CS({ step: 'fetch' }, 420) },
