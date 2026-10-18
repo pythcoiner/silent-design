@@ -686,9 +686,57 @@ function SpendPathPicker({ leaves = MUSIG_LEAVES, lockedLeaves = MUSIG_LOCKED_LE
   );
 }
 
+/* Register Descriptor (a Multikey account's Settings): one row per key of the wallet.
+   On open each key on its connected USB device is asked whether it holds the account
+   (Checking…, then Registered or Not Registered), registering nothing. A click registers
+   on that device, every device at once; a failure says why on its row and a click tries
+   again; a device not connected is greyed (Not Connected, why left of its pill) and
+   checked again on click; a key with no device to register on reads Not Needed.
+   `initial.states`: { fp: 'checking' | 'registered' | 'pending' | 'registering' |
+   'failed' | 'disconnected' | 'not_needed' }; `initial.failed`: { fp: why }. */
+const REGISTER_PILL = { not_needed: 'reg_not_needed', disconnected: 'signer_disconnected', checking: 'reg_checking',
+  pending: 'reg_pending', registering: 'reg_registering', registered: 'reg_registered', failed: 'reg_failed' };
+function RegisterDescriptorModal({ keys = MUSIG_KEYS, initial = {}, onClose }) {
+  const opening = () => Object.fromEntries(keys.map(k => [k.fp, k.route === 'hot' ? 'not_needed' : k.route === 'usb' ? 'checking' : 'pending']));
+  const [states, setStates] = React.useState(initial.states || opening());
+  const [failed, setFailed] = React.useState(initial.failed || {});
+  React.useEffect(() => {
+    if (initial.states) return undefined;
+    const t = setTimeout(() => setStates(s => Object.fromEntries(Object.entries(s).map(([fp, st]) => [fp, st === 'checking' ? 'registered' : st]))), 900);
+    return () => clearTimeout(t);
+  }, []);
+  const set = (fp, st) => setStates(s => ({ ...s, [fp]: st }));
+  const click = (fp) => {
+    if (states[fp] === 'disconnected') { set(fp, 'checking'); setTimeout(() => set(fp, 'pending'), 900); return; }
+    setFailed(f => { const n = { ...f }; delete n[fp]; return n; });
+    set(fp, 'registering'); setTimeout(() => set(fp, 'registered'), 900);
+  };
+  const busy = Object.values(states).some(st => st === 'checking' || st === 'registering');
+  return (
+    <Modal title="Register Descriptor" width={560} onClose={onClose}>
+      <Stack gap="m" style={{ alignSelf: 'stretch' }}>
+        <Text variant="body">Click a device to register the account on it.</Text>
+        <Stack gap="xs">
+          {keys.map(k => {
+            const st = states[k.fp], why = st === 'failed' ? failed[k.fp] : null;
+            const clickable = st === 'pending' || st === 'failed' || st === 'disconnected';
+            return (
+              <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={why || k.fp} chevron={false}
+                tone={why ? 'error' : undefined} disabled={st === 'not_needed'}
+                note={st === 'disconnected' ? 'Plug it in and unlock it.' : undefined}
+                status={<Pill id={REGISTER_PILL[st]} />} onClick={clickable ? () => click(k.fp) : undefined} />
+            );
+          })}
+        </Stack>
+        <ModalActions reason={busy ? 'Registering…' : null}><Btn id="done" onClick={onClose} /></ModalActions>
+      </Stack>
+    </Modal>
+  );
+}
+
 const MUSIG_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
 
-Object.assign(window, { MusigSignModal, musigSigners, MUSIG_KEYS, MUSIG_PATH, MUSIG_NEW_PATH, MUSIG_ADDRESS, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview,
+Object.assign(window, { MusigSignModal, RegisterDescriptorModal, musigSigners, MUSIG_KEYS, MUSIG_PATH, MUSIG_NEW_PATH, MUSIG_ADDRESS, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview,
   VerifyFirstAddress, CreateSharedAccount, SpendPathPicker, MUSIG_TXID });
 
 /* File-level namespace (DS compiler indexes this file as `Musig`). */

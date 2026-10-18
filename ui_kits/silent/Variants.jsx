@@ -70,6 +70,7 @@ export const BUTTONS = {
   add_payment: { role: 'default', label: '+ Add Payment', w: 'L' },
   add_spend_path: { role: 'default', label: '+ Add a Spend Path', w: 'L' },
   backup_descriptor: { role: 'default', label: 'Backup Descriptor', icon: 'download', iconSize: 16, w: 'XL' },
+  register_descriptor: { role: 'default', label: 'Register Descriptor', icon: 'usb', iconSize: 16, w: 'XL' },
   clear: { role: 'default', label: 'Clear', w: 'M' },
   cancel_signed: { role: 'destructive', label: 'Cancel', w: 'M' },
   connect_blindbit: { role: 'default', label: 'Connect Blindbit', w: 'L' },
@@ -162,6 +163,7 @@ export const PILLS = {
   reg_registered: { tone: 'success', label: 'Registered', icon: 'check', w: 'L' },
   reg_pending: { tone: 'warning', label: 'Not Registered', w: 'L' },
   reg_registering: { tone: 'off', label: 'Registering…', w: 'L' },
+  reg_checking: { tone: 'off', label: 'Checking…', w: 'L' },
   reg_failed: { tone: 'error', label: 'Failed', w: 'L' },
   reg_not_needed: { tone: 'off', label: 'Not Needed', w: 'L' },
   /* the MuSig2 Sign wizard: one per cosigner, each round (partial signature in = signer_signed) */
