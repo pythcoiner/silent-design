@@ -159,6 +159,8 @@ const SIGNING_PLAN_ALL = [
 const VERIFY_PLAN = [
   { fp: '73c5da0a', alias: 'Daily Ledger', route: 'usb', status: 'ready', device: 'Ledger Nano S Plus' },
   { fp: '5be0c7d2', alias: 'Vault Coldcard', route: 'qr', status: 'ready' },
+  /* a hot key: no screen to show the address on */
+  { fp: '3f635a63', alias: 'Hot Spending', route: 'hot', status: 'no_route' },
 ];
 /* A silent payment address is only checked over QR codes: no USB device protocol
    supports it. */

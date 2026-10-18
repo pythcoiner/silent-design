@@ -50,6 +50,14 @@ const SIGNER_STATUS = {
   unregistered: { label: 'Not Registered', tone: 'error', usable: false, sub: () => 'This fingerprint is not a key on this computer. Add it in the Keys tab.' },
 };
 
+/* A Verify picker speaks of showing the address, never of signing; a key with nothing
+   to show it on (a hot key) reads No Screen. */
+const VERIFY_STATUS = {
+  ready: { sub: r => `Shows the address on ${ROUTE_KINDS[r.route].label}.` },
+  no_route: { pill: 'addr_no_screen', sub: r => (r.route === 'hot' ? 'A hot key has no screen to show the address on.'
+    : 'No device of this key can show the address. Add a USB or QR route in the Keys tab.') },
+};
+
 /* ---------------- 3.7 Signer picker ---------------- */
 
 function SignerPicker({ context = 'sign', plan = [], others = [], onPick, onCancel }) {
@@ -62,10 +70,11 @@ function SignerPicker({ context = 'sign', plan = [], others = [], onPick, onCanc
           <Stack gap="s">
             {plan.map(r => {
               const s = SIGNER_STATUS[r.status];
+              const v = context === 'verify' ? VERIFY_STATUS[r.status] || {} : {};
               return (
                 <SelectRow key={r.fp} icon={r.route ? ROUTE_KINDS[r.route].icon : 'key'}
-                  title={r.alias || 'Unknown Key'} sub={s.sub(r)} meta={r.fp}
-                  status={<Pill id={'signer_' + r.status} />}
+                  title={r.alias || 'Unknown Key'} sub={(v.sub || s.sub)(r)} meta={r.fp}
+                  status={<Pill id={v.pill || 'signer_' + r.status} />}
                   disabled={!s.usable && !s.done} onClick={s.usable ? () => onPick(r) : undefined} />
               );
             })}
