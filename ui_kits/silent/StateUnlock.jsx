@@ -4,12 +4,10 @@
    it. Each is a modal on its own; closing it quits Silent. */
 
 const STATE_PATH = (index) => `m/138'/1936225652'/${index}'`;
-const STATE_NETWORKS = ['Bitcoin', 'Testnet', 'Signet', 'Regtest'];
 
 /* The first start (Qt: state::StateSetup). Views: choice, device, password, busy. */
 function StateSetupModal({ initial = {}, onClose }) {
   const [view, setView] = React.useState(initial.view || 'choice');
-  const [network, setNetwork] = React.useState(initial.network || 'Bitcoin');
   const devices = initial.devices != null ? initial.devices : DEVICES.filter(d => ['hid-0001', 'hid-0002', 'hid-0004'].includes(d.id));
   const [picked, setPicked] = React.useState(initial.picked || null);
   const [pw, setPw] = React.useState(initial.pw || '');
@@ -33,8 +31,7 @@ function StateSetupModal({ initial = {}, onClose }) {
     return (
       <Modal title="Protect Silent · Signing Device" width={560} onClose={onClose}>
         <Stack gap="m">
-          <Text as="div" variant="body" color="secondary">Plug in the device and unlock it, open its app for the network below, then pick it.</Text>
-          <Field label="Network:"><ComboBox value={network} options={STATE_NETWORKS} onChange={setNetwork} width={160} /></Field>
+          <Text as="div" variant="body" color="secondary">Plug in the device, unlock it and open its Bitcoin app, then pick it.</Text>
           {devices.length ? <Stack gap="s">
             {devices.map(d => {
               const ready = d.state === 'ready';
@@ -88,14 +85,16 @@ function StateSetupModal({ initial = {}, onClose }) {
   );
 }
 
-/* Every later start with a device key (Qt: state::DeviceUnlock): names the device to
-   plug and asks it for its key as soon as it is ready. `status`: 'plug' | 'locked' |
-   'busy' | 'wrong' (another device's key) | 'failed' (the device refused). */
-function DeviceUnlockModal({ alias = 'Coldcard', fp = '28645006', index = 1266802657, status = 'plug', onClose }) {
+/* Every later start with a device key (Qt: state::DeviceUnlock). Nothing on disk
+   names the device: each ready device in sight is asked for its key at the path the
+   check file carries, until one opens the state. `status`: 'waiting' | 'busy' |
+   'wrong' (no device's key opened it) | 'failed' (the device refused). */
+function DeviceUnlockModal({ devices: devicesIn, index = 1266802657, status = 'waiting', onClose }) {
+  const devices = devicesIn != null ? devicesIn : [];
   if (status === 'busy') {
     return (
       <Modal title="Unlock Silent" width={560} onClose={onClose}>
-        <ModalStatus spinner pad="var(--space-l) 0" title="Confirm on Your Device" subtitle={`Silent asks ${alias} for the key at ${STATE_PATH(index)}.`} />
+        <ModalStatus spinner pad="var(--space-l) 0" title="Confirm on Your Device" subtitle={`Silent asks Coldcard for the key at ${STATE_PATH(index)}.`} />
       </Modal>
     );
   }
@@ -103,11 +102,14 @@ function DeviceUnlockModal({ alias = 'Coldcard', fp = '28645006', index = 126680
   return (
     <Modal title="Unlock Silent" width={560} onClose={onClose}>
       <Stack gap="m">
-        <Text as="div" variant="body">Plug in {alias} ({fp}) and unlock it: Silent asks it for its key.</Text>
-        <SelectRow icon="usb" title={alias} meta={fp} chevron={false}
-          sub={status === 'locked' ? 'Unlock the device.' : failed ? 'Asking the device for its key.' : 'Plug it in and unlock it.'}
-          status={<Pill id={status === 'locked' ? 'device_locked' : failed ? 'device_ready' : 'signer_disconnected'} />} />
-        {status === 'wrong' ? <Notice tone="error">This device's key does not open Silent. Plug in the device Silent was protected with.</Notice> : null}
+        <Text as="div" variant="body">Plug in the signing device Silent was protected with, unlock it and open its Bitcoin app: Silent asks it for its key.</Text>
+        {devices.length ? <Stack gap="s">
+          {devices.map(d => (
+            <SelectRow key={d.id} icon="usb" title={deviceName(d)} sub={d.state === 'ready' ? d.fp : d.detail} chevron={false}
+              status={<Pill id={d.state === 'ready' ? 'device_ready' : d.state === 'locked' ? 'device_locked' : 'device_unsupported'} />} />
+          ))}
+        </Stack> : <ModalStatus icon="usb" title="No Device Connected" subtitle="Plug in your signing device and unlock it." pad="var(--space-m) 0" />}
+        {status === 'wrong' ? <Notice tone="error">No connected device's key opens Silent. Plug in the device Silent was protected with.</Notice> : null}
         {status === 'failed' ? <Notice tone="error">The device did not give the key: the user refused on the device.</Notice> : null}
         {failed ? <ModalActions><Btn id="try_again" /></ModalActions> : null}
       </Stack>
@@ -126,7 +128,7 @@ function PasswordUnlockModal({ error, initialBusy, onClose }) {
 
 /* A state file silent writes found in clear: there is no migration, Silent stops
    (Qt: MessageModal, Tone::Error). */
-function ClearStateModal({ path = '~/.silent/savings/config.json', onClose }) {
+function ClearStateModal({ path = '~/.silent/48f18bef49a46e61bd705de6ccc5a84d/account.json', onClose }) {
   return (
     <Modal title="Unencrypted Data Found" width={460} onClose={onClose}>
       <ModalStatus icon="alert" iconColor="var(--error)" pad="var(--space-l) 0"

@@ -32,7 +32,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=59"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=23"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/StateUnlock.jsx?v=1"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/StateUnlock.jsx?v=3"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const noop = () => {};
@@ -40,20 +40,21 @@
     Gallery.render({
       kicker: 'Startup · components',
       title: 'Unlock',
-      lede: 'Issue #37. The app state is encrypted with BIP138 to one unlock key: the xpub a signing device gives at m/138\'/1936225652\'/<index>\', or a random key sealed under a password. The first start picks it, every later start unlocks with it, before the main window. Closing any of these quits Silent.',
+      lede: 'Issue #37. The app state is encrypted with BIP138 to one unlock key: the xpub a signing device gives at m/138\'/1936225652\'/<index>\' (mainnet), or a random key sealed under a password. Nothing names the device or the key on disk. The first start picks it, every later start unlocks with it, before the main window. Closing any of these quits Silent.',
       groups: [
         { name: '1 · First start', items: [
           { title: 'Choice: a signing device or a password', tag: 'StateSetupModal', span: 'full', ...F(<StateSetupModal onClose={noop} />, 380) },
-          { title: 'Device: the devices in sight, one picked', tag: 'StateSetupModal', span: 'full', ...F(<StateSetupModal initial={{ view: 'device', network: 'Regtest', picked: 'hid-0002' }} onClose={noop} />, 560) },
+          { title: 'Device: the devices in sight, one picked', tag: 'StateSetupModal', span: 'full', ...F(<StateSetupModal initial={{ view: 'device', picked: 'hid-0002' }} onClose={noop} />, 560) },
           { title: 'Device: none connected', tag: 'StateSetupModal', span: 'full', ...F(<StateSetupModal initial={{ view: 'device', devices: [] }} onClose={noop} />, 480) },
           { title: 'Device: asking it for the key', tag: 'StateSetupModal', span: 'full', ...F(<StateSetupModal initial={{ view: 'device', picked: 'hid-0002', busy: 'device' }} onClose={noop} />, 440) },
           { title: 'Password: too short', tag: 'StateSetupModal', span: 'full', ...F(<StateSetupModal initial={{ view: 'password', pw: 'short' }} onClose={noop} />, 440) },
           { title: 'Password: sealing the key', tag: 'StateSetupModal', span: 'full', ...F(<StateSetupModal initial={{ view: 'password', busy: 'password' }} onClose={noop} />, 440) },
         ]},
         { name: '2 · Every later start', items: [
-          { title: 'Device: plug it in', tag: 'DeviceUnlockModal', span: 'full', ...F(<DeviceUnlockModal onClose={noop} />, 320) },
+          { title: 'Device: none connected', tag: 'DeviceUnlockModal', span: 'full', ...F(<DeviceUnlockModal onClose={noop} />, 400) },
+          { title: 'Device: the devices in sight, one locked', tag: 'DeviceUnlockModal', span: 'full', ...F(<DeviceUnlockModal devices={DEVICES.filter(d => ['hid-0004'].includes(d.id))} onClose={noop} />, 340) },
           { title: 'Device: asking it for the key', tag: 'DeviceUnlockModal', span: 'full', ...F(<DeviceUnlockModal status="busy" onClose={noop} />, 440) },
-          { title: 'Device: another device\'s key, try again', tag: 'DeviceUnlockModal', span: 'full', ...F(<DeviceUnlockModal status="wrong" onClose={noop} />, 380) },
+          { title: 'Device: no device\'s key opens it, try again', tag: 'DeviceUnlockModal', span: 'full', ...F(<DeviceUnlockModal devices={DEVICES.filter(d => d.id === 'hid-0001')} status="wrong" onClose={noop} />, 420) },
           { title: 'Password', tag: 'PasswordUnlockModal', span: 'full', ...F(<PasswordUnlockModal onClose={noop} />, 320) },
           { title: 'Password: wrong', tag: 'PasswordUnlockModal', span: 'full', ...F(<PasswordUnlockModal error="Wrong password. Try again." onClose={noop} />, 360) },
         ]},
