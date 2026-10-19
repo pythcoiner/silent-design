@@ -173,6 +173,7 @@ export const PILLS = {
   /* the MuSig2 Sign wizard: one per cosigner, each round (partial signature in = signer_signed) */
   musig_needed: { tone: 'warning', label: 'Needed', w: 'L' },
   musig_on_device: { tone: 'off', label: 'On Device…', w: 'L' },
+  musig_signing: { tone: 'off', label: 'Signing…', w: 'L' },
   musig_nonce_added: { tone: 'success', label: 'Nonce', icon: 'check', w: 'L' },
   /* the creator's Verify step: one per signer */
   addr_verified: { tone: 'success', label: 'Verified', icon: 'check', w: 'M' },

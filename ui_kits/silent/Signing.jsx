@@ -348,15 +348,16 @@ function CameraStep({ context = 'sign', force, progress, scanError, settings, on
 /* A hot key: the flow waits under a spinner while the generic unseal modal, opened over
    it, takes the password and works. Closing the prompt goes back to the picker.
    `alone`: the key is named (no picker to go back to), so the prompt is the only window,
-   over the one that asked; it turns to a spinner itself once the password is given
-   (issue #45). Qt: HotRouteFlow::start asks the password at once, the flow never shows. */
+    over the one that asked (issue #45). A named signing key closes the password
+    prompt on submission and
+    signs behind its caller's busy row (issue #49). */
 function HotStep({ context = 'sign', keyAlias, onCancel, onDone, initialBusy = false, pwError, alone = false }) {
   const c = FLOW_COPY[context];
   return (
     <>
       {alone ? null : <ModalStatus spinner title={c.hotBusy} subtitle={`With “${keyAlias}”.`} pad="var(--space-m) 0" />}
       <UnsealModal title={c.title} prompt={c.hotPrompt(keyAlias)} proceedId={c.hotBtn} error={pwError}
-        busyTitle={c.hotBusy} busySubtitle={`With “${keyAlias}”.`} initialBusy={initialBusy}
+        busyTitle={c.hotBusy} busySubtitle={`With “${keyAlias}”.`} initialBusy={initialBusy} closeOnSubmit={alone && context === 'sign'}
         onCancel={onCancel} onDone={onDone} />
     </>
   );

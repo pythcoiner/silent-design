@@ -202,11 +202,12 @@ function RegisterDeviceModal({ device, network, existing = [], onCancel, onConfi
 
 /* onBack: shown when the step can return to a previous one (key detail); in the
    signing flow the header × is the only exit. */
-function PasswordStep({ prompt, proceedId = 'proceed', onBack, error: initialError = null, onProceed, onCancel }) {
+function PasswordStep({ prompt, proceedId = 'proceed', onBack, error: initialError = null, onProceed, onCancel, closeOnSubmit = false }) {
   const [pw, setPw] = React.useState('');
   const [error, setError] = React.useState(initialError);
   const [busy, setBusy] = React.useState(false);
   const submit = () => {
+    if (closeOnSubmit) { onProceed && onProceed(pw); return; }
     setBusy(true); setError(null);
     setTimeout(() => {
       setBusy(false);
@@ -232,15 +233,16 @@ function PasswordStep({ prompt, proceedId = 'proceed', onBack, error: initialErr
 
 /* UnsealModal — the one password prompt that unseals a hot key's mnemonic, opened on
    top of whatever needs it: Reveal Mnemonic, signing, a descriptor or xpub fetch. Once the
-   password is taken it works under its spinner (shown at least 500ms) and closes.
+    password is taken it works under its spinner (shown at least 500ms) and closes,
+    unless closeOnSubmit lets the caller show its own progress.
    `back={false}` drops Back where the header cross is the only way out (Reveal Mnemonic). */
-function UnsealModal({ title, prompt, proceedId = 'proceed', busyTitle, busySubtitle, error, initialBusy = false, back = true, onCancel, onDone }) {
+function UnsealModal({ title, prompt, proceedId = 'proceed', busyTitle, busySubtitle, error, initialBusy = false, back = true, closeOnSubmit = false, onCancel, onDone }) {
   const [busy, setBusy] = React.useState(initialBusy);
   React.useEffect(() => { if (!busy || initialBusy) return; const t = setTimeout(() => onDone && onDone(), 900); return () => clearTimeout(t); }, [busy]);
   return (
     <Modal title={title} width={520} onClose={onCancel}>
       {busy ? <ModalStatus spinner title={busyTitle} subtitle={busySubtitle} pad="var(--space-m) 0" /> : (
-        <PasswordStep prompt={prompt} proceedId={proceedId} error={error} onBack={back ? onCancel : undefined} onProceed={() => setBusy(true)} />
+        <PasswordStep prompt={prompt} proceedId={proceedId} error={error} closeOnSubmit={closeOnSubmit} onBack={back ? onCancel : undefined} onProceed={() => closeOnSubmit ? onDone && onDone() : setBusy(true)} />
       )}
     </Modal>
   );

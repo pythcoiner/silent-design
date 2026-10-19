@@ -562,7 +562,8 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
 
 /* MuSig2 Sign: a wizard opened by Sign on a Multikey Send. Nonces (round 1) →
    Partial Signatures (round 2), which ends on Broadcast. Each round lists the spend path's
-   cosigners; a cosigner adds its part on click (its device, briefly "On Device…"),
+    cosigners; a cosigner adds its part on click (its device, briefly "On Device…",
+    or a hot key, "Signing…" after its password window closes),
    every cosigner at once: the others stay clickable while one is on its device.
    Continue opens once every cosigner is in. Rounds cannot go back (a nonce is spent),
    so there is no Back; the header × closes and keeps the session, Sign Round N on
@@ -587,6 +588,7 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
   const [done, setDone] = React.useState(initial.done || (round === 2 ? { 1: signers.map(s => s.fp) } : round === 'ready' ? { 1: signers.map(s => s.fp), 2: signers.map(s => s.fp) } : {}));
   /* the cosigners on their device now: every one can be asked at once */
   const [busy, setBusy] = React.useState([].concat(initial.busy || []));
+  const [hotPrompt, setHotPrompt] = React.useState(null);
   /* 'ready' (every partial signature in) stays on step 2, its button Broadcast */
   const sr = r === 'ready' ? 2 : r;
   const stepIdx = sr - 1;
@@ -622,8 +624,8 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
             const ok = inRound.includes(s.fp), on = busy.includes(s.fp);
             return (
               <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} chevron={false}
-                status={<Pill id={ok ? (sr === 1 ? 'musig_nonce_added' : 'signer_signed') : on ? 'musig_on_device' : 'musig_needed'} />}
-                onClick={!ok && !on ? () => add(s.fp) : undefined} />
+                 status={<Pill id={ok ? (sr === 1 ? 'musig_nonce_added' : 'signer_signed') : on ? (s.route === 'hot' ? 'musig_signing' : 'musig_on_device') : 'musig_needed'} />}
+                 onClick={!ok && !on ? () => s.route === 'hot' ? setHotPrompt(s) : add(s.fp) : undefined} />
             );
           })}
           {unusable.map(s => {
@@ -645,7 +647,7 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
         </Stack>
       </Stack>
     );
-    const reason = busy.length ? 'On the device…' : left.length ? `${left.length} cosigner${left.length > 1 ? 's' : ''} still to go.` : null;
+    const reason = busy.length ? (busy.some(fp => signers.some(s => s.fp === fp && s.route !== 'hot')) ? 'On the device…' : 'Signing…') : left.length ? `${left.length} cosigner${left.length > 1 ? 's' : ''} still to go.` : null;
     actions = (
       <ModalActions reason={reason}>
         {sr === 1 ? <Btn id="continue" disabled={!!reason} onClick={next} />
@@ -661,6 +663,7 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
         <Spacer />
         {actions}
       </Stack>
+      {hotPrompt ? <UnsealModal title="Sign Transaction" prompt={`Enter the password of “${hotPrompt.alias}” to sign the transaction.`} proceedId="sign_hot" closeOnSubmit onCancel={() => setHotPrompt(null)} onDone={() => { add(hotPrompt.fp); setHotPrompt(null); }} /> : null}
     </Modal>
   );
 }
