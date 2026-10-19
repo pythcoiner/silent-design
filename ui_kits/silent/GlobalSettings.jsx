@@ -134,7 +134,7 @@ function DisablePluginConfirm({ plugin }) {
    toggles that apply at once, and Forget, after which the plugin is asked again on
    its next use. An unasked grant shows off, named in the sub line. Same body width as the
    main view. */
-const grantLabel = { account: 'Accounts', keys: 'Keys' };
+const grantLabel = { account: 'Accounts', keys: 'Keys', state: 'Saved Data' };
 function PluginAccessFlow({ plugin, onChange }) {
   const entries = plugin.access || [];
   const set = (hash, grant, allowed) => onChange(entries.map(e => (e.hash === hash ? { ...e, [grant]: allowed ? 'allowed' : 'denied' } : e)));
@@ -144,19 +144,20 @@ function PluginAccessFlow({ plugin, onChange }) {
       <Text as="div" variant="body" color="secondary">What {plugin.name} may use, for each version of its library you answered. A change applies at once. Forget an answer and Silent asks again on the plugin's next use.</Text>
       {entries.length ? <Stack gap="s">
         {entries.map(e => {
-          const unasked = ['account', 'keys'].filter(g => e[g] === 'unasked').map(g => grantLabel[g]);
+          const unasked = ['account', 'keys', 'state'].filter(g => (e[g] || 'unasked') === 'unasked').map(g => grantLabel[g]);
           return (
-            <SelectRow key={e.hash} icon="puzzle" title={`Library ${e.hash.slice(0, 16)}…`}
+            <SelectRow key={e.hash} icon="puzzle" title={`Library ${e.hash.slice(0, 8)}…`}
               sub={`${e.current ? 'The version loaded now.' : 'An earlier version.'}${unasked.length ? ` Not asked yet: ${unasked.join(', ')}.` : ''}`}
               chevron={false}
               trailing={
                 <Row gap="0" align="center">
-                  <Text variant="caption">Accounts</Text><span style={{ width: 'var(--space-xs)' }} />
-                  <Toggle on={e.account === 'allowed'} onClick={() => set(e.hash, 'account', e.account !== 'allowed')} />
-                  <span style={{ width: 'var(--space-l)' }} />
-                  <Text variant="caption">Keys</Text><span style={{ width: 'var(--space-xs)' }} />
-                  <Toggle on={e.keys === 'allowed'} onClick={() => set(e.hash, 'keys', e.keys !== 'allowed')} />
-                  <span style={{ width: 'var(--space-l)' }} />
+                  {['account', 'keys', 'state'].map(g => (
+                    <React.Fragment key={g}>
+                      <Text variant="caption">{grantLabel[g]}</Text><span style={{ width: 'var(--space-xs)' }} />
+                      <Toggle on={e[g] === 'allowed'} onClick={() => set(e.hash, g, e[g] !== 'allowed')} />
+                      <span style={{ width: 'var(--space-s)' }} />
+                    </React.Fragment>
+                  ))}
                   <Btn id="forget_access" onClick={() => forget(e.hash)} />
                 </Row>
               } />
@@ -171,7 +172,7 @@ function PluginAccessFlow({ plugin, onChange }) {
    through Host::requestAccess() (issue #35; src/views/modals/PluginAccessPrompt.cpp).
    Lists only the grants asked. Allow or Deny is kept for this library hash; the × answers
    nothing, so the plugin is asked again next time. */
-function PluginAccessPrompt({ plugin, account = true, keys = false, onAnswer, onClose }) {
+function PluginAccessPrompt({ plugin, account = true, keys = false, state = false, onAnswer, onClose }) {
   return (
     <Modal title="Allow Plugin Access?" width={520} onClose={onClose}>
       <Stack gap="m">
@@ -179,6 +180,7 @@ function PluginAccessPrompt({ plugin, account = true, keys = false, onAnswer, on
         <Stack gap="s">
           {account ? <SelectRow icon="coins" title="Accounts" sub="The name, coins, balance, addresses and descriptor of every account." chevron={false} /> : null}
           {keys ? <SelectRow icon="key" title="Keys" sub="Your registered keys: signing requests, xpubs and address checks." chevron={false} /> : null}
+          {state ? <SelectRow icon="folder" title="Saved Data" sub="Its own data, kept encrypted with Silent's. A new version of the plugin asks again." chevron={false} /> : null}
         </Stack>
         <Stack gap="xs">
           <Text as="div" variant="caption" color="muted">Library {(plugin.access && plugin.access[0] ? plugin.access[0].hash : '').slice(0, 16)}…</Text>

@@ -20,7 +20,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=41"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=15"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=16"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=28"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=23"></script>
@@ -31,7 +31,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=59"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=22"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=23"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const noop = () => {};
@@ -78,6 +78,7 @@
           { title: 'Access: every answer forgotten', tag: 'PluginAccessFlow', ...GS({ plugins: PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, access: [] } : p), initial: { view: { access: 'atomic-swaps' } } }, 400) },
           { title: 'First use of the keys: asked, Allow or Deny kept for this library', tag: 'PluginAccessPrompt', span: 'full', ...F(<PluginAccessPrompt plugin={P('atomic-swaps')} account={false} keys onAnswer={noop} onClose={noop} />, 460) },
           { title: 'Asked for both through requestAccess()', tag: 'PluginAccessPrompt', span: 'full', ...F(<PluginAccessPrompt plugin={P('atomic-swaps')} account keys onAnswer={noop} onClose={noop} />, 540) },
+          { title: 'A new version opens its saved data (issue #38)', tag: 'PluginAccessPrompt', span: 'full', ...F(<PluginAccessPrompt plugin={P('atomic-swaps')} account={false} state onAnswer={noop} onClose={noop} />, 460) },
         ]},
         { name: '2.3 · Extension Settings', items: [
           { title: 'No extension section — the section is hidden', tag: 'ExtensionSection', ...GS({ plugins: enabledOnly, sections: [] }, 560) },

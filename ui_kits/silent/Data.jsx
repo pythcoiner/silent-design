@@ -134,8 +134,8 @@ const PLUGINS = [
     themes: ['Midnight', 'Paper'], accounts: ['swaps'],
     /* the answers kept per library sha256 (issue #35): 'allowed' | 'denied' | 'unasked' */
     access: [
-      { hash: '65204c326c3fd005ced16aebdad968d2c2ac42426ea6a64afddd9fcfc6cfc31f', current: true, account: 'allowed', keys: 'denied' },
-      { hash: '9b1e07a4c2d85f3361e0aa4f8b27c9d05e6f13b2a4c89d7e0f1a2b3c4d5e6f70', current: false, account: 'allowed', keys: 'unasked' },
+      { hash: '65204c326c3fd005ced16aebdad968d2c2ac42426ea6a64afddd9fcfc6cfc31f', current: true, account: 'allowed', keys: 'denied', state: 'allowed' },
+      { hash: '9b1e07a4c2d85f3361e0aa4f8b27c9d05e6f13b2a4c89d7e0f1a2b3c4d5e6f70', current: false, account: 'allowed', keys: 'unasked', state: 'allowed' },
     ] },
   { id: 'payjoin', name: 'Payjoin', version: '1.2.3', desc: 'Payjoin sending and receiving.', enabled: false },
   { id: 'nostr-backup', name: 'Nostr Backup', version: '0.1.4', enabled: true,
