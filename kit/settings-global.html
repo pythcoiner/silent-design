@@ -17,10 +17,10 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=34"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=3"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=10"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=39"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=40"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=14"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=28"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=23"></script>
@@ -31,7 +31,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=59"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=20"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=22"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const noop = () => {};
@@ -72,6 +72,12 @@
           { title: 'Disable — confirm (nothing uses it)', tag: 'DisablePluginConfirm', ...GS({ plugins: PLUGINS.map(p => p.id === 'payjoin' ? { ...p, enabled: true } : p), initial: { view: { disable: 'payjoin' } } }, 380) },
           { title: 'Disable — unloading', tag: 'PluginRow', ...GS({ sections: [], initial: { busyId: 'atomic-swaps' } }, 640) },
           { title: 'Disable refused — stays enabled', tag: 'PluginSection', ...GS({ plugins: refusing, sections: [], initial: { notice: { tone: 'error', title: 'Could not disable Atomic Swaps', body: 'The plugin refused to unload. It stays enabled. Close its accounts, then try again.' } } }, 700) },
+        ]},
+        { name: '2.4 · Plugin access (issue #35)', items: [
+          { title: 'Access: one row per library version answered, Accounts and Keys apply at once', tag: 'PluginAccessFlow', ...GS({ initial: { view: { access: 'atomic-swaps' } } }, 480) },
+          { title: 'Access: every answer forgotten', tag: 'PluginAccessFlow', ...GS({ plugins: PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, access: [] } : p), initial: { view: { access: 'atomic-swaps' } } }, 400) },
+          { title: 'First use of the keys: asked, Allow or Deny kept for this library', tag: 'PluginAccessPrompt', span: 'full', ...F(<PluginAccessPrompt plugin={P('atomic-swaps')} account={false} keys onAnswer={noop} onClose={noop} />, 460) },
+          { title: 'Asked for both through requestAccess()', tag: 'PluginAccessPrompt', span: 'full', ...F(<PluginAccessPrompt plugin={P('atomic-swaps')} account keys onAnswer={noop} onClose={noop} />, 540) },
         ]},
         { name: '2.3 · Extension Settings', items: [
           { title: 'No extension section — the section is hidden', tag: 'ExtensionSection', ...GS({ plugins: enabledOnly, sections: [] }, 560) },

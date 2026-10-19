@@ -22,15 +22,17 @@ function SettingsGear({ onClick }) {
 /* PluginRow — one discovered plugin: name · description, id + version (mono),
    enable toggle. A plugin that failed to load uses the error row tone, with the
    reason, and has no toggle (there is nothing to switch). The toggle slot keeps its
-   width when empty, so id/version lines up on every row.
-   Qt: QFrame row with HBox(Label stack, Label, Pill, Toggle). */
-function PluginRow({ plugin, busy, onToggle }) {
+   width when empty, so id/version lines up on every row. Once the plugin has asked
+   for the accounts or the keys (an answer is kept), Access opens what it may use.
+   Qt: QFrame row with HBox(Label stack, Label, Pill or Access, Toggle). */
+function PluginRow({ plugin, busy, onToggle, onAccess }) {
   const failed = !!plugin.error;
+  const hasAccess = !!(plugin.access && plugin.access.length);
   return (
     <SelectRow icon={failed ? 'circle_x' : 'puzzle'} tone={failed ? 'error' : undefined} title={plugin.name || plugin.id}
       sub={failed ? plugin.error : plugin.desc}
       meta={`${plugin.id}  v${plugin.version}`}
-      status={busy ? <Pill id="plugin_unloading" /> : null}
+      status={busy ? <Pill id="plugin_unloading" /> : hasAccess ? <Btn id="plugin_access" onClick={() => onAccess && onAccess(plugin)} /> : null}
       trailingWidth="var(--toggle-w)" chevron={false}
       trailing={failed ? null : <Toggle on={plugin.enabled} disabled={busy} onClick={() => onToggle(plugin)} />} />
   );
@@ -55,7 +57,7 @@ function GeneralSection({ theme, themes, onTheme, language, onLanguage, langSave
   );
 }
 
-function PluginSection({ registry, plugins, scan, notice, busyId, onScan, onToggle, open = true, onFold }) {
+function PluginSection({ registry, plugins, scan, notice, busyId, onScan, onToggle, onAccess, open = true, onFold }) {
   const scanning = scan === 'scanning';
   return (
     <Stack>
@@ -72,7 +74,7 @@ function PluginSection({ registry, plugins, scan, notice, busyId, onScan, onTogg
           <Text as="div" variant="caption" color="success">{`${scan.found} new plugin${scan.found === 1 ? '' : 's'} found.`}</Text>
         ) : null}
         {registry && plugins.length ? plugins.map(p => (
-          <PluginRow key={p.id} plugin={p} busy={busyId === p.id} onToggle={onToggle} />
+          <PluginRow key={p.id} plugin={p} busy={busyId === p.id} onToggle={onToggle} onAccess={onAccess} />
         )) : registry && !scanning ? (
           <EmptyState icon="puzzle" title="No Plugin Found"
             subtitle="Put a plugin and its metadata file in ~/.silent/plugins/, then scan. Built-in modules are not listed here." />
@@ -127,6 +129,70 @@ function DisablePluginConfirm({ plugin }) {
   );
 }
 
+/* What an external plugin may use (issue #35; src/views/modals/appsettings/AccessFlow.cpp):
+   one row per library version answered (sha256, the first 16 hex), Accounts and Keys
+   toggles that apply at once, and Forget, after which the plugin is asked again on
+   its next use. An unasked grant shows off, named in the sub line. Same body width as the
+   main view. */
+const grantLabel = { account: 'Accounts', keys: 'Keys' };
+function PluginAccessFlow({ plugin, onChange }) {
+  const entries = plugin.access || [];
+  const set = (hash, grant, allowed) => onChange(entries.map(e => (e.hash === hash ? { ...e, [grant]: allowed ? 'allowed' : 'denied' } : e)));
+  const forget = (hash) => onChange(entries.filter(e => e.hash !== hash));
+  return (
+    <Stack gap="m" style={{ width: GS_BODY_WIDTH }}>
+      <Text as="div" variant="body" color="secondary">What {plugin.name} may use, for each version of its library you answered. A change applies at once. Forget an answer and Silent asks again on the plugin's next use.</Text>
+      {entries.length ? <Stack gap="s">
+        {entries.map(e => {
+          const unasked = ['account', 'keys'].filter(g => e[g] === 'unasked').map(g => grantLabel[g]);
+          return (
+            <SelectRow key={e.hash} icon="puzzle" title={`Library ${e.hash.slice(0, 16)}…`}
+              sub={`${e.current ? 'The version loaded now.' : 'An earlier version.'}${unasked.length ? ` Not asked yet: ${unasked.join(', ')}.` : ''}`}
+              chevron={false}
+              trailing={
+                <Row gap="0" align="center">
+                  <Text variant="caption">Accounts</Text><span style={{ width: 'var(--space-xs)' }} />
+                  <Toggle on={e.account === 'allowed'} onClick={() => set(e.hash, 'account', e.account !== 'allowed')} />
+                  <span style={{ width: 'var(--space-l)' }} />
+                  <Text variant="caption">Keys</Text><span style={{ width: 'var(--space-xs)' }} />
+                  <Toggle on={e.keys === 'allowed'} onClick={() => set(e.hash, 'keys', e.keys !== 'allowed')} />
+                  <span style={{ width: 'var(--space-l)' }} />
+                  <Btn id="forget_access" onClick={() => forget(e.hash)} />
+                </Row>
+              } />
+          );
+        })}
+      </Stack> : <Text as="div" variant="caption" color="muted">No answer kept: Silent asks on the plugin's next use.</Text>}
+    </Stack>
+  );
+}
+
+/* Asked on an external plugin's first use of the accounts or the keys, or when it asks
+   through Host::requestAccess() (issue #35; src/views/modals/PluginAccessPrompt.cpp).
+   Lists only the grants asked. Allow or Deny is kept for this library hash; the × answers
+   nothing, so the plugin is asked again next time. */
+function PluginAccessPrompt({ plugin, account = true, keys = false, onAnswer, onClose }) {
+  return (
+    <Modal title="Allow Plugin Access?" width={520} onClose={onClose}>
+      <Stack gap="m">
+        <Text as="div" variant="body">{plugin.name} ({plugin.id}  v{plugin.version}) asks to use:</Text>
+        <Stack gap="s">
+          {account ? <SelectRow icon="coins" title="Accounts" sub="The name, coins, balance, addresses and descriptor of every account." chevron={false} /> : null}
+          {keys ? <SelectRow icon="key" title="Keys" sub="Your registered keys: signing requests, xpubs and address checks." chevron={false} /> : null}
+        </Stack>
+        <Stack gap="xs">
+          <Text as="div" variant="caption" color="muted">Library {(plugin.access && plugin.access[0] ? plugin.access[0].hash : '').slice(0, 16)}…</Text>
+          <Text as="div" variant="caption" color="secondary">Plugins run inside Silent: allow only one you trust. The answer is kept for this version of the plugin, an update asks again. Change it in Settings, Plugin Manager, Access.</Text>
+        </Stack>
+      </Stack>
+      <ModalActions>
+        <Btn id="deny_access" onClick={() => onAnswer && onAnswer(false)} />
+        <Btn id="allow_access" onClick={() => onAnswer && onAnswer(true)} />
+      </ModalActions>
+    </Modal>
+  );
+}
+
 function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: pluginsIn = PLUGINS, sections = EXTENSION_SECTIONS, initial = {} }) {
   const [themeLocal, setThemeLocal] = React.useState(initial.theme || themeProp || 'Light');
   const theme = themeProp != null && initial.theme == null ? themeProp : themeLocal;
@@ -163,11 +229,17 @@ function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: plug
 
   const section = view && view.section ? sections.find(s => s.id === view.section) : null;
   const disabling = view && view.disable ? plugins.find(p => p.id === view.disable) : null;
+  const accessing = view && view.access ? plugins.find(p => p.id === view.access) : null;
+  const setAccess = (id, access) => setPlugins(ps => ps.map(x => (x.id === id ? { ...x, access } : x)));
 
   let title = 'Settings', body, actions;
   if (section) {
     title = section.title;
     body = <ExtensionFrame section={section} />;
+    actions = <ModalActions onBack={() => setView(null)} backId="all_settings"><Btn id="done" onClick={() => setView(null)} /></ModalActions>;
+  } else if (accessing) {
+    title = `${accessing.name} Access`;
+    body = <PluginAccessFlow plugin={accessing} onChange={(access) => setAccess(accessing.id, access)} />;
     actions = <ModalActions onBack={() => setView(null)} backId="all_settings"><Btn id="done" onClick={() => setView(null)} /></ModalActions>;
   } else if (disabling) {
     title = 'Disable Plugin';
@@ -178,7 +250,7 @@ function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: plug
       <Stack gap="s" style={{ width: GS_BODY_WIDTH }}>
         <GeneralSection theme={theme} themes={themes} onTheme={pickTheme} language={language} onLanguage={pickLanguage} langSaved={langSaved} open={folds.general} onFold={() => fold('general')} />
         <Divider space="0" />
-        <PluginSection registry={registry} plugins={plugins} scan={scan} notice={notice} busyId={busyId} onScan={runScan} onToggle={toggle} open={folds.plugins} onFold={() => fold('plugins')} />
+        <PluginSection registry={registry} plugins={plugins} scan={scan} notice={notice} busyId={busyId} onScan={runScan} onToggle={toggle} onAccess={(p) => { setNotice(null); setView({ access: p.id }); }} open={folds.plugins} onFold={() => fold('plugins')} />
         {sections.length ? <Divider space="0" /> : null}
         <ExtensionSection sections={sections} onOpen={(id) => setView({ section: id })} open={folds.extensions} onFold={() => fold('extensions')} />
       </Stack>
@@ -188,4 +260,4 @@ function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: plug
   return <Modal title={title} width={GS_WIDTH} onClose={onClose}>{body}{actions}</Modal>;
 }
 
-Object.assign(window, { SettingsGear, PluginRow, GlobalSettingsModal, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, GS_WIDTH });
+Object.assign(window, { SettingsGear, PluginRow, GlobalSettingsModal, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });

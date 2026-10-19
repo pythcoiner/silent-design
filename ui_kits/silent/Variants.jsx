@@ -37,6 +37,11 @@ export const BUTTONS = {
   scan_plugins: { role: 'default', label: 'Scan for Plugins', icon: 'refresh', iconSize: 14, w: 'XL' },
   scanning_plugins: { role: 'default', label: 'Scanning…', icon: 'refresh', iconSize: 14, w: 'XL' },
   disable_plugin: { role: 'destructive', label: 'Disable Plugin', w: 'L' },
+  /* an external plugin's grants (issue #35): the row's Access, its page's Forget, the prompt */
+  plugin_access: { role: 'default', label: 'Access', icon: 'lock', iconSize: 14, w: 'M' },
+  forget_access: { role: 'default', label: 'Forget', w: 'M' },
+  allow_access: { role: 'primary', label: 'Allow', w: 'M' },
+  deny_access: { role: 'default', label: 'Deny', w: 'M' },
   add_key: { role: 'primary', label: 'Add Key', w: 'M' },
   broadcast: { role: 'primary', label: 'Broadcast', w: 'M' },
   check_address: { role: 'primary', label: 'Check', w: 'M' },

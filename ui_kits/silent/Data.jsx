@@ -131,7 +131,12 @@ const LANGUAGES = ['English', 'Français', 'Italiano', 'Deutsch', 'Português', 
 /* External plugins found in ~/.silent/plugins/ (built-in modules are never listed). */
 const PLUGINS = [
   { id: 'atomic-swaps', name: 'Atomic Swaps', version: '0.3.0', desc: 'Swap accounts and two extra themes.', enabled: true,
-    themes: ['Midnight', 'Paper'], accounts: ['swaps'] },
+    themes: ['Midnight', 'Paper'], accounts: ['swaps'],
+    /* the answers kept per library sha256 (issue #35): 'allowed' | 'denied' | 'unasked' */
+    access: [
+      { hash: '65204c326c3fd005ced16aebdad968d2c2ac42426ea6a64afddd9fcfc6cfc31f', current: true, account: 'allowed', keys: 'denied' },
+      { hash: '9b1e07a4c2d85f3361e0aa4f8b27c9d05e6f13b2a4c89d7e0f1a2b3c4d5e6f70', current: false, account: 'allowed', keys: 'unasked' },
+    ] },
   { id: 'payjoin', name: 'Payjoin', version: '1.2.3', desc: 'Payjoin sending and receiving.', enabled: false },
   { id: 'nostr-backup', name: 'Nostr Backup', version: '0.1.4', enabled: true,
     error: 'Could not load: the plugin was built for a newer Silent (needs 0.9, this is 0.8).' },
