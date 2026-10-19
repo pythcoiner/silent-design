@@ -346,12 +346,15 @@ function CameraStep({ context = 'sign', force, progress, scanError, settings, on
 }
 
 /* A hot key: the flow waits under a spinner while the generic unseal modal, opened over
-   it, takes the password and works. Closing the prompt goes back to the picker. */
-function HotStep({ context = 'sign', keyAlias, onCancel, onDone, initialBusy = false, pwError }) {
+   it, takes the password and works. Closing the prompt goes back to the picker.
+   `alone`: the key is named (no picker to go back to), so the prompt is the only window,
+   over the one that asked; it turns to a spinner itself once the password is given
+   (issue #45). Qt: HotRouteFlow::start asks the password at once, the flow never shows. */
+function HotStep({ context = 'sign', keyAlias, onCancel, onDone, initialBusy = false, pwError, alone = false }) {
   const c = FLOW_COPY[context];
   return (
     <>
-      <ModalStatus spinner title={c.hotBusy} subtitle={`With “${keyAlias}”.`} pad="var(--space-m) 0" />
+      {alone ? null : <ModalStatus spinner title={c.hotBusy} subtitle={`With “${keyAlias}”.`} pad="var(--space-m) 0" />}
       <UnsealModal title={c.title} prompt={c.hotPrompt(keyAlias)} proceedId={c.hotBtn} error={pwError}
         busyTitle={c.hotBusy} busySubtitle={`With “${keyAlias}”.`} initialBusy={initialBusy}
         onCancel={onCancel} onDone={onDone} />
@@ -406,6 +409,10 @@ function SigningFlow({ context = 'sign', plan = [], others = [], address, fileBa
     return () => clearTimeout(t);
   }, [step, usbErr]);
 
+  if (keyRow && row && row.route === 'hot' && !step.result) {
+    return <HotStep context={context} keyAlias={row.alias} pwError={initial.pwError} initialBusy={initial.hotBusy}
+      onCancel={onCancel} onDone={() => finished(row)} alone />;
+  }
   let title = c.title, width = 560, body;
   if (!step) body = <SignerPicker context={context} plan={rows} others={others} onPick={pick} onCancel={onCancel} />;
   else if (step.result) { width = 520; body = <VerifyResult result={step.result} device={devLabel} address={address} onClose={onCancel} onRetry={() => pick(row)} />; }

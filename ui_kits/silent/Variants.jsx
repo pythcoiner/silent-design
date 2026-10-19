@@ -104,7 +104,6 @@ export const BUTTONS = {
   copy_address: { role: 'icon', icon: 'copy', iconSize: 20, title: 'Copy Address', w: 'IconLg' },
   delete_wallet: { role: 'icon', icon: 'trash', iconSize: 20, title: 'Delete wallet', w: 'IconLg' },
   verify_on_device: { role: 'icon', icon: 'usb', iconSize: 20, w: 'IconLg' },
-  settings_gear: { role: 'inline-icon', icon: 'settings', iconSize: 16, title: 'Settings', w: 'Icon' },
   copied_sm: { role: 'inline-icon', icon: 'check', iconSize: 15, title: 'Copied', w: 'Icon' },
   copy_sm: { role: 'inline-icon', icon: 'copy', iconSize: 15, title: 'Copy', w: 'Icon' },
   dismiss_notice: { role: 'inline-icon', icon: 'x', iconSize: 14, title: 'Dismiss', w: 'Icon' },

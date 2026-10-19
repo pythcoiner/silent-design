@@ -1,23 +1,14 @@
-/* Silent UI Kit — Global Settings modal (issue #4; src/views/modals/AppSettings.cpp).
-   One modal, title "Settings" once. Sections: General (theme, language), Plugin
-   Manager (external plugins only), Extension Settings (module sections, only when
-   at least one exists). Opening a section or confirming a plugin disable REPLACES
-   the modal content, with a way back — never a modal on top of a modal.
-   SettingsGear sits in the tab strip's fixed end slot (.s-tabstrip__end), so it
-   never overlaps a tab. */
+/* Silent UI Kit — Global Settings tab (issues #4, #46; src/views/modals/AppSettings.cpp).
+   A module tab right of Keys (not a modal): a page titled "Settings", as the Keys page,
+   a centred column. Sections: General (theme, language), Plugin Manager (external
+   plugins only), Extension Settings (module sections, only when at least one exists).
+   Opening a section, a plugin's access or confirming a plugin disable REPLACES the
+   page content, with a way back; leaving the tab goes back to the sections. */
 
-const GS_WIDTH = 1040;   /* issue #4: 1040 × 640 */
+const GS_WIDTH = 1040;   /* a flow's width, the content width of the former 1040 modal */
 /* One body width whatever the rows hold: longer texts wrap in it.
    Qt: metric::SETTINGS_BODY_WIDTH. */
 const GS_BODY_WIDTH = 666;
-
-function SettingsGear({ onClick }) {
-  return (
-    <Tooltip label="Settings">
-      <Btn id="settings_gear" onClick={onClick} />
-    </Tooltip>
-  );
-}
 
 /* PluginRow — one discovered plugin: name · description, id + version (mono),
    enable toggle. A plugin that failed to load uses the error row tone, with the
@@ -200,7 +191,7 @@ function PluginAccessPrompt({ plugin, account = true, keys = false, state = fals
   );
 }
 
-function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: pluginsIn = PLUGINS, sections = EXTENSION_SECTIONS, initial = {} }) {
+function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLUGINS, sections = EXTENSION_SECTIONS, initial = {} }) {
   const [themeLocal, setThemeLocal] = React.useState(initial.theme || themeProp || 'Light');
   const theme = themeProp != null && initial.theme == null ? themeProp : themeLocal;
   const [language, setLanguage] = React.useState(initial.language || 'English');
@@ -252,6 +243,7 @@ function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: plug
     actions = <ModalActions onBack={() => setView(null)}><Btn id="disable_plugin" onClick={() => confirmDisable(disabling)} /></ModalActions>;
   } else {
     body = (
+      <ScrollArea style={{ flex: '0 1 auto' }}>
       <Stack gap="s" style={{ width: GS_BODY_WIDTH }}>
         <GeneralSection theme={theme} themes={themes} onTheme={pickTheme} language={language} onLanguage={pickLanguage} langSaved={langSaved} open={folds.general} onFold={() => fold('general')} />
         <Divider space="0" />
@@ -259,10 +251,31 @@ function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: plug
         {sections.length ? <Divider space="0" /> : null}
         <ExtensionSection sections={sections} onOpen={(id) => setView({ section: id })} open={folds.extensions} onFold={() => fold('extensions')} />
       </Stack>
+      </ScrollArea>
     );
-    actions = null;   /* the header × closes; a Close button would repeat it */
+    actions = null;   /* a tab: nothing to close */
   }
-  return <Modal title={title} width={GS_WIDTH} onClose={onClose}>{body}{actions}</Modal>;
+  /* As the Keys page: the title over the view, in a centred column. The sections sit
+     in a scroll area, inset by its gutters (a scrollbar and --space-xs), the title
+     with them; a flow takes the content width of the former modal.
+     Qt: AppSettings::setView. */
+  const main = !section && !accessing && !disabling;
+  const inset = 'calc(10px + var(--space-xs))';
+  const flowW = `calc(${GS_WIDTH}px - 2 * var(--space-m) - 2px)`;   /* the modal's body width */
+  const width = main ? `calc(${GS_BODY_WIDTH}px + 2 * ${inset} + 2 * var(--space-s))`
+    : `calc(${flowW} + 2 * var(--space-s))`;
+  return (
+    <div style={{ display: 'flex', flex: 1, minWidth: 0, minHeight: 0, height: '100%', justifyContent: 'center', background: 'var(--bg)' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-l)', width, maxWidth: '100%',
+        padding: 'var(--space-s)', minHeight: 0, boxSizing: 'border-box' }}>
+        <Text as="div" variant="title" style={{ flex: 'none', paddingLeft: main ? inset : 0 }}>{title}</Text>
+        {/* centred as in the modal; ModalActions spans the column */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: 0, '--modal-body-w': flowW }}>
+          {body}{actions}
+        </div>
+      </div>
+    </div>
+  );
 }
 
-Object.assign(window, { SettingsGear, PluginRow, PluginDrop, GlobalSettingsModal, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });
+Object.assign(window, { PluginRow, PluginDrop, GlobalSettingsTab, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });

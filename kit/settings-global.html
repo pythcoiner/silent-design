@@ -17,13 +17,13 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=34"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=3"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=10"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=42"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=43"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=16"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=28"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=23"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=24"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=28"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=52"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=3"></script>
@@ -31,12 +31,12 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=59"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=24"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=25"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const noop = () => {};
     const F = (el, h = 640) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
-    const GS = (props, h) => ({ span: 'full', ...F(<GlobalSettingsModal onClose={noop} onTheme={noop} {...props} />, h) });
+    const GS = (props, h) => ({ span: 'full', ...F(<GlobalSettingsTab onTheme={noop} {...props} />, h) });
     const P = (id) => PLUGINS.find(p => p.id === id);
     const enabledOnly = [P('atomic-swaps')];
     const refusing = PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, refuseUnload: true } : p);
@@ -44,21 +44,20 @@
     Gallery.render({
       kicker: 'Settings · components',
       title: 'Global Settings',
-      lede: 'Issue #4. One modal, titled once. Opening a section or confirming a plugin disable replaces the content inside the same modal, with a way back. Every state is its own item.',
+      lede: 'Issues #4 and #46. A tab right of Keys, not a modal: a page titled once, as the Keys page. Opening a section, a plugin access or confirming a plugin disable replaces the page content, with a way back; leaving the tab goes back to the sections. Every state is its own item.',
       groups: [
         { name: '1 · Entry point', items: [
-          { title: 'Settings gear in the tab strip end slot, module tabs right aligned before it: account tabs scroll, never under them', tag: 'SettingsGear', span: 'full', el: (
+          { title: 'The Settings tab, right of Keys among the module tabs, right aligned: account tabs scroll, never under them (issue #46)', tag: 'Tab', span: 'full', el: (
             <div className="s-tabstrip" style={{ padding: 'var(--pad-xs) var(--pad-xs) 0', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)', maxWidth: 620 }}>
               <div className="s-tabstrip__tabs">
                 {['savings', 'cold-storage', 'testing', 'business', 'donations', 'swaps'].map(n => <Tab key={n} label={n} closable />)}
                 <Tab label="+" closable={false} />
               </div>
-              <div className="s-tabstrip__modules"><Tab label="Keys" active closable={false} /></div>
-              <div className="s-tabstrip__end"><SettingsGear onClick={noop} /></div>
+              <div className="s-tabstrip__modules"><Tab label="Keys" closable={false} /><Tab label="Settings" active closable={false} /></div>
             </div>) },
         ]},
         { name: '2.1 · General', items: [
-          { title: 'Default — Light, three plugins, two extension sections', tag: 'GlobalSettingsModal', ...GS({}, 900) },
+          { title: 'Default — Light, three plugins, two extension sections', tag: 'GlobalSettingsTab', ...GS({}, 900) },
           { title: 'Module theme selected', tag: 'GeneralSection', ...GS({ initial: { theme: 'Midnight' } }, 900) },
           { title: 'Language changed — saved, restart note', tag: 'GeneralSection', ...GS({ initial: { language: 'Français', langSaved: true } }, 900) },
         ]},
