@@ -123,4 +123,16 @@ function SpSettingsScreen({ wallet }) {
   );
 }
 
-Object.assign(window, { SettingsScreen, MusigSettingsScreen, TestableRow });
+/* The reconnect gave up: the account's Electrum connection dropped more than 3 times
+   in the last minute (Qt: MessageModal, Tone::Error, from the sp and the Multikey
+   controllers alike). No action bar: the header × closes it. */
+function ElectrumGaveUpModal({ server = 'minta.wizardsardine.com:60001', drops = 4, onClose }) {
+  return (
+    <Modal title="Electrum Disconnected" width={460} onClose={onClose}>
+      <ModalStatus icon="alert" iconColor="var(--error)" pad="var(--space-l) 0"
+        subtitle={`The connection to ${server} dropped ${drops} times in the last minute, so Silent stopped reconnecting. Check the server, then connect again from the status bar or the Settings.`} />
+    </Modal>
+  );
+}
+
+Object.assign(window, { SettingsScreen, MusigSettingsScreen, TestableRow, ElectrumGaveUpModal });
