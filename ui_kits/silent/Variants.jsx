@@ -71,6 +71,8 @@ export const BUTTONS = {
   sign_round: { role: 'primary', label: 'Sign Round {n}', args: true, w: 'M' },
   try_again: { role: 'primary', label: 'Try Again', w: 'M' },
   unlocking: { role: 'primary', label: 'Unlocking…', w: 'M' },
+  /* the app state's password unlock (issue #37) */
+  unlock: { role: 'primary', label: 'Unlock', w: 'M' },
   add_a_key: { role: 'default', label: '+ Add a Key', w: 'M' },
   add_payment: { role: 'default', label: '+ Add Payment', w: 'L' },
   add_spend_path: { role: 'default', label: '+ Add a Spend Path', w: 'L' },
