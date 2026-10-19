@@ -14,7 +14,7 @@
 </head>
 <body>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=3"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=34"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=35"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=3"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=10"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=43"></script>
@@ -44,16 +44,16 @@
     Gallery.render({
       kicker: 'Settings · components',
       title: 'Global Settings',
-      lede: 'Issues #4 and #46. A tab right of Keys, not a modal: a page titled once, as the Keys page. Opening a section, a plugin access or confirming a plugin disable replaces the page content, with a way back; leaving the tab goes back to the sections. Every state is its own item.',
+      lede: 'Issues #4, #46 and #48. The gear tab right of Keys opens a page titled once, as the Keys page. Opening a section, a plugin access or confirming a plugin disable replaces the page content, with a way back; leaving the tab goes back to the sections. Every state is its own item.',
       groups: [
         { name: '1 · Entry point', items: [
-          { title: 'The Settings tab, right of Keys among the module tabs, right aligned: account tabs scroll, never under them (issue #46)', tag: 'Tab', span: 'full', el: (
+          { title: 'The settings gear tab, right of Keys among the module tabs: account tabs scroll, never under them (issues #46, #48)', tag: 'Tab', span: 'full', el: (
             <div className="s-tabstrip" style={{ padding: 'var(--pad-xs) var(--pad-xs) 0', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)', maxWidth: 620 }}>
               <div className="s-tabstrip__tabs">
                 {['savings', 'cold-storage', 'testing', 'business', 'donations', 'swaps'].map(n => <Tab key={n} label={n} closable />)}
                 <Tab label="+" closable={false} />
               </div>
-              <div className="s-tabstrip__modules"><Tab label="Keys" closable={false} /><Tab label="Settings" active closable={false} /></div>
+               <div className="s-tabstrip__modules"><Tab label="Keys" closable={false} /><Tab label="Settings" icon="settings" active closable={false} /></div>
             </div>) },
         ]},
         { name: '2.1 · General', items: [

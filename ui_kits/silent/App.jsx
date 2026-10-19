@@ -1,5 +1,5 @@
 /* Silent UI Kit — App shell: QTabWidget tabs (MainWindow.cpp) + AccountView.
-   Tab order: wallets · + menu, then the module tabs right aligned: Keys, Settings (the
+   Tab order: wallets · + menu, then the module tabs right aligned: Keys, settings gear (the
    global settings page, GlobalSettings.jsx, issue #46), which owns the theme.
    Structure is built from catalog layout primitives (Stack/Row/Text) so it maps
    1:1 to Qt layouts; Tab is the catalog component (Primitives.jsx). */
@@ -127,7 +127,7 @@ function App() {
         borderLeft: appW === 'full' ? 'none' : '1px solid var(--border)',
         borderRight: appW === 'full' ? 'none' : '1px solid var(--border)',
       }}>
-        {/* Tab bar: wallet tabs · + menu tab, then the module tabs (Keys, Settings) right aligned */}
+        {/* Tab bar: wallet tabs · + menu tab, then Keys and the settings gear right aligned */}
         <div className="s-tabstrip" style={{ flex: 'none', padding: 'var(--pad-xs) var(--pad-xs) 0',
           background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)' }}>
           <div className="s-tabstrip__tabs">
@@ -139,7 +139,7 @@ function App() {
           </div>
           <div className="s-tabstrip__modules">
             <Tab label="Keys" active={active === 'keys'} closable={false} onClick={() => setActive('keys')} />
-            <Tab label="Settings" active={active === 'settings'} closable={false} onClick={() => setActive('settings')} />
+            <Tab label="Settings" icon="settings" active={active === 'settings'} closable={false} onClick={() => setActive('settings')} />
           </div>
         </div>
 
