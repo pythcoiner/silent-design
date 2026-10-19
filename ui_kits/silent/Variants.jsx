@@ -34,8 +34,6 @@ export const BUTTONS = {
   /* kit-only (dev chrome, not ported to Qt) */
   kit_skip_scan: { role: 'default', label: 'Simulate Scan', icon: 'chevron_right', iconSize: 14, w: 'L' },
   /* screens */
-  scan_plugins: { role: 'default', label: 'Scan for Plugins', icon: 'refresh', iconSize: 14, w: 'XL' },
-  scanning_plugins: { role: 'default', label: 'Scanning…', icon: 'refresh', iconSize: 14, w: 'XL' },
   disable_plugin: { role: 'destructive', label: 'Disable Plugin', w: 'L' },
   /* an external plugin's grants (issue #35): the row's Access, its page's Forget, the prompt */
   plugin_access: { role: 'default', label: 'Access', icon: 'lock', iconSize: 14, w: 'M' },

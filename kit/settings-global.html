@@ -17,7 +17,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=34"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=3"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=10"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=41"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=42"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=16"></script>
@@ -31,7 +31,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=59"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=23"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=24"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const noop = () => {};
@@ -63,11 +63,11 @@
           { title: 'Language changed — saved, restart note', tag: 'GeneralSection', ...GS({ initial: { language: 'Français', langSaved: true } }, 900) },
         ]},
         { name: '2.2 · Plugin Manager', items: [
-          { title: 'No plugin found', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 520) },
-          { title: 'Registry unavailable', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { registry: false } }, 520) },
-          { title: 'Scanning (empty list)', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { scan: 'scanning' } }, 560) },
-          { title: 'Scanning (existing list)', tag: 'PluginSection', ...GS({ sections: [], initial: { scan: 'scanning' } }, 660) },
-          { title: 'Scan result — 2 found', tag: 'PluginSection', ...GS({ sections: [], initial: { scan: { found: 2 } } }, 660) },
+          { title: 'No plugin yet: drop one on the window (issue #41)', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 560) },
+          { title: 'Dragging a plugin over the window', tag: 'PluginDrop', ...GS({ plugins: [], sections: [], initial: { dragging: true } }, 560) },
+          { title: 'Dropped: sealed into the state, listed off', tag: 'PluginSection', ...GS({ plugins: [{ id: 'payjoin', name: 'Payjoin', version: '1.2.3', desc: 'Payjoin sending and receiving.', enabled: false }], sections: [], initial: { added: { name: 'Payjoin' } } }, 660) },
+          { title: 'Dropped again while on: an update', tag: 'PluginSection', ...GS({ sections: [], initial: { added: { name: 'Atomic Swaps', updated: true } } }, 760) },
+          { title: 'Dropped something that is not a plugin', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { notice: { tone: 'error', title: 'Could not add the plugin', body: 'no plugin metadata file in /home/user/Downloads/photos' } } }, 640) },
           { title: 'Disable — confirm (an account closes)', tag: 'DisablePluginConfirm', ...GS({ initial: { view: { disable: 'atomic-swaps' } } }, 460) },
           { title: 'Disable — confirm (nothing uses it)', tag: 'DisablePluginConfirm', ...GS({ plugins: PLUGINS.map(p => p.id === 'payjoin' ? { ...p, enabled: true } : p), initial: { view: { disable: 'payjoin' } } }, 380) },
           { title: 'Disable — unloading', tag: 'PluginRow', ...GS({ sections: [], initial: { busyId: 'atomic-swaps' } }, 640) },

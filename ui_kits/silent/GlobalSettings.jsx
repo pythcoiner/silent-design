@@ -57,29 +57,34 @@ function GeneralSection({ theme, themes, onTheme, language, onLanguage, langSave
   );
 }
 
-function PluginSection({ registry, plugins, scan, notice, busyId, onScan, onToggle, onAccess, open = true, onFold }) {
-  const scanning = scan === 'scanning';
+/* PluginSection (issue #41): a plugin comes in only dropped on the window (its folder,
+   or its library with its metadata file beside it): Silent seals it into the encrypted
+   state and lists it off. Nothing found in ~/.silent/plugins/ is ever loaded, so
+   there is no Scan. `added`: the line after a drop ({ names, updated }). */
+function PluginDrop({ dragging }) {
+  return (
+    <Card tone="inset" pad="m" style={dragging ? { outline: '2px dashed var(--accent)', outlineOffset: -2 } : undefined}>
+      <Stack align="center" gap="s" style={{ padding: 'var(--space-m) 0' }}>
+        <Icon name="puzzle" size={48} tone="muted" />
+        <Text as="div" variant="caption" color="muted" align="center">Drop a plugin's folder, or its library with its metadata file beside it, on this window to add it. Built-in modules are not listed here.</Text>
+      </Stack>
+    </Card>
+  );
+}
+
+function PluginSection({ plugins, added, notice, busyId, dragging, onToggle, onAccess, open = true, onFold }) {
   return (
     <Stack>
-      <SectionHeader label="Plugin Manager" count={registry && plugins.length ? plugins.length : null} open={open} onToggle={onFold}
-        action={open ? <Btn id={scanning ? 'scanning_plugins' : 'scan_plugins'} disabled={scanning || !registry} onClick={onScan} /> : null} />
+      <SectionHeader label="Plugin Manager" count={plugins.length ? plugins.length : null} open={open} onToggle={onFold} />
       {open ? <Stack gap="s">
-        {!registry ? (
-          <Notice tone="error" title="Plugin registry unavailable">
-            Silent could not read the plugin folder <Text variant="mono" size="inherit">~/.silent/plugins/</Text>. Check that it exists and is readable, then reopen Settings.
-          </Notice>
-        ) : null}
         {notice ? <Notice tone={notice.tone} title={notice.title}>{notice.body}</Notice> : null}
-        {scan && scan !== 'scanning' && scan.found ? (
-          <Text as="div" variant="caption" color="success">{`${scan.found} new plugin${scan.found === 1 ? '' : 's'} found.`}</Text>
-        ) : null}
-        {registry && plugins.length ? plugins.map(p => (
+        {added ? <Text as="div" variant="caption" color="success">{added.updated
+          ? `${added.name} updated: it loads the new version once turned off and on again.`
+          : `${added.name} added, off: turn it on to load it.`}</Text> : null}
+        {plugins.map(p => (
           <PluginRow key={p.id} plugin={p} busy={busyId === p.id} onToggle={onToggle} onAccess={onAccess} />
-        )) : registry && !scanning ? (
-          <EmptyState icon="puzzle" title="No Plugin Found"
-            subtitle="Put a plugin and its metadata file in ~/.silent/plugins/, then scan. Built-in modules are not listed here." />
-        ) : null}
-        {scanning && !plugins.length ? <ModalStatus spinner title="Scanning for plugins…" pad="var(--space-m) 0" /> : null}
+        ))}
+        <PluginDrop dragging={dragging} />
       </Stack> : null}
     </Stack>
   );
@@ -201,19 +206,17 @@ function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: plug
   const [language, setLanguage] = React.useState(initial.language || 'English');
   const [langSaved, setLangSaved] = React.useState(!!initial.langSaved);
   const [plugins, setPlugins] = React.useState(pluginsIn);
-  const [scan, setScan] = React.useState(initial.scan || null);           // null | 'scanning' | { found }
+  const [added, setAdded] = React.useState(initial.added || null);        // null | { name, updated }
   const [notice, setNotice] = React.useState(initial.notice || null);
   const [busyId, setBusyId] = React.useState(initial.busyId || null);
   const [view, setView] = React.useState(initial.view || null);
   const [folds, setFolds] = React.useState({ general: true, plugins: true, extensions: true, ...(initial.folds || {}) });   // true = open
   const fold = (k) => setFolds(f => ({ ...f, [k]: !f[k] }));           // null | { section } | { disable }
-  const registry = initial.registry !== false;
 
   const themes = [{ name: 'Light' }, { name: 'Dark' },
     ...plugins.filter(p => p.enabled && !p.error).flatMap(p => (p.themes || []).map(t => ({ name: t, provider: p.name })))];
   const pickTheme = (t) => { setThemeLocal(t); onTheme && onTheme(t); };
   const pickLanguage = (l) => { setLanguage(l); setLangSaved(l !== 'English' || langSaved); };
-  const runScan = () => { setScan('scanning'); setNotice(null); setTimeout(() => setScan({ found: 0 }), 1200); };
   const toggle = (p) => {
     setNotice(null);
     if (!p.enabled) return setPlugins(ps => ps.map(x => (x.id === p.id ? { ...x, enabled: true, error: null } : x)));
@@ -252,7 +255,7 @@ function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: plug
       <Stack gap="s" style={{ width: GS_BODY_WIDTH }}>
         <GeneralSection theme={theme} themes={themes} onTheme={pickTheme} language={language} onLanguage={pickLanguage} langSaved={langSaved} open={folds.general} onFold={() => fold('general')} />
         <Divider space="0" />
-        <PluginSection registry={registry} plugins={plugins} scan={scan} notice={notice} busyId={busyId} onScan={runScan} onToggle={toggle} onAccess={(p) => { setNotice(null); setView({ access: p.id }); }} open={folds.plugins} onFold={() => fold('plugins')} />
+        <PluginSection plugins={plugins} added={added} notice={notice} busyId={busyId} dragging={!!initial.dragging} onToggle={toggle} onAccess={(p) => { setNotice(null); setView({ access: p.id }); }} open={folds.plugins} onFold={() => fold('plugins')} />
         {sections.length ? <Divider space="0" /> : null}
         <ExtensionSection sections={sections} onOpen={(id) => setView({ section: id })} open={folds.extensions} onFold={() => fold('extensions')} />
       </Stack>
@@ -262,4 +265,4 @@ function GlobalSettingsModal({ theme: themeProp, onTheme, onClose, plugins: plug
   return <Modal title={title} width={GS_WIDTH} onClose={onClose}>{body}{actions}</Modal>;
 }
 
-Object.assign(window, { SettingsGear, PluginRow, GlobalSettingsModal, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });
+Object.assign(window, { SettingsGear, PluginRow, PluginDrop, GlobalSettingsModal, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });
