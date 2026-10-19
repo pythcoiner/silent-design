@@ -14,7 +14,7 @@
 </head>
 <body>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=3"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=35"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=36"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=3"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=10"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=44"></script>
@@ -51,9 +51,9 @@
             <div className="s-tabstrip" style={{ padding: 'var(--pad-xs) var(--pad-xs) 0', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)', maxWidth: 620 }}>
               <div className="s-tabstrip__tabs">
                 {['savings', 'cold-storage', 'testing', 'business', 'donations', 'swaps'].map(n => <Tab key={n} label={n} closable />)}
-                <Tab label="+" closable={false} />
+                <Tab label="+" handle closable={false} />
               </div>
-               <div className="s-tabstrip__modules"><Tab label="Keys" closable={false} /><Tab label="Settings" icon="settings" active closable={false} /></div>
+               <div className="s-tabstrip__modules"><Tab label="Keys" closable={false} /><Tab label="Settings" icon="settings" handle active closable={false} /></div>
             </div>) },
         ]},
         { name: '2.1 · General', items: [

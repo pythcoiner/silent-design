@@ -388,6 +388,7 @@
   font-size: var(--size-body); white-space: nowrap;
 }
 .s-tab.is-active { background: var(--bg); color: var(--text); }
+.s-tab--handle { box-sizing: border-box; width: var(--tab-handle-w); justify-content: center; }
 .s-tab:not(.is-active):hover { background: var(--surface-hover); }
 .s-tab__close { display: inline-flex; opacity: 0.7; }
 .s-tab__close:hover { opacity: 1; }

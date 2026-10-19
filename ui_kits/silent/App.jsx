@@ -135,11 +135,11 @@ function App() {
               <Tab key={name} label={name} active={active === name} closable
                 onClick={() => setActive(name)} onClose={() => closeWallet(name)} />
             ))}
-            <Tab label="+" active={active === 'menu'} closable={false} onClick={() => setActive('menu')} />
+            <Tab label="+" handle active={active === 'menu'} closable={false} onClick={() => setActive('menu')} />
           </div>
           <div className="s-tabstrip__modules">
             <Tab label="Keys" active={active === 'keys'} closable={false} onClick={() => setActive('keys')} />
-            <Tab label="Settings" icon="settings" active={active === 'settings'} closable={false} onClick={() => setActive('settings')} />
+            <Tab label="Settings" icon="settings" handle active={active === 'settings'} closable={false} onClick={() => setActive('settings')} />
           </div>
         </div>
 

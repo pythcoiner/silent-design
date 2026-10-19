@@ -193,6 +193,7 @@
   /* BtnWidth enum — the only button widths; text buttons default to M. Design-only
      names; 50/200/300 match the app's Size enum (Size::XXS/M/L). */
   --btn-w-icon:         30px;
+  --tab-handle-w:        42px;  /* design only: Qt sizes the gear from the launcher tab */
   --btn-w-icon-lg:      50px;
   --btn-w-index:        60px;
   --btn-w-m:            120px;

@@ -347,9 +347,9 @@ export function BalanceHeader({ wallet }) {
 /* Tab — a QTabWidget tab: label or icon + optional close affordance. The active tab
    takes the page bg; the menu/"+" tab passes closable={false}. Backed by the
    s-tab class so the chrome lives in CSS, not inline style. */
-export function Tab({ label, icon, active, closable, onClick, onClose }) {
+export function Tab({ label, icon, handle = false, active, closable, onClick, onClose }) {
   return (
-    <div className={`s-tab ${active ? 'is-active' : ''}`} onClick={onClick} title={icon ? label : undefined}>
+    <div className={`s-tab ${handle ? 's-tab--handle' : ''} ${active ? 'is-active' : ''}`} onClick={onClick} title={icon ? label : undefined}>
       <span>{icon ? <Icon name={icon} size={16} /> : label}</span>
       {closable ? (
         <span className="s-tab__close" onClick={e => { e.stopPropagation(); if (onClose) onClose(); }}>
