@@ -8,6 +8,7 @@ const WALLETS = {
     network: 'Signet',
     blindbit: 'https://blindbit.silentpayments.dev',
     electrum: 'signet.electrum.silent:50001',
+    electrumHeight: '812519',
     confirmed: '0.04827310 BTC', confirmedCount: '4 coins',
     unconfirmed: '0.00051200 BTC', unconfirmedCount: '1 coin',
     coins: [
@@ -47,6 +48,7 @@ const WALLETS = {
     kind: 'musig',
     network: 'Regtest',
     electrum: 'minta.wizardsardine.com:60001',
+    electrumHeight: '2104',
     descriptor: "tr(musig([73c5da0a/87'/1'/0'/2]tpubDEGU7K8ab62XbG1bKoCnHDtUx44DxVKyAQVS96EN1EUVTQRW2KnFEvTtmnUJSonudSK8HcXTexf56Kir1JzoQAzFRHfvNLEcqV7KxUHZVYa,[b8688df1/87'/1'/0'/2]tpubDDzMtUDKwjvTehAmAfwYiBGzUFDcF8AyEaJf78JhQam5knvsGTgqF7VvhuuDZLYityND66FG88sS3q28Yi5Ysumvx5DfMgdm6nc6zntvpHM)/<0;1>/*)#cr6rql33",
     cosigners: '73c5da0a, b8688df1',
     confirmed: '0.01200000 BTC', confirmedCount: '2 coins',

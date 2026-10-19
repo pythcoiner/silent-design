@@ -34,6 +34,8 @@ function MusigSettingsScreen({ wallet }) {
           <FieldGroup>
             <TestableRow label="Electrum Server:" value={electrum} onChange={setElectrum} placeholder="host:port (e.g. 127.0.0.1:50001)"
               onVerified={setVerified} />
+            {/* the connected server's tip, asked every 30 s while Settings shows; -- when not connected */}
+            <Field label="Electrum Block Height:"><Text>{wallet.electrumHeight || '--'}</Text></Field>
           </FieldGroup>
         </FoldSection>
         {/* Connect and Save wait for a passing Test, as in the app. */}
@@ -90,6 +92,7 @@ function SpSettingsScreen({ wallet }) {
               onVerified={verify('blindbit')} />
             <TestableRow label="Electrum Server:" value={electrum} onChange={setElectrum} placeholder="host:port"
               onVerified={verify('electrum')} />
+            <Field label="Electrum Block Height:"><Text>{wallet.electrumHeight || '--'}</Text></Field>
             <Field label="Network:">
               <ComboBox value={network} options={NETWORKS} onChange={setNetwork} width={200} />
             </Field>
