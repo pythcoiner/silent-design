@@ -285,7 +285,7 @@ components); every variant has a specimen on its preview card.
 - **Widgets** — SectionLabel, FieldLabel, PaymentRow, ValidatedInput, Stepper, Tooltip, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable, SectionHeader, Section, CopyField, ShortValue, WordGrid, WordInputGrid, RouteIcons, ScanProgress, ModalActions, ScrollArea, FieldNote, EmptyState, FoldChevron
 - **Address** — QRCard, QRCode, ChunkedAddress
 - **Modal** — Modal
-- **GlobalSettings** — SettingsGear, GlobalSettingsModal, PluginRow
+- **GlobalSettings** — GlobalSettingsTab (the Settings tab right of Keys), PluginRow
 - **Icons** — Icon, SilentMark
 
 ---

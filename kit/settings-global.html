@@ -14,29 +14,29 @@
 </head>
 <body>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=3"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=27"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=36"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=3"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=10"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=25"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=44"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=12"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=7"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=28"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=22"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=16"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=49"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=25"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=28"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=52"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=3"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=41"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=12"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=48"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=9"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=17"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=61"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=25"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const noop = () => {};
     const F = (el, h = 640) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
-    const GS = (props, h) => ({ span: 'full', ...F(<GlobalSettingsModal onClose={noop} onTheme={noop} {...props} />, h) });
+    const GS = (props, h) => ({ span: 'full', ...F(<GlobalSettingsTab onTheme={noop} {...props} />, h) });
     const P = (id) => PLUGINS.find(p => p.id === id);
     const enabledOnly = [P('atomic-swaps')];
     const refusing = PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, refuseUnload: true } : p);
@@ -44,34 +44,40 @@
     Gallery.render({
       kicker: 'Settings · components',
       title: 'Global Settings',
-      lede: 'Issue #4. One modal, titled once. Opening a section or confirming a plugin disable replaces the content inside the same modal, with a way back. Every state is its own item.',
+      lede: 'Issues #4, #46 and #48. The gear tab right of Keys opens a page titled once, as the Keys page. Opening a section, a plugin access or confirming a plugin disable replaces the page content, with a way back; leaving the tab goes back to the sections. Every state is its own item.',
       groups: [
         { name: '1 · Entry point', items: [
-          { title: 'Settings gear in the tab strip end slot, module tabs right aligned before it: account tabs scroll, never under them', tag: 'SettingsGear', span: 'full', el: (
+          { title: 'The settings gear tab, right of Keys among the module tabs: account tabs scroll, never under them (issues #46, #48)', tag: 'Tab', span: 'full', el: (
             <div className="s-tabstrip" style={{ padding: 'var(--pad-xs) var(--pad-xs) 0', background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)', maxWidth: 620 }}>
               <div className="s-tabstrip__tabs">
                 {['savings', 'cold-storage', 'testing', 'business', 'donations', 'swaps'].map(n => <Tab key={n} label={n} closable />)}
-                <Tab label="+" closable={false} />
+                <Tab label="+" handle closable={false} />
               </div>
-              <div className="s-tabstrip__modules"><Tab label="Keys" active closable={false} /></div>
-              <div className="s-tabstrip__end"><SettingsGear onClick={noop} /></div>
+               <div className="s-tabstrip__modules"><Tab label="Keys" closable={false} /><Tab label="Settings" icon="settings" handle active closable={false} /></div>
             </div>) },
         ]},
         { name: '2.1 · General', items: [
-          { title: 'Default — Light, three plugins, two extension sections', tag: 'GlobalSettingsModal', ...GS({}, 900) },
+          { title: 'Default — Light, three plugins, two extension sections', tag: 'GlobalSettingsTab', ...GS({}, 900) },
           { title: 'Module theme selected', tag: 'GeneralSection', ...GS({ initial: { theme: 'Midnight' } }, 900) },
           { title: 'Language changed — saved, restart note', tag: 'GeneralSection', ...GS({ initial: { language: 'Français', langSaved: true } }, 900) },
         ]},
         { name: '2.2 · Plugin Manager', items: [
-          { title: 'No plugin found', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 520) },
-          { title: 'Registry unavailable', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { registry: false } }, 520) },
-          { title: 'Scanning (empty list)', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { scan: 'scanning' } }, 560) },
-          { title: 'Scanning (existing list)', tag: 'PluginSection', ...GS({ sections: [], initial: { scan: 'scanning' } }, 660) },
-          { title: 'Scan result — 2 found', tag: 'PluginSection', ...GS({ sections: [], initial: { scan: { found: 2 } } }, 660) },
+          { title: 'No plugin yet: drop one on the window (issue #41)', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 560) },
+          { title: 'Dragging a plugin over the window', tag: 'PluginDrop', ...GS({ plugins: [], sections: [], initial: { dragging: true } }, 560) },
+          { title: 'Dropped: sealed into the state, listed off', tag: 'PluginSection', ...GS({ plugins: [{ id: 'payjoin', name: 'Payjoin', version: '1.2.3', desc: 'Payjoin sending and receiving.', enabled: false }], sections: [], initial: { added: { name: 'Payjoin' } } }, 660) },
+          { title: 'Dropped again while on: an update', tag: 'PluginSection', ...GS({ sections: [], initial: { added: { name: 'Atomic Swaps', updated: true } } }, 760) },
+          { title: 'Dropped something that is not a plugin', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { notice: { tone: 'error', title: 'Could not add the plugin', body: 'no plugin metadata file in /home/user/Downloads/photos' } } }, 640) },
           { title: 'Disable — confirm (an account closes)', tag: 'DisablePluginConfirm', ...GS({ initial: { view: { disable: 'atomic-swaps' } } }, 460) },
           { title: 'Disable — confirm (nothing uses it)', tag: 'DisablePluginConfirm', ...GS({ plugins: PLUGINS.map(p => p.id === 'payjoin' ? { ...p, enabled: true } : p), initial: { view: { disable: 'payjoin' } } }, 380) },
           { title: 'Disable — unloading', tag: 'PluginRow', ...GS({ sections: [], initial: { busyId: 'atomic-swaps' } }, 640) },
           { title: 'Disable refused — stays enabled', tag: 'PluginSection', ...GS({ plugins: refusing, sections: [], initial: { notice: { tone: 'error', title: 'Could not disable Atomic Swaps', body: 'The plugin refused to unload. It stays enabled. Close its accounts, then try again.' } } }, 700) },
+        ]},
+        { name: '2.4 · Plugin access (issue #35)', items: [
+          { title: 'Access: one row per library version answered, Accounts and Keys apply at once', tag: 'PluginAccessFlow', ...GS({ initial: { view: { access: 'atomic-swaps' } } }, 480) },
+          { title: 'Access: every answer forgotten', tag: 'PluginAccessFlow', ...GS({ plugins: PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, access: [] } : p), initial: { view: { access: 'atomic-swaps' } } }, 400) },
+          { title: 'First use of the keys: asked, Allow or Deny kept for this library', tag: 'PluginAccessPrompt', span: 'full', ...F(<PluginAccessPrompt plugin={P('atomic-swaps')} account={false} keys onAnswer={noop} onClose={noop} />, 460) },
+          { title: 'Asked for both through requestAccess()', tag: 'PluginAccessPrompt', span: 'full', ...F(<PluginAccessPrompt plugin={P('atomic-swaps')} account keys onAnswer={noop} onClose={noop} />, 540) },
+          { title: 'A new version opens its saved data (issue #38)', tag: 'PluginAccessPrompt', span: 'full', ...F(<PluginAccessPrompt plugin={P('atomic-swaps')} account={false} state onAnswer={noop} onClose={noop} />, 460) },
         ]},
         { name: '2.3 · Extension Settings', items: [
           { title: 'No extension section — the section is hidden', tag: 'ExtensionSection', ...GS({ plugins: enabledOnly, sections: [] }, 560) },

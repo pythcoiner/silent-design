@@ -219,18 +219,21 @@ function PolicyPreview({ paths, keys = MUSIG_KEYS }) {
 
 /* Backup Descriptor: the native save dialog (showSaveFilePicker) with the account
    name as the file name; where the browser has none, a plain download. Resolves
-   true once written, false when the user cancels. Qt: QFileDialog::getSaveFileName. */
-async function saveDescriptorFile(name, text) {
-  const fileName = `${name || 'account'}-descriptor.txt`;
+   true once written, false when the user cancels. Qt: QFileDialog::getSaveFileName,
+   then the bip138 crate encrypts the descriptor to its keys (any cosigner's xpub
+   decrypts it); the kit writes a stand-in with the BIP138 magic, it encrypts nothing. */
+async function saveDescriptorFile(name) {
+  const fileName = `${name || 'account'}.bip138`;
+  const blob = new Blob(['BIP138'], { type: 'application/octet-stream' });
   if (window.showSaveFilePicker) {
     try {
-      const h = await window.showSaveFilePicker({ suggestedName: fileName, types: [{ description: 'Descriptor', accept: { 'text/plain': ['.txt'] } }] });
-      const w = await h.createWritable(); await w.write(text); await w.close();
+      const h = await window.showSaveFilePicker({ suggestedName: fileName, types: [{ description: 'BIP138 backups', accept: { 'application/octet-stream': ['.bip138'] } }] });
+      const w = await h.createWritable(); await w.write(blob); await w.close();
       return true;
     } catch (e) { if (e && e.name === 'AbortError') return false; }
   }
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([text], { type: 'text/plain' }));
+  a.href = URL.createObjectURL(blob);
   a.download = fileName; a.click(); URL.revokeObjectURL(a.href);
   return true;
 }
@@ -264,10 +267,13 @@ function PolicyReview({ paths, keys = MUSIG_KEYS }) {
 const SHOWS_ADDRESS = { qr: true, usb: true };
 
 /* The verify page: the first receive address flush with its lead, then one row per
-   signer of the policy. A signer with a screen (QR, USB) opens its address check
-   on click and reads Verified once it matched; the others read No Screen. With no
-   signer able to show it, the warning instead. */
-function VerifyFirstAddress({ signers = [], verified = [], onCheck }) {
+   signer of the policy. A click on a signer with a screen sends it the address at
+   once, no signer picker: a USB device shows it with no window, its row On Device
+   until it answers (`checking`), every device at once; a QR one opens its QR step.
+   Verified once it matched, Mismatch when the device showed another address,
+   Failed with why on its row (`failed`: { fingerprint: why }); the others read No
+   Screen. With no signer able to show it, the warning instead. */
+function VerifyFirstAddress({ signers = [], verified = [], checking = [], mismatched = [], failed = {}, onCheck }) {
   const checkable = signers.filter(k => SHOWS_ADDRESS[k.route]);
   return (
     <Stack gap="m" style={{ alignSelf: 'stretch' }}>
@@ -276,11 +282,15 @@ function VerifyFirstAddress({ signers = [], verified = [], onCheck }) {
       <Row justify="center"><Card tone="inset" pad="m"><ChunkedAddress text={MUSIG_ADDRESS} oneRow /></Card></Row>
       <Stack gap="xs">
         {signers.map(k => {
-          const can = !!SHOWS_ADDRESS[k.route], done = verified.includes(k.fp);
+          const can = !!SHOWS_ADDRESS[k.route], done = verified.includes(k.fp), busy = checking.includes(k.fp);
+          const mismatch = mismatched.includes(k.fp);
+          /* a device that did not confirm says why on its own row, and stays clickable */
+          const why = can && !done && !busy ? (mismatch ? 'The device showed another address: do not use this one' : failed[k.fp]) : null;
           return (
-            <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={k.fp} chevron={false}
-              disabled={!can} status={<Pill id={!can ? 'addr_no_screen' : done ? 'addr_verified' : 'addr_unchecked'} />}
-              onClick={can ? () => onCheck && onCheck(k.fp) : undefined} />
+            <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={why || k.fp} chevron={false}
+              tone={why ? 'error' : undefined} disabled={!can}
+              status={<Pill id={!can ? 'addr_no_screen' : done ? 'addr_verified' : busy ? 'musig_on_device' : mismatch ? 'addr_mismatch' : why ? 'reg_failed' : 'addr_unchecked'} />}
+              onClick={can && !done && !busy ? () => onCheck && onCheck(k.fp) : undefined} />
           );
         })}
       </Stack>
@@ -295,16 +305,25 @@ function VerifyFirstAddress({ signers = [], verified = [], onCheck }) {
 
 /* Create Multikey Account: a wizard, one step per page under a WizardSteps trail.
    Spend Paths (network, one row per path opening Edit Spend Path) → Xpubs (every key
-   of the paths, fetched or missing; a missing row opens that key's signing flow;
-   skipped when none is missing) →
+   of the paths, fetched or missing; a missing USB key gives it on click with no
+   window, its row On Device until it answers; another route opens that key's
+   signing flow; skipped when none is missing) →
    Review (account name, the policy, Backup Descriptor right under it) → Register
    (one row per signer; a device registers on click, hot keys need none) → Verify (the first address on a device) → Electrum (the server, SSL, certificate check;
    Create).
+   Xpubs, Register and Verify ask every device at once: each row is clicked on its own,
+   a key busy on one request is not clickable until it answers.
    Back on every step but the first.
-   `initial.step`: paths | xpubs | review | register | verify | account; `initial.registered`
-   / `initial.registering`: fingerprints registered / in progress;
+   `initial.step`: paths | xpubs | review | register | verify | account; `initial.fetching`:
+   fingerprints whose USB device is giving its xpub; `initial.registered`
+   / `initial.registering`: fingerprints registered / in progress; `initial.registerFailed`:
+   { fingerprint: why its device failed to register }, shown on its row until clicked again;
+   `initial.privacyMode` false: the backup's privacy mode unticked (ticked by default); `initial.backupExcluded`: the
+   keys the BIP138 backup left out, named once backed up;
    `initial.editing`: a path index open in Edit Spend Path; `initial.checkable` false
-   shows the no-checkable-key warning; `initial.verified` the matched check. */
+   shows the no-checkable-key warning; `initial.verified` the matched check; `initial.checking`
+   the devices showing the address now; `initial.mismatched` those that showed another;
+   `initial.verifyFailed`: { fingerprint: why its device did not answer }. */
 const CREATE_STEPS = ['Spend Paths', 'Xpubs', 'Review', 'Register', 'Verify', 'Electrum'];
 const CREATE_STEP_INDEX = { paths: 0, xpubs: 1, review: 2, register: 3, verify: 4, account: 5 };
 /* Routes whose device holds a registration of the account (hot keys need none). */
@@ -321,15 +340,24 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
   const [verifyCert, setVerifyCert] = React.useState(initial.verifyCert === undefined ? true : initial.verifyCert);
   const [paths, setPaths] = React.useState(initial.paths || [MUSIG_PATH]);
   const [fetched, setFetched] = React.useState(initial.fetched || ['28645006', 'b8688df1']);
+  const [fetching, setFetching] = React.useState(initial.fetching || []);
   const [flow, setFlow] = React.useState(null);   // null | { fetch: fp } | { verify: fp }
   const [editing, setEditing] = React.useState(initial.editing === undefined ? null : initial.editing);   // path index | null
   /* fingerprints whose device showed the same address; `initial.verified` true = every signer with a screen */
   const [verified, setVerified] = React.useState(Array.isArray(initial.verified) ? initial.verified
     : initial.verified ? keys.filter(k => SHOWS_ADDRESS[k.route]).map(k => k.fp) : []);
   const [backedUp, setBackedUp] = React.useState(!!initial.backedUp);
-  /* fingerprints registered; `registering` the one in progress */
+  /* fingerprints registered; `registering` those in progress, every device at once */
   const [registered, setRegistered] = React.useState(initial.registered || []);
-  const [registering, setRegistering] = React.useState(initial.registering || null);
+  const [registering, setRegistering] = React.useState(initial.registering || []);
+  /* the Verify step: devices showing the address now, those that showed another, failures */
+  const [checking, setChecking] = React.useState(initial.checking || []);
+  const [mismatched, setMismatched] = React.useState(initial.mismatched || []);
+  const [verifyFailed, setVerifyFailed] = React.useState(initial.verifyFailed || {});
+  const [registerFailed, setRegisterFailed] = React.useState(initial.registerFailed || {});
+  /* on by default: the backup's clear part names no derivation path unless asked to */
+  const [privacyMode, setPrivacyMode] = React.useState(initial.privacyMode !== false);
+  const backupExcluded = initial.backupExcluded || [];
   /* the Register step's opt-out: continue with devices left unregistered */
   const [skipRegister, setSkipRegister] = React.useState(!!initial.skipRegister);
   /* Xpubs is skipped when every key of the paths already gave its xpub; Back from Review then returns to Spend Paths */
@@ -339,6 +367,20 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
   const used = keys.filter(k => paths.some(p => p.keys[k.fp]));
   const missing = used.filter(k => !fetched.includes(k.fp));
   const trimmed = name.trim();
+  /* a key answers one request at a time, whichever step it is for */
+  const busy = fp => fetching.includes(fp) || registering.includes(fp) || checking.includes(fp);
+  const without = fp => list => list.filter(x => x !== fp);
+  /* a USB device answers with no window: its row On Device until it does */
+  const fetchOnDevice = fp => {
+    setFetching(f => [...f, fp]);
+    setTimeout(() => { setFetched(f => [...f, fp]); setFetching(without(fp)); }, 900);
+  };
+  const checkOnDevice = fp => {
+    setMismatched(without(fp));
+    setVerifyFailed(f => { const n = { ...f }; delete n[fp]; return n; });
+    setChecking(c => [...c, fp]);
+    setTimeout(() => { setVerified(v => [...v, fp]); setChecking(without(fp)); }, 900);
+  };
   const leaves = paths.reduce((sum, p) => sum + pathLeaves(p, keys), 0);
 
   if (flow && flow.fetch) {
@@ -356,9 +398,10 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
       onSave={np => { setPaths(isNew ? [...paths, np] : paths.map((x, k) => (k === editing ? np : x))); setEditing(null); }} />;
   }
   if (flow && flow.verify) {
-    // The kit treats closing the result as the device's match.
-    const plan = keys.filter(k => k.fp === flow.verify).map(k => ({ ...k, status: 'ready' }));
-    return <SigningFlow context="verify" plan={plan} address={MUSIG_ADDRESS}
+    // The clicked key's own route, no signer picker. The kit treats closing the result
+    // as the device's match.
+    const key = keys.find(k => k.fp === flow.verify);
+    return <SigningFlow context="verify" keyRow={{ fp: key.fp, alias: key.alias, route: key.route }} address={MUSIG_ADDRESS}
       onCancel={() => { setVerified(v => (v.includes(flow.verify) ? v : [...v, flow.verify])); setFlow(null); }} />;
   }
 
@@ -384,8 +427,9 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
         <Stack gap="xs">
           {used.map(k => (
             <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={k.fp}
-              status={<Pill id={fetched.includes(k.fp) ? 'xpub_fetched' : 'xpub_missing'} />}
-              chevron={false} onClick={fetched.includes(k.fp) ? undefined : () => setFlow({ fetch: k.fp })} />
+              status={<Pill id={fetched.includes(k.fp) ? 'xpub_fetched' : fetching.includes(k.fp) ? 'musig_on_device' : 'xpub_missing'} />}
+              chevron={false} onClick={fetched.includes(k.fp) || busy(k.fp) ? undefined
+                : k.route === 'usb' ? () => fetchOnDevice(k.fp) : () => setFlow({ fetch: k.fp })} />
           ))}
         </Stack>
       </Stack>
@@ -407,12 +451,21 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
           <Field label="Account Name:"><Input width={240} value={name} onChange={e => { setName(e.target.value); setBackedUp(false); }} /></Field>
         </FieldGroup>
         <PolicyReview paths={paths} keys={keys} />
-        <Row gap="s">
-          <Spacer />
-          {backedUp ? <Text variant="caption" color="success">Descriptor backed up.</Text> : null}
-          <Btn id={backedUp ? 'backup_descriptor' : 'backup_descriptor_primary'} disabled={!!nameReason}
-            onClick={() => saveDescriptorFile(trimmed, MUSIG_DESCRIPTOR + '#' + MUSIG_CHECKSUM).then(ok => ok && setBackedUp(true))} />
-        </Row>
+        <Stack gap="s">
+          <Row gap="s">
+            {/* privacy mode on the button's row: it sets what the button saves */}
+            <Row gap="xs"><Checkbox checked={privacyMode} onChange={setPrivacyMode} label="Privacy mode" />
+              <InfoTip label="Leaves the common derivation paths out of the backup's clear part: whoever finds the file learns less, a restore then looks for the paths itself." /></Row>
+            <Spacer />
+            {backedUp ? <Text variant="caption" color="success">Descriptor backed up.</Text> : null}
+            <Btn id={backedUp ? 'backup_descriptor' : 'backup_descriptor_primary'} disabled={!!nameReason}
+              onClick={() => saveDescriptorFile(trimmed).then(ok => ok && setBackedUp(true))} />
+          </Row>
+          {/* BIP138 names each key it leaves out of the encryption keys: its holder cannot decrypt */}
+          {backedUp && backupExcluded.length ? (
+            <Text variant="caption" color="warning">Left out of the backup, so their holders cannot decrypt it with them: {backupExcluded.join(', ')}</Text>
+          ) : null}
+        </Stack>
       </Stack>
     );
     actions = (
@@ -424,17 +477,24 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
     /* one row per signer: a device registers the account on click; hot keys need none */
     const need = used.filter(k => NEEDS_REGISTER[k.route]);
     const left = need.filter(k => !registered.includes(k.fp));
-    const register = (fp) => { setRegistering(fp); setTimeout(() => { setRegistered(r => [...r, fp]); setRegistering(null); }, 900); };
+    /* a click tries again after a failure, the failure cleared until it answers */
+    const register = (fp) => {
+      setRegisterFailed(f => { const n = { ...f }; delete n[fp]; return n; });
+      setRegistering(r => [...r, fp]); setTimeout(() => { setRegistered(r => [...r, fp]); setRegistering(without(fp)); }, 900);
+    };
     body = (
       <Stack gap="s" style={{ alignSelf: 'stretch' }}>
         <Text variant="body">Click a device to register the account on it.</Text>
         <Stack gap="xs">
           {used.map(k => {
-            const needs = !!NEEDS_REGISTER[k.route], done = registered.includes(k.fp), busy = registering === k.fp;
+            const needs = !!NEEDS_REGISTER[k.route], done = registered.includes(k.fp), on = registering.includes(k.fp);
+            /* a failed device says why on its own row, in words, and stays clickable */
+            const failed = needs && !done && !on ? registerFailed[k.fp] : null;
             return (
-              <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={k.fp} chevron={false}
-                disabled={!needs} status={<Pill id={!needs ? 'reg_not_needed' : done ? 'reg_registered' : busy ? 'reg_registering' : 'reg_pending'} />}
-                onClick={needs && !done && !registering ? () => register(k.fp) : undefined} />
+              <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={failed || k.fp} chevron={false}
+                tone={failed ? 'error' : undefined} disabled={!needs}
+                status={<Pill id={!needs ? 'reg_not_needed' : done ? 'reg_registered' : on ? 'reg_registering' : failed ? 'reg_failed' : 'reg_pending'} />}
+                onClick={needs && !done && !busy(k.fp) ? () => register(k.fp) : undefined} />
             );
           })}
         </Stack>
@@ -445,10 +505,10 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
       <Checkbox checked={skipRegister} onChange={setSkipRegister}
         label="Skip: continue without registering every device (register them later from the Keys tab)" />
     ) : null;
-    const reason = registering ? 'Registering…'
+    const reason = registering.length ? 'Registering…'
       : left.length && !skipRegister ? `${left.length} device${left.length > 1 ? 's' : ''} still to register.` : null;
     actions = (
-      <ModalActions onBack={registering ? null : () => setStep('review')} reason={reason}>
+      <ModalActions onBack={registering.length ? null : () => setStep('review')} reason={reason}>
         <Btn id="continue" disabled={!!reason} onClick={() => setStep('verify')} />
       </ModalActions>
     );
@@ -478,7 +538,8 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
     );
   } else {
     const signers = checkable ? used : used.map(k => ({ ...k, route: 'hot' }));
-    body = <VerifyFirstAddress signers={signers} verified={verified} onCheck={fp => setFlow({ verify: fp })} />;
+    body = <VerifyFirstAddress signers={signers} verified={verified} checking={checking} mismatched={mismatched} failed={verifyFailed}
+      onCheck={fp => (busy(fp) ? null : keys.find(k => k.fp === fp).route === 'usb' ? checkOnDevice(fp) : setFlow({ verify: fp }))} />;
     /* optional: Continue is always open */
     actions = (
       <ModalActions onBack={() => setStep('register')}>
@@ -501,70 +562,122 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
 
 /* MuSig2 Sign: a wizard opened by Sign on a Multikey Send. Nonces (round 1) →
    Partial Signatures (round 2), which ends on Broadcast. Each round lists the spend path's
-   cosigners; a cosigner adds its part on click (its device, briefly "On Device…").
+    cosigners; a cosigner adds its part on click (its device, briefly "On Device…",
+    or a hot key, "Signing…" after its password window closes),
+   every cosigner at once: the others stay clickable while one is on its device.
    Continue opens once every cosigner is in. Rounds cannot go back (a nonce is spent),
    so there is no Back; the header × closes and keeps the session, Sign Round N on
-   the Send card reopens it. `lost`: the session-lost notice, back on round 1.
-   `round`: 1 | 2 | 'ready'; onRound(r) mirrors progress to the Send card. */
+    the Send card reopens it. `lost`: signing waits for an explicit restart.
+   `round`: 1 | 2 | 'ready'; onRound(r) mirrors progress to the Send card.
+   Every key of the wallet has a row: the path's signers that can sign first, then
+   those that cannot, then the wallet's keys the path does not use, then the connected
+   devices that are no key of the wallet. Each greyed row says why on its row, just
+   left of its pill: `offline` (fingerprints, Not Connected), `unsupported` (fingerprints
+   whose device cannot sign MuSig2, Unsupported), `others` (Not in Path), `strangers`
+   (connected devices, Not in Wallet). `single`: a single-key path (a timelocked one)
+   signs once, no rounds. */
+const SIGN_WHY = {
+  offline: 'Its device is not connected: plug it in and unlock it.',
+  unsupported: 'Its device cannot sign MuSig2.',
+  others: 'Not a signer of this spend path.',
+  strangers: 'Not a key of this wallet.',
+};
 const MUSIG_SIGN_STEPS = ['Nonces', 'Partial Signatures'];
-function MusigSignModal({ signers, round = 1, lost = false, txid = MUSIG_TXID, initial = {}, onRound, onBroadcast, onClose }) {
-  const [r, setR] = React.useState(round);
+function MusigSignModal({ signers, others = [], offline = [], unsupported = [], strangers = [], single = false, round = 1, lost = false, finalized = false, saveWarning = '', txid = MUSIG_TXID, initial = {}, onRound, onProgress, onBroadcast, onClose }) {
+  const [r, setR] = React.useState(single ? 2 : round);
+  const [restartNeeded, setRestartNeeded] = React.useState(lost);
   const [done, setDone] = React.useState(initial.done || (round === 2 ? { 1: signers.map(s => s.fp) } : round === 'ready' ? { 1: signers.map(s => s.fp), 2: signers.map(s => s.fp) } : {}));
-  const [busy, setBusy] = React.useState(initial.busy || null);
+  /* the cosigners on their device now: every one can be asked at once */
+  const [busy, setBusy] = React.useState([].concat(initial.busy || []));
+  const [hotPrompt, setHotPrompt] = React.useState(null);
   /* 'ready' (every partial signature in) stays on step 2, its button Broadcast */
   const sr = r === 'ready' ? 2 : r;
   const stepIdx = sr - 1;
   const inRound = (done[sr] || []);
   const left = signers.filter(s => !inRound.includes(s.fp));
-  const add = (fp) => { setBusy(fp); setTimeout(() => {
-    setDone(d => {
-      const nd = { ...d, [sr]: [...(d[sr] || []), fp] };
-      if (sr === 2 && signers.every(s => nd[2].includes(s.fp))) { setR('ready'); onRound && onRound('ready'); }
-      return nd;
-    });
-    setBusy(null);
+  /* the signers that can sign ahead of those that cannot */
+  const blocked = s => !inRound.includes(s.fp) && (offline.includes(s.fp) || unsupported.includes(s.fp));
+  const usable = signers.filter(s => !blocked(s));
+  const unusable = signers.filter(s => !usable.includes(s));
+  React.useEffect(() => {
+    onProgress && onProgress({ done });
+    if (sr === 2 && r !== 'ready' && signers.every(s => (done[2] || []).includes(s.fp))) {
+      setR('ready'); onRound && onRound('ready');
+    }
+  }, [done]);
+  const add = (fp) => { setBusy(b => [...b, fp]); setTimeout(() => {
+    setDone(d => ({ ...d, [sr]: [...(d[sr] || []), fp] }));
+    setBusy(b => b.filter(x => x !== fp));
   }, 900); };
   const next = () => { setR(2); onRound && onRound(2); };
+  const restart = () => {
+    setDone({}); setR(single ? 2 : 1); setRestartNeeded(false);
+    onProgress && onProgress({ done: {}, lost: false });
+    onRound && onRound(single ? 2 : 1);
+  };
 
   let body, actions;
   {
-    const what = sr === 1 ? 'its nonce' : 'its partial signature';
+    const what = single ? 'its signature' : sr === 1 ? 'its nonce' : 'its partial signature';
     body = (
       <Stack gap="s" style={{ alignSelf: 'stretch' }}>
-        {lost && sr === 1 ? (
+        {restartNeeded ? (
           <Notice tone="warning" title="MuSig2 session missing or mismatch">
-            A signer no longer holds its round 1 nonce: it restarted, or the transaction changed. Every nonce and partial signature was dropped, sign round 1 again with every cosigner.
+            {PSBT_RESTART_MESSAGE}
           </Notice>
         ) : null}
-        <Text variant="body">Click each cosigner to add {what}.</Text>
+        {saveWarning ? <Text variant="caption">{psbtSaveWarning(saveWarning)}</Text> : null}
+        <Text variant="body">{single ? `Click the cosigner to add ${what}.` : `Click each cosigner to add ${what}.`}</Text>
         <Stack gap="xs">
-          {signers.map(s => {
-            const ok = inRound.includes(s.fp), on = busy === s.fp;
+          {usable.map(s => {
+            const ok = inRound.includes(s.fp), on = busy.includes(s.fp);
             return (
               <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} chevron={false}
-                status={<Pill id={ok ? (sr === 1 ? 'musig_nonce_added' : 'signer_signed') : on ? 'musig_on_device' : 'musig_needed'} />}
-                onClick={!ok && !busy ? () => add(s.fp) : undefined} />
+                 status={<Pill id={ok ? (sr === 1 ? 'musig_nonce_added' : 'signer_signed') : on ? (s.route === 'hot' ? 'musig_signing' : 'musig_on_device') : 'musig_needed'} />}
+                 disabled={restartNeeded}
+                 onClick={!restartNeeded && !ok && !on ? () => s.route === 'hot' ? setHotPrompt(s) : add(s.fp) : undefined} />
             );
           })}
+          {unusable.map(s => {
+            const off = offline.includes(s.fp);
+            return (
+              <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} chevron={false} disabled
+                sub={s.fp} note={off ? SIGN_WHY.offline : SIGN_WHY.unsupported}
+                status={<Pill id={off ? 'signer_disconnected' : 'signer_unsupported'} />} />
+            );
+          })}
+          {others.map(s => (
+            <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} note={SIGN_WHY.others} chevron={false} disabled
+              status={<Pill id="signer_not_in_path" />} />
+          ))}
+          {strangers.map(s => (
+            <SelectRow key={s.fp} icon={ROUTE_KINDS.usb.icon} title={s.alias} sub={s.fp} note={SIGN_WHY.strangers} chevron={false} disabled
+              status={<Pill id="signer_not_in_wallet" />} />
+          ))}
         </Stack>
       </Stack>
     );
-    const reason = busy ? 'On the device…' : left.length ? `${left.length} cosigner${left.length > 1 ? 's' : ''} still to go.` : null;
+    const reason = busy.length ? (busy.some(fp => signers.some(s => s.fp === fp && s.route !== 'hot')) ? 'On the device…' : 'Signing…') : left.length ? `${left.length} cosigner${left.length > 1 ? 's' : ''} still to go.` : null;
     actions = (
       <ModalActions reason={reason}>
-        {sr === 1 ? <Btn id="continue" disabled={!!reason} onClick={next} />
-          : <Btn id="broadcast" disabled={!!reason} onClick={onBroadcast} />}
+        <Button role="primary" disabled={!!busy.length} onClick={restart}>Restart signing</Button>
+        {sr === 1 ? <Btn id="continue" disabled={restartNeeded || !!reason} onClick={next} />
+          : <Btn id="broadcast" disabled={restartNeeded || !!reason} onClick={onBroadcast} />}
       </ModalActions>
     );
   }
   return (
     <Modal title="Sign" width={760} height="wizard" onClose={onClose}>
       <Stack gap="m" style={{ alignSelf: 'stretch', flex: 1 }}>
-        <WizardSteps steps={MUSIG_SIGN_STEPS} current={stepIdx} />
-        {body}
+        {single || finalized ? null : <WizardSteps steps={MUSIG_SIGN_STEPS} current={stepIdx} />}
+        {finalized ? <Stack gap="s">
+          {saveWarning ? <Text variant="caption">{psbtSaveWarning(saveWarning)}</Text> : null}
+          <Text variant="body">Finalized, ready to broadcast</Text>
+        </Stack> : body}
         <Spacer />
-        {actions}
+        {finalized ? <ModalActions><Btn id="broadcast" onClick={onBroadcast} /></ModalActions> : actions}
       </Stack>
+      {hotPrompt ? <UnsealModal title="Sign Transaction" prompt={`Enter the password of “${hotPrompt.alias}” to sign the transaction.`} proceedId="sign_hot" closeOnSubmit onCancel={() => setHotPrompt(null)} onDone={() => { add(hotPrompt.fp); setHotPrompt(null); }} /> : null}
     </Modal>
   );
 }
@@ -573,22 +686,125 @@ function MusigSignModal({ signers, round = 1, lost = false, txid = MUSIG_TXID, i
 const musigSigners = (fps) => fps.map(fp => MUSIG_KEYS.find(k => k.fp === fp) || { fp, alias: fp, route: 'qr' });
 
 /* Spend path leaves of the selected coins, by their signers' aliases. */
-const MUSIG_LEAVES = ['Carol + Alice', 'Carol + Bob', 'Alice + Bob'];
+const MUSIG_LEAVES = ['Carol + Alice', 'Carol + Bob', 'Alice + Bob', 'Dave after 4320 blocks (locked)'];
+/* the paths a timelock still holds for the picked coins */
+const MUSIG_LOCKED_LEAVES = ['Dave after 4320 blocks (locked)'];
 
-function SpendPathPicker({ leaves = MUSIG_LEAVES, value = 'Alice + Bob', locked = false, onChange }) {
+/* A path its timelock still holds is listed greyed out and cannot be picked. */
+/* `width`: the Send panel passes '100%', as wide as the coins table above it. */
+function SpendPathPicker({ leaves = MUSIG_LEAVES, lockedLeaves = MUSIG_LOCKED_LEAVES, value = 'Alice + Bob', locked = false, onChange, width = 400 }) {
+  const [picked, setPicked] = React.useState(value);
   return (
     <Stack gap="xs">
       <SectionLabel>Spend path</SectionLabel>
-      <ComboBox value={value} options={leaves} disabled={locked} onChange={onChange} width={400} />
+      <ComboBox value={onChange ? value : picked} options={leaves} disabledOptions={lockedLeaves} disabled={locked}
+        onChange={onChange || setPicked} width={width} />
     </Stack>
+  );
+}
+
+/* Register Descriptor (a Multikey account's Settings): one row per key of the wallet.
+   On open each key on its connected USB device is asked whether it holds the account
+   (Checking…, then Registered or Not Registered), registering nothing. A click registers
+   on that device, every device at once; a failure says why on its row and a click tries
+   again; a device not connected is greyed (Not Connected, why left of its pill) and
+   checked again on click; a key with no device to register on reads Not Needed.
+   `initial.states`: { fp: 'checking' | 'registered' | 'pending' | 'registering' |
+   'failed' | 'disconnected' | 'not_needed' }; `initial.failed`: { fp: why }. */
+const REGISTER_PILL = { not_needed: 'reg_not_needed', disconnected: 'signer_disconnected', checking: 'reg_checking',
+  pending: 'reg_pending', registering: 'reg_registering', registered: 'reg_registered', failed: 'reg_failed' };
+function RegisterDescriptorModal({ keys = MUSIG_KEYS, initial = {}, onClose }) {
+  const opening = () => Object.fromEntries(keys.map(k => [k.fp, k.route === 'hot' ? 'not_needed' : k.route === 'usb' ? 'checking' : 'pending']));
+  const [states, setStates] = React.useState(initial.states || opening());
+  const [failed, setFailed] = React.useState(initial.failed || {});
+  React.useEffect(() => {
+    if (initial.states) return undefined;
+    const t = setTimeout(() => setStates(s => Object.fromEntries(Object.entries(s).map(([fp, st]) => [fp, st === 'checking' ? 'registered' : st]))), 900);
+    return () => clearTimeout(t);
+  }, []);
+  const set = (fp, st) => setStates(s => ({ ...s, [fp]: st }));
+  const click = (fp) => {
+    if (states[fp] === 'disconnected') { set(fp, 'checking'); setTimeout(() => set(fp, 'pending'), 900); return; }
+    setFailed(f => { const n = { ...f }; delete n[fp]; return n; });
+    set(fp, 'registering'); setTimeout(() => set(fp, 'registered'), 900);
+  };
+  const busy = Object.values(states).some(st => st === 'checking' || st === 'registering');
+  return (
+    <Modal title="Register Descriptor" width={560} onClose={onClose}>
+      <Stack gap="m" style={{ alignSelf: 'stretch' }}>
+        <Text variant="body">Click a device to register the account on it.</Text>
+        <Stack gap="xs">
+          {keys.map(k => {
+            const st = states[k.fp], why = st === 'failed' ? failed[k.fp] : null;
+            const clickable = st === 'pending' || st === 'failed' || st === 'disconnected';
+            return (
+              <SelectRow key={k.fp} icon={ROUTE_KINDS[k.route].icon} title={k.alias} sub={why || k.fp} chevron={false}
+                tone={why ? 'error' : undefined} disabled={st === 'not_needed'}
+                note={st === 'disconnected' ? 'Plug it in and unlock it.' : undefined}
+                status={<Pill id={REGISTER_PILL[st]} />} onClick={clickable ? () => click(k.fp) : undefined} />
+            );
+          })}
+        </Stack>
+        <ModalActions reason={busy ? 'Registering…' : null}><Btn id="done" onClick={onClose} /></ModalActions>
+      </Stack>
+    </Modal>
   );
 }
 
 const MUSIG_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
 
-Object.assign(window, { MusigSignModal, musigSigners, MUSIG_KEYS, MUSIG_PATH, MUSIG_NEW_PATH, MUSIG_ADDRESS, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview,
+const PSBT_RESTART_MESSAGE = 'A signer cannot safely resume its saved nonce session. Choose Restart signing to retire the old session and discard all nonces and partial signatures for this same transaction.';
+const psbtSaveWarning = message => `The latest transaction progress is not persisted. You can continue signing or broadcasting. ${message}`;
+
+/* Kit records stand in for the app's encrypted PSBT store. No signing or storage here. */
+const SAVED_PSBT_TEMPLATE = {
+  payments: [{ address: MUSIG_ADDRESS, amount: '0.00500000', usd: '340.00', label: 'Invoice', max: false }],
+  inputs: [{ type: '', outpoint: 'f2c9a1…8b4e:0', label: '', value: '0.01200000' }],
+  fee: '280', path: 'Alice + Bob',
+};
+const SAVED_PSBTS = [
+  { id: 'partial', txid: MUSIG_TXID, label: 'Invoice', ...SAVED_PSBT_TEMPLATE, round: 2, done: { 1: ['73c5da0a', 'b8688df1'], 2: ['73c5da0a'] } },
+  { id: 'finalized', txid: '702895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e3', label: 'Ready', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true },
+  { id: 'broadcast', txid: '803895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e4', label: '', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true, broadcast: true },
+  { id: 'confirmed', txid: '904895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e5', label: 'Paid', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true, broadcast: true, height: 905200 },
+];
+
+function SavedPsbts({ records = SAVED_PSBTS, onOpen, onChange, saveWarning = '', onRetry, error = '' }) {
+  const [confirmed, setConfirmed] = React.useState(false);
+  const [deleting, setDeleting] = React.useState(null);
+  const remove = record => { onChange && onChange(records.filter(r => r.id !== record.id)); setDeleting(null); };
+  const rows = records.filter(r => confirmed || !r.height);
+  const columns = [
+    { header: 'Transaction', grow: true, render: r => <Button title={r.txid} onClick={() => onOpen && onOpen(r)}>{r.txid.slice(0, 6)}...{r.txid.slice(-6)}</Button> },
+    { header: 'Label', width: 150, render: r => <Input width="100%" value={r.label} onChange={e => onChange && onChange(records.map(row => row.id === r.id ? { ...row, label: e.target.value } : row))} /> },
+    { header: 'Status', grow: true, cellStyle: () => ({ whiteSpace: 'normal', overflowWrap: 'anywhere' }), render: r => <Stack gap="xs">
+      <Text variant="body">{r.height ? `Confirmed at height ${r.height}` : r.broadcast ? 'Broadcast, unconfirmed' : r.finalized ? 'Finalized, ready to broadcast' : 'Signing in progress'}</Text>
+      {r.warning ? <Text variant="body">{r.warning}</Text> : null}
+      {(r.conflicts || []).map(txid => <Text key={txid} variant="body">Conflicting transaction: {txid}</Text>)}
+    </Stack> },
+    { header: '', width: 100, render: r => <Button role="destructive" onClick={() => r.height ? remove(r) : setDeleting(r)}>Delete</Button> },
+  ];
+  return <React.Fragment>
+    <ScreenWrap title="PSBT"><Stack gap="s">
+      <Checkbox checked={confirmed} onChange={setConfirmed} label="Show confirmed transactions" />
+      {error ? <Text variant="body">{error}</Text> : null}
+      {saveWarning ? <React.Fragment>
+        <Text variant="body">{psbtSaveWarning(saveWarning)}</Text>
+        <Row><Button role="primary" onClick={onRetry}>Retry saving</Button></Row>
+      </React.Fragment> : null}
+      {rows.length ? <Table columns={columns} rows={rows} rowKey={r => r.id} />
+        : !error ? <Text variant="body">No saved PSBTs. Transactions are saved when prepared for signing.</Text> : null}
+    </Stack></ScreenWrap>
+    {deleting ? <Modal title="Delete saved PSBT?" onClose={() => setDeleting(null)}>
+      <Text variant="body">This transaction is not confirmed. Delete its saved signing progress? This does not cancel a broadcast transaction.</Text>
+      <ModalActions><Btn id="delete" onClick={() => remove(deleting)} /></ModalActions>
+    </Modal> : null}
+  </React.Fragment>;
+}
+
+Object.assign(window, { SavedPsbts, SAVED_PSBTS, psbtSaveWarning, MusigSignModal, RegisterDescriptorModal, musigSigners, MUSIG_KEYS, MUSIG_PATH, MUSIG_NEW_PATH, MUSIG_ADDRESS, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview,
   VerifyFirstAddress, CreateSharedAccount, SpendPathPicker, MUSIG_TXID });
 
 /* File-level namespace (DS compiler indexes this file as `Musig`). */
-export const Musig = { MusigSignModal, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview, VerifyFirstAddress, CreateSharedAccount,
+export const Musig = { SavedPsbts, MusigSignModal, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview, VerifyFirstAddress, CreateSharedAccount,
   SpendPathPicker };

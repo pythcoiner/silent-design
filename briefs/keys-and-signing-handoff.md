@@ -36,6 +36,8 @@ app" in `colors_and_type.css`.
 
 ### `.s-tab` and `.s-check--sm` against the app
 
+`--tab-handle-w` is design only: the kit gives `[+]` and the settings gear the same width. Qt reads the launcher tab's measured width for the gear.
+
 - `.s-tab` (vs `src/catalog/containers/Tab.cpp`):
   - padding was `6px 14px`; the app uses `Padding::XS` × `Padding::M` = 6 × 15. Now
     `var(--pad-xs) var(--pad-m)`.

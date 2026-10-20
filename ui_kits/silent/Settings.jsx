@@ -16,14 +16,16 @@ function TestableRow({ label, value, onChange, placeholder, width = 440, onVerif
 }
 
 /* A Multikey Wallet's Settings (core Settings.cpp + musig SettingsExtras.cpp): its one
-   server, Electrum, then its descriptor, cosigners and Delete. */
+   server, Electrum, then its descriptor, cosigners, Register Descriptor (its signing
+   devices, RegisterDescriptorModal) and Delete. */
 function MusigSettingsScreen({ wallet }) {
   const [electrum, setElectrum] = React.useState(wallet.electrum);
   const [verified, setVerified] = React.useState(false);
   // Both sections open, as the app shows them; each folds on its own.
   const [open, setOpen] = React.useState({ conn: true, account: true });
   const [deleting, setDeleting] = React.useState(false);
-  React.useEffect(() => { setElectrum(wallet.electrum); setVerified(false); setOpen({ conn: true, account: true }); setDeleting(false); }, [wallet]);
+  const [registering, setRegistering] = React.useState(false);
+  React.useEffect(() => { setElectrum(wallet.electrum); setVerified(false); setOpen({ conn: true, account: true }); setDeleting(false); setRegistering(false); }, [wallet]);
   const toggle = (id) => setOpen((cur) => ({ ...cur, [id]: !cur[id] }));
   return (
     <ScreenWrap title="Settings">
@@ -32,6 +34,8 @@ function MusigSettingsScreen({ wallet }) {
           <FieldGroup>
             <TestableRow label="Electrum Server:" value={electrum} onChange={setElectrum} placeholder="host:port (e.g. 127.0.0.1:50001)"
               onVerified={setVerified} />
+            {/* the connected server's tip, asked every 30 s while Settings shows; -- when not connected */}
+            <Field label="Electrum Block Height:"><Text>{wallet.electrumHeight || '--'}</Text></Field>
           </FieldGroup>
         </FoldSection>
         {/* Connect and Save wait for a passing Test, as in the app. */}
@@ -45,12 +49,14 @@ function MusigSettingsScreen({ wallet }) {
           <FieldGroup>
             <Field label="Descriptor" align="flex-start"><CopyField value={wallet.descriptor} wrap grow /></Field>
             <Field label="Cosigners"><Text variant="mono">{wallet.cosigners}</Text></Field>
+            <Field label="Signing Devices"><Btn id="register_descriptor" onClick={() => setRegistering(true)} /></Field>
           </FieldGroup>
         </FoldSection>
         <Row justify="center" style={{ marginTop: 'var(--space-l)' }}>
           <Btn id="delete" onClick={() => setDeleting(true)} />
         </Row>
       </Stack>
+      {registering && window.RegisterDescriptorModal ? <RegisterDescriptorModal onClose={() => setRegistering(false)} /> : null}
       {deleting && window.ConfirmDelete ? <ConfirmDelete name={wallet.name} onCancel={() => setDeleting(false)}
         onConfirm={() => setDeleting(false)} /> : null}
     </ScreenWrap>
@@ -86,6 +92,7 @@ function SpSettingsScreen({ wallet }) {
               onVerified={verify('blindbit')} />
             <TestableRow label="Electrum Server:" value={electrum} onChange={setElectrum} placeholder="host:port"
               onVerified={verify('electrum')} />
+            <Field label="Electrum Block Height:"><Text>{wallet.electrumHeight || '--'}</Text></Field>
             <Field label="Network:">
               <ComboBox value={network} options={NETWORKS} onChange={setNetwork} width={200} />
             </Field>
@@ -119,4 +126,16 @@ function SpSettingsScreen({ wallet }) {
   );
 }
 
-Object.assign(window, { SettingsScreen, MusigSettingsScreen, TestableRow });
+/* The reconnect gave up: the account's Electrum connection dropped more than 3 times
+   in the last minute (Qt: MessageModal, Tone::Error, from the sp and the Multikey
+   controllers alike). No action bar: the header × closes it. */
+function ElectrumGaveUpModal({ server = 'minta.wizardsardine.com:60001', drops = 4, onClose }) {
+  return (
+    <Modal title="Electrum Disconnected" width={460} onClose={onClose}>
+      <ModalStatus icon="alert" iconColor="var(--error)" pad="var(--space-l) 0"
+        subtitle={`The connection to ${server} dropped ${drops} times in the last minute, so Silent stopped reconnecting. Check the server, then connect again from the status bar or the Settings.`} />
+    </Modal>
+  );
+}
+
+Object.assign(window, { SettingsScreen, MusigSettingsScreen, TestableRow, ElectrumGaveUpModal });

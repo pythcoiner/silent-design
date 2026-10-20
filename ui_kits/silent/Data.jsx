@@ -8,6 +8,7 @@ const WALLETS = {
     network: 'Signet',
     blindbit: 'https://blindbit.silentpayments.dev',
     electrum: 'signet.electrum.silent:50001',
+    electrumHeight: '812519',
     confirmed: '0.04827310 BTC', confirmedCount: '4 coins',
     unconfirmed: '0.00051200 BTC', unconfirmedCount: '1 coin',
     coins: [
@@ -47,6 +48,7 @@ const WALLETS = {
     kind: 'musig',
     network: 'Regtest',
     electrum: 'minta.wizardsardine.com:60001',
+    electrumHeight: '2104',
     descriptor: "tr(musig([73c5da0a/87'/1'/0'/2]tpubDEGU7K8ab62XbG1bKoCnHDtUx44DxVKyAQVS96EN1EUVTQRW2KnFEvTtmnUJSonudSK8HcXTexf56Kir1JzoQAzFRHfvNLEcqV7KxUHZVYa,[b8688df1/87'/1'/0'/2]tpubDDzMtUDKwjvTehAmAfwYiBGzUFDcF8AyEaJf78JhQam5knvsGTgqF7VvhuuDZLYityND66FG88sS3q28Yi5Ysumvx5DfMgdm6nc6zntvpHM)/<0;1>/*)#cr6rql33",
     cosigners: '73c5da0a, b8688df1',
     confirmed: '0.01200000 BTC', confirmedCount: '2 coins',
@@ -129,7 +131,12 @@ const LANGUAGES = ['English', 'Français', 'Italiano', 'Deutsch', 'Português', 
 /* External plugins found in ~/.silent/plugins/ (built-in modules are never listed). */
 const PLUGINS = [
   { id: 'atomic-swaps', name: 'Atomic Swaps', version: '0.3.0', desc: 'Swap accounts and two extra themes.', enabled: true,
-    themes: ['Midnight', 'Paper'], accounts: ['swaps'] },
+    themes: ['Midnight', 'Paper'], accounts: ['swaps'],
+    /* the answers kept per library sha256 (issue #35): 'allowed' | 'denied' | 'unasked' */
+    access: [
+      { hash: '65204c326c3fd005ced16aebdad968d2c2ac42426ea6a64afddd9fcfc6cfc31f', current: true, account: 'allowed', keys: 'denied', state: 'allowed' },
+      { hash: '9b1e07a4c2d85f3361e0aa4f8b27c9d05e6f13b2a4c89d7e0f1a2b3c4d5e6f70', current: false, account: 'allowed', keys: 'unasked', state: 'allowed' },
+    ] },
   { id: 'payjoin', name: 'Payjoin', version: '1.2.3', desc: 'Payjoin sending and receiving.', enabled: false },
   { id: 'nostr-backup', name: 'Nostr Backup', version: '0.1.4', enabled: true,
     error: 'Could not load: the plugin was built for a newer Silent (needs 0.9, this is 0.8).' },
@@ -159,6 +166,8 @@ const SIGNING_PLAN_ALL = [
 const VERIFY_PLAN = [
   { fp: '73c5da0a', alias: 'Daily Ledger', route: 'usb', status: 'ready', device: 'Ledger Nano S Plus' },
   { fp: '5be0c7d2', alias: 'Vault Coldcard', route: 'qr', status: 'ready' },
+  /* a hot key: no screen to show the address on */
+  { fp: '3f635a63', alias: 'Hot Spending', route: 'hot', status: 'no_route' },
 ];
 /* A silent payment address is only checked over QR codes: no USB device protocol
    supports it. */

@@ -165,7 +165,7 @@ export function Badge({ tone = 'neutral', icon, iconSize = 14, width, children, 
    `twoLine`: a title-only row keeps the height of a title + sub row.
    `tone` 'add': the list's closing "add one" row — icon and title centred, no chevron.
    Qt: a QFrame row with an HBox; selected/disabled are QSS dynamic properties. */
-export function SelectRow({ twoLine, icon, iconSize = 18, title, sub, meta, status, trailing, onClick, chevron, selected, current, disabled, tone, metaWidth, statusWidth, trailingWidth, style }) {
+export function SelectRow({ twoLine, icon, iconSize = 18, title, sub, meta, note, status, trailing, onClick, chevron, selected, current, disabled, tone, metaWidth, statusWidth, trailingWidth, style }) {
   const clickable = !!onClick && !disabled;
   const add = tone === 'add';
   const showChev = add ? false : chevron != null ? chevron : clickable && !trailing && selected == null;
@@ -191,6 +191,8 @@ export function SelectRow({ twoLine, icon, iconSize = 18, title, sub, meta, stat
         </span>
       )}
       {meta || metaWidth ? <span className="s-select-row__meta" style={metaWidth ? { width: metaWidth } : undefined}>{meta}</span> : null}
+      {/* a short sentence just left of the status: why a row is greyed out */}
+      {note ? <span className="s-select-row__note">{note}</span> : null}
       {status || statusWidth ? <span style={{ flex: 'none', display: 'inline-flex', width: statusWidth }}>{status}</span> : null}
       {trailingWidth ? (
         <span style={{ flex: 'none', width: trailingWidth, display: 'inline-flex', justifyContent: 'flex-end' }} onClick={trailing ? e => e.stopPropagation() : undefined}>
@@ -251,8 +253,10 @@ export function Legend({ color, children }) {
    everything and is never clipped by a table cell, scroll area or modal body.
    Qt: QComboBox popup (a top-level window). The highlighted item keeps the text
    colour on the hover background. `disabled`: bgSecondary, textSecondary text and
-   chevron, borderLight border (like a disabled Input), and it does not open. */
-export function ComboBox({ value, options, onChange, width = 200, disabled = false }) {
+   chevron, borderLight border (like a disabled Input), and it does not open.
+   `disabledOptions`: entries listed muted (textMuted), with no hover, that a click
+   does not pick. */
+export function ComboBox({ value, options, onChange, width = 200, disabled = false, disabledOptions = [] }) {
   const [open, setOpen] = React.useState(false);
   const [rect, setRect] = React.useState(null);
   const ref = React.useRef(null);
@@ -274,15 +278,19 @@ export function ComboBox({ value, options, onChange, width = 200, disabled = fal
     <div style={{
       position: 'fixed', top: rect.bottom + 2, left: rect.left, width: rect.width, zIndex: 1000,
       background: 'var(--input-bg)', border: '1px solid var(--input-border)', borderRadius: 'var(--radius-button)',
-      overflow: 'hidden', boxSizing: 'border-box', fontFamily: 'var(--font-sans)',
+      /* rows inset and rounded: a highlighted first or last row stays inside the corners */
+      padding: 'var(--pad-xxs)', overflow: 'hidden', boxSizing: 'border-box', fontFamily: 'var(--font-sans)',
     }} onMouseDown={e => e.stopPropagation()}>
-      {options.map(opt => (
-        <div key={opt} className="combo-item"
-          style={{ padding: '6px 10px', fontSize: 'var(--size-body)', color: 'var(--text)', cursor: 'pointer', background: opt === value ? 'var(--surface-hover)' : 'transparent' }}
-          onMouseDown={() => { onChange(opt); setOpen(false); }}>
-          {opt}
-        </div>
-      ))}
+      {options.map(opt => {
+        const off = disabledOptions.includes(opt);
+        return (
+          <div key={opt} className={off ? undefined : 'combo-item'} aria-disabled={off || undefined}
+            style={{ padding: '6px 10px', borderRadius: 'var(--radius-input)', fontSize: 'var(--size-body)', color: off ? 'var(--text-muted)' : 'var(--text)', cursor: off ? 'default' : 'pointer', background: opt === value && !off ? 'var(--surface-hover)' : 'transparent' }}
+            onMouseDown={off ? undefined : () => { onChange && onChange(opt); setOpen(false); }}>
+            {opt}
+          </div>
+        );
+      })}
     </div>, document.body) : null;
   return (
     <div ref={ref} style={{ position: 'relative', width, flex: 'none' }}>
@@ -336,13 +344,13 @@ export function BalanceHeader({ wallet }) {
   );
 }
 
-/* Tab — a QTabWidget tab: label + optional close affordance. The active tab
+/* Tab — a QTabWidget tab: label or icon + optional close affordance. The active tab
    takes the page bg; the menu/"+" tab passes closable={false}. Backed by the
    s-tab class so the chrome lives in CSS, not inline style. */
-export function Tab({ label, active, closable, onClick, onClose }) {
+export function Tab({ label, icon, handle = false, active, closable, onClick, onClose }) {
   return (
-    <div className={`s-tab ${active ? 'is-active' : ''}`} onClick={onClick}>
-      <span>{label}</span>
+    <div className={`s-tab ${handle ? 's-tab--handle' : ''} ${active ? 'is-active' : ''}`} onClick={onClick} title={icon ? label : undefined}>
+      <span>{icon ? <Icon name={icon} size={16} /> : label}</span>
       {closable ? (
         <span className="s-tab__close" onClick={e => { e.stopPropagation(); if (onClose) onClose(); }}>
           <Icon name="x" size={12} />

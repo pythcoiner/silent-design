@@ -15,24 +15,24 @@
 </head>
 <body>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=7"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=31"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=36"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=5"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=16"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=34"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=44"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=10"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=12"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=7"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=32"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=22"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=16"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=8"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=49"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=25"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=28"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=52"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=46"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=12"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=48"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=22"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=47"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=7"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=61"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=25"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
     const noop = () => {};
@@ -44,10 +44,31 @@
         onCreate={(n) => setWallets(w => w.includes(n) ? w : [...w, n])} onDelete={(n) => setWallets(w => w.filter(x => x !== n))} />;
     }
 
+    function SavedPsbtDemo({ initial = {} }) {
+      const [screen, setScreen] = React.useState('psbt');
+      const [records, setRecords] = React.useState(initial.records || SAVED_PSBTS);
+      const [resume, setResume] = React.useState(null);
+      const [version, setVersion] = React.useState(0);
+      const [saveWarning, setSaveWarning] = React.useState(initial.saveWarning || '');
+      return <Row grow align="stretch" style={{ height: '100%' }}>
+        <Sidebar musig active={screen} onSelect={setScreen} />
+        <Stack grow style={{ minWidth: 0 }}>
+          <Stack grow style={{ display: screen === 'send' ? 'flex' : 'none', minHeight: 0 }}>
+            <SendScreen key={version} wallet={WALLETS.multikey} initial={resume || {}}
+              onProgress={patch => setRecords(rows => rows.map(r => resume && r.id === resume.id ? { ...r, ...patch } : r))} />
+          </Stack>
+          {screen === 'psbt' ? <SavedPsbts records={records} onChange={setRecords} error={initial.error} saveWarning={saveWarning}
+            onRetry={() => setSaveWarning('')}
+            onOpen={r => { setResume({ ...r, saveWarning }); setVersion(n => n + 1); setScreen('send'); }} /> : null}
+          {screen !== 'psbt' && screen !== 'send' ? <ScreenWrap title={screen} /> : null}
+        </Stack>
+      </Row>;
+    }
+
     Gallery.render({
       kicker: 'Multikey Wallet · components',
       title: 'MuSig2 multikey wallet: creator, spend path, signing rounds',
-      lede: 'The launcher has one Create Account button; its Account Type picker opens Create Multikey Account, which runs its steps in one modal: define the spend paths with a live policy preview, fetch the account xpubs a key still owes, review, register, then check the first address on a device. Send is the core panel of every account, its signing step here the spend path, Sign and the signing card; the spend path picks the leaf, and no fee is estimated before one is picked; signing runs in two rounds, nonces then partial signatures, and a signer that lost its session sends every cosigner back to round 1. A Multikey account shares the core History, Coins, Receive and Settings panels, Receive with its Taproot section only and Settings with its one Electrum server, its descriptor and cosigners; its status bar is the Electrum half.',
+      lede: 'Multikey accounts add a PSBT panel beside History, Coins, Send and Receive. A saved transaction opens in Send with its recipients, inputs, fee and spend path locked. Signing progress survives closing the modal or cancelling Send. Save failures warn without blocking signing or broadcast. A lost nonce session waits for an explicit Restart signing on the same transaction. These are UI fixtures, not signing or encrypted storage.',
       groups: [
         { name: 'Launcher', items: [
           { title: 'Create Account, then Multikey Wallet in the Account Type picker', tag: 'MenuTab', span: 'full', frame: true, height: 560, el: <LauncherDemo /> },
@@ -58,9 +79,23 @@
           { title: 'Send: the core panel, its signing step the spend path and Sign (fill a payment, then Sign and sign)', tag: 'SendScreen', span: 'full', frame: true, height: 1100, el: <SendScreen wallet={WALLETS.multikey} /> },
           { title: 'Send: prepared, round 2 next; payments and coins locked, fee and Clear hidden', tag: 'SendScreen', span: 'full', frame: true, height: 1300, el: <SendScreen wallet={WALLETS.multikey} initial={{ round: 2, payments: [{ address: 'bcrt1pfml94fqkjkwhlpeeychsxxwvwqkclmw02zv8y6nkmshcdsts6jjsl989et', amount: '0.005', usd: '', label: '', max: false }] }} /> },
           { title: 'Receive: the Taproot section only', tag: 'ReceiveScreen', span: 'full', frame: true, height: 460, el: <ReceiveScreen wallet={WALLETS.multikey} /> },
-          { title: 'Settings: Electrum, then the account\'s descriptor, cosigners and Delete', tag: 'MusigSettingsScreen', span: 'full', frame: true, height: 640, el: <SettingsScreen wallet={WALLETS.multikey} /> },
+          { title: 'Settings: Electrum, then the account\'s descriptor, cosigners, Register Descriptor and Delete', tag: 'MusigSettingsScreen', span: 'full', frame: true, height: 700, el: <SettingsScreen wallet={WALLETS.multikey} /> },
+          { title: 'Register Descriptor: on open, Alice\'s USB device being checked, the QR keys not registered, the hot key not needed', tag: 'RegisterDescriptorModal', span: 'span2', ...F(<RegisterDescriptorModal onClose={noop} initial={{ states: { '28645006': 'pending', '73c5da0a': 'checking', 'b8688df1': 'pending', '3f635a63': 'not_needed' } }} />, 560) },
+          { title: 'Register Descriptor: Carol and Bob registering at once, Alice\'s device not connected', tag: 'RegisterDescriptorModal', span: 'span2', ...F(<RegisterDescriptorModal onClose={noop} initial={{ states: { '28645006': 'registering', '73c5da0a': 'disconnected', 'b8688df1': 'registering', '3f635a63': 'not_needed' } }} />, 560) },
+          { title: 'Register Descriptor: Carol registered, Bob failed with why, a click tries again', tag: 'RegisterDescriptorModal', span: 'span2', ...F(<RegisterDescriptorModal onClose={noop} initial={{ states: { '28645006': 'registered', '73c5da0a': 'registered', 'b8688df1': 'failed', '3f635a63': 'not_needed' }, failed: { 'b8688df1': 'The device did not register this account.' } }} />, 560) },
           { title: 'Status bar: the Electrum half only, try the switch', tag: 'MusigStatusBar', span: 'full', frame: true, height: 60, el: <StatusBar wallet={WALLETS.multikey} /> },
           { title: 'Status bar: no Electrum server yet', tag: 'MusigStatusBar', span: 'full', frame: true, height: 60, el: <StatusBar wallet={{ ...WALLETS.multikey, electrum: '' }} /> },
+        ]},
+        { name: 'Saved PSBTs', items: [
+          { title: 'PSBT: open a transaction to resume locked Send; edit labels, show confirmed, delete with confirmation only while unconfirmed', tag: 'SavedPsbts', span: 'full', frame: true, height: 1300, el: <SavedPsbtDemo /> },
+          { title: 'PSBT: no prepared transactions', tag: 'SavedPsbts', span: 'full', frame: true, height: 340, el: <SavedPsbtDemo initial={{ records: [] }} /> },
+          { title: 'PSBT: save failed, Retry saving; progress stays available', tag: 'SavedPsbts', span: 'full', frame: true, height: 1300, el: <SavedPsbtDemo initial={{ saveWarning: 'Could not write encrypted state.' }} /> },
+          { title: 'PSBT: list or restore failure', tag: 'SavedPsbts', span: 'full', frame: true, height: 460, el: <SavedPsbtDemo initial={{ records: [], error: 'Could not load saved PSBTs: encrypted state is unavailable.' }} /> },
+          { title: 'PSBT: overlapping inputs, conflict warning does not block Sign', tag: 'SavedPsbts', span: 'full', frame: true, height: 1300, el: <SavedPsbtDemo initial={{ records: [{ ...SAVED_PSBTS[0], warning: 'An input is spent by another transaction. Signing and broadcast may fail.', conflicts: [SAVED_PSBTS[2].txid] }, SAVED_PSBTS[1]] }} /> },
+          { title: 'Resume: one partial signature already present', tag: 'MusigSignModal', ...MS({ round: 2, initial: { done: SAVED_PSBTS[0].done } }) },
+          { title: 'Resume: unsafe nonce session, progress kept until Restart signing is chosen', tag: 'MusigSignModal', ...MS({ round: 2, lost: true, initial: { done: SAVED_PSBTS[0].done } }) },
+          { title: 'Resume: save failed, signing still available', tag: 'MusigSignModal', ...MS({ round: 2, saveWarning: 'Could not write encrypted state.', initial: { done: SAVED_PSBTS[0].done } }) },
+          { title: 'Resume: finalized transaction, Broadcast only', tag: 'MusigSignModal', ...MS({ round: 'ready', finalized: true }) },
         ]},
         { name: 'Create Multikey Account', items: [
           { title: '1 Spend Paths: network, one row per path, Add a Spend Path (click a row)', tag: 'SpendPathList', ...CS({ step: 'paths' }, 760) },
@@ -70,15 +105,21 @@
           { title: '1 Edit Spend Path: Alice mandatory, plus any 1 of Carol, Bob; relative 30 days', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0, paths: [{ ...MUSIG_PATH, mandatory: ['73c5da0a'], locktime: 'Relative', lockValue: '30', lockUnit: 'Days' }] }, 760) },
           { title: '1 Edit Spend Path: absolute renewable, 6 months from the tip', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0, paths: [{ ...MUSIG_PATH, locktime: 'Absolute renewable', lockValue: '6', lockUnit: 'Months' }] }, 760) },
           { title: '1 Edit Spend Path: date in the future (calendar picker)', tag: 'EditSpendPath', ...CS({ step: 'paths', editing: 0, paths: [{ ...MUSIG_PATH, locktime: 'Date in the future', lockDate: '2027-06-01T12:00' }] }, 760) },
-          { title: '2 Xpubs: Alice (USB) still missing, click her row', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs' }, 760) },
+          { title: '2 Xpubs: Alice (USB) still missing, click her row: her device gives it with no window', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs' }, 760) },
+          { title: '2 Xpubs: Alice\'s USB device giving its xpub, On Device until it answers', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs', fetching: ['73c5da0a'] }, 760) },
           { title: '2 Xpubs: all fetched', tag: 'CreateSharedAccount', ...CS({ step: 'xpubs', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
-          { title: '3 Review: account name, the policy, Backup Descriptor (opens the save dialog)', tag: 'PolicyReview', ...CS({ step: 'review', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '3 Review: account name, the policy, Backup Descriptor (saves a BIP138 backup), its privacy mode', tag: 'PolicyReview', ...CS({ step: 'review', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '3 Review: descriptor backed up, Continue unlocked', tag: 'PolicyReview', ...CS({ step: 'review', backedUp: true, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '3 Review: backed up with privacy mode off, a literal key left out of the backup named', tag: 'PolicyReview', ...CS({ step: 'review', backedUp: true, privacyMode: false, backupExcluded: ['0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798'], fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 780) },
           { title: '4 Register: one row per signer, click a device to register', tag: 'CreateSharedAccount', ...CS({ step: 'register', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
-          { title: '4 Register: registering with Carol', tag: 'CreateSharedAccount', ...CS({ step: 'register', registering: '28645006', fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '4 Register: Carol and Alice registering at once, Bob still clickable', tag: 'CreateSharedAccount', ...CS({ step: 'register', registering: ['28645006', '73c5da0a'], fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
+          { title: '4 Register: Alice\'s USB device failed, the reason on its row, click to try again', tag: 'CreateSharedAccount', ...CS({ step: 'register', registerFailed: { '73c5da0a': 'Ledger could not register the account. Unplug it, plug it back in, then try again.' }, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '4 Register: Carol registered, Skip ticked for the others', tag: 'CreateSharedAccount', ...CS({ step: 'register', registered: ['28645006'], skipRegister: true, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
           { title: '4 Register: every device registered', tag: 'CreateSharedAccount', ...CS({ step: 'register', registered: ['28645006', '73c5da0a', 'b8688df1'], fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
-          { title: '5 Verify: one row per signer, click a device to check', tag: 'VerifyFirstAddress', ...CS({ step: 'verify' }, 760) },
+          { title: '5 Verify: one row per signer, a click sends the address to that device, no picker', tag: 'VerifyFirstAddress', ...CS({ step: 'verify' }, 760) },
+          { title: '5 Verify: Alice\'s USB device showing the address, On Device, the others still clickable', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', checking: ['73c5da0a'] }, 760) },
+          { title: '5 Verify: Bob\'s device showed another address, Mismatch on his row', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', mismatched: ['b8688df1'], verified: ['28645006'] }, 760) },
+          { title: '5 Verify: Alice\'s USB device did not answer, why on her row, click to ask again', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', verifyFailed: { '73c5da0a': 'Ledger stopped responding. Unplug it, plug it back in, then try again.' } }, 760) },
           { title: '5 Verify: Carol checked, the others not yet', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', verified: ['28645006'] }, 760) },
           { title: '5 Verify: every device checked', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', verified: true }, 760) },
           { title: '5 Verify: no key can show it, the warning', tag: 'VerifyFirstAddress', ...CS({ step: 'verify', checkable: false }, 760) },
@@ -87,15 +128,19 @@
           { title: '6 Electrum: SSL with a self-signed certificate (check off)', tag: 'CreateSharedAccount', ...CS({ step: 'account', verifyCert: false, fetched: ['28645006', '73c5da0a', 'b8688df1'] }, 760) },
         ]},
         { name: 'Send: spend path', items: [
-          { title: 'Spend path picker, before Sign', tag: 'SpendPathPicker', span: 'span2', ...F(<div style={{ padding: 'var(--space-m)' }}><SpendPathPicker /></div>, 220) },
+          { title: 'Spend path picker, before Sign: a path its timelock still holds is greyed out in the list and cannot be picked (open it)', tag: 'SpendPathPicker', span: 'span2', ...F(<div style={{ padding: 'var(--space-m)' }}><SpendPathPicker /></div>, 260) },
           { title: 'Locked while a signing session runs', tag: 'SpendPathPicker', span: 'span2', frame: true, height: 160, el: <div style={{ padding: 'var(--space-m)' }}><SpendPathPicker locked /></div> },
         ]},
         { name: 'Send: Sign wizard (opens from Sign)', items: [
           { title: '1 Nonces: click each cosigner', tag: 'MusigSignModal', ...MS({}) },
           { title: '1 Nonces: Alice on her device, Bob in', tag: 'MusigSignModal', ...MS({ initial: { done: { 1: ['b8688df1'] }, busy: '73c5da0a' } }) },
+          { title: '1 Nonces: Alice and Bob on their devices at once', tag: 'MusigSignModal', ...MS({ initial: { busy: ['73c5da0a', 'b8688df1'] } }) },
           { title: '1 Nonces: session lost, start again', tag: 'MusigSignModal', ...MS({ lost: true }) },
           { title: '2 Partial Signatures', tag: 'MusigSignModal', ...MS({ round: 2 }) },
           { title: '2 Partial Signatures: every one in, Broadcast', tag: 'MusigSignModal', ...MS({ round: 'ready' }) },
+          { title: 'Timelocked path: Dave signs alone, no rounds; the wallet\'s other keys greyed, Not in Path', tag: 'MusigSignModal', ...MS({ single: true, signers: musigSigners(['3f635a63']), others: musigSigners(['73c5da0a', 'b8688df1']) }) },
+          { title: '1 Nonces: Alice\'s USB device not connected, greyed after the signers that can sign; Carol not in this path', tag: 'MusigSignModal', ...MS({ signers: musigSigners(['73c5da0a', 'b8688df1']), offline: ['73c5da0a'], others: musigSigners(['28645006']) }) },
+          { title: '1 Nonces: every greyed row says why: not connected, unsupported (no MuSig2), not in this path, not in this wallet', tag: 'MusigSignModal', ...MS({ signers: musigSigners(['73c5da0a', 'b8688df1', '28645006']), offline: ['73c5da0a'], unsupported: ['28645006'], others: musigSigners(['3f635a63']), strangers: [{ fp: '9a1c55e0', alias: 'Jade' }] }) },
         ]},
         { name: 'Send: sent', items: [
           { title: 'Transaction Sent: the status only', tag: 'SentModal', span: 'span2', ...F(<SentModal onClose={noop} />, 460) },

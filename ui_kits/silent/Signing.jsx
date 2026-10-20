@@ -50,6 +50,14 @@ const SIGNER_STATUS = {
   unregistered: { label: 'Not Registered', tone: 'error', usable: false, sub: () => 'This fingerprint is not a key on this computer. Add it in the Keys tab.' },
 };
 
+/* A Verify picker speaks of showing the address, never of signing; a key with nothing
+   to show it on (a hot key) reads No Screen. */
+const VERIFY_STATUS = {
+  ready: { sub: r => `Shows the address on ${ROUTE_KINDS[r.route].label}.` },
+  no_route: { pill: 'addr_no_screen', sub: r => (r.route === 'hot' ? 'A hot key has no screen to show the address on.'
+    : 'No device of this key can show the address. Add a USB or QR route in the Keys tab.') },
+};
+
 /* ---------------- 3.7 Signer picker ---------------- */
 
 function SignerPicker({ context = 'sign', plan = [], others = [], onPick, onCancel }) {
@@ -62,10 +70,11 @@ function SignerPicker({ context = 'sign', plan = [], others = [], onPick, onCanc
           <Stack gap="s">
             {plan.map(r => {
               const s = SIGNER_STATUS[r.status];
+              const v = context === 'verify' ? VERIFY_STATUS[r.status] || {} : {};
               return (
                 <SelectRow key={r.fp} icon={r.route ? ROUTE_KINDS[r.route].icon : 'key'}
-                  title={r.alias || 'Unknown Key'} sub={s.sub(r)} meta={r.fp}
-                  status={<Pill id={'signer_' + r.status} />}
+                  title={r.alias || 'Unknown Key'} sub={(v.sub || s.sub)(r)} meta={r.fp}
+                  status={<Pill id={v.pill || 'signer_' + r.status} />}
                   disabled={!s.usable && !s.done} onClick={s.usable ? () => onPick(r) : undefined} />
               );
             })}
@@ -337,14 +346,18 @@ function CameraStep({ context = 'sign', force, progress, scanError, settings, on
 }
 
 /* A hot key: the flow waits under a spinner while the generic unseal modal, opened over
-   it, takes the password and works. Closing the prompt goes back to the picker. */
-function HotStep({ context = 'sign', keyAlias, onCancel, onDone, initialBusy = false, pwError }) {
+   it, takes the password and works. Closing the prompt goes back to the picker.
+   `alone`: the key is named (no picker to go back to), so the prompt is the only window,
+    over the one that asked (issue #45). A named signing key closes the password
+    prompt on submission and
+    signs behind its caller's busy row (issue #49). */
+function HotStep({ context = 'sign', keyAlias, onCancel, onDone, initialBusy = false, pwError, alone = false }) {
   const c = FLOW_COPY[context];
   return (
     <>
-      <ModalStatus spinner title={c.hotBusy} subtitle={`With “${keyAlias}”.`} pad="var(--space-m) 0" />
+      {alone ? null : <ModalStatus spinner title={c.hotBusy} subtitle={`With “${keyAlias}”.`} pad="var(--space-m) 0" />}
       <UnsealModal title={c.title} prompt={c.hotPrompt(keyAlias)} proceedId={c.hotBtn} error={pwError}
-        busyTitle={c.hotBusy} busySubtitle={`With “${keyAlias}”.`} initialBusy={initialBusy}
+        busyTitle={c.hotBusy} busySubtitle={`With “${keyAlias}”.`} initialBusy={initialBusy} closeOnSubmit={alone && context === 'sign'}
         onCancel={onCancel} onDone={onDone} />
     </>
   );
@@ -397,6 +410,10 @@ function SigningFlow({ context = 'sign', plan = [], others = [], address, fileBa
     return () => clearTimeout(t);
   }, [step, usbErr]);
 
+  if (keyRow && row && row.route === 'hot' && !step.result) {
+    return <HotStep context={context} keyAlias={row.alias} pwError={initial.pwError} initialBusy={initial.hotBusy}
+      onCancel={onCancel} onDone={() => finished(row)} alone />;
+  }
   let title = c.title, width = 560, body;
   if (!step) body = <SignerPicker context={context} plan={rows} others={others} onPick={pick} onCancel={onCancel} />;
   else if (step.result) { width = 520; body = <VerifyResult result={step.result} device={devLabel} address={address} onClose={onCancel} onRetry={() => pick(row)} />; }

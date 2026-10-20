@@ -1,6 +1,6 @@
 /* Silent UI Kit — App shell: QTabWidget tabs (MainWindow.cpp) + AccountView.
-   Tab order: Keys (non-closable) · wallets · + menu; Settings gear in the end slot
-   opens the global Settings modal (GlobalSettings.jsx), which owns the theme.
+   Tab order: wallets · + menu, then the module tabs right aligned: Keys, settings gear (the
+   global settings page, GlobalSettings.jsx, issue #46), which owns the theme.
    Structure is built from catalog layout primitives (Stack/Row/Text) so it maps
    1:1 to Qt layouts; Tab is the catalog component (Primitives.jsx). */
 
@@ -10,18 +10,23 @@ const SCREENS = {
 };
 
 function AccountView({ wallet, screen, onScreen }) {
+  const [records, setRecords] = React.useState(SAVED_PSBTS);
+  const [resume, setResume] = React.useState(null);
+  const [restoreCount, setRestoreCount] = React.useState(0);
   // Send is kept mounted (hidden when inactive) so its draft state survives navigation.
   const isSend = screen === 'send';
-  const OtherComp = !isSend ? (SCREENS[screen] || HistoryScreen) : null;
+  const OtherComp = !isSend && screen !== 'psbt' ? (SCREENS[screen] || HistoryScreen) : null;
   return (
     <Stack grow style={{ minHeight: 0 }}>
       <Row grow align="stretch" style={{ minHeight: 0 }}>
-        <Sidebar active={screen} onSelect={onScreen} />
+        <Sidebar active={screen} onSelect={onScreen} musig={wallet.kind === 'musig'} />
         <Stack grow style={{ background: 'var(--bg)' }}>
           <Stack grow style={{ display: isSend ? 'flex' : 'none', minHeight: 0 }}>
-            {/* A Multikey Wallet keeps its own Send (musig/views/Send.cpp). */}
-            <SendScreen key={wallet.name} wallet={wallet} />
+            <SendScreen key={wallet.name + restoreCount} wallet={wallet} initial={resume || {}}
+              onProgress={patch => setRecords(rows => rows.map(r => resume && r.id === resume.id ? { ...r, ...patch } : r))} />
           </Stack>
+          {screen === 'psbt' && wallet.kind === 'musig' ? <SavedPsbts records={records} onChange={setRecords}
+            onOpen={record => { setResume(record); setRestoreCount(n => n + 1); onScreen('send'); }} /> : null}
           {OtherComp ? <OtherComp wallet={wallet} /> : null}
         </Stack>
       </Row>
@@ -31,7 +36,7 @@ function AccountView({ wallet, screen, onScreen }) {
 }
 
 function App() {
-  // Theme is a global setting (GlobalSettingsModal). Module themes render on the
+  // Theme is a global setting (GlobalSettingsTab). Module themes render on the
   // light palette in the kit; the app ships their own palettes.
   const [themeName, setThemeName] = React.useState('Light');
   const theme = themeName === 'Dark' || themeName === 'Midnight' ? 'dark' : 'light';
@@ -40,7 +45,6 @@ function App() {
   const [openTabs, setOpenTabs] = React.useState(['savings']);
   const [active, setActive] = React.useState('savings');
   const [screens, setScreens] = React.useState({ savings: 'history' });
-  const [settingsOpen, setSettingsOpen] = React.useState(false);
   /* Kit width: a fixed width wider than the preview renders at its real width,
      scaled down to fit, so wide layouts (two-column Send ≥ 1769) can be checked. */
   const [paneW, setPaneW] = React.useState(window.innerWidth);
@@ -128,7 +132,7 @@ function App() {
         borderLeft: appW === 'full' ? 'none' : '1px solid var(--border)',
         borderRight: appW === 'full' ? 'none' : '1px solid var(--border)',
       }}>
-        {/* Tab bar: wallet tabs · + menu tab, then the module tabs (Keys) right aligned | settings gear (fixed end slot) */}
+        {/* Tab bar: wallet tabs · + menu tab, then Keys and the settings gear right aligned */}
         <div className="s-tabstrip" style={{ flex: 'none', padding: 'var(--pad-xs) var(--pad-xs) 0',
           background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)' }}>
           <div className="s-tabstrip__tabs">
@@ -136,19 +140,22 @@ function App() {
               <Tab key={name} label={name} active={active === name} closable
                 onClick={() => setActive(name)} onClose={() => closeWallet(name)} />
             ))}
-            <Tab label="+" active={active === 'menu'} closable={false} onClick={() => setActive('menu')} />
+            <Tab label="+" handle active={active === 'menu'} closable={false} onClick={() => setActive('menu')} />
           </div>
           <div className="s-tabstrip__modules">
             <Tab label="Keys" active={active === 'keys'} closable={false} onClick={() => setActive('keys')} />
+            <Tab label="Settings" icon="settings" handle active={active === 'settings'} closable={false} onClick={() => setActive('settings')} />
           </div>
-          <div className="s-tabstrip__end"><SettingsGear onClick={() => setSettingsOpen(true)} /></div>
         </div>
 
         {/* Content */}
         <Row grow align="stretch" style={{ minHeight: 0, background: 'var(--bg)', position: 'relative' }}>
           {/* Keys stays mounted so its state survives tab switches */}
           <div style={{ display: active === 'keys' ? 'flex' : 'none', flex: 1, minWidth: 0, minHeight: 0 }}><KeysScreen key={keysSimKey} {...simKeysProps(sim)} /></div>
-          {active === 'keys' ? null : active === 'menu' ? (
+          {active === 'keys' ? null : active === 'settings' ? (
+            /* not kept mounted: leaving the tab goes back to its sections (Qt: hideEvent) */
+            <GlobalSettingsTab theme={themeName} onTheme={setThemeName} />
+          ) : active === 'menu' ? (
             <MenuTab wallets={known} openWallets={openTabs} onOpenKeys={() => setActive('keys')}
               musigSim={simMusigProps(sim)} musigSimKey={sim.musigCached + '|' + sim.musigRoutes}
               onOpen={openWallet} onCreate={createWallet} onDelete={deleteWallet} />
@@ -157,7 +164,6 @@ function App() {
               onScreen={(s) => setScreens(prev => ({ ...prev, [active]: s }))} />
           )}
           <KitSimPanel t={sim} setTweak={setSim} />
-          {settingsOpen ? <GlobalSettingsModal theme={themeName} onTheme={setThemeName} onClose={() => setSettingsOpen(false)} /> : null}
         </Row>
       </Stack>
       </div>
