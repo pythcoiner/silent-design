@@ -58,7 +58,10 @@ function TxFlowEmpty({ height = 188 }) {
   );
 }
 
-function TxFlow({ inputs, outputs, width = 300, height = 188 }) {
+/* detail: the transaction summary — every band is labelled with its index and id
+   (`#i` + `ref`: outpoint / address) instead of the output kind; give `width` the
+   rendered width so labels draw at 1:1. */
+function TxFlow({ inputs, outputs, width = 300, height = 188, detail = false }) {
   const ins = (inputs || []).filter(d => d.w > 0);
   const outs = (outputs || []).filter(d => d.w > 0);
   const [hover, setHover] = React.useState(null);
@@ -66,9 +69,10 @@ function TxFlow({ inputs, outputs, width = 300, height = 188 }) {
   if (!ins.length || !outs.length) return <TxFlowEmpty height={height} />;
 
   const W = width, H = height, padY = 14;
-  const xInStub = 4, xFlowL = 24;
+  /* detail: wider end caps, each holding its band's index */
+  const xInStub = 4, xFlowL = detail ? 30 : 24;
   const xTrunkL = W * 0.44, xTrunkR = W * 0.56;
-  const xFlowR = W - 24, xOutStub = W - 4;
+  const xFlowR = W - (detail ? 30 : 24), xOutStub = W - 4;
 
   const trunkH = (H - 2 * padY) * 0.84;
   const trunkTop = (H - trunkH) / 2, trunkBot = trunkTop + trunkH;
@@ -129,9 +133,32 @@ function TxFlow({ inputs, outputs, width = 300, height = 188 }) {
             fill={outCap(outs[j])} />
         ))}
 
+        {detail ? ins.map((d, i) => {
+          const mid = (inNode[i][0] + inNode[i][1]) / 2;
+          return (
+            <text key={'il' + i} x={xFlowL + 8} y={mid + 4} textAnchor="start"
+              style={{ font: '600 11px var(--font-mono)' }} fill="var(--tx-self-label)">
+              {d.ref}
+            </text>
+          );
+        }) : null}
+        {detail ? inNode.map((b, i) => (
+          <text key={'ix' + i} x={(xInStub + xFlowL - 2) / 2} y={(b[0] + b[1]) / 2 + 4} textAnchor="middle"
+            style={{ font: '700 11px var(--font-mono)' }} fill="var(--bg)">{ins[i].idx}</text>
+        )) : null}
+        {detail ? outNode.map((b, j) => outs[j].kind === 'fee' ? null : (
+          <text key={'ox' + j} x={(xFlowR + 2 + xOutStub) / 2} y={(b[0] + b[1]) / 2 + 4} textAnchor="middle"
+            style={{ font: '700 11px var(--font-mono)' }} fill={outs[j].kind === 'change' ? 'var(--bg)' : 'var(--text)'}>{outs[j].idx}</text>
+        )) : null}
         {/* direct labels on the output side so each output is identifiable */}
         {outs.map((d, j) => {
           const mid = (outNode[j][0] + outNode[j][1]) / 2;
+          if (detail) return (
+            <text key={'ol' + j} x={xFlowR - 8} y={mid + 4} textAnchor="end"
+              style={{ font: '600 11px var(--font-mono)' }} fill={outLabel(d)}>
+              {d.kind === 'fee' ? 'fee' : d.ref}
+            </text>
+          );
           return (
             <text key={'ol' + j} x={xFlowR - 8} y={mid + 3} textAnchor="end"
               style={{ font: '600 9px var(--font-mono)', letterSpacing: '0.06em', textTransform: 'uppercase' }}
@@ -157,4 +184,26 @@ function TxFlow({ inputs, outputs, width = 300, height = 188 }) {
   );
 }
 
-Object.assign(window, { TxFlow });
+/* TxFlowCard — the inset card around TxFlow with its footer (input count · legend ·
+   output count). Shared by the Send panel and the transaction summary (History). */
+function TxFlowCard({ inputs, outputs, detail = false, width }) {
+  const has = k => outputs.some(o => o.kind === k);
+  return (
+    <Card tone="inset" pad="s">
+      <TxFlow inputs={inputs} outputs={outputs} detail={detail} {...(width ? { width } : null)} height={detail ? 220 : 188} />
+      {inputs.length && outputs.length ? (
+        <Row justify="space-between" style={{ padding: '6px 6px 2px' }}>
+          <Eyebrow size={10} color="muted">{inputs.length} input{inputs.length === 1 ? '' : 's'}</Eyebrow>
+          <Row inline gap={12}>
+            {has('recipient') ? <Legend color="var(--warning)">recipient</Legend> : null}
+            {has('change') ? <Legend color="var(--tx-self)">change</Legend> : null}
+            {has('fee') ? <Legend color="var(--error)">fee</Legend> : null}
+          </Row>
+          <Eyebrow size={10} color="muted">{outputs.length} output{outputs.length === 1 ? '' : 's'}</Eyebrow>
+        </Row>
+      ) : null}
+    </Card>
+  );
+}
+
+Object.assign(window, { TxFlow, TxFlowCard });

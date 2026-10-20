@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- @dsCard group="Generic Components" name="Generic — Data Table" subtitle="Zebra rows · header rule · mono hashes · right-aligned values · inline edit" viewport="700x205" -->
+<!-- @dsCard group="Generic Components" name="Generic — Data Table" subtitle="Zebra rows · header rule · mono hashes · dates (hover: x ago; compact drops the time) · direction icons + confirmation dots (History) · right-aligned values · inline edit" viewport="700x262" -->
 <html lang="en">
 <head>
 <meta charset="utf-8" />
@@ -17,48 +17,50 @@
   <div class="card">
     <div class="s-tbl">
       <div class="s-tbl__head">
-        <div class="s-tbl__hcell" style="width:78px">Type</div>
-        <div class="s-tbl__hcell" style="width:95px">Height</div>
+        <div class="s-tbl__hcell" style="width:4.4em">Type</div>
+        <div class="s-tbl__hcell" style="width:9.8em">Date</div>
         <div class="s-tbl__hcell" style="width:150px">OutPoint</div>
         <div class="s-tbl__hcell s-tbl__cell--grow">Label</div>
-        <div class="s-tbl__hcell" style="width:34px"></div>
+        <div class="s-tbl__hcell s-tbl__hcell--icon" style="width:34px"></div>
         <div class="s-tbl__hcell s-tbl__hcell--amount s-tbl__cell--grow">Value</div>
       </div>
       <div class="s-tbl__body">
         <div class="s-tbl__row">
-          <div class="s-tbl__cell" style="width:78px">Segwit</div>
-          <div class="s-tbl__cell" style="width:95px">812043</div>
+          <div class="s-tbl__cell" style="width:4.4em">Segwit</div>
+          <div class="s-tbl__cell s-tbl__cell--mono" style="width:9.8em">2026-10-17 09:42</div>
           <div class="s-tbl__cell s-tbl__cell--mono" style="width:150px">3a9f2c…1d4e:0</div>
           <div class="s-tbl__cell s-tbl__cell--grow">Cold storage</div>
-          <div class="s-tbl__cell" style="width:34px;padding:0 4px"><button class="editbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></div>
+          <div class="s-tbl__cell s-tbl__cell--icon" style="width:34px"><button class="editbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></div>
           <div class="s-tbl__cell s-tbl__cell--amount s-tbl__cell--grow">0.02000000</div>
         </div>
         <div class="s-tbl__row">
-          <div class="s-tbl__cell" style="width:78px">Taproot</div>
-          <div class="s-tbl__cell" style="width:95px">811920</div>
+          <div class="s-tbl__cell" style="width:4.4em">Taproot</div>
+          <div class="s-tbl__cell s-tbl__cell--mono" style="width:9.8em">2026-10-16 13:05</div>
           <div class="s-tbl__cell s-tbl__cell--mono" style="width:150px">7b1e84…9c0f:1</div>
           <div class="s-tbl__cell s-tbl__cell--grow">Exchange withdrawal</div>
-          <div class="s-tbl__cell" style="width:34px;padding:0 4px"><button class="editbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></div>
+          <div class="s-tbl__cell s-tbl__cell--icon" style="width:34px"><button class="editbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></div>
           <div class="s-tbl__cell s-tbl__cell--amount s-tbl__cell--grow">0.01500000</div>
         </div>
         <div class="s-tbl__row">
-          <div class="s-tbl__cell" style="width:78px">Segwit</div>
-          <div class="s-tbl__cell" style="width:95px">809514</div>
+          <div class="s-tbl__cell" style="width:4.4em">Segwit</div>
+          <div class="s-tbl__cell s-tbl__cell--mono" style="width:9.8em">2026-09-29 18:20</div>
           <div class="s-tbl__cell s-tbl__cell--mono" style="width:150px">c40d77…2a8b:0</div>
           <div class="s-tbl__cell s-tbl__cell--grow s-tbl__cell--muted">—</div>
-          <div class="s-tbl__cell" style="width:34px;padding:0 4px"><button class="editbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></div>
+          <div class="s-tbl__cell s-tbl__cell--icon" style="width:34px"><button class="editbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></div>
           <div class="s-tbl__cell s-tbl__cell--amount s-tbl__cell--grow">0.01000000</div>
         </div>
         <div class="s-tbl__row">
-          <div class="s-tbl__cell s-tbl__cell--muted" style="width:78px">Segwit</div>
-          <div class="s-tbl__cell s-tbl__cell--muted" style="width:95px">Unconfirmed</div>
+          <div class="s-tbl__cell s-tbl__cell--muted" style="width:4.4em">Segwit</div>
+          <div class="s-tbl__cell s-tbl__cell--mono s-tbl__cell--pill" style="width:9.8em;display:flex;justify-content:center"><span class="s-badge s-badge--warning">Unconfirmed</span></div>
           <div class="s-tbl__cell s-tbl__cell--mono" style="width:150px">9d22b6…6e74:0</div>
           <div class="s-tbl__cell s-tbl__cell--grow s-tbl__cell--muted">—</div>
-          <div class="s-tbl__cell" style="width:34px;padding:0 4px"><button class="editbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></div>
+          <div class="s-tbl__cell s-tbl__cell--icon" style="width:34px"><button class="editbtn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg></button></div>
           <div class="s-tbl__cell s-tbl__cell--amount s-tbl__cell--grow">0.00051200</div>
         </div>
       </div>
     </div>
+    <div style="display:flex;gap:16px;margin-top:10px;align-items:center"><span style="display:inline-flex;align-items:center;gap:6px;color:var(--text-secondary);font-size:var(--size-caption)">Confirmations</span><span title="0 confirmations" style="display:inline-grid;grid-template-columns:repeat(2,5px);gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span></span><span title="1 confirmation" style="display:inline-grid;grid-template-columns:repeat(2,5px);gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span></span><span title="3 confirmations" style="display:inline-grid;grid-template-columns:repeat(2,5px);gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--border)"></span></span><span title="6 confirmations" style="display:inline-grid;grid-template-columns:repeat(2,5px);gap:3px"><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span><span style="width:5px;height:5px;border-radius:50%;background:var(--accent)"></span></span></div>
+    <div style="display:flex;gap:16px;margin-top:10px"><span title="Incoming" style="display:inline-flex;align-items:center;gap:6px;color:var(--text-secondary);font-size:var(--size-caption)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 13v6h-6"/><path d="M5 5l14 14"/></svg>Incoming</span><span title="Outgoing" style="display:inline-flex;align-items:center;gap:6px;color:var(--text-secondary);font-size:var(--size-caption)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--error)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5h6v6"/><path d="M19 5 5 19"/></svg>Outgoing</span><span title="Self" style="display:inline-flex;align-items:center;gap:6px;color:var(--text-secondary);font-size:var(--size-caption)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>Self</span></div>
   </div>
   <script src="catalog-data.js"></script>
   <script src="specimen-shell.js"></script>

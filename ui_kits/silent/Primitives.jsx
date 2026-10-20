@@ -328,7 +328,7 @@ export function BalanceHeader({ wallet }) {
         {/* hero — balance */}
         <Stack gap={8}>
           <Eyebrow size={10} color="muted">Balance</Eyebrow>
-          <Amount value={fmtBtc(conf)} size="hero" unit="BTC" count={`(${wallet.confirmedCount})`} />
+          <Amount value={fmtBtc(conf)} size="hero" unit="BTC" reserve count={`(${wallet.confirmedCount})`} />
         </Stack>
 
         {/* small — unconfirmed, to the right */}
@@ -336,7 +336,7 @@ export function BalanceHeader({ wallet }) {
           <span style={{ width: 6, height: 6, borderRadius: '50%', flex: 'none',
             background: unconfZero ? 'var(--text-muted)' : 'var(--warning)' }} />
           <Eyebrow size={10} color="muted">Unconfirmed</Eyebrow>
-          <Amount value={fmtBtc(unconf)} size="sm" unit="BTC" sign={unconfZero ? '' : '+'}
+          <Amount value={fmtBtc(unconf)} size="sm" unit="BTC" reserve sign={unconfZero ? '' : '+'}
             tone={unconfZero ? 'muted' : undefined} count={`(${wallet.unconfirmedCount})`} />
         </Row>
       </Row>

@@ -82,7 +82,10 @@ export const BUTTONS = {
   clear: { role: 'default', label: 'Clear', w: 'M' },
   cancel_signed: { role: 'destructive', label: 'Cancel', w: 'M' },
   connect_blindbit: { role: 'default', label: 'Connect Blindbit', w: 'L' },
+  disconnect_blindbit: { role: 'default', label: 'Disconnect', w: 'L' },
   connect_electrum: { role: 'default', label: 'Connect Electrum', w: 'L' },
+  /* connect_electrum's other state, while connected */
+  disconnect_electrum: { role: 'default', label: 'Disconnect', w: 'L' },
   generate: { role: 'default', label: 'Generate', w: 'M' },
   generate_new: { role: 'default', label: 'Generate New', icon: 'refresh', iconSize: 15, w: 'L' },
   get_segwit: { role: 'default', label: 'Segwit', w: 'M' },
@@ -111,6 +114,8 @@ export const BUTTONS = {
   copy_sm: { role: 'inline-icon', icon: 'copy', iconSize: 15, title: 'Copy', w: 'Icon' },
   dismiss_notice: { role: 'inline-icon', icon: 'x', iconSize: 14, title: 'Dismiss', w: 'Icon' },
   edit_label: { role: 'inline-icon', icon: 'pencil', iconSize: 14, title: 'Edit label', w: 'Icon' },
+  /* a saved PSBT list row's delete (Multikey PSBT tab) */
+  delete_row: { role: 'inline-icon', icon: 'trash', iconSize: 15, title: 'Delete', w: 'Icon' },
   edit_label_row: { role: 'inline-icon', icon: 'pencil', iconSize: 15, w: 'Icon' },
   move_down: { role: 'inline-icon', icon: 'arrow_down', iconSize: 14, title: 'Move Down', w: 'Icon' },
   move_up: { role: 'inline-icon', icon: 'arrow_up', iconSize: 14, title: 'Move Up', w: 'Icon' },
@@ -125,9 +130,12 @@ export const BUTTONS = {
 
 /* Btn — a catalog button. `label` only for entries marked dataLabel (the text is
    data, e.g. a wallet name); `args` fills {n} in templated labels. */
-export function Btn({ id, label, args, ...rest }) {
+/* placeholder: an empty slot of the button's width (a button shown only in some states
+   keeps its neighbours in place). */
+export function Btn({ id, label, args, placeholder = false, ...rest }) {
   const b = BUTTONS[id];
   if (!b) { console.warn('Btn: unknown id ' + id); return null; }
+  if (placeholder) return <span aria-hidden="true" className={'s-btn--w-' + String(b.w || 'M').toLowerCase()} style={{ display: 'inline-block', flex: 'none' }} />;
   const text = b.dataLabel ? label : b.args ? String(b.label).replace('{n}', args) : b.label;
   const wc = b.w && b.w !== 'Auto' ? 's-btn--w-' + b.w.toLowerCase() : '';
   return <Button role={b.role} icon={b.icon} iconSize={b.iconSize} title={rest.title || b.title} {...rest}
@@ -178,6 +186,17 @@ export const PILLS = {
   musig_on_device: { tone: 'off', label: 'On Device…', w: 'L' },
   musig_signing: { tone: 'off', label: 'Signing…', w: 'L' },
   musig_nonce_added: { tone: 'success', label: 'Nonce', icon: 'check', w: 'L' },
+  /* Settings title row: the account's network (label = the network name) */
+  network: { tone: 'neutral', dataLabel: true, w: 'M' },
+  /* History / Coins date column: a transaction or coin not yet in a block */
+  tx_unconfirmed: { tone: 'warning', label: 'Unconfirmed', w: 'Auto' },
+  /* the Multikey PSBT list: one per saved transaction */
+  psbt_signing: { tone: 'warning', label: 'Signing', w: 'L' },
+  psbt_ready: { tone: 'success', label: 'Ready', w: 'L' },
+  psbt_unconfirmed: { tone: 'off', label: 'Unconfirmed', w: 'L' },
+  psbt_confirmed: { tone: 'success', label: 'Confirmed', icon: 'check', w: 'L' },
+  /* an input was spent by another transaction: the PSBT can no longer confirm */
+  psbt_deprecated: { tone: 'error', label: 'Deprecated', w: 'L' },
   /* the creator's Verify step: one per signer */
   addr_verified: { tone: 'success', label: 'Verified', icon: 'check', w: 'M' },
   addr_unchecked: { tone: 'off', label: 'Not Checked', w: 'M' },

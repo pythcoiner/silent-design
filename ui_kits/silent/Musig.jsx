@@ -600,9 +600,9 @@ function ConfirmSigningReset({ onCancel, onConfirm }) {
 }
 
 function MusigSignModal({ signers, others = [], offline = [], unsupported = [], strangers = [], single = false, round = 1, lost = false, finalized = false, saveWarning = '', txid = MUSIG_TXID, initial = {}, onRound, onProgress, onBroadcast, onClose }) {
-  const [r, setR] = React.useState(single ? 2 : round);
+  const [r, setR] = React.useState(finalized ? 'ready' : single ? 2 : round);
   const [restartNeeded, setRestartNeeded] = React.useState(lost);
-  const [done, setDone] = React.useState(initial.done || (round === 2 ? { 1: signers.map(s => s.fp) } : round === 'ready' ? { 1: signers.map(s => s.fp), 2: signers.map(s => s.fp) } : {}));
+  const [done, setDone] = React.useState(initial.done || (round === 2 && !finalized ? { 1: signers.map(s => s.fp) } : round === 'ready' || finalized ? { 1: signers.map(s => s.fp), 2: signers.map(s => s.fp) } : {}));
   const [confirmReset, setConfirmReset] = React.useState(!!initial.confirmReset);
   /* UI snapshots only; the app archives exact PSBTs in encrypted storage. */
   const [attempt, setAttempt] = React.useState({ attemptId: initial.attemptId || 0,
@@ -690,13 +690,10 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
   return (
     <Modal title="Sign" width={760} height="wizard" onClose={onClose}>
       <Stack gap="m" style={{ alignSelf: 'stretch', flex: 1 }}>
-        {single || finalized ? null : <WizardSteps steps={MUSIG_SIGN_STEPS} current={stepIdx} />}
-        {finalized ? <Stack gap="s">
-          {saveWarning ? <Text variant="caption">{psbtSaveWarning(saveWarning)}</Text> : null}
-          <Text variant="body">Finalized, ready to broadcast</Text>
-        </Stack> : body}
+        {single ? null : <WizardSteps steps={MUSIG_SIGN_STEPS} current={stepIdx} />}
+        {body}
         <Spacer />
-        {finalized ? <ModalActions><Btn id="broadcast" onClick={onBroadcast} /></ModalActions> : actions}
+        {actions}
       </Stack>
       {hotPrompt ? <UnsealModal title="Sign Transaction" prompt={`Enter the password of “${hotPrompt.alias}” to sign the transaction.`} proceedId="sign_hot" closeOnSubmit onCancel={() => setHotPrompt(null)} onDone={() => { add(hotPrompt.fp); setHotPrompt(null); }} /> : null}
       {confirmReset ? <ConfirmSigningReset onCancel={() => setConfirmReset(false)} onConfirm={reset} /> : null}
@@ -783,41 +780,73 @@ const psbtSaveWarning = message => `The latest transaction progress is not persi
 const SAVED_PSBT_TEMPLATE = {
   payments: [{ address: MUSIG_ADDRESS, amount: '0.00500000', label: 'Invoice', max: false }],
   inputs: [{ type: '', outpoint: 'f2c9a1…8b4e:0', label: '', value: '0.01200000' }],
-  fee: '280', path: 'Alice + Bob',
+  fee: '280', path: 'Alice + Bob', cosigners: ['73c5da0a', 'b8688df1'],
 };
 const SAVED_PSBTS = [
-  { id: 'partial', txid: MUSIG_TXID, label: 'Invoice', ...SAVED_PSBT_TEMPLATE, round: 2, done: { 1: ['73c5da0a', 'b8688df1'], 2: ['73c5da0a'] } },
-  { id: 'finalized', txid: '702895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e3', label: 'Ready', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true },
-  { id: 'broadcast', txid: '803895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e4', label: '', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true, broadcast: true },
-  { id: 'confirmed', txid: '904895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e5', label: 'Paid', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true, broadcast: true, height: 905200 },
+  { id: 'partial', txid: MUSIG_TXID, label: 'Invoice', ...SAVED_PSBT_TEMPLATE, round: 2, done: { 1: ['73c5da0a', 'b8688df1'], 2: ['73c5da0a'] }, edited: '2026-10-20 14:32' },
+  { id: 'finalized', txid: '702895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e3', label: 'Ready', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true, edited: '2026-10-19 09:15' },
+  { id: 'broadcast', txid: '803895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e4', label: '', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true, broadcast: true, edited: '2026-10-18 17:48' },
+  { id: 'deprecated', txid: 'a15995f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e6', label: 'Old draft', ...SAVED_PSBT_TEMPLATE, round: 1, done: { 1: ['73c5da0a'] }, edited: '2026-10-15 08:20', conflicts: ['904895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e5'] },
+  { id: 'confirmed', txid: '904895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e5', label: 'Paid', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true, broadcast: true, height: 1219, edited: '2026-10-12 11:03' },
 ];
 
-function SavedPsbts({ records = SAVED_PSBTS, onOpen, onChange, saveWarning = '', onRetry, error = '' }) {
+/* compact: the window is under 1040px wide, Last Edited shows the date only */
+function SavedPsbts({ records = SAVED_PSBTS, compact = false, tip = 0, onOpen, onChange, saveWarning = '', onRetry, error = '' }) {
   const [confirmed, setConfirmed] = React.useState(false);
   const [deleting, setDeleting] = React.useState(null);
+  /* a broadcast (or confirmed) one is never resumed in Send: it opens in the transaction
+     modal, with its warnings / conflicts there too */
+  const [viewing, setViewing] = React.useState(null);
+  /* a deprecated one: its replacing (conflicting) transaction, in the modal — a saved record
+     when there is one, else the conflict as broadcast */
+  const showReplacing = r => { const t = r.conflicts[0]; setViewing(records.find(x => x.txid === t) || { ...r, txid: t, conflicts: [], warning: '', broadcast: true, label: '' }); };
+  const asTx = r => ({ dir: 'Outgoing', txid: r.txid, height: r.height ? String(r.height) : 'Unconfirmed', date: r.edited, label: r.label,
+    amount: (r.payments || []).reduce((s, p) => s + parseFloat(p.amount || 0), 0).toFixed(8),
+    notes: [r.warning, ...(r.conflicts || []).map(t => `Conflicting transaction: ${t}`)].filter(Boolean) });
+  const [editing, setEditing] = React.useState(null);
+  const [draft, setDraft] = React.useState('');
+  const commit = r => { onChange && onChange(records.map(row => row.id === r.id ? { ...row, label: draft } : row)); setEditing(null); };
   const remove = record => { onChange && onChange(records.filter(r => r.id !== record.id)); setDeleting(null); };
   const rows = records.filter(r => confirmed || !r.height);
+  /* Laid out like the coin list (CoinTable): one clickable row per PSBT, last edited · signatures in/total,
+     muted '—' for no label, status pill, right-aligned amount. Row click resumes it. */
+  /* partial signatures in (round 2); a finalized PSBT has them all */
+  const sigs = r => r.finalized ? (r.cosigners || []).length : r.round === 2 || r.round === 'ready' ? ((r.done || {})[2] || []).length : 0;
+  const amount = r => (r.payments || []).reduce((s, p) => s + parseFloat(p.amount || 0), 0).toFixed(8);
   const columns = [
-    { header: 'Transaction', grow: true, render: r => <Button title={r.txid} onClick={() => onOpen && onOpen(r)}>{r.txid.slice(0, 6)}...{r.txid.slice(-6)}</Button> },
-    { header: 'Label', width: 150, render: r => <Input width="100%" value={r.label} onChange={e => onChange && onChange(records.map(row => row.id === r.id ? { ...row, label: e.target.value } : row))} /> },
-    { header: 'Status', grow: true, cellStyle: () => ({ whiteSpace: 'normal', overflowWrap: 'anywhere' }), render: r => <Stack gap="xs">
-      <Text variant="body">{r.height ? `Confirmed at height ${r.height}` : r.broadcast ? 'Broadcast, unconfirmed' : r.finalized ? 'Finalized, ready to broadcast' : 'Signing in progress'}</Text>
-      {r.warning ? <Text variant="body">{r.warning}</Text> : null}
-      {(r.conflicts || []).map(txid => <Text key={txid} variant="body">Conflicting transaction: {txid}</Text>)}
-    </Stack> },
-    { header: '', width: 100, render: r => <Button role="destructive" onClick={() => r.height ? remove(r) : setDeleting(r)}>Delete</Button> },
+    /* widths fit the content: mono digits are 0.6em (the cell adds its own padding) */
+    { header: 'Last Edited', width: DATE_COL_W[compact ? 'compact' : 'full'], mono: true, render: r => <DateStamp value={r.edited} compact={compact} /> },
+    { header: 'Signed', width: '3.6em', mono: true, render: r => `${sigs(r)}/${(r.cosigners || []).length}` },
+    { header: 'Label', grow: true, muted: r => editing !== r.id && !r.label,
+      cellStyle: r => editing === r.id ? { padding: '3px 6px' } : null,
+      render: r => editing === r.id
+        ? <span style={{ width: '100%' }} onClick={e => e.stopPropagation()}><Input value={draft} autoFocus width="100%"
+            onChange={e => setDraft(e.target.value)}
+            onBlur={() => commit(r)}
+            onKeyDown={e => { if (e.key === 'Enter') commit(r); if (e.key === 'Escape') setEditing(null); }} /></span>
+        : (r.label || '—') },
+    { header: '', width: 34, icon: true,
+      render: r => <span onClick={e => e.stopPropagation()}><Btn id="edit_label_row" onClick={() => { setEditing(r.id); setDraft(r.label); }} /></span> },
+    { header: 'Status', width: 150, pill: true, render: r => {
+      const notes = [r.warning, ...(r.conflicts || []).map(t => `Conflicting transaction: ${t}`)].filter(Boolean);
+      return <Row gap="xs"><Pill id={r.height ? 'psbt_confirmed' : (r.conflicts || []).length ? 'psbt_deprecated' : r.broadcast ? 'psbt_unconfirmed' : r.finalized ? 'psbt_ready' : 'psbt_signing'} />{notes.length ? <span onClick={e => { if ((r.conflicts || []).length) { e.stopPropagation(); showReplacing(r); } }} style={{ cursor: (r.conflicts || []).length ? 'pointer' : undefined, display: 'inline-flex' }}><InfoTip label={notes.join('\n')} /></span> : null}</Row>;
+    } },
+    { header: 'Value', width: 130, align: 'right', render: r => <BtcText btc={amount(r)} /> },
+    { header: '', width: 34, icon: true, render: r => <span onClick={e => e.stopPropagation()}><Btn id="delete_row" onClick={() => r.height ? remove(r) : setDeleting(r)} /></span> },
   ];
   return <React.Fragment>
-    <ScreenWrap title="PSBT"><Stack gap="s">
-      <Checkbox checked={confirmed} onChange={setConfirmed} label="Show confirmed transactions" />
+    <ScreenWrap title="PSBT" titleRight={<Checkbox checked={confirmed} onChange={setConfirmed} label="Show confirmed transactions" />}><Stack gap="s">
       {error ? <Text variant="body">{error}</Text> : null}
       {saveWarning ? <React.Fragment>
         <Text variant="body">{psbtSaveWarning(saveWarning)}</Text>
         <Row><Button role="primary" onClick={onRetry}>Retry saving</Button></Row>
       </React.Fragment> : null}
-      {rows.length ? <Table columns={columns} rows={rows} rowKey={r => r.id} />
+      {rows.length ? <Table columns={columns} rows={rows} rowKey={r => r.id}
+          rowStyle={() => ({ cursor: 'pointer' })}
+          onRowClick={r => (r.conflicts || []).length ? showReplacing(r) : r.broadcast || r.height ? setViewing(r) : onOpen && onOpen(r)} />
         : !error ? <Text variant="body">No saved PSBTs. Transactions are saved when prepared for signing.</Text> : null}
     </Stack></ScreenWrap>
+    {viewing ? <TransactionModal tx={asTx(viewing)} tip={tip} compact={compact} onClose={() => setViewing(null)} /> : null}
     {deleting ? <Modal title="Delete saved PSBT?" onClose={() => setDeleting(null)}>
       <Text variant="body">This transaction is not confirmed. Delete its saved signing progress? This does not cancel a broadcast transaction.</Text>
       <ModalActions><Btn id="delete" onClick={() => remove(deleting)} /></ModalActions>
