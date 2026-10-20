@@ -20,18 +20,18 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=44"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=17"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=18"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=49"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=25"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=28"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=52"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=6"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=49"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=50"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=62"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=26"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=27"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const noop = () => {};
@@ -62,6 +62,33 @@
     }
     const Prices = (props) => ({ tag: 'PriceFeedSection / SendScreen', span: 'full', ...F(<PriceSettingsDemo {...props} />, 1900) });
 
+    function FeeSettingsDemo({ initialPreferences = FEE_PREFERENCES, initialSources = FEE_FEED_SOURCES, locked = false, wallet = WALLETS.savings }) {
+      const [sources, setSources] = React.useState(initialSources);
+      const [version, setVersion] = React.useState(0);
+      const push = () => setSources(rows => rows.map(s => ({ ...s,
+        defaultRate: s.id === FEE_FEED_SOURCES[0].id ? 0.625 : 4,
+        smartRates: { Low: 0.125, Medium: 0.5, Fast: 1.5 } })));
+      const withdraw = () => setSources(rows => rows.map(s => ({ ...s, defaultRate: null, smartRates: {} })));
+      return <FeeFeedProvider sources={sources} initialPreferences={initialPreferences}>
+        <Stack gap="s" style={{ height: '100%' }}>
+          <Row gap="s" wrap>
+            <Text variant="caption">Kit controls, not app UI:</Text>
+            <Button onClick={push}>Push recommendations</Button>
+            <Button onClick={withdraw}>Withdraw recommendations</Button>
+            <Button onClick={() => setSources([])}>Unload fee feeds</Button>
+            <Button onClick={() => setSources(initialSources.length ? initialSources : FEE_FEED_SOURCES)}>Reload fee feeds</Button>
+            <Button onClick={() => setVersion(n => n + 1)}>New transaction</Button>
+          </Row>
+          <Stack style={{ height: 640, flex: 'none' }}><GlobalSettingsTab plugins={[]} sections={[]} /></Stack>
+          <Divider space="0" />
+          <SendScreen key={version} wallet={locked ? WALLETS.multikey : wallet}
+            initial={locked ? SAVED_PSBTS[0] : { payments: [{ address: MUSIG_ADDRESS, amount: '0.00500000', label: 'Invoice', max: false }] }} />
+        </Stack>
+      </FeeFeedProvider>;
+    }
+    const Fees = props => ({ tag: 'FeeSettingsSection / SendScreen', span: 'full', ...F(<FeeSettingsDemo {...props} />, 2100) });
+    const feePreference = mode => ({ ...FEE_PREFERENCES, mode, default_source: FEE_FEED_SOURCES[0].id, smart_source: FEE_FEED_SOURCES[1].id });
+
     Gallery.render({
       kicker: 'Settings · components',
       title: 'Global Settings',
@@ -90,6 +117,17 @@
           { title: 'No price providers: section hidden even with a retained selection', ...Prices({ initialSources: [], initialSelection: { source: PRICE_FEED_SOURCES[0].id, currency: 'EUR' } }) },
           { title: 'Saved PSBT: price changes refresh fiat, never its locked BTC payments, inputs, fee or spend path', ...Prices({ locked: true, initialSelection: { source: PRICE_FEED_SOURCES[0].id, currency: 'EUR' } }) },
         ]},
+        { name: 'Transaction fees (issue #53)', items: [
+          { title: 'Fee settings: providers available, None selected; Manual remains 1 sat/vB until explicitly configured', ...Fees({}) },
+          { title: 'Default fees: selected source, fractional pushed recommendations and manual override', ...Fees({ initialPreferences: feePreference('Default') }) },
+          { title: 'Smart fees: initial Medium, per-send Low/Medium/Fast, sticky Manual fallback after withdrawal', ...Fees({ initialPreferences: feePreference('Smart') }) },
+          { title: 'Default-only provider: no Smart source or initial tier controls', ...Fees({ initialSources: [FEE_FEED_SOURCES[0]], initialPreferences: feePreference('Default') }) },
+          { title: 'Smart-only provider: no Default source control', ...Fees({ initialSources: [FEE_FEED_SOURCES[1]], initialPreferences: feePreference('Smart') }) },
+          { title: 'Combined provider: one source may supply both capabilities, still selected independently', ...Fees({ initialSources: [FEE_FEED_SOURCES[2]], initialPreferences: { ...FEE_PREFERENCES, mode: 'Default', default_source: FEE_FEED_SOURCES[2].id, smart_source: FEE_FEED_SOURCES[2].id } }) },
+          { title: 'No fee providers: global Smart preference retained, Send falls back to Manual; recovery waits for a new transaction', ...Fees({ initialSources: [], initialPreferences: feePreference('Smart') }) },
+          { title: 'Restored PSBT: actual fee stays 280 sats, no editable fee controls or recommendation changes', ...Fees({ locked: true, initialPreferences: feePreference('Smart') }) },
+          { title: 'Prepared Multikey: Sign locks the fee; pushed recommendations cannot alter it while signing', ...Fees({ wallet: WALLETS.multikey, initialPreferences: feePreference('Smart') }) },
+        ]},
         { name: '2.2 · Plugin Manager', items: [
           { title: 'No plugin yet: drop one on the window (issue #41)', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 560) },
           { title: 'Dragging a plugin over the window', tag: 'PluginDrop', ...GS({ plugins: [], sections: [], initial: { dragging: true } }, 560) },
@@ -110,7 +148,7 @@
         ]},
         { name: '2.3 · Extension Settings', items: [
           { title: 'No extension section — the section is hidden', tag: 'ExtensionSection', ...GS({ plugins: enabledOnly, sections: [] }, 560) },
-          { title: 'All sections folded', tag: 'SectionHeader', ...GS({ initial: { folds: { general: false, plugins: false, extensions: false } } }, 340) },
+          { title: 'All sections folded', tag: 'SectionHeader', ...GS({ initial: { folds: { general: false, fees: false, plugins: false, extensions: false } } }, 340) },
           { title: 'Section open — replaces the list, Back returns', tag: 'ExtensionFrame', ...GS({ initial: { view: { section: 'hw' } } }, 440) },
         ]},
         { name: 'Plugin rows', items: PLUGINS.map(p => ({ title: p.error ? 'Failed to load' : p.enabled ? 'Enabled' : 'Disabled', tag: 'PluginRow', span: 'span2', el: <PluginRow plugin={p} onToggle={noop} /> }))

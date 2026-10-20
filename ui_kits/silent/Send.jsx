@@ -78,12 +78,15 @@ function RecipientCard({ out, idx, deletable, canMax, maxAmount, onChange, onDel
    Multikey Send prepared, at that round (1 | 2 | 'ready'), with `initial.payments`. */
 function SendScreen({ wallet, initial = {}, onProgress }) {
   const { price } = React.useContext(PriceFeedContext);
+  const { preferences, rate } = React.useContext(FeeFeedContext);
   const blankOutput = () => ({ address: '', amount: '', label: '', max: false });
   const musig = wallet.kind === 'musig';
   const keyPath = musig ? `Key path: ${wallet.cosigners.split(', ').join(' + ')}` : null;
   const [outputs, setOutputs] = React.useState(initial.payments || [blankOutput()]);
   const [feeRate, setFeeRate] = React.useState(!initial.inputs);
   const [fee, setFee] = React.useState(initial.fee || '1');
+  const [feeMode, setFeeMode] = React.useState(initial.inputs ? 'Manual' : preferences.mode);
+  const [feeTier, setFeeTier] = React.useState(preferences.tier);
   const [auto, setAuto] = React.useState(!initial.inputs);
   const [selected, setSelected] = React.useState(initial.inputs ? Object.fromEntries(initial.inputs.map((_, i) => [i, true])) : {});
   const [modal, setModal] = React.useState(null); // null | 'confirm' | 'sending' | 'sent'
@@ -105,7 +108,26 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
   }, [wallet]);
 
   // The signing step holds a transaction: signed (sp) or prepared (Multikey).
-  const held = musig ? round !== null : signed;
+  const held = musig ? round !== null : signed || modal === 'signer';
+  const recommendation = rate(feeMode, feeTier);
+  // Fallback and explicit overrides stay Manual until the user opts in again.
+  React.useEffect(() => {
+    if (held || restored || feeMode === 'Manual') return;
+    if (recommendation === null) setFeeMode('Manual');
+    setFee(String(recommendation === null ? 1 : recommendation));
+  }, [held, restored, feeMode, recommendation]);
+
+  const initializeFees = () => {
+    const value = rate(preferences.mode, preferences.tier);
+    setFeeMode(value === null ? 'Manual' : preferences.mode);
+    setFeeTier(preferences.tier); setFeeRate(true); setFee(String(value === null ? 1 : value));
+  };
+  const pickFeeMode = mode => { setFeeMode(mode); if (mode !== 'Manual') setFeeRate(true); };
+  const editFee = e => {
+    const value = e.target.value;
+    if (!(feeRate ? /^\d*(\.\d{0,3})?$/ : /^\d*$/).test(value)) return;
+    setFeeMode('Manual'); setFee(value);
+  };
   const clearAll = () => { clearOutputs(); setSelected({}); setSigned(false); setRound(null); setRestored(false); setProgress({}); };
 
   const anyMax = outputs.some(o => o.max);
@@ -114,7 +136,8 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
   const delOutput = (i) => setOutputs(outputs.filter((_, k) => k !== i));
   const clearOutputs = () => setOutputs([blankOutput()]);
 
-  const valid = outputs.every(o => looksLikeAddress(o.address) && (o.max || looksLikeAmount(o.amount))) && looksLikeAmount(fee);
+  const validFee = looksLikeAmount(fee) && (feeRate || /^\d+$/.test(fee));
+  const valid = outputs.every(o => looksLikeAddress(o.address) && (o.max || looksLikeAmount(o.amount))) && validFee;
   const selCount = Object.values(selected).filter(Boolean).length;
 
   // Auto coin selection — mock the Rust simulation: greedily cover the
@@ -271,16 +294,20 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
   const actionRow = (
     <Row align="flex-end" gap="s">
       {held ? null : (
+      <React.Fragment>
+      <ComboBox value={feeMode} options={['Manual', 'Default', 'Smart']} width={120} onChange={pickFeeMode} />
+      {feeMode === 'Smart' ? <ComboBox value={feeTier} options={['Low', 'Medium', 'Fast']} width={120} onChange={setFeeTier} /> : null}
       <div style={{ flex: 'none' }}>
         <FieldLabel>Fee rate</FieldLabel>
         <Row gap="s">
-          <Toggle on={feeRate} onClick={() => setFeeRate(r => !r)} />
-          <ValidatedInput mono maxLength={6} inputMode="numeric" state={looksLikeAmount(fee) ? 'valid' : 'invalid'}
-            value={fee} onChange={e => setFee(e.target.value.replace(/[^\d.]/g, '').slice(0, 6))}
+          <Toggle on={feeRate} onClick={() => { setFeeMode('Manual'); setFeeRate(r => !r); }} />
+          <ValidatedInput mono aria-label="Fee value" inputMode={feeRate ? 'decimal' : 'numeric'} state={validFee ? 'valid' : 'invalid'}
+            value={fee} onChange={editFee}
             wrapStyle={{ flex: 'none', width: 104 }} />
           <Text variant="body" color="secondary" style={{ flex: 'none' }}>{feeRate ? 'sats/vB' : 'sats'}</Text>
         </Row>
       </div>
+      </React.Fragment>
       )}
       <Spacer />
       {musig ? (
@@ -360,7 +387,7 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
           onBroadcast={() => { updateProgress({ broadcast: true, finalized: true }); setModal({ type: 'sent', txid: MUSIG_TXID }); }} />
       ) : null}
       {modal && modal.type === 'sent' ? (
-        <SentModal txid={modal.txid} onClose={() => { clearAll(); setModal(null); }} />
+        <SentModal txid={modal.txid} onClose={() => { clearAll(); initializeFees(); setModal(null); }} />
       ) : null}
     </React.Fragment>
   );
