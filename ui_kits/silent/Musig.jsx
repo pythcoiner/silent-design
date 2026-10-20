@@ -758,7 +758,7 @@ const psbtSaveWarning = message => `The latest transaction progress is not persi
 
 /* Kit records stand in for the app's encrypted PSBT store. No signing or storage here. */
 const SAVED_PSBT_TEMPLATE = {
-  payments: [{ address: MUSIG_ADDRESS, amount: '0.00500000', usd: '340.00', label: 'Invoice', max: false }],
+  payments: [{ address: MUSIG_ADDRESS, amount: '0.00500000', label: 'Invoice', max: false }],
   inputs: [{ type: '', outpoint: 'f2c9a1…8b4e:0', label: '', value: '0.01200000' }],
   fee: '280', path: 'Alice + Bob',
 };

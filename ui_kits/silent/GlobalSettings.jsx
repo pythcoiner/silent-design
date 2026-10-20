@@ -48,6 +48,26 @@ function GeneralSection({ theme, themes, onTheme, language, onLanguage, langSave
   );
 }
 
+function PriceFeedSection({ open = true, onFold }) {
+  const { sources, price, selectPrice } = React.useContext(PriceFeedContext);
+  if (!sources.length) return null;
+  const source = sources.find(s => s.id === price.source);
+  const sourceLabel = source ? source.name : price.source ? `${price.source} (unavailable)` : 'None';
+  const currencies = source ? source.currencies : [];
+  const currencyLabel = !price.currency ? 'None' : currencies.includes(price.currency) ? price.currency : `${price.currency} (unavailable)`;
+  const sourceOptions = ['None', ...sources.map(s => s.name), ...(!source && price.source ? [sourceLabel] : [])];
+  const currencyOptions = ['None', ...currencies, ...(price.currency && !currencies.includes(price.currency) ? [currencyLabel] : [])];
+  return <Stack>
+    <SectionHeader label="Price feed" open={open} onToggle={onFold} />
+    {open ? <FieldGroup>
+      <Field label="Source:"><ComboBox width={160} value={sourceLabel} options={sourceOptions}
+        onChange={label => selectPrice(label === sourceLabel ? price.source : (sources.find(s => s.name === label) || {}).id || '', '')} /></Field>
+      <Field label="Currency:"><ComboBox width={160} value={currencyLabel} options={currencyOptions} disabled={!currencies.length}
+        onChange={label => selectPrice(price.source, label === currencyLabel ? price.currency : label === 'None' ? '' : label)} /></Field>
+    </FieldGroup> : null}
+  </Stack>;
+}
+
 /* PluginSection (issue #41): a plugin comes in only dropped on the window (its folder,
    or its library with its metadata file beside it): Silent seals it into the encrypted
    state and lists it off. Nothing found in ~/.silent/plugins/ is ever loaded, so
@@ -192,6 +212,7 @@ function PluginAccessPrompt({ plugin, account = true, keys = false, state = fals
 }
 
 function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLUGINS, sections = EXTENSION_SECTIONS, initial = {} }) {
+  const { sources } = React.useContext(PriceFeedContext);
   const [themeLocal, setThemeLocal] = React.useState(initial.theme || themeProp || 'Light');
   const theme = themeProp != null && initial.theme == null ? themeProp : themeLocal;
   const [language, setLanguage] = React.useState(initial.language || 'English');
@@ -201,7 +222,7 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
   const [notice, setNotice] = React.useState(initial.notice || null);
   const [busyId, setBusyId] = React.useState(initial.busyId || null);
   const [view, setView] = React.useState(initial.view || null);
-  const [folds, setFolds] = React.useState({ general: true, plugins: true, extensions: true, ...(initial.folds || {}) });   // true = open
+  const [folds, setFolds] = React.useState({ general: true, prices: true, plugins: true, extensions: true, ...(initial.folds || {}) });   // true = open
   const fold = (k) => setFolds(f => ({ ...f, [k]: !f[k] }));           // null | { section } | { disable }
 
   const themes = [{ name: 'Light' }, { name: 'Dark' },
@@ -246,6 +267,10 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
       <ScrollArea style={{ flex: '0 1 auto' }}>
       <Stack gap="s" style={{ width: GS_BODY_WIDTH }}>
         <GeneralSection theme={theme} themes={themes} onTheme={pickTheme} language={language} onLanguage={pickLanguage} langSaved={langSaved} open={folds.general} onFold={() => fold('general')} />
+        {sources.length ? <React.Fragment>
+          <Divider space="0" />
+          <PriceFeedSection open={folds.prices} onFold={() => fold('prices')} />
+        </React.Fragment> : null}
         <Divider space="0" />
         <PluginSection plugins={plugins} added={added} notice={notice} busyId={busyId} dragging={!!initial.dragging} onToggle={toggle} onAccess={(p) => { setNotice(null); setView({ access: p.id }); }} open={folds.plugins} onFold={() => fold('plugins')} />
         {sections.length ? <Divider space="0" /> : null}
@@ -278,4 +303,4 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
   );
 }
 
-Object.assign(window, { PluginRow, PluginDrop, GlobalSettingsTab, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });
+Object.assign(window, { PriceFeedSection, PluginRow, PluginDrop, GlobalSettingsTab, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });

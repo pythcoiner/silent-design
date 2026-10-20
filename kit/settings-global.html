@@ -20,18 +20,18 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=44"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=16"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=17"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=49"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=25"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=28"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=52"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=3"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=48"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=49"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=61"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=25"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=62"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=26"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const noop = () => {};
@@ -40,6 +40,27 @@
     const P = (id) => PLUGINS.find(p => p.id === id);
     const enabledOnly = [P('atomic-swaps')];
     const refusing = PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, refuseUnload: true } : p);
+
+    function PriceSettingsDemo({ initialSelection, initialSources = PRICE_FEED_SOURCES, locked = false }) {
+      const [sources, setSources] = React.useState(initialSources);
+      const setQuote = rate => setSources(rows => rows.map(s => s.id === PRICE_FEED_SOURCES[0].id ? { ...s, rates: { ...s.rates, EUR: rate } } : s));
+      return <PriceFeedProvider sources={sources} initialSelection={initialSelection}>
+        <Stack gap="s" style={{ height: '100%' }}>
+          <Row gap="s" wrap>
+            <Text variant="caption">Kit controls, not app UI:</Text>
+            <Button onClick={() => setQuote(62000)}>Push EUR quote</Button>
+            <Button onClick={() => setQuote(null)}>Withdraw EUR quote</Button>
+            <Button onClick={() => setSources(rows => rows.filter(s => s.id !== PRICE_FEED_SOURCES[0].id))}>Unload source A</Button>
+            <Button onClick={() => setSources(PRICE_FEED_SOURCES)}>Reload sources</Button>
+          </Row>
+          <Stack style={{ height: 480, flex: 'none' }}><GlobalSettingsTab plugins={[]} sections={[]} /></Stack>
+          <Divider space="0" />
+          <SendScreen wallet={locked ? WALLETS.multikey : WALLETS.savings}
+            initial={locked ? SAVED_PSBTS[0] : { payments: [{ address: MUSIG_ADDRESS, amount: '0.00500000', label: 'Invoice', max: false }] }} />
+        </Stack>
+      </PriceFeedProvider>;
+    }
+    const Prices = (props) => ({ tag: 'PriceFeedSection / SendScreen', span: 'full', ...F(<PriceSettingsDemo {...props} />, 1900) });
 
     Gallery.render({
       kicker: 'Settings · components',
@@ -60,6 +81,14 @@
           { title: 'Default — Light, three plugins, two extension sections', tag: 'GlobalSettingsTab', ...GS({}, 900) },
           { title: 'Module theme selected', tag: 'GeneralSection', ...GS({ initial: { theme: 'Midnight' } }, 900) },
           { title: 'Language changed — saved, restart note', tag: 'GeneralSection', ...GS({ initial: { language: 'Français', langSaved: true } }, 900) },
+        ]},
+        { name: 'Price feed (issue #52)', items: [
+          { title: 'Sources available, None selected: choose source, then currency; Send has no fiat until both are chosen', ...Prices({}) },
+          { title: 'EUR selected: edits convert, pushed quotes only refresh fiat; unload retains the selection, no fallback to source B', ...Prices({ initialSelection: { source: PRICE_FEED_SOURCES[0].id, currency: 'EUR' } }) },
+          { title: 'Selected source unavailable: retained source and currency are marked unavailable, Send is BTC-only', ...Prices({ initialSources: [PRICE_FEED_SOURCES[1]], initialSelection: { source: PRICE_FEED_SOURCES[0].id, currency: 'EUR' } }) },
+          { title: 'Selected currency no longer offered: retain EUR as unavailable, do not choose USD', ...Prices({ initialSources: [{ ...PRICE_FEED_SOURCES[0], currencies: ['USD'] }], initialSelection: { source: PRICE_FEED_SOURCES[0].id, currency: 'EUR' } }) },
+          { title: 'No price providers: section hidden even with a retained selection', ...Prices({ initialSources: [], initialSelection: { source: PRICE_FEED_SOURCES[0].id, currency: 'EUR' } }) },
+          { title: 'Saved PSBT: price changes refresh fiat, never its locked BTC payments, inputs, fee or spend path', ...Prices({ locked: true, initialSelection: { source: PRICE_FEED_SOURCES[0].id, currency: 'EUR' } }) },
         ]},
         { name: '2.2 · Plugin Manager', items: [
           { title: 'No plugin yet: drop one on the window (issue #41)', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 560) },

@@ -176,6 +176,23 @@ const OTHER_DEVICES = [{ name: 'Coldcard Mk4', fp: '7e02da41' }];
 
 Object.assign(window, { SIGNING_PLAN, SIGNING_PLAN_ALL, VERIFY_PLAN, SP_VERIFY_PLAN, OTHER_DEVICES });
 
+/* UI stand-in for Host::selectedPrice(), not a network feed. Mainline has no feeds. */
+const PriceFeedContext = React.createContext({ sources: [], price: { source: '', currency: '', rate: null }, selectPrice: () => {} });
+function PriceFeedProvider({ sources = [], initialSelection = { source: '', currency: '' }, children }) {
+  const [selection, setSelection] = React.useState(initialSelection);
+  const source = sources.find(s => s.id === selection.source);
+  const rate = source && source.currencies.includes(selection.currency) ? (source.rates || {})[selection.currency] : null;
+  const price = { ...selection, rate: Number.isFinite(rate) && rate > 0 ? rate : null };
+  return <PriceFeedContext.Provider value={{ sources, price, selectPrice: (source, currency) => setSelection({ source, currency }) }}>{children}</PriceFeedContext.Provider>;
+}
+
+/* Explicit gallery quotes only. No source or currency is selected by default. */
+const PRICE_FEED_SOURCES = [
+  { id: '["prices","feed","primary"]', name: 'Price Feed A', currencies: ['EUR', 'USD'], rates: { EUR: 60000, USD: 68000 } },
+  { id: '["prices","feed","secondary"]', name: 'Price Feed B', currencies: ['USD'], rates: { USD: 70000 } },
+];
+Object.assign(window, { PriceFeedContext, PriceFeedProvider, PRICE_FEED_SOURCES });
+
 const defaultXpubPath = (network) => (network === 'Bitcoin' ? "m/84'/0'/0'" : "m/84'/1'/0'");
 const deviceName = (d) => (d.brand && d.model && !d.model.startsWith(d.brand) ? `${d.brand} ${d.model}` : d.model || d.brand);
 
