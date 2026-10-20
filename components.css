@@ -218,6 +218,15 @@
 .s-tbl__body .s-tbl__row.is-bare, .s-tbl__body .s-tbl__row.is-bare:hover { background: transparent; }
 .s-tbl__cell { padding: var(--table-cell-pad) var(--pad-s); color: var(--text); flex: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .s-tbl__cell--grow { flex: 1; min-width: 0; }
+/* icon: a row-action column (edit, delete) — header and body share the tight side padding so columns line up */
+.s-tbl__hcell--icon { padding-left: var(--space-xs); padding-right: var(--space-xs); }
+.s-tbl__cell--icon { padding: 0 var(--space-xs); display: flex; align-items: center; justify-content: center; align-self: stretch; }
+/* pill: a column holding a pill or an inline control (copy value) — no vertical padding so it keeps the row height */
+.s-tbl__cell--pill { padding-top: 0; padding-bottom: 0; }
+/* a pill inside a table row: one step smaller (font + padding), widths scaled the same */
+.s-tbl__cell .s-badge { padding: 3px 8px; font-size: 11px; gap: 4px; }
+.s-tbl__cell .s-badge--w-m { width: calc(var(--pill-w-m) * 0.85); }
+.s-tbl__cell .s-badge--w-l { width: calc(var(--pill-w-l) * 0.85); }
 .s-tbl__cell--mono { font-family: var(--font-mono); color: var(--text-secondary); }
 .s-tbl__cell--amount { font-family: var(--font-mono); color: var(--text); text-align: right; }
 .s-tbl__cell--muted { color: var(--text-muted); }

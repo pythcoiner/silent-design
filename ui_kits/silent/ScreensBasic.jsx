@@ -109,32 +109,173 @@ function Ruler() {
 }
 
 /* ---------------- History ---------------- */
-function HistoryScreen({ wallet }) {
+/* confirmations of a row against the wallet's chain tip (0 = unconfirmed) */
+const txConfs = (r, tip) => r.height === 'Unconfirmed' ? 0 : Math.max(1, (tip || parseInt(r.height, 10)) - parseInt(r.height, 10) + 1);
+/* Unconfirmed rows always lead the list (History, Coins); the rest keep their order. */
+const unconfirmedFirst = rows => [...rows.filter(r => r.height === 'Unconfirmed'), ...rows.filter(r => r.height !== 'Unconfirmed')];
+/* TransactionModal — a History transaction's summary, built from the Send panel parts
+   (TxFlowCard + TransactionSummary). Same for every account kind (sp, Multikey).
+   No action bar: the header × closes it. Kit: inputs/outputs are mocked from the row. */
+const TX_FEE = 0.0000028;
+const TX_VSIZE = 154;
+/* a stable fake hash/address from a seed (kit only) */
+const txHex = (seed, n) => { let h = 0, o = ''; for (let i = 0; o.length < n; i++) { h = (h * 31 + seed.charCodeAt(i % seed.length) + i) >>> 0; o += (h % 16).toString(16); } return o; };
+const txAddr = seed => 'tb1p' + txHex(seed + 'a', 58).replace(/[^a-z0-9]/g, 'q');
+function txShape(tx) {
+  const amt = parseFloat(tx.amount) || 0, id = tx.txid;
+  const usd = v => '$' + (v * AMOUNT_RATE).toFixed(2);
+  const coin = (w, i, mine, label = '') => ({ w, idx: i, ref: txHex(id + i, 8) + '…' + txHex(id + 'x' + i, 4) + ':' + i, title: `Input #${i}`, addr: txHex(id + i, 6) + '…' + txHex(id + 'x' + i, 4) + ':' + i, usd: usd(w), mine, label, outpoint: txHex(id + i, 64) + ':' + i });
+  const out = (w, i, kind, mine, title, label = '') => ({ w, idx: i, ref: txAddr(id + i).slice(0, 10) + '…' + txAddr(id + i).slice(-6), kind, mine, label, title: `Output #${i}` + (title && !/^Output/.test(title) ? ` · ${title}` : ''), address: txAddr(id + i), addr: txAddr(id + i), usd: usd(w) });
+  const fee = { w: TX_FEE, kind: 'fee', title: 'Network fee', addr: '(paid to miners)', usd: usd(TX_FEE) };
+  if (tx.dir === 'Outgoing') {
+    const change = +(amt * 0.4).toFixed(8);
+    const ins = [coin(amt + change + TX_FEE, 0, true, 'Payroll')];
+    const outs = [out(amt, 0, 'recipient', false, tx.label || 'Output #1', tx.label), out(change, 1, 'change', true, 'Change')];
+    return { ins, outs, fee,
+      rows: [{ label: 'Sent', value: <BtcText btc={amt} /> }, { label: 'Change', value: <BtcText btc={change} /> }, { label: 'Network fee', value: <BtcText btc={TX_FEE} />, sub: `${(Math.round(TX_FEE * 1e8) / TX_VSIZE).toFixed(1)} sat/vB` }],
+      total: { label: 'Total', value: <BtcText btc={amt + TX_FEE} /> } };
+  }
+  if (tx.dir === 'Self') {
+    const ins = [coin(+(amt * 0.6).toFixed(8), 0, true), coin(+(amt * 0.4 + TX_FEE).toFixed(8), 1, true)];
+    const outs = [out(amt, 0, 'change', true, tx.label || 'To this wallet', tx.label)];
+    return { ins, outs, fee,
+      rows: [{ label: 'Moved', value: <BtcText btc={amt} /> }, { label: 'Network fee', value: <BtcText btc={TX_FEE} />, sub: `${(Math.round(TX_FEE * 1e8) / TX_VSIZE).toFixed(1)} sat/vB` }],
+      total: { label: 'Total', value: <BtcText btc={amt + TX_FEE} /> } };
+  }
+  const sender = +(amt * 1.8).toFixed(8);
+  const ins = [coin(amt + sender + TX_FEE, 0, false)];
+  const outs = [out(amt, 0, 'change', true, tx.label || 'To this wallet', tx.label), out(sender, 1, 'recipient', false, "Sender's change")];
+  return { ins, outs, fee, rows: [{ label: 'Network fee (paid by the sender)', value: <BtcText btc={TX_FEE} />, sub: `${(Math.round(TX_FEE * 1e8) / TX_VSIZE).toFixed(1)} sat/vB` }], total: { label: 'Received', value: <BtcText btc={amt} /> } };
+}
+function TransactionModal({ tx, tip = 0, compact = false, onClose }) {
+  const sh = txShape(tx);
+  const unconf = tx.height === 'Unconfirmed';
+  const confs = txConfs(tx, tip);
+  const feeRow = sh.rows.find(r => /fee/i.test(r.label));
+  const others = sh.rows.filter(r => r !== feeRow);
+  const value = { header: 'Value', width: 120, align: 'right', render: r => <BtcText btc={r.w} /> };
+  /* inputs / outputs side by side: index (its diagram colour) · editable label · value.
+     The outpoint / address is drawn on the diagram band with the same index. */
+  const [labels, setLabels] = React.useState(() => Object.fromEntries([
+    ...sh.ins.map(r => ['in' + r.idx, r.label || '']), ...sh.outs.map(r => ['out' + r.idx, r.label || ''])]));
+  const [editing, setEditing] = React.useState(null);
+  const [draft, setDraft] = React.useState('');
+  const commit = k => { setLabels(l => ({ ...l, [k]: draft })); setEditing(null); };
+  const cols = (side, color) => [
+    { header: '#', width: '3em', render: r => <Legend color={color(r)}>{r.idx}</Legend> },
+    { header: 'Label', grow: true, muted: r => editing !== side + r.idx && !labels[side + r.idx],
+      cellStyle: r => editing === side + r.idx ? { padding: '3px 6px' } : null,
+      render: r => editing === side + r.idx
+        ? <Input value={draft} autoFocus width="100%" onChange={e => setDraft(e.target.value)} onBlur={() => commit(side + r.idx)}
+            onKeyDown={e => { if (e.key === 'Enter') commit(side + r.idx); if (e.key === 'Escape') setEditing(null); }} />
+        : (labels[side + r.idx] || '—') },
+    { header: '', width: 34, icon: true, render: r => <Btn id="edit_label_row" onClick={() => { setEditing(side + r.idx); setDraft(labels[side + r.idx]); }} /> },
+    value,
+  ];
+  const inCols = cols('in', () => 'var(--tx-self)');
+  const outCols = cols('out', r => r.kind === 'change' ? 'var(--tx-self)' : 'var(--warning)');
+  return (
+    <Modal title="Transaction" width={820} height="wizard" onClose={onClose}>
+        <Stack gap="s" style={{ alignSelf: 'stretch', minWidth: 0 }}>
+          <Row gap="s">
+            <DirectionIcon dir={tx.dir} />
+            <Text variant="body" weight="demibold">{DIRECTIONS[tx.dir].label}</Text>
+            {tx.label ? <Text variant="body" color="secondary">{tx.label}</Text> : null}
+            <Spacer />
+            {unconf ? <Pill id="tx_unconfirmed" /> : <Text variant="mono" color="secondary"><DateStamp value={tx.date} compact={compact} /></Text>}
+          </Row>
+          {(tx.notes || []).map(n => <Notice key={n} tone="warning">{n}</Notice>)}
+          <Stack>
+            <KeyValue label="Transaction ID" value={<ShortValue value={/^[0-9a-f]{64}$/.test(tx.txid) ? tx.txid : txHex(tx.txid, 64)} head={64} tail={0} />} />
+          </Stack>
+          {/* status · size · version on one row */}
+          <Row gap="l" align="flex-start">
+            <Stack style={{ flex: 2, minWidth: 0 }}>
+              <KeyValue label="Status" valueMono={false} value={unconf ? 'In the mempool'
+                : <Row gap="s">{confs > 6 ? null : <ConfirmDots n={confs} />}<span>{`${confs.toLocaleString('en-US')} conf. · block ${tx.height}`}</span></Row>} />
+            </Stack>
+            <Stack style={{ flex: 1, minWidth: 0 }}>
+              <KeyValue label="Size" value={`${TX_VSIZE} vB`} />
+            </Stack>
+            <Stack style={{ flex: 1, minWidth: 0 }}>
+              <KeyValue label="Version" value={`2 · lock ${unconf ? tip || '0' : tx.height}`} />
+            </Stack>
+          </Row>
+          <TxFlowCard detail width={760} inputs={sh.ins.map(r => ({ ...r, label: labels['in' + r.idx] }))} outputs={[...sh.outs.map(r => ({ ...r, label: labels['out' + r.idx] })), sh.fee]} />
+          <Row gap="l" align="flex-start">
+            <Stack style={{ flex: 1, minWidth: 0 }}>
+              <Section label="Inputs" count={sh.ins.length} dense>
+                <Table columns={inCols} rows={sh.ins} hideHeader />
+              </Section>
+            </Stack>
+            <Stack style={{ flex: 1, minWidth: 0 }}>
+              <Section label="Outputs" count={sh.outs.length} dense>
+                <Table columns={outCols} rows={sh.outs} hideHeader />
+              </Section>
+            </Stack>
+          </Row>
+          {others.length ? <TransactionSummary rows={others} /> : null}
+          {/* fee and total share the bottom row */}
+          <Divider space="0" />
+          <Row gap="l" align="baseline">
+            <Stack style={{ flex: 1, minWidth: 0 }}>{feeRow ? <KeyValue label="Fees" value={<span><BtcText btc={TX_FEE} /> · {(Math.round(TX_FEE * 1e8) / TX_VSIZE).toFixed(1)} sat/vB</span>} align="baseline" /> : null}</Stack>
+            <Stack style={{ flex: 1, minWidth: 0 }}><KeyValue label={sh.total.label} value={sh.total.value} strong align="baseline" /></Stack>
+          </Row>
+        </Stack>
+    </Modal>
+  );
+}
+
+/* Laid out like Coins: date (hover: x ago), editable label, compact under 1040px.
+   Clicking a row opens its TransactionModal. */
+function HistoryScreen({ wallet, compact = false }) {
+  const [rows, setRows] = React.useState(unconfirmedFirst(wallet.history));
+  const [editing, setEditing] = React.useState(null);
+  const [draft, setDraft] = React.useState('');
+  React.useEffect(() => { setRows(unconfirmedFirst(wallet.history)); setEditing(null); }, [wallet]);
+  const commit = (i) => { const c = [...rows]; c[i] = { ...c[i], label: draft }; setRows(c); setEditing(null); };
+  const [open, setOpen] = React.useState(null);
+  const tip = parseInt(wallet.electrumHeight, 10) || 0;
+  const stop = e => e.stopPropagation();
   const columns = [
-    { key: 'dir', header: 'Direction', width: 120 },
-    { key: 'txid', header: 'TxID', width: 180, mono: true },
-    { key: 'height', header: 'Height', width: 110, muted: (r) => r.height === 'Unconfirmed' },
-    { header: 'Amount', grow: true, align: 'right', render: (r) => `${r.amount} BTC` },
+    { header: '', width: 16, icon: true, render: (r) => <DirectionIcon dir={r.dir} /> },
+    { header: '', width: 13, icon: true, render: (r) => <ConfirmDots n={txConfs(r, tip)} /> },
+    { header: 'Date', width: DATE_COL_W[compact ? 'compact' : 'full'], mono: true, pill: true, render: (r) => <DateStamp value={r.date} compact={compact} unconfirmed={r.height === 'Unconfirmed'} /> },
+    { key: 'txid', header: 'TxID', width: 175, mono: true },
+    { header: 'Label', grow: true,
+      muted: (r, i) => editing !== i && !r.label,
+      cellStyle: (r, i) => editing === i ? { padding: '3px 6px' } : null,
+      render: (r, i) => editing === i
+        ? <span style={{ width: '100%' }} onClick={stop}><Input value={draft} autoFocus width="100%"
+            onChange={e => setDraft(e.target.value)}
+            onBlur={() => commit(i)}
+            onKeyDown={e => { if (e.key === 'Enter') commit(i); if (e.key === 'Escape') setEditing(null); }} /></span>
+        : (r.label || '—') },
+    { header: '', width: 34, icon: true,
+      render: (r, i) => <span onClick={stop}><Btn id="edit_label_row" onClick={() => { setEditing(i); setDraft(r.label || ''); }} /></span> },
+    { header: 'Amount', width: 130, align: 'right', render: (r) => <BtcText btc={r.amount} /> },
   ];
   return (
     <ScreenWrap title="History">
       <BalanceHeader wallet={wallet} />
-      <Table columns={columns} rows={wallet.history} />
+      <Table columns={columns} rows={rows} rowStyle={() => ({ cursor: 'pointer' })} onRowClick={r => setOpen(r)} />
+      {open ? <TransactionModal tx={open} tip={tip} compact={compact} onClose={() => setOpen(null)} /> : null}
     </ScreenWrap>
   );
 }
 
 /* ---------------- Coins ---------------- */
-function CoinsScreen({ wallet }) {
-  const [coins, setCoins] = React.useState(wallet.coins);
+/* compact: the window is under 1040px wide — dates drop the time (as the PSBT list). */
+function CoinsScreen({ wallet, compact = false }) {
+  const [coins, setCoins] = React.useState(unconfirmedFirst(wallet.coins));
   const [editing, setEditing] = React.useState(null);
   const [draft, setDraft] = React.useState('');
-  React.useEffect(() => { setCoins(wallet.coins); setEditing(null); }, [wallet]);
+  React.useEffect(() => { setCoins(unconfirmedFirst(wallet.coins)); setEditing(null); }, [wallet]);
   const commit = (i) => { const c = [...coins]; c[i] = { ...c[i], label: draft }; setCoins(c); setEditing(null); };
 
   const columns = [
-    { key: 'type', header: 'Type', width: 90 },
-    { key: 'height', header: 'Height', width: 110, muted: (r) => r.height === 'Unconfirmed' },
+    { key: 'type', header: 'Type', width: '4.4em' },
+    { header: 'Date', width: DATE_COL_W[compact ? 'compact' : 'full'], mono: true, pill: true, render: (r) => <DateStamp value={r.date} compact={compact} unconfirmed={r.height === 'Unconfirmed'} /> },
     { key: 'outpoint', header: 'OutPoint', width: 175, mono: true },
     { header: 'Label', grow: true,
       muted: (r, i) => editing !== i && !r.label,
@@ -145,10 +286,10 @@ function CoinsScreen({ wallet }) {
             onBlur={() => commit(i)}
             onKeyDown={e => { if (e.key === 'Enter') commit(i); if (e.key === 'Escape') setEditing(null); }} />
         : (r.label || '—') },
-    { header: '', width: 34, cellStyle: () => ({ padding: '0 4px' }),
+    { header: '', width: 34, icon: true,
       render: (r, i) => (
         <Btn id="edit_label_row" onClick={() => { setEditing(i); setDraft(r.label); }} />) },
-    { header: 'Value', width: 150, align: 'right', render: (r) => `${r.value} BTC` },
+    { header: 'Value', width: 130, align: 'right', render: (r) => <BtcText btc={r.value} /> },
   ];
 
   return (
@@ -206,8 +347,8 @@ function AddressRow({ address, placeholder, generatable, onGenerate, onCopy, cop
   const [verify, setVerify] = React.useState(false);
   if (!address) {
     return (
-      <Stack align="center" gap="m" style={{ padding: 'var(--space-l) 0' }}>
-        <Text variant="body" color="muted">{placeholder}</Text>
+      <Stack align="center" gap="l">
+        <QRCard size={256} />
         {generatable ? <Btn id="generate" onClick={onGenerate} /> : null}
       </Stack>
     );
@@ -216,7 +357,13 @@ function AddressRow({ address, placeholder, generatable, onGenerate, onCopy, cop
     <React.Fragment>
     <Stack align="center" gap="l">
       <QRCode text={address} size={256} zoom />
-      {labelable ? <LabelRow label={label} onSetLabel={onSetLabel} /> : null}
+      {labelable || generatable ? (
+        <Row gap="l">
+          {labelable ? <LabelRow label={label} onSetLabel={onSetLabel} /> : null}
+          {generatable ? <Btn id="generate_new" onClick={onGenerate} /> : null}
+          {generatable && prevCount > 0 ? <Btn id="awaiting_payment" args={prevCount} onClick={onShowPrev} /> : null}
+        </Row>
+      ) : null}
       <Row justify="center" gap="m" style={{ width: '100%' }}>
         <Tooltip label="Verify on signing device">
           <Btn id="verify_on_device" onClick={() => setVerify(true)} style={{ flex: 'none' }} />
@@ -224,14 +371,6 @@ function AddressRow({ address, placeholder, generatable, onGenerate, onCopy, cop
         <ChunkedAddress text={address} />
         <Btn id={copied ? 'copied' : 'copy_address'} onClick={onCopy} />
       </Row>
-      {generatable ? (
-        <Row gap="l">
-          <Btn id="generate_new" onClick={onGenerate} />
-          {prevCount > 0 ? (
-            <Btn id="awaiting_payment" args={prevCount} onClick={onShowPrev} />
-          ) : null}
-        </Row>
-      ) : null}
     </Stack>
     {verify ? <SigningFlow context="verify" plan={verifyPlan} address={address} onCancel={() => setVerify(false)} /> : null}
     </React.Fragment>
@@ -327,6 +466,13 @@ function ReceiveScreen({ wallet }) {
 
         <Ruler />
         </React.Fragment>)}
+        {/* a Multikey Wallet has Taproot only: its address, no section header */}
+        {musig ? <AddressRow address={(taproot[0] || {}).addr || ''} placeholder="Not generated yet. Click Generate." generatable
+              label={(taproot[0] || {}).label || ''} onSetLabel={setLabel(setTaproot)} labelable
+              prevCount={Math.max(0, taproot.length - 1)}
+              onShowPrev={() => setModal('tr')}
+              onGenerate={() => setTaproot((l) => [{ addr: genAddr(wallet.network, 'taproot'), label: '' }, ...l])}
+              onCopy={() => copy((taproot[0] || {}).addr, 'tr')} copied={copied === 'tr'} /> : (
         <FoldSection id="tr" label="Taproot Address" open={open === 'tr'} onToggle={toggle}>
           <AddressRow address={(taproot[0] || {}).addr || ''} placeholder="Not generated yet. Click Generate." generatable
             label={(taproot[0] || {}).label || ''} onSetLabel={setLabel(setTaproot)} labelable
@@ -334,15 +480,15 @@ function ReceiveScreen({ wallet }) {
             onShowPrev={() => setModal('tr')}
             onGenerate={() => setTaproot((l) => [{ addr: genAddr(wallet.network, 'taproot'), label: '' }, ...l])}
             onCopy={() => copy((taproot[0] || {}).addr, 'tr')} copied={copied === 'tr'} />
-        </FoldSection>
+        </FoldSection>)}
       </Stack>
       {modal === 'sw' ? <PrevAddressesModal title="Segwit Addresses" list={segwit}
         onSetLabel={setLabelAt(setSegwit)} onClose={() => setModal(null)} /> : null}
-      {modal === 'tr' ? <PrevAddressesModal title="Taproot Addresses" list={taproot}
+      {modal === 'tr' ? <PrevAddressesModal title={musig ? 'Addresses' : 'Taproot Addresses'} list={taproot}
         onSetLabel={setLabelAt(setTaproot)} onClose={() => setModal(null)} /> : null}
     </ScreenWrap>
   );
 }
 
-Object.assign(window, { HistoryScreen, CoinsScreen, ReceiveScreen, ScreenWrap, DashboardLayout, Ruler, AddressRow, PrevAddressesModal, genAddr,
+Object.assign(window, { TransactionModal, HistoryScreen, CoinsScreen, ReceiveScreen, ScreenWrap, DashboardLayout, Ruler, AddressRow, PrevAddressesModal, genAddr,
   DASH_MIN_W, DASH_COL_MAX, DASH_MAX_W, DASH_GUTTER, DASH_SPLIT_AT, DASH_WIDE_AT, DASH_TOP_GAP, LayoutInfo });
