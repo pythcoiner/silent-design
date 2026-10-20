@@ -360,10 +360,17 @@
 .s-copy-field__v.is-truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ---------------- Wizard steps (step trail atop a wizard modal) ---------------- */
-.s-wizard { display: flex; align-items: center; justify-content: center; gap: var(--space-xs); width: 100%; padding-bottom: var(--space-s); border-bottom: 1px solid var(--border-light); }
+.s-wizard { display: flex; align-items: center; justify-content: center; width: 100%; padding-bottom: var(--space-s); border-bottom: 1px solid var(--border-light); }
 .s-wizard__step { display: inline-flex; align-items: center; gap: var(--space-xs); flex: none; color: var(--text-muted); font: var(--weight-normal) var(--size-caption) var(--font-sans); }
-.s-wizard__dot { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: var(--radius-badge); border: 1px solid var(--border); font: var(--weight-demibold) var(--size-caption) var(--font-mono); }
-.s-wizard__rule { flex: none; width: var(--wizard-rule-w); height: 1px; background: var(--border-light); }
+.s-wizard__step:not(:last-child) { box-sizing: border-box; width: var(--wizard-number-pitch); padding-right: var(--space-xs); }
+.s-wizard__dot { display: inline-flex; align-items: center; justify-content: center; flex: none; box-sizing: border-box; width: var(--wizard-dot-size); height: var(--wizard-dot-size); border-radius: var(--radius-badge); border: 1px solid var(--border); font: var(--weight-demibold) var(--size-caption) var(--font-mono); }
+.s-wizard__label { display: grid; flex: none; width: max-content; max-width: var(--wizard-name-max); overflow-wrap: anywhere; }
+.s-wizard__step:last-child .s-wizard__label { max-width: max(var(--wizard-name-max), calc(var(--wizard-trail-max) - var(--wizard-index) * var(--wizard-number-pitch) - var(--wizard-dot-size) - var(--space-xs))); }
+/* Reserve both font weights so changing the active step never moves the trail. */
+.s-wizard__label > span { grid-area: 1 / 1; }
+.s-wizard__measure { visibility: hidden; font-weight: var(--weight-demibold); }
+.s-wizard__measure--normal { font-weight: var(--weight-normal); }
+.s-wizard__rule { flex: 1; min-width: var(--space-xs); height: 1px; background: var(--border-light); }
 .s-wizard__rule.is-done { background: var(--accent); }
 .s-wizard__step.is-done { color: var(--text-secondary); }
 .s-wizard__step.is-done .s-wizard__dot { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
