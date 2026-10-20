@@ -24,9 +24,9 @@ function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete, onScan
         {/* The scan button takes its width from the address: the row ends where the
             description below does. */}
         <Row gap="xs">
+          <Btn id="scan_address" onClick={onScan} style={{ flex: 'none' }} />
           <ValidatedInput mono state={addrState} placeholder="sp1q… / bc1q…" wrapStyle={{ flex: 1, minWidth: 0 }}
             value={out.address} onChange={e => onChange({ ...out, address: e.target.value })} />
-          <Btn id="scan_address" onClick={onScan} style={{ flex: 'none' }} />
         </Row>
       </PaymentRow>
 
@@ -144,7 +144,8 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
   const sendBtc = anyMax ? Math.max(0, inSum - feeBtc) : reqTotal;
   const sendUsd = sendBtc > 0 ? '$' + (sendBtc * USD_RATE).toFixed(2) : '';
   const totalBtc = sendBtc + feeBtc;
-  const fmt8 = n => n.toFixed(8) + ' BTC';
+  /* summary value: fiat to the left of the BTC amount, every row */
+  const fmt8 = n => <Row inline gap="s"><Text variant="mono" color="muted">{'$' + (n * USD_RATE).toFixed(2)}</Text><BtcText btc={n} fixed /></Row>;
 
   // diagram data
   const inItems = selCoins.map((c, i) => ({
@@ -176,7 +177,7 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
   const coinsBodyFor = (sideBySide) => (auto && !sideBySide) ? (
     <Card tone="inset" pad="m">
       <Row align="baseline" gap="s">
-      <Amount value={autoSel.amount.toFixed(8)} size="lg" unit="BTC"
+      <Amount value={autoSel.amount.toFixed(8)} size="lg" unit="BTC" fixed
         count={`(${autoSel.count} coin${autoSel.count === 1 ? '' : 's'})`} />
           </Row>
     </Card>
@@ -217,33 +218,14 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
     </div>
   );
 
-  const txDiagram = (
-    <Card tone="inset" pad="s">
-      <TxFlow inputs={inItems} outputs={outItems} />
-      {inItems.length && outItems.length ? (
-        <Row justify="space-between" style={{ padding: '6px 6px 2px' }}>
-          <Eyebrow size={10} color="muted">{inItems.length} input{inItems.length === 1 ? '' : 's'}</Eyebrow>
-          <Row inline gap={12}>
-            <Legend color="var(--warning)">recipient</Legend>
-            {outItems.some(o => o.kind === 'change') ? (
-              <Legend color="var(--tx-self)">change</Legend>
-            ) : null}
-            {outItems.some(o => o.kind === 'fee') ? (
-              <Legend color="var(--error)">fee</Legend>
-            ) : null}
-          </Row>
-          <Eyebrow size={10} color="muted">{outItems.length} output{outItems.length === 1 ? '' : 's'}</Eyebrow>
-        </Row>
-      ) : null}
-    </Card>
-  );
+  const txDiagram = <TxFlowCard inputs={inItems} outputs={outItems} />;
 
   // A Multikey fee depends on its spend path: no estimate before one is picked.
   const estimated = !musig || !!path;
   const summaryRows = (
     <TransactionSummary
       rows={[
-        { label: 'Sending', value: fmt8(sendBtc), sub: sendUsd },
+        { label: 'Sending', value: fmt8(sendBtc) },
         { label: 'Network fee', value: estimated ? fmt8(feeBtc) : '--' },
         changeV > 1e-9 && estimated ? { label: 'Change', value: fmt8(changeV) } : null,
       ]}

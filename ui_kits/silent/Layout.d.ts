@@ -13,5 +13,8 @@ export interface EyebrowProps { children?: React.ReactNode; style?: React.CSSPro
 export declare function Eyebrow(props: EyebrowProps): JSX.Element;
 export interface AmountProps { children?: React.ReactNode; style?: React.CSSProperties; [prop: string]: any }
 export declare function Amount(props: AmountProps): JSX.Element;
-export interface LayoutNamespace { Stack: typeof Stack; Row: typeof Row; Spacer: typeof Spacer; Divider: typeof Divider; Text: typeof Text; Eyebrow: typeof Eyebrow; Amount: typeof Amount; }
+export declare function BtcText(props: { btc: number | string; fixed?: boolean }): JSX.Element;
+export declare function useAmountMode(): 'btc' | 'fiat' | 'hidden';
+export declare function cycleAmountMode(): void;
+export interface LayoutNamespace { Stack: typeof Stack; Row: typeof Row; Spacer: typeof Spacer; Divider: typeof Divider; Text: typeof Text; Eyebrow: typeof Eyebrow; Amount: typeof Amount; BtcText: typeof BtcText; }
 export declare const Layout: LayoutNamespace;

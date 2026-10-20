@@ -56,22 +56,80 @@ export function Stepper({ label, value, min, max, onChange }) {
   );
 }
 
-/* Tooltip — hover bubble above its child. */
-export function Tooltip({ label, children }) {
-  const [show, setShow] = React.useState(false);
+/* DirectionIcon — a History row's direction: incoming (green arrow down-right), outgoing
+   (red arrow up-right), self (blue circular arrows: a send-to-self). Hover names it. */
+export const DIRECTIONS = {
+  Incoming: { icon: 'arrow_down_right', tone: 'success', label: 'Received' },
+  Outgoing: { icon: 'arrow_up_right', tone: 'error', label: 'Sent' },
+  Self: { icon: 'refresh', tone: 'accent', label: 'Sent to self' },
+};
+export function DirectionIcon({ dir }) {
+  const d = DIRECTIONS[dir] || DIRECTIONS.Incoming;
+  return <Tooltip label={d.label}><Icon name={d.icon} size={16} tone={d.tone} /></Tooltip>;
+}
+
+/* ConfirmDots — a confirmation meter: 6 dots (2 wide × 3 tall), one lit per
+   confirmation (brand blue, the Silent mark's accent), down the left column then up the right (1 6 / 2 5 / 3 4); 6 fills all; more than 6 hides it. 0 (unconfirmed) lights none. Hover
+   gives the count. Qt: a small custom-painted QWidget. */
+/* fill order per grid cell (row by row): down the left column, then up the right one */
+const CONFIRM_ORDER = [1, 6, 2, 5, 3, 4];
+export function ConfirmDots({ n = 0 }) {
+  const lit = Math.max(0, Math.min(6, n));
+  /* past 6 confirmations the meter is done: nothing shown (its slot stays) */
+  if (n > 6) return <span style={{ display: 'inline-block', width: 13 }} />;
   return (
-    <span style={{ position: 'relative', display: 'inline-flex' }}
-      onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
+    <Tooltip label={n >= 1 ? `${n.toLocaleString('en-US')} confirmation${n === 1 ? '' : 's'}` : 'Unconfirmed'}>
+      <span style={{ display: 'inline-grid', gridTemplateColumns: 'repeat(2, 5px)', gap: 3 }}>
+        {CONFIRM_ORDER.map((k, i) => <span key={i} style={{ width: 5, height: 5, borderRadius: '50%',
+          background: k <= lit ? 'var(--accent)' : 'var(--border)' }} />)}
+      </span>
+    </Tooltip>
+  );
+}
+
+/* timeAgo — "x hours|days|months|years ago" from a 'YYYY-MM-DD HH:MM' stamp. */
+export function timeAgo(value, now = Date.now()) {
+  const h = (now - new Date(value.replace(' ', 'T')).getTime()) / 3600000;
+  const n = (v, u) => `${v} ${u}${v === 1 ? '' : 's'} ago`;
+  if (h < 1) return 'less than an hour ago';
+  if (h < 24) return n(Math.floor(h), 'hour');
+  const d = h / 24;
+  if (d < 30) return n(Math.floor(d), 'day');
+  if (d < 365) return n(Math.floor(d / 30), 'month');
+  return n(Math.floor(d / 365), 'year');
+}
+
+/* DateStamp — a table date ('YYYY-MM-DD HH:MM'); compact (window under 1040px) drops
+   the time. Hovering shows how long ago. `unconfirmed`: the Unconfirmed pill instead
+   (a column with one: `pill: true`). No value: '—'. Pair with DATE_COL_W (compact
+   still fits the pill). */
+export const DATE_COL_W = { full: '9.8em', compact: '8.2em' };
+export function DateStamp({ value, compact = false, unconfirmed = false }) {
+  if (unconfirmed) return <span style={{ display: 'flex', justifyContent: 'center' }}><Pill id="tx_unconfirmed" /></span>;
+  if (!value) return '—';
+  return <Tooltip label={timeAgo(value)}><span>{compact ? value.slice(0, 10) : value}</span></Tooltip>;
+}
+
+/* Tooltip — hover bubble above its child. Portaled to <body> (position: fixed from the
+   child's rect) so clipping containers (table cells: overflow hidden) never cut it. */
+export function Tooltip({ label, children }) {
+  const [pos, setPos] = React.useState(null);
+  const ref = React.useRef(null);
+  const show = pos != null;
+  const enter = () => { const r = ref.current.getBoundingClientRect(); setPos({ x: r.left + r.width / 2, y: r.top }); };
+  return (
+    <span ref={ref} style={{ position: 'relative', display: 'inline-flex' }}
+      onMouseEnter={enter} onMouseLeave={() => setPos(null)}>
       {children}
-      {show ? (
-        <span style={{ position: 'absolute', bottom: 'calc(100% + 8px)', left: '50%', transform: 'translateX(-50%)',
+      {show ? ReactDOM.createPortal(
+        <span style={{ position: 'fixed', top: pos.y - 8, left: pos.x, transform: 'translate(-50%, -100%)',
           whiteSpace: 'nowrap', background: 'var(--text)', color: 'var(--bg)', font: '500 11px var(--font-sans)',
           padding: '5px 9px', borderRadius: 'var(--radius-inline-icon)', zIndex: 60, pointerEvents: 'none',
           boxShadow: '0 2px 8px rgba(0,0,0,0.25)' }}>
           {label}
           <span style={{ position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
             borderLeft: '4px solid transparent', borderRight: '4px solid transparent', borderTop: '4px solid var(--text)' }} />
-        </span>
+        </span>, document.body
       ) : null}
     </span>
   );
@@ -144,11 +202,14 @@ export function KeyValue({ label, value, sub, valueMono = true, valueColor, stro
 export function Table({ columns, rows, rowKey, maxHeight, bodyStyle, hideHeader, onRowClick, rowClass, rowStyle }) {
   const hcell = (c) => 's-tbl__hcell'
     + (c.align === 'right' ? ' s-tbl__hcell--amount' : '')
-    + (c.grow ? ' s-tbl__cell--grow' : '');
+    + (c.grow ? ' s-tbl__cell--grow' : '')
+    + (c.icon ? ' s-tbl__hcell--icon' : '');
   const cell = (c, row, i) => 's-tbl__cell'
     + (c.mono ? ' s-tbl__cell--mono' : '')
     + (c.align === 'right' ? ' s-tbl__cell--amount' : '')
     + (c.grow ? ' s-tbl__cell--grow' : '')
+    + (c.icon ? ' s-tbl__cell--icon' : '')
+    + (c.pill ? ' s-tbl__cell--pill' : '')
     + ((typeof c.muted === 'function' ? c.muted(row, i) : c.muted) ? ' s-tbl__cell--muted' : '');
   const w = (c, row, i) => ({ ...(c.width != null ? { width: c.width } : null),
     ...(c.cellStyle ? c.cellStyle(row, i) : null) });
@@ -217,7 +278,7 @@ export function CoinTable({ coins, isChecked, onToggle, readOnly = false, maxHei
         { key: 'type', header: 'Type', width: 92 },
         { key: 'outpoint', header: 'OutPoint', width: 175, mono: true },
         { header: 'Label', grow: true, muted: (c) => !c.label, render: (c) => c.label || '—' },
-        { header: 'Value', width: 150, align: 'right', render: (c) => `${c.value} BTC` },
+        { header: 'Value', width: 150, align: 'right', render: (c) => <BtcText btc={c.value} fixed /> },
       ]} />
   );
 }
@@ -278,6 +339,40 @@ export function CopyField({ value, wrap = false, grow = false, title = 'Copy', s
       <span className={'s-copy-field__v ' + (wrap ? 'is-wrap' : 'is-truncate')} title={wrap ? undefined : value}>{value}</span>
       <Btn id={copied ? 'copied_value' : 'copy_value'} title={copied ? 'Copied' : title} onClick={copy} />
     </div>
+  );
+}
+
+/* prettyDescriptor — an output descriptor indented by nesting: one key per line, each
+   fragment's derivation suffix kept on its closing line, the checksum last. */
+/* aliases ({ fingerprint: alias }): each key expression ([fp/path]xpub…) reads as its alias. */
+export function prettyDescriptor(d, aliases) {
+  let [body, sum] = String(d).split('#');
+  if (aliases) body = body.replace(/\[([0-9a-fA-F]{8})[^\]]*\][1-9A-HJ-NP-Za-km-z]+/g, (m, fp) => aliases[fp] || m);
+  let out = '', depth = 0;
+  const pad = () => '\n' + '  '.repeat(depth);
+  for (const ch of body) {
+    if (ch === '(') { depth++; out += '(' + pad(); }
+    else if (ch === ')') { depth--; out += pad() + ')'; }
+    else if (ch === ',') { out += ',' + pad(); }
+    else out += ch;
+  }
+  return out + (sum ? '\n#' + sum : '');
+}
+
+/* DescriptorView — a descriptor shown pretty (prettyDescriptor) in an inset mono block,
+   long keys wrapping, or each key as its alias (`aliases`: { fingerprint: alias }); the
+   copy button copies the raw one-line descriptor.
+   Qt: a read-only QPlainTextEdit (mono, no wrap of indent) + copy QToolButton. */
+export function DescriptorView({ value, aliases }) {
+  const [copied, setCopied] = React.useState(false);
+  const copy = () => { try { navigator.clipboard && navigator.clipboard.writeText(value); } catch (e) {} setCopied(true); setTimeout(() => setCopied(false), 1200); };
+  return (
+    <Card tone="inset" pad="m">
+      <Row align="flex-start" gap="s">
+        <Text as="pre" variant="mono" wrap="anywhere" style={{ margin: 0, flex: 1, minWidth: 0, whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{prettyDescriptor(value, aliases)}</Text>
+        <Btn id={copied ? 'copied_value' : 'copy_value'} title={copied ? 'Copied' : 'Copy descriptor'} onClick={copy} />
+      </Row>
+    </Card>
   );
 }
 
@@ -487,8 +582,8 @@ export function ModalActions({ onBack, backId = 'back', reason, children, style 
 }
 
 Object.assign(window, { SectionLabel, FieldLabel, PaymentRow, ValidatedInput, Stepper,
-  Tooltip, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable,
+  Tooltip, timeAgo, DateStamp, DATE_COL_W, DIRECTIONS, DirectionIcon, ConfirmDots, prettyDescriptor, DescriptorView, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable,
   SectionHeader, Section, CopyField, ShortValue, WordGrid, WordInputGrid, ROUTE_KINDS, RouteIcons, ScanProgress, ModalActions, ScrollArea, FieldNote, EmptyState, FoldChevron, WizardSteps, InfoTip });
 
 /* File-level namespace (DS compiler indexes this file as `Widgets`). */
-export const Widgets = { SectionLabel, FieldLabel, PaymentRow, ValidatedInput, Stepper, Tooltip, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable, SectionHeader, Section, CopyField, ShortValue, WordGrid, WordInputGrid, RouteIcons, ScanProgress, ModalActions, ScrollArea, FieldNote, EmptyState, FoldChevron, WizardSteps, InfoTip };
+export const Widgets = { SectionLabel, FieldLabel, PaymentRow, ValidatedInput, Stepper, Tooltip, timeAgo, DateStamp, DATE_COL_W, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable, SectionHeader, Section, CopyField, ShortValue, WordGrid, WordInputGrid, RouteIcons, ScanProgress, ModalActions, ScrollArea, FieldNote, EmptyState, FoldChevron, WizardSteps, InfoTip };
