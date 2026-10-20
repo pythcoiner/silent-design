@@ -567,7 +567,7 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
    every cosigner at once: the others stay clickable while one is on its device.
    Continue opens once every cosigner is in. Rounds cannot go back (a nonce is spent),
    so there is no Back; the header × closes and keeps the session, Sign Round N on
-   the Send card reopens it. `lost`: the session-lost notice, back on round 1.
+    the Send card reopens it. `lost`: signing waits for an explicit restart.
    `round`: 1 | 2 | 'ready'; onRound(r) mirrors progress to the Send card.
    Every key of the wallet has a row: the path's signers that can sign first, then
    those that cannot, then the wallet's keys the path does not use, then the connected
@@ -583,8 +583,9 @@ const SIGN_WHY = {
   strangers: 'Not a key of this wallet.',
 };
 const MUSIG_SIGN_STEPS = ['Nonces', 'Partial Signatures'];
-function MusigSignModal({ signers, others = [], offline = [], unsupported = [], strangers = [], single = false, round = 1, lost = false, txid = MUSIG_TXID, initial = {}, onRound, onBroadcast, onClose }) {
+function MusigSignModal({ signers, others = [], offline = [], unsupported = [], strangers = [], single = false, round = 1, lost = false, finalized = false, saveWarning = '', txid = MUSIG_TXID, initial = {}, onRound, onProgress, onBroadcast, onClose }) {
   const [r, setR] = React.useState(single ? 2 : round);
+  const [restartNeeded, setRestartNeeded] = React.useState(lost);
   const [done, setDone] = React.useState(initial.done || (round === 2 ? { 1: signers.map(s => s.fp) } : round === 'ready' ? { 1: signers.map(s => s.fp), 2: signers.map(s => s.fp) } : {}));
   /* the cosigners on their device now: every one can be asked at once */
   const [busy, setBusy] = React.useState([].concat(initial.busy || []));
@@ -598,26 +599,34 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
   const blocked = s => !inRound.includes(s.fp) && (offline.includes(s.fp) || unsupported.includes(s.fp));
   const usable = signers.filter(s => !blocked(s));
   const unusable = signers.filter(s => !usable.includes(s));
+  React.useEffect(() => {
+    onProgress && onProgress({ done });
+    if (sr === 2 && r !== 'ready' && signers.every(s => (done[2] || []).includes(s.fp))) {
+      setR('ready'); onRound && onRound('ready');
+    }
+  }, [done]);
   const add = (fp) => { setBusy(b => [...b, fp]); setTimeout(() => {
-    setDone(d => {
-      const nd = { ...d, [sr]: [...(d[sr] || []), fp] };
-      if (sr === 2 && (single || signers.every(s => nd[2].includes(s.fp)))) { setR('ready'); onRound && onRound('ready'); }
-      return nd;
-    });
+    setDone(d => ({ ...d, [sr]: [...(d[sr] || []), fp] }));
     setBusy(b => b.filter(x => x !== fp));
   }, 900); };
   const next = () => { setR(2); onRound && onRound(2); };
+  const restart = () => {
+    setDone({}); setR(single ? 2 : 1); setRestartNeeded(false);
+    onProgress && onProgress({ done: {}, lost: false });
+    onRound && onRound(single ? 2 : 1);
+  };
 
   let body, actions;
   {
     const what = single ? 'its signature' : sr === 1 ? 'its nonce' : 'its partial signature';
     body = (
       <Stack gap="s" style={{ alignSelf: 'stretch' }}>
-        {lost && sr === 1 ? (
+        {restartNeeded ? (
           <Notice tone="warning" title="MuSig2 session missing or mismatch">
-            A signer no longer holds its round 1 nonce: it restarted, or the transaction changed. Every nonce and partial signature was dropped, sign round 1 again with every cosigner.
+            {PSBT_RESTART_MESSAGE}
           </Notice>
         ) : null}
+        {saveWarning ? <Text variant="caption">{psbtSaveWarning(saveWarning)}</Text> : null}
         <Text variant="body">{single ? `Click the cosigner to add ${what}.` : `Click each cosigner to add ${what}.`}</Text>
         <Stack gap="xs">
           {usable.map(s => {
@@ -625,7 +634,8 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
             return (
               <SelectRow key={s.fp} icon={ROUTE_KINDS[s.route].icon} title={s.alias} sub={s.fp} chevron={false}
                  status={<Pill id={ok ? (sr === 1 ? 'musig_nonce_added' : 'signer_signed') : on ? (s.route === 'hot' ? 'musig_signing' : 'musig_on_device') : 'musig_needed'} />}
-                 onClick={!ok && !on ? () => s.route === 'hot' ? setHotPrompt(s) : add(s.fp) : undefined} />
+                 disabled={restartNeeded}
+                 onClick={!restartNeeded && !ok && !on ? () => s.route === 'hot' ? setHotPrompt(s) : add(s.fp) : undefined} />
             );
           })}
           {unusable.map(s => {
@@ -650,18 +660,22 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
     const reason = busy.length ? (busy.some(fp => signers.some(s => s.fp === fp && s.route !== 'hot')) ? 'On the device…' : 'Signing…') : left.length ? `${left.length} cosigner${left.length > 1 ? 's' : ''} still to go.` : null;
     actions = (
       <ModalActions reason={reason}>
-        {sr === 1 ? <Btn id="continue" disabled={!!reason} onClick={next} />
-          : <Btn id="broadcast" disabled={!!reason} onClick={onBroadcast} />}
+        <Button role="primary" disabled={!!busy.length} onClick={restart}>Restart signing</Button>
+        {sr === 1 ? <Btn id="continue" disabled={restartNeeded || !!reason} onClick={next} />
+          : <Btn id="broadcast" disabled={restartNeeded || !!reason} onClick={onBroadcast} />}
       </ModalActions>
     );
   }
   return (
     <Modal title="Sign" width={760} height="wizard" onClose={onClose}>
       <Stack gap="m" style={{ alignSelf: 'stretch', flex: 1 }}>
-        {single ? null : <WizardSteps steps={MUSIG_SIGN_STEPS} current={stepIdx} />}
-        {body}
+        {single || finalized ? null : <WizardSteps steps={MUSIG_SIGN_STEPS} current={stepIdx} />}
+        {finalized ? <Stack gap="s">
+          {saveWarning ? <Text variant="caption">{psbtSaveWarning(saveWarning)}</Text> : null}
+          <Text variant="body">Finalized, ready to broadcast</Text>
+        </Stack> : body}
         <Spacer />
-        {actions}
+        {finalized ? <ModalActions><Btn id="broadcast" onClick={onBroadcast} /></ModalActions> : actions}
       </Stack>
       {hotPrompt ? <UnsealModal title="Sign Transaction" prompt={`Enter the password of “${hotPrompt.alias}” to sign the transaction.`} proceedId="sign_hot" closeOnSubmit onCancel={() => setHotPrompt(null)} onDone={() => { add(hotPrompt.fp); setHotPrompt(null); }} /> : null}
     </Modal>
@@ -739,9 +753,58 @@ function RegisterDescriptorModal({ keys = MUSIG_KEYS, initial = {}, onClose }) {
 
 const MUSIG_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
 
-Object.assign(window, { MusigSignModal, RegisterDescriptorModal, musigSigners, MUSIG_KEYS, MUSIG_PATH, MUSIG_NEW_PATH, MUSIG_ADDRESS, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview,
+const PSBT_RESTART_MESSAGE = 'A signer cannot safely resume its saved nonce session. Choose Restart signing to retire the old session and discard all nonces and partial signatures for this same transaction.';
+const psbtSaveWarning = message => `The latest transaction progress is not persisted. You can continue signing or broadcasting. ${message}`;
+
+/* Kit records stand in for the app's encrypted PSBT store. No signing or storage here. */
+const SAVED_PSBT_TEMPLATE = {
+  payments: [{ address: MUSIG_ADDRESS, amount: '0.00500000', usd: '340.00', label: 'Invoice', max: false }],
+  inputs: [{ type: '', outpoint: 'f2c9a1…8b4e:0', label: '', value: '0.01200000' }],
+  fee: '280', path: 'Alice + Bob',
+};
+const SAVED_PSBTS = [
+  { id: 'partial', txid: MUSIG_TXID, label: 'Invoice', ...SAVED_PSBT_TEMPLATE, round: 2, done: { 1: ['73c5da0a', 'b8688df1'], 2: ['73c5da0a'] } },
+  { id: 'finalized', txid: '702895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e3', label: 'Ready', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true },
+  { id: 'broadcast', txid: '803895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e4', label: '', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true, broadcast: true },
+  { id: 'confirmed', txid: '904895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e5', label: 'Paid', ...SAVED_PSBT_TEMPLATE, round: 'ready', finalized: true, broadcast: true, height: 905200 },
+];
+
+function SavedPsbts({ records = SAVED_PSBTS, onOpen, onChange, saveWarning = '', onRetry, error = '' }) {
+  const [confirmed, setConfirmed] = React.useState(false);
+  const [deleting, setDeleting] = React.useState(null);
+  const remove = record => { onChange && onChange(records.filter(r => r.id !== record.id)); setDeleting(null); };
+  const rows = records.filter(r => confirmed || !r.height);
+  const columns = [
+    { header: 'Transaction', grow: true, render: r => <Button title={r.txid} onClick={() => onOpen && onOpen(r)}>{r.txid.slice(0, 6)}...{r.txid.slice(-6)}</Button> },
+    { header: 'Label', width: 150, render: r => <Input width="100%" value={r.label} onChange={e => onChange && onChange(records.map(row => row.id === r.id ? { ...row, label: e.target.value } : row))} /> },
+    { header: 'Status', grow: true, cellStyle: () => ({ whiteSpace: 'normal', overflowWrap: 'anywhere' }), render: r => <Stack gap="xs">
+      <Text variant="body">{r.height ? `Confirmed at height ${r.height}` : r.broadcast ? 'Broadcast, unconfirmed' : r.finalized ? 'Finalized, ready to broadcast' : 'Signing in progress'}</Text>
+      {r.warning ? <Text variant="body">{r.warning}</Text> : null}
+      {(r.conflicts || []).map(txid => <Text key={txid} variant="body">Conflicting transaction: {txid}</Text>)}
+    </Stack> },
+    { header: '', width: 100, render: r => <Button role="destructive" onClick={() => r.height ? remove(r) : setDeleting(r)}>Delete</Button> },
+  ];
+  return <React.Fragment>
+    <ScreenWrap title="PSBT"><Stack gap="s">
+      <Checkbox checked={confirmed} onChange={setConfirmed} label="Show confirmed transactions" />
+      {error ? <Text variant="body">{error}</Text> : null}
+      {saveWarning ? <React.Fragment>
+        <Text variant="body">{psbtSaveWarning(saveWarning)}</Text>
+        <Row><Button role="primary" onClick={onRetry}>Retry saving</Button></Row>
+      </React.Fragment> : null}
+      {rows.length ? <Table columns={columns} rows={rows} rowKey={r => r.id} />
+        : !error ? <Text variant="body">No saved PSBTs. Transactions are saved when prepared for signing.</Text> : null}
+    </Stack></ScreenWrap>
+    {deleting ? <Modal title="Delete saved PSBT?" onClose={() => setDeleting(null)}>
+      <Text variant="body">This transaction is not confirmed. Delete its saved signing progress? This does not cancel a broadcast transaction.</Text>
+      <ModalActions><Btn id="delete" onClick={() => remove(deleting)} /></ModalActions>
+    </Modal> : null}
+  </React.Fragment>;
+}
+
+Object.assign(window, { SavedPsbts, SAVED_PSBTS, psbtSaveWarning, MusigSignModal, RegisterDescriptorModal, musigSigners, MUSIG_KEYS, MUSIG_PATH, MUSIG_NEW_PATH, MUSIG_ADDRESS, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview,
   VerifyFirstAddress, CreateSharedAccount, SpendPathPicker, MUSIG_TXID });
 
 /* File-level namespace (DS compiler indexes this file as `Musig`). */
-export const Musig = { MusigSignModal, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview, VerifyFirstAddress, CreateSharedAccount,
+export const Musig = { SavedPsbts, MusigSignModal, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview, VerifyFirstAddress, CreateSharedAccount,
   SpendPathPicker };

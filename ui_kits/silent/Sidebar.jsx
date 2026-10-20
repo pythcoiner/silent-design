@@ -7,7 +7,7 @@ const NAV_ITEMS = [
   { id: 'receive',  label: 'Receive',  icon: 'download' },
 ];
 
-function Sidebar({ active, onSelect }) {
+function Sidebar({ active, onSelect, musig = false }) {
   return (
     <Stack gap="s" style={{ width: 'var(--sidebar-w)', flex: 'none', background: 'var(--bg-secondary)',
       padding: 'var(--pad-xs)' }}>
@@ -17,6 +17,9 @@ function Sidebar({ active, onSelect }) {
           {it.label}
         </Button>
       ))}
+      {musig ? <Button role="menu" className={active === 'psbt' ? 'is-active' : ''} onClick={() => onSelect('psbt')}>
+        <Icon name="history" size={20} />PSBT
+      </Button> : null}
       <Spacer />
       <Button role="menu" className={active === 'layout' ? 'is-active' : ''} onClick={() => onSelect('layout')}>
         <Icon name="layout" size={20} />

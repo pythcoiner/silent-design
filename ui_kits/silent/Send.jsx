@@ -65,28 +65,36 @@ function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete, onScan
    (musig/SigningSection.cpp). While the step holds a transaction, the payments and the
    coins are locked and the fee inputs and Clear are hidden. `initial.round` opens a
    Multikey Send prepared, at that round (1 | 2 | 'ready'), with `initial.payments`. */
-function SendScreen({ wallet, initial = {} }) {
+function SendScreen({ wallet, initial = {}, onProgress }) {
   const blankOutput = () => ({ address: '', amount: '', usd: '', label: '', max: false });
   const musig = wallet.kind === 'musig';
   const keyPath = musig ? `Key path: ${wallet.cosigners.split(', ').join(' + ')}` : null;
   const [outputs, setOutputs] = React.useState(initial.payments || [blankOutput()]);
-  const [feeRate, setFeeRate] = React.useState(true); // true = sats/vb, false = sats
-  const [fee, setFee] = React.useState('1');
-  const [auto, setAuto] = React.useState(true);
-  const [selected, setSelected] = React.useState({});
+  const [feeRate, setFeeRate] = React.useState(!initial.inputs);
+  const [fee, setFee] = React.useState(initial.fee || '1');
+  const [auto, setAuto] = React.useState(!initial.inputs);
+  const [selected, setSelected] = React.useState(initial.inputs ? Object.fromEntries(initial.inputs.map((_, i) => [i, true])) : {});
   const [modal, setModal] = React.useState(null); // null | 'confirm' | 'sending' | 'sent'
   const [signed, setSigned] = React.useState(false);
-  const [path, setPath] = React.useState(keyPath);                 // the Multikey spend path
+  const [path, setPath] = React.useState(initial.path || keyPath); // the Multikey spend path
   const [round, setRound] = React.useState(initial.round || null); // null | 1 | 2 | 'ready'
+  const [progress, setProgress] = React.useState(initial);
+  const [restored, setRestored] = React.useState(!!initial.inputs);
+  const coins = restored ? initial.inputs : wallet.coins;
+  const updateProgress = patch => {
+    setProgress(p => ({ ...p, ...patch }));
+    onProgress && onProgress(patch);
+  };
+  const updateRound = r => { setRound(r); updateProgress({ round: r, ...(r === 'ready' ? { finalized: true } : {}) }); };
 
   React.useEffect(() => {
-    setOutputs(initial.payments || [blankOutput()]); setSelected({}); setModal(null); setSigned(false);
-    setPath(keyPath); setRound(initial.round || null);
+    setOutputs(initial.payments || [blankOutput()]); setModal(null); setSigned(false);
+    setPath(initial.path || keyPath); setRound(initial.round || null);
   }, [wallet]);
 
   // The signing step holds a transaction: signed (sp) or prepared (Multikey).
   const held = musig ? round !== null : signed;
-  const clearAll = () => { clearOutputs(); setSelected({}); setSigned(false); setRound(null); };
+  const clearAll = () => { clearOutputs(); setSelected({}); setSigned(false); setRound(null); setRestored(false); setProgress({}); };
 
   const anyMax = outputs.some(o => o.max);
   const setOut = (i, v) => setOutputs(outputs.map((o, k) => k === i ? v : o));
@@ -102,7 +110,7 @@ function SendScreen({ wallet, initial = {} }) {
   const btcOf = s => parseFloat(String(s).split(' ')[0]) || 0;
   const reqTotal = outputs.reduce((s, o) => s + (!o.max && looksLikeAmount(o.amount) ? parseFloat(o.amount) : 0), 0);
   const autoSel = (() => {
-    const sorted = [...wallet.coins].map(c => btcOf(c.value)).sort((a, b) => b - a);
+    const sorted = [...coins].map(c => btcOf(c.value)).sort((a, b) => b - a);
     let amount = 0, count = 0;
     for (const v of sorted) {
       if (!anyMax && amount >= reqTotal) break;
@@ -115,7 +123,7 @@ function SendScreen({ wallet, initial = {} }) {
 
   // Indices auto-selection picks (largest first), so an unfolded list can show them.
   const autoIdxSet = (() => {
-    const order = wallet.coins.map((c, i) => [i, btcOf(c.value)]).sort((a, b) => b[1] - a[1]);
+    const order = coins.map((c, i) => [i, btcOf(c.value)]).sort((a, b) => b[1] - a[1]);
     const set = new Set();
     let amount = 0;
     for (const [i, v] of order) { if (!anyMax && amount >= reqTotal) break; amount += v; set.add(i); }
@@ -128,8 +136,8 @@ function SendScreen({ wallet, initial = {} }) {
 
   // --- transaction math (mock) ---
   const selCoins = auto
-    ? [...wallet.coins].sort((a, b) => btcOf(b.value) - btcOf(a.value)).slice(0, autoSel.count)
-    : wallet.coins.filter((_, i) => selected[i]);
+    ? [...coins].sort((a, b) => btcOf(b.value) - btcOf(a.value)).slice(0, autoSel.count)
+    : coins.filter((_, i) => selected[i]);
   const inSum = selCoins.reduce((a, c) => a + btcOf(c.value), 0);
   const feeNum = looksLikeAmount(fee) ? parseFloat(fee) : 0;
   const feeBtc = (feeRate ? feeNum * 200 : feeNum) / 1e8; // mock ~200 vB tx
@@ -173,7 +181,7 @@ function SendScreen({ wallet, initial = {} }) {
           </Row>
     </Card>
   ) : (
-    <CoinTable coins={wallet.coins} readOnly={auto}
+    <CoinTable coins={coins} readOnly={auto || held}
       isChecked={(c, i) => auto ? autoIdxSet.has(i) : !!selected[i]}
       onToggle={(i, v) => setSelected({ ...selected, [i]: v })} />
   );
@@ -188,7 +196,7 @@ function SendScreen({ wallet, initial = {} }) {
       {/* Multikey: the spend path the picked coins allow, part of composing the send */}
       {musig ? (
         <div style={{ marginTop: 'var(--space-m)' }}>
-          <SpendPathPicker leaves={[keyPath]} value={path} locked={held} onChange={setPath} width="100%" />
+          <SpendPathPicker leaves={[restored ? initial.path : keyPath]} value={path} locked={held} onChange={setPath} width="100%" />
         </div>
       ) : null}
 
@@ -268,7 +276,7 @@ function SendScreen({ wallet, initial = {} }) {
         /* The Multikey step's button: Sign (starts the MuSig2 rounds), disabled while it holds the transaction. */
         <Row gap="s" style={{ flex: 'none' }}>
           {/* while a session runs: Cancel drops it, Sign reopens the Sign modal at its round */}
-          {held ? <Btn id="cancel_signed" onClick={() => setRound(null)} /> : <Btn id="clear" onClick={clearAll} />}
+          {held ? <Btn id="cancel_signed" onClick={() => { setRound(null); setRestored(false); setSelected({}); setProgress({}); }} /> : <Btn id="clear" onClick={clearAll} />}
           <Btn id="sign" disabled={!held && !!prepareReason} onClick={() => { if (!held) setRound(1); setModal({ type: 'musig' }); }} style={{ flex: 'none' }} />
         </Row>
       ) : (
@@ -289,6 +297,7 @@ function SendScreen({ wallet, initial = {} }) {
 
   const renderSecondary = ({ sideBySide }) => (
     <React.Fragment>
+      {musig && initial.saveWarning ? <Text variant="caption">{psbtSaveWarning(initial.saveWarning)}</Text> : null}
       {/* heading: same style + row height as the Coins selection heading, so they align */}
       <Row style={{ minHeight: 34, marginBottom: 'var(--space-s)' }}>
         <SectionLabel>Transaction</SectionLabel>
@@ -316,6 +325,7 @@ function SendScreen({ wallet, initial = {} }) {
 
   return (
     <React.Fragment>
+      {restored && initial.warning ? <Text variant="body">{initial.warning}</Text> : null}
       <DashboardLayout title="Send" primary={renderPrimary} secondary={renderSecondary} />
       {modal === 'signer' ? (
         <SigningFlow context="sign" plan={window.SIGNING_PLAN} others={window.OTHER_DEVICES} fileBase={wallet.name}
@@ -333,8 +343,10 @@ function SendScreen({ wallet, initial = {} }) {
       ) : null}
       {modal && modal.type === 'musig' ? (
         <MusigSignModal signers={musigSigners(wallet.cosigners.split(', '))} round={round}
-          onRound={setRound} onClose={() => setModal(null)}
-          onBroadcast={() => setModal({ type: 'sent', txid: MUSIG_TXID })} />
+          initial={{ done: progress.done }} lost={progress.lost} finalized={progress.finalized}
+          saveWarning={initial.saveWarning} onProgress={updateProgress}
+          onRound={updateRound} onClose={() => setModal(null)}
+          onBroadcast={() => { updateProgress({ broadcast: true, finalized: true }); setModal({ type: 'sent', txid: MUSIG_TXID }); }} />
       ) : null}
       {modal && modal.type === 'sent' ? (
         <SentModal txid={modal.txid} onClose={() => { clearAll(); setModal(null); }} />

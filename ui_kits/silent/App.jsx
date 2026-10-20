@@ -10,18 +10,23 @@ const SCREENS = {
 };
 
 function AccountView({ wallet, screen, onScreen }) {
+  const [records, setRecords] = React.useState(SAVED_PSBTS);
+  const [resume, setResume] = React.useState(null);
+  const [restoreCount, setRestoreCount] = React.useState(0);
   // Send is kept mounted (hidden when inactive) so its draft state survives navigation.
   const isSend = screen === 'send';
-  const OtherComp = !isSend ? (SCREENS[screen] || HistoryScreen) : null;
+  const OtherComp = !isSend && screen !== 'psbt' ? (SCREENS[screen] || HistoryScreen) : null;
   return (
     <Stack grow style={{ minHeight: 0 }}>
       <Row grow align="stretch" style={{ minHeight: 0 }}>
-        <Sidebar active={screen} onSelect={onScreen} />
+        <Sidebar active={screen} onSelect={onScreen} musig={wallet.kind === 'musig'} />
         <Stack grow style={{ background: 'var(--bg)' }}>
           <Stack grow style={{ display: isSend ? 'flex' : 'none', minHeight: 0 }}>
-            {/* A Multikey Wallet keeps its own Send (musig/views/Send.cpp). */}
-            <SendScreen key={wallet.name} wallet={wallet} />
+            <SendScreen key={wallet.name + restoreCount} wallet={wallet} initial={resume || {}}
+              onProgress={patch => setRecords(rows => rows.map(r => resume && r.id === resume.id ? { ...r, ...patch } : r))} />
           </Stack>
+          {screen === 'psbt' && wallet.kind === 'musig' ? <SavedPsbts records={records} onChange={setRecords}
+            onOpen={record => { setResume(record); setRestoreCount(n => n + 1); onScreen('send'); }} /> : null}
           {OtherComp ? <OtherComp wallet={wallet} /> : null}
         </Stack>
       </Row>
