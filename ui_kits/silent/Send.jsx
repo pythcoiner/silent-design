@@ -381,7 +381,7 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
       ) : null}
       {modal && modal.type === 'musig' ? (
         <MusigSignModal signers={musigSigners(wallet.cosigners.split(', '))} round={round}
-          initial={{ done: progress.done }} lost={progress.lost} finalized={progress.finalized}
+          initial={progress} txid={progress.txid || MUSIG_TXID} lost={progress.lost} finalized={progress.finalized}
           saveWarning={initial.saveWarning} onProgress={updateProgress}
           onRound={updateRound} onClose={() => setModal(null)}
           onBroadcast={() => { updateProgress({ broadcast: true, finalized: true }); setModal({ type: 'sent', txid: MUSIG_TXID }); }} />

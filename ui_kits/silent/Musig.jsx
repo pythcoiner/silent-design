@@ -567,7 +567,7 @@ function CreateSharedAccount({ existing = [], keys = MUSIG_KEYS, onCancel, onCre
    every cosigner at once: the others stay clickable while one is on its device.
    Continue opens once every cosigner is in. Rounds cannot go back (a nonce is spent),
    so there is no Back; the header × closes and keeps the session, Sign Round N on
-    the Send card reopens it. `lost`: signing waits for an explicit restart.
+   the Send card reopens it. `lost`: signing waits for a confirmed Reset.
    `round`: 1 | 2 | 'ready'; onRound(r) mirrors progress to the Send card.
    Every key of the wallet has a row: the path's signers that can sign first, then
    those that cannot, then the wallet's keys the path does not use, then the connected
@@ -583,10 +583,30 @@ const SIGN_WHY = {
   strangers: 'Not a key of this wallet.',
 };
 const MUSIG_SIGN_STEPS = ['Nonces', 'Partial Signatures'];
+
+function ConfirmSigningReset({ onCancel, onConfirm }) {
+  React.useEffect(() => {
+    const dismiss = e => { if (e.key === 'Escape') { e.stopPropagation(); onCancel(); } };
+    document.addEventListener('keydown', dismiss, true);
+    return () => document.removeEventListener('keydown', dismiss, true);
+  }, [onCancel]);
+  return <Modal title="Reset signing?" onClose={onCancel}>
+    <Text variant="body">{PSBT_RESET_MESSAGE}</Text>
+    <ModalActions>
+      <Btn id="cancel" onClick={onCancel} />
+      <Btn id="confirm_reset_signing" onClick={onConfirm} />
+    </ModalActions>
+  </Modal>;
+}
+
 function MusigSignModal({ signers, others = [], offline = [], unsupported = [], strangers = [], single = false, round = 1, lost = false, finalized = false, saveWarning = '', txid = MUSIG_TXID, initial = {}, onRound, onProgress, onBroadcast, onClose }) {
   const [r, setR] = React.useState(single ? 2 : round);
   const [restartNeeded, setRestartNeeded] = React.useState(lost);
   const [done, setDone] = React.useState(initial.done || (round === 2 ? { 1: signers.map(s => s.fp) } : round === 'ready' ? { 1: signers.map(s => s.fp), 2: signers.map(s => s.fp) } : {}));
+  const [confirmReset, setConfirmReset] = React.useState(!!initial.confirmReset);
+  /* UI snapshots only; the app archives exact PSBTs in encrypted storage. */
+  const [attempt, setAttempt] = React.useState({ attemptId: initial.attemptId || 0,
+    baseline: initial.baseline || { done: {} }, archivedAttempts: initial.archivedAttempts || [] });
   /* the cosigners on their device now: every one can be asked at once */
   const [busy, setBusy] = React.useState([].concat(initial.busy || []));
   const [hotPrompt, setHotPrompt] = React.useState(null);
@@ -600,19 +620,21 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
   const usable = signers.filter(s => !blocked(s));
   const unusable = signers.filter(s => !usable.includes(s));
   React.useEffect(() => {
-    onProgress && onProgress({ done });
+    onProgress && onProgress({ ...attempt, done, lost: restartNeeded });
     if (sr === 2 && r !== 'ready' && signers.every(s => (done[2] || []).includes(s.fp))) {
       setR('ready'); onRound && onRound('ready');
     }
-  }, [done]);
+  }, [done, attempt, restartNeeded]);
   const add = (fp) => { setBusy(b => [...b, fp]); setTimeout(() => {
     setDone(d => ({ ...d, [sr]: [...(d[sr] || []), fp] }));
     setBusy(b => b.filter(x => x !== fp));
   }, 900); };
   const next = () => { setR(2); onRound && onRound(2); };
-  const restart = () => {
+  const reset = () => {
+    setAttempt({ attemptId: attempt.attemptId + 1, baseline: { done: {} },
+      archivedAttempts: [...attempt.archivedAttempts, { txid, attemptId: attempt.attemptId, baseline: attempt.baseline, done, round: r }] });
     setDone({}); setR(single ? 2 : 1); setRestartNeeded(false);
-    onProgress && onProgress({ done: {}, lost: false });
+    setConfirmReset(false);
     onRound && onRound(single ? 2 : 1);
   };
 
@@ -659,8 +681,7 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
     );
     const reason = busy.length ? (busy.some(fp => signers.some(s => s.fp === fp && s.route !== 'hot')) ? 'On the device…' : 'Signing…') : left.length ? `${left.length} cosigner${left.length > 1 ? 's' : ''} still to go.` : null;
     actions = (
-      <ModalActions reason={reason}>
-        <Button role="primary" disabled={!!busy.length} onClick={restart}>Restart signing</Button>
+      <ModalActions reason={reason} leading={<Btn id="reset_signing" disabled={!!busy.length} onClick={() => setConfirmReset(true)} />}>
         {sr === 1 ? <Btn id="continue" disabled={restartNeeded || !!reason} onClick={next} />
           : <Btn id="broadcast" disabled={restartNeeded || !!reason} onClick={onBroadcast} />}
       </ModalActions>
@@ -678,6 +699,7 @@ function MusigSignModal({ signers, others = [], offline = [], unsupported = [], 
         {finalized ? <ModalActions><Btn id="broadcast" onClick={onBroadcast} /></ModalActions> : actions}
       </Stack>
       {hotPrompt ? <UnsealModal title="Sign Transaction" prompt={`Enter the password of “${hotPrompt.alias}” to sign the transaction.`} proceedId="sign_hot" closeOnSubmit onCancel={() => setHotPrompt(null)} onDone={() => { add(hotPrompt.fp); setHotPrompt(null); }} /> : null}
+      {confirmReset ? <ConfirmSigningReset onCancel={() => setConfirmReset(false)} onConfirm={reset} /> : null}
     </Modal>
   );
 }
@@ -753,7 +775,8 @@ function RegisterDescriptorModal({ keys = MUSIG_KEYS, initial = {}, onClose }) {
 
 const MUSIG_TXID = '501895f3cc36d5e35514b5ff7af55c9b0822e114560ebe6fdab238067db076e2';
 
-const PSBT_RESTART_MESSAGE = 'A signer cannot safely resume its saved nonce session. Choose Restart signing to retire the old session and discard all nonces and partial signatures for this same transaction.';
+const PSBT_RESTART_MESSAGE = 'A signer cannot safely resume its saved nonce session. Choose Reset to archive the current attempt and retire its nonce session before starting again for the same transaction. Consumed or retired nonces cannot be reused.';
+const PSBT_RESET_MESSAGE = 'This starts a new signing session for the same transaction and resets active nonces and partial signatures. All participants must use the new attempt. The current PSBT and its baseline will be archived first, but consumed or retired nonce secrets cannot be restored. Reset signing?';
 const psbtSaveWarning = message => `The latest transaction progress is not persisted. You can continue signing or broadcasting. ${message}`;
 
 /* Kit records stand in for the app's encrypted PSBT store. No signing or storage here. */
@@ -802,9 +825,9 @@ function SavedPsbts({ records = SAVED_PSBTS, onOpen, onChange, saveWarning = '',
   </React.Fragment>;
 }
 
-Object.assign(window, { SavedPsbts, SAVED_PSBTS, psbtSaveWarning, MusigSignModal, RegisterDescriptorModal, musigSigners, MUSIG_KEYS, MUSIG_PATH, MUSIG_NEW_PATH, MUSIG_ADDRESS, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview,
+Object.assign(window, { ConfirmSigningReset, SavedPsbts, SAVED_PSBTS, psbtSaveWarning, MusigSignModal, RegisterDescriptorModal, musigSigners, MUSIG_KEYS, MUSIG_PATH, MUSIG_NEW_PATH, MUSIG_ADDRESS, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview,
   VerifyFirstAddress, CreateSharedAccount, SpendPathPicker, MUSIG_TXID });
 
 /* File-level namespace (DS compiler indexes this file as `Musig`). */
-export const Musig = { SavedPsbts, MusigSignModal, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview, VerifyFirstAddress, CreateSharedAccount,
+export const Musig = { ConfirmSigningReset, SavedPsbts, MusigSignModal, PathEditor, SpendPathList, EditSpendPath, PolicyPreview, PolicyReview, VerifyFirstAddress, CreateSharedAccount,
   SpendPathPicker };

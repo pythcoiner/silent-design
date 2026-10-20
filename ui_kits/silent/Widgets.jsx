@@ -464,10 +464,10 @@ export function WizardSteps({ steps = [], current = 0 }) {
   );
 }
 
-/* ModalActions — a modal's footer: optional Back on the left, then the reason the
-   primary action is disabled (when it is), then the actions. Every disabled
+/* ModalActions — a modal's footer: optional leading action or Back on the left,
+   then the disabled reason and the actions. Every disabled
    primary says why. Qt: HBox(Button, stretch, Label, Button…). */
-export function ModalActions({ onBack, backId = 'back', reason, children, style }) {
+export function ModalActions({ leading, onBack, backId = 'back', reason, children, style }) {
   /* Sticky: stays pinned to the bottom of a scrolling modal, so the buttons are
      always reachable. Qt: the footer sits outside the dialog's QScrollArea, so it
      spans the modal while the step body is centred: the zero-width anchor keeps the
@@ -477,6 +477,7 @@ export function ModalActions({ onBack, backId = 'back', reason, children, style 
       margin: '0 0 calc(-1 * var(--space-m))' }}>
       <Row gap="s" style={{ width: 'var(--modal-body-w)', marginLeft: 'calc(var(--modal-body-w) / -2)', boxSizing: 'border-box',
         background: 'var(--bg)', padding: 'var(--space-s) 0 var(--space-m)', ...style }}>
+        {leading}
         {onBack ? <Btn id={backId} onClick={onBack} /> : null}
         <Spacer />
         {reason ? <Text variant="caption" align="right" style={{ maxWidth: 260 }}>{reason}</Text> : null}
