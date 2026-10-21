@@ -536,33 +536,32 @@ export function ScrollArea({ children, style }) {
   );
 }
 
-/* WizardSteps — the step trail at the top of a wizard modal, centred: one numbered
-   dot per step, joined by a fixed-width rule (--wizard-rule-w); done steps show a check, the current one is accent and
-   bold, later ones muted. Display only (Back / Continue move between steps).
-   Qt: HBox of (QLabel dot, QLabel name) pairs with QFrame::HLine between. */
+/* WizardSteps: centred fixed-pitch numbers, wrapped labels and rules filling the remaining span. */
 export function WizardSteps({ steps = [], current = 0 }) {
   return (
     <div className="s-wizard" role="list">
       {steps.map((label, i) => {
         const state = i < current ? 'is-done' : i === current ? 'is-current' : '';
         return (
-          <React.Fragment key={label}>
-            {i > 0 ? <span className={'s-wizard__rule' + (i <= current ? ' is-done' : '')} /> : null}
-            <span className={'s-wizard__step ' + state} role="listitem" aria-current={i === current ? 'step' : undefined}>
-              <span className="s-wizard__dot">{i < current ? <Icon name="check" size={12} /> : i + 1}</span>
-              <span className="s-wizard__label">{label}</span>
+          <span key={i} className={'s-wizard__step ' + state} style={{ '--wizard-index': i }} role="listitem" aria-current={i === current ? 'step' : undefined}>
+            <span className="s-wizard__dot">{i < current ? <Icon name="check" size={12} /> : i + 1}</span>
+            <span className="s-wizard__label">
+              <span>{label}</span>
+              <span className="s-wizard__measure" aria-hidden="true">{label}</span>
+              <span className="s-wizard__measure s-wizard__measure--normal" aria-hidden="true">{label}</span>
             </span>
-          </React.Fragment>
+            {i < steps.length - 1 ? <span className={'s-wizard__rule' + (i < current ? ' is-done' : '')} /> : null}
+          </span>
         );
       })}
     </div>
   );
 }
 
-/* ModalActions — a modal's footer: optional Back on the left, then the reason the
-   primary action is disabled (when it is), then the actions. Every disabled
+/* ModalActions — a modal's footer: optional leading action or Back on the left,
+   then the disabled reason and the actions. Every disabled
    primary says why. Qt: HBox(Button, stretch, Label, Button…). */
-export function ModalActions({ onBack, backId = 'back', reason, children, style }) {
+export function ModalActions({ leading, onBack, backId = 'back', reason, children, style }) {
   /* Sticky: stays pinned to the bottom of a scrolling modal, so the buttons are
      always reachable. Qt: the footer sits outside the dialog's QScrollArea, so it
      spans the modal while the step body is centred: the zero-width anchor keeps the
@@ -572,6 +571,7 @@ export function ModalActions({ onBack, backId = 'back', reason, children, style 
       margin: '0 0 calc(-1 * var(--space-m))' }}>
       <Row gap="s" style={{ width: 'var(--modal-body-w)', marginLeft: 'calc(var(--modal-body-w) / -2)', boxSizing: 'border-box',
         background: 'var(--bg)', padding: 'var(--space-s) 0 var(--space-m)', ...style }}>
+        {leading}
         {onBack ? <Btn id={backId} onClick={onBack} /> : null}
         <Spacer />
         {reason ? <Text variant="caption" align="right" style={{ maxWidth: 260 }}>{reason}</Text> : null}

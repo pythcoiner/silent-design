@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Silent, Multikey Wallet · components</title>
-<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="../styles.css?v=57" />
 <link rel="stylesheet" href="gallery.css" />
 <style>.s-qr svg { width: 100%; height: 100%; display: block; } @keyframes s-spin { to { transform: rotate(360deg); } } .s-spin { animation: s-spin 1s linear infinite; }</style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -17,22 +17,22 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=7"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=36"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=5"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=16"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=44"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=57"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=45"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=12"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=10"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=16"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=18"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=49"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=25"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=28"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=52"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=5"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=48"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=51"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=22"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=61"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=25"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=63"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=27"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const F = (el, h = 560) => ({ frame: true, height: h, el: <div style={{ position: 'relative', height: '100%' }}>{el}</div> });
     const noop = () => {};
@@ -65,10 +65,30 @@
       </Row>;
     }
 
+    function ResetAttemptDemo() {
+      const [saved, setSaved] = React.useState({ ...SAVED_PSBTS[0], attemptId: 0, baseline: { done: {} }, archivedAttempts: [], lost: false });
+      const [open, setOpen] = React.useState(true);
+      const [version, setVersion] = React.useState(0);
+      return <Stack gap="s" style={{ height: '100%' }}>
+        <Row gap="s" wrap>
+          <Text variant="caption">Kit data only: active attempt {saved.attemptId}, archived snapshots {saved.archivedAttempts.length}. The app has no archive browser.</Text>
+          <Button onClick={() => { setVersion(n => n + 1); setOpen(true); }}>Reopen saved attempt</Button>
+        </Row>
+        <output hidden aria-label="Signing attempt fixture">{JSON.stringify(saved)}</output>
+        <Stack grow style={{ position: 'relative', minHeight: 0 }}>
+          {open ? <MusigSignModal key={version} signers={musigSigners(['73c5da0a', 'b8688df1'])}
+            txid={saved.txid} round={saved.round} initial={saved} lost={saved.lost} finalized={saved.finalized}
+            onProgress={patch => setSaved(record => ({ ...record, ...patch }))}
+            onRound={round => setSaved(record => ({ ...record, round, finalized: round === 'ready' }))}
+            onClose={() => setOpen(false)} onBroadcast={noop} /> : null}
+        </Stack>
+      </Stack>;
+    }
+
     Gallery.render({
       kicker: 'Multikey Wallet · components',
       title: 'MuSig2 multikey wallet: creator, spend path, signing rounds',
-      lede: 'Multikey accounts add a PSBT panel beside History, Coins, Send and Receive. A saved transaction opens in Send with its recipients, inputs, fee and spend path locked. Signing progress survives closing the modal or cancelling Send. Save failures warn without blocking signing or broadcast. A lost nonce session waits for an explicit Restart signing on the same transaction. These are UI fixtures, not signing or encrypted storage.',
+      lede: 'Multikey accounts add a PSBT panel beside History, Coins, Send and Receive. A saved transaction opens in Send with its recipients, inputs, fee and spend path locked. Signing progress survives closing the modal or cancelling Send. Save failures warn without blocking signing or broadcast. Reset is destructive and asks for confirmation before archiving the current attempt and starting again for the same transaction. These are UI fixtures, not signing or encrypted storage.',
       groups: [
         { name: 'Launcher', items: [
           { title: 'Create Account, then Multikey Wallet in the Account Type picker', tag: 'MenuTab', span: 'full', frame: true, height: 560, el: <LauncherDemo /> },
@@ -77,7 +97,7 @@
           { title: 'History: the core panel, the account\'s Taproot history', tag: 'HistoryScreen', span: 'full', frame: true, height: 460, el: <HistoryScreen wallet={WALLETS.multikey} /> },
           { title: 'Coins: the core panel', tag: 'CoinsScreen', span: 'full', frame: true, height: 420, el: <CoinsScreen wallet={WALLETS.multikey} /> },
           { title: 'Send: the core panel, its signing step the spend path and Sign (fill a payment, then Sign and sign)', tag: 'SendScreen', span: 'full', frame: true, height: 1100, el: <SendScreen wallet={WALLETS.multikey} /> },
-          { title: 'Send: prepared, round 2 next; payments and coins locked, fee and Clear hidden', tag: 'SendScreen', span: 'full', frame: true, height: 1300, el: <SendScreen wallet={WALLETS.multikey} initial={{ round: 2, payments: [{ address: 'bcrt1pfml94fqkjkwhlpeeychsxxwvwqkclmw02zv8y6nkmshcdsts6jjsl989et', amount: '0.005', usd: '', label: '', max: false }] }} /> },
+          { title: 'Send: prepared, round 2 next; payments and coins locked, fee and Clear hidden', tag: 'SendScreen', span: 'full', frame: true, height: 1300, el: <SendScreen wallet={WALLETS.multikey} initial={{ round: 2, payments: [{ address: 'bcrt1pfml94fqkjkwhlpeeychsxxwvwqkclmw02zv8y6nkmshcdsts6jjsl989et', amount: '0.005', label: '', max: false }] }} /> },
           { title: 'Receive: the Taproot section only', tag: 'ReceiveScreen', span: 'full', frame: true, height: 460, el: <ReceiveScreen wallet={WALLETS.multikey} /> },
           { title: 'Settings: Electrum, then the account\'s descriptor, cosigners, Register Descriptor and Delete', tag: 'MusigSettingsScreen', span: 'full', frame: true, height: 700, el: <SettingsScreen wallet={WALLETS.multikey} /> },
           { title: 'Register Descriptor: on open, Alice\'s USB device being checked, the QR keys not registered, the hot key not needed', tag: 'RegisterDescriptorModal', span: 'span2', ...F(<RegisterDescriptorModal onClose={noop} initial={{ states: { '28645006': 'pending', '73c5da0a': 'checking', 'b8688df1': 'pending', '3f635a63': 'not_needed' } }} />, 560) },
@@ -93,9 +113,13 @@
           { title: 'PSBT: list or restore failure', tag: 'SavedPsbts', span: 'full', frame: true, height: 460, el: <SavedPsbtDemo initial={{ records: [], error: 'Could not load saved PSBTs: encrypted state is unavailable.' }} /> },
           { title: 'PSBT: overlapping inputs, conflict warning does not block Sign', tag: 'SavedPsbts', span: 'full', frame: true, height: 1300, el: <SavedPsbtDemo initial={{ records: [{ ...SAVED_PSBTS[0], warning: 'An input is spent by another transaction. Signing and broadcast may fail.', conflicts: [SAVED_PSBTS[2].txid] }, SAVED_PSBTS[1]] }} /> },
           { title: 'Resume: one partial signature already present', tag: 'MusigSignModal', ...MS({ round: 2, initial: { done: SAVED_PSBTS[0].done } }) },
-          { title: 'Resume: unsafe nonce session, progress kept until Restart signing is chosen', tag: 'MusigSignModal', ...MS({ round: 2, lost: true, initial: { done: SAVED_PSBTS[0].done } }) },
+          { title: 'Resume: unsafe nonce session, progress kept until Reset is confirmed', tag: 'MusigSignModal', ...MS({ round: 2, lost: true, initial: { done: SAVED_PSBTS[0].done } }) },
           { title: 'Resume: save failed, signing still available', tag: 'MusigSignModal', ...MS({ round: 2, saveWarning: 'Could not write encrypted state.', initial: { done: SAVED_PSBTS[0].done } }) },
           { title: 'Resume: finalized transaction, Broadcast only', tag: 'MusigSignModal', ...MS({ round: 'ready', finalized: true }) },
+        ]},
+        { name: 'Reset signing (issue #55)', items: [
+          { title: 'Reset: destructive and left-aligned; confirmation preserves the current partial signature until Yes, reset', tag: 'ConfirmSigningReset', ...MS({ round: 2, initial: { done: SAVED_PSBTS[0].done, confirmReset: true } }) },
+          { title: 'Reset attempts: Cancel, close or Escape changes nothing; confirmed resets keep separate snapshots, reopen retains them', tag: 'MusigSignModal', span: 'full', ...F(<ResetAttemptDemo />, 900) },
         ]},
         { name: 'Create Multikey Account', items: [
           { title: '1 Spend Paths: network, one row per path, Add a Spend Path (click a row)', tag: 'SpendPathList', ...CS({ step: 'paths' }, 760) },

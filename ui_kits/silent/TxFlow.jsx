@@ -176,7 +176,7 @@ function TxFlow({ inputs, outputs, width = 300, height = 188, detail = false }) 
           boxShadow: '0 8px 24px rgba(0,0,0,0.35)',
         }}>
           <Text as="div" variant="body" weight="demibold">{data.title}</Text>
-          {data.usd ? <Text as="div" variant="mono" color="secondary">{data.usd}</Text> : null}
+          {data.fiat ? <Text as="div" variant="mono" color="secondary">{data.fiat}</Text> : null}
           {data.addr ? <Text as="div" variant="mono" color="muted" size="sm" wrap="anywhere">{txMidAddr(data.addr)}</Text> : null}
         </div>
       ) : null}

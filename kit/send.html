@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Silent — Send · components</title>
-<link rel="stylesheet" href="../styles.css" />
+<link rel="stylesheet" href="../styles.css?v=57" />
 <link rel="stylesheet" href="gallery.css" />
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -16,50 +16,51 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=3"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=36"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=3"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=11"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=44"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=57"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=45"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=16"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=18"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=49"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=25"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/AddKey.jsx?v=28"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=52"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=3"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=48"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=6"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=51"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=61"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=63"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const W = WALLETS[KNOWN_WALLETS[0]] || Object.values(WALLETS)[0];
 
     const inItems = [
-      { w: 0.02, title: 'Input #1', usd: '$1360.00', addr: '3a9f2c…1d4e:0' },
-      { w: 0.015, title: 'Input #2', usd: '$1020.00', addr: '7b1e84…9c0f:1' },
+      { w: 0.02, title: 'Input #1', addr: '3a9f2c…1d4e:0' },
+      { w: 0.015, title: 'Input #2', addr: '7b1e84…9c0f:1' },
     ];
     const outItems = [
-      { w: 0.025, kind: 'recipient', title: 'Rent payment', label: 'Rent payment', usd: '$1700.00', addr: 'bc1q7eu…h3esg' },
-      { w: 0.00984, kind: 'change', title: 'Change', usd: '$669.12', addr: '(returned to your wallet)' },
-      { w: 0.00016, kind: 'fee', title: 'Network fee', usd: '$10.88', addr: '(paid to miners)' },
+      { w: 0.025, kind: 'recipient', title: 'Rent payment', label: 'Rent payment', addr: 'bc1q7eu…h3esg' },
+      { w: 0.00984, kind: 'change', title: 'Change', addr: '(returned to your wallet)' },
+      { w: 0.00016, kind: 'fee', title: 'Network fee', addr: '(paid to miners)' },
     ];
 
     function PaymentDemo() {
       const [out, setOut] = React.useState({ address: 'bc1q7eu259lf71x9anq4ezev8xdyuhk3esg',
-        amount: '0.025', usd: '1700.00', label: 'Rent payment', max: false });
+        amount: '0.025', label: 'Rent payment', max: false });
       return <RecipientCard out={out} idx={0} deletable canMax onChange={setOut} onDelete={() => {}} />;
     }
 
     function SummaryDemo() {
+      const { price } = React.useContext(PriceFeedContext);
       return (
         <TransactionSummary
           rows={[
-            { label: 'Sending', value: '0.02500000 BTC', sub: '$1700.00' },
-            { label: 'Network fee', value: '0.00016000 BTC' },
-            { label: 'Change', value: '0.00984000 BTC' },
+            { label: 'Sending', value: '0.02500000 BTC', sub: formatFiat(0.025, price) },
+            { label: 'Network fee', value: '0.00016000 BTC', sub: formatFiat(0.00016, price) },
+            { label: 'Change', value: '0.00984000 BTC', sub: formatFiat(0.00984, price) },
           ]}
-          total={{ label: 'Total', value: '0.02516000 BTC' }} />
+          total={{ label: 'Total', value: '0.02516000 BTC', sub: formatFiat(0.02516, price) }} />
       );
     }
 
@@ -79,6 +80,10 @@
       groups: [
         { name: 'Screen', items: [
           { title: 'Send — full screen', tag: 'SendScreen', span: 'full', frame: true, height: 660, el: <SendScreen wallet={W} /> },
+          { title: 'Send: EUR available from the explicitly selected feed, including fee, change, total and hover cards', tag: 'SendScreen', span: 'full', frame: true, height: 1300, el: <PriceFeedProvider sources={PRICE_FEED_SOURCES} initialSelection={{ source: PRICE_FEED_SOURCES[0].id, currency: 'EUR' }}><SendScreen wallet={W} initial={{ payments: [{ address: MUSIG_ADDRESS, amount: '0.005', label: 'Invoice', max: false }] }} /></PriceFeedProvider> },
+          { title: 'Send: selected quote unavailable, no fiat entry or equivalents', tag: 'SendScreen', span: 'full', frame: true, height: 1300, el: <PriceFeedProvider sources={[{ ...PRICE_FEED_SOURCES[0], rates: {} }]} initialSelection={{ source: PRICE_FEED_SOURCES[0].id, currency: 'EUR' }}><SendScreen wallet={W} initial={{ payments: [{ address: MUSIG_ADDRESS, amount: '0.005', label: 'Invoice', max: false }] }} /></PriceFeedProvider> },
+          { title: 'Send: Default recommendation at 0.5 sat/vB; typing a rate or toggling absolute fee switches to Manual', tag: 'SendScreen', span: 'full', frame: true, height: 1300, el: <FeeFeedProvider sources={FEE_FEED_SOURCES} initialPreferences={{ ...FEE_PREFERENCES, mode: 'Default', default_source: FEE_FEED_SOURCES[0].id }}><SendScreen wallet={W} initial={{ payments: [{ address: MUSIG_ADDRESS, amount: '0.005', label: 'Invoice', max: false }] }} /></FeeFeedProvider> },
+          ...['Low', 'Medium', 'Fast'].map(tier => ({ title: `Send: Smart ${tier}, initialized from global preferences`, tag: 'SendScreen', span: 'full', frame: true, height: 1300, el: <FeeFeedProvider sources={FEE_FEED_SOURCES} initialPreferences={{ ...FEE_PREFERENCES, mode: 'Smart', smart_source: FEE_FEED_SOURCES[1].id, tier }}><SendScreen wallet={W} initial={{ payments: [{ address: MUSIG_ADDRESS, amount: '0.005', label: 'Invoice', max: false }] }} /></FeeFeedProvider> })),
         ]},
         { name: 'Transaction shape', items: [
           { title: 'Populated (2 in → recipient · change · fee)', tag: 'TxFlow', span: 'span2', el: <Card tone="inset" style={{ padding: '12px 10px 8px' }}><TxFlow inputs={inItems} outputs={outItems} /></Card> },

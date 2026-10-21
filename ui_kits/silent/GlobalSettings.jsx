@@ -1,7 +1,8 @@
 /* Silent UI Kit — Global Settings tab (issues #4, #46; src/views/modals/AppSettings.cpp).
    A module tab right of Keys (not a modal): a page titled "Settings", as the Keys page,
-   a centred column. Sections: General (theme, language), Plugin Manager (external
-   plugins only), Extension Settings (module sections, only when at least one exists).
+   a centred column. Sections: General (theme, language), optional Price feed,
+   Transaction fees, Plugin Manager (external plugins only), and Extension Settings
+   (module sections, only when at least one exists).
    Opening a section, a plugin's access or confirming a plugin disable REPLACES the
    page content, with a way back; leaving the tab goes back to the sections. */
 
@@ -46,6 +47,53 @@ function GeneralSection({ theme, themes, onTheme, language, onLanguage, langSave
       </Row> : null}
     </Stack>
   );
+}
+
+function PriceFeedSection({ open = true, onFold }) {
+  const { sources, price, selectPrice } = React.useContext(PriceFeedContext);
+  if (!sources.length) return null;
+  const source = sources.find(s => s.id === price.source);
+  const sourceLabel = source ? source.name : price.source ? `${price.source} (unavailable)` : 'None';
+  const currencies = source ? source.currencies : [];
+  const currencyLabel = !price.currency ? 'None' : currencies.includes(price.currency) ? price.currency : `${price.currency} (unavailable)`;
+  const sourceOptions = ['None', ...sources.map(s => s.name), ...(!source && price.source ? [sourceLabel] : [])];
+  const currencyOptions = ['None', ...currencies, ...(price.currency && !currencies.includes(price.currency) ? [currencyLabel] : [])];
+  return <Stack>
+    <SectionHeader label="Price feed" open={open} onToggle={onFold} />
+    {open ? <FieldGroup>
+      <Field label="Source:"><ComboBox width={160} value={sourceLabel} options={sourceOptions}
+        onChange={label => selectPrice(label === sourceLabel ? price.source : (sources.find(s => s.name === label) || {}).id || '', '')} /></Field>
+      <Field label="Currency:"><ComboBox width={160} value={currencyLabel} options={currencyOptions} disabled={!currencies.length}
+        onChange={label => selectPrice(price.source, label === currencyLabel ? price.currency : label === 'None' ? '' : label)} /></Field>
+    </FieldGroup> : null}
+  </Stack>;
+}
+
+function FeeSourceField({ label, sources, value, onChange }) {
+  if (!sources.length) return null;
+  const source = sources.find(s => s.id === value);
+  const selected = source ? source.name : value ? `${value} (unavailable)` : 'None';
+  const options = ['None', ...sources.map(s => s.name), ...(!source && value ? [selected] : [])];
+  return <FieldGroup><Field label={label}>
+    <ComboBox value={selected} options={options}
+      onChange={name => onChange(name === selected ? value : (sources.find(s => s.name === name) || {}).id || '')} />
+  </Field></FieldGroup>;
+}
+
+function FeeSettingsSection({ open = true, onFold }) {
+  const { sources, preferences, selectFees } = React.useContext(FeeFeedContext);
+  const defaults = sources.filter(s => s.has_default), smart = sources.filter(s => s.has_smart);
+  const modes = ['Manual', ...(defaults.length || preferences.mode === 'Default' ? ['Default'] : []), ...(smart.length || preferences.mode === 'Smart' ? ['Smart'] : [])];
+  const set = patch => selectFees({ ...preferences, ...patch });
+  return <Stack>
+    <SectionHeader label="Transaction fees" open={open} onToggle={onFold} />
+    {open ? <Stack gap="s">
+      <FieldGroup><Field label="Fee mode:"><ComboBox value={preferences.mode} options={modes} onChange={mode => set({ mode })} /></Field></FieldGroup>
+      <FeeSourceField label="Default source:" sources={defaults} value={preferences.default_source} onChange={default_source => set({ default_source })} />
+      <FeeSourceField label="Smart source:" sources={smart} value={preferences.smart_source} onChange={smart_source => set({ smart_source })} />
+      {smart.length ? <FieldGroup><Field label="Initial smart tier:"><ComboBox value={preferences.tier} options={['Low', 'Medium', 'Fast']} onChange={tier => set({ tier })} /></Field></FieldGroup> : null}
+    </Stack> : null}
+  </Stack>;
 }
 
 /* PluginSection (issue #41): a plugin comes in only dropped on the window (its folder,
@@ -192,6 +240,7 @@ function PluginAccessPrompt({ plugin, account = true, keys = false, state = fals
 }
 
 function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLUGINS, sections = EXTENSION_SECTIONS, initial = {} }) {
+  const { sources } = React.useContext(PriceFeedContext);
   const [themeLocal, setThemeLocal] = React.useState(initial.theme || themeProp || 'Light');
   const theme = themeProp != null && initial.theme == null ? themeProp : themeLocal;
   const [language, setLanguage] = React.useState(initial.language || 'English');
@@ -201,7 +250,7 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
   const [notice, setNotice] = React.useState(initial.notice || null);
   const [busyId, setBusyId] = React.useState(initial.busyId || null);
   const [view, setView] = React.useState(initial.view || null);
-  const [folds, setFolds] = React.useState({ general: true, plugins: true, extensions: true, ...(initial.folds || {}) });   // true = open
+  const [folds, setFolds] = React.useState({ general: true, prices: true, fees: true, plugins: true, extensions: true, ...(initial.folds || {}) });   // true = open
   const fold = (k) => setFolds(f => ({ ...f, [k]: !f[k] }));           // null | { section } | { disable }
 
   const themes = [{ name: 'Light' }, { name: 'Dark' },
@@ -246,6 +295,12 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
       <ScrollArea style={{ flex: '0 1 auto' }}>
       <Stack gap="s" style={{ width: GS_BODY_WIDTH }}>
         <GeneralSection theme={theme} themes={themes} onTheme={pickTheme} language={language} onLanguage={pickLanguage} langSaved={langSaved} open={folds.general} onFold={() => fold('general')} />
+        {sources.length ? <React.Fragment>
+          <Divider space="0" />
+          <PriceFeedSection open={folds.prices} onFold={() => fold('prices')} />
+        </React.Fragment> : null}
+        <Divider space="0" />
+        <FeeSettingsSection open={folds.fees} onFold={() => fold('fees')} />
         <Divider space="0" />
         <PluginSection plugins={plugins} added={added} notice={notice} busyId={busyId} dragging={!!initial.dragging} onToggle={toggle} onAccess={(p) => { setNotice(null); setView({ access: p.id }); }} open={folds.plugins} onFold={() => fold('plugins')} />
         {sections.length ? <Divider space="0" /> : null}
@@ -278,4 +333,4 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
   );
 }
 
-Object.assign(window, { PluginRow, PluginDrop, GlobalSettingsTab, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });
+Object.assign(window, { FeeSettingsSection, PriceFeedSection, PluginRow, PluginDrop, GlobalSettingsTab, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });

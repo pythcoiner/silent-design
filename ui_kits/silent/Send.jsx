@@ -6,13 +6,27 @@
 function looksLikeAddress(s) { return /^(sp1|bc1|tb1|bcrt1)[a-z0-9]{6,}$/i.test(s.trim()); }
 function looksLikeAmount(s) { const v = parseFloat(s); return !isNaN(v) && v > 0; }
 
-/* Mock spot price for the BTC <-> USD field. In the app this comes from the
-   price oracle; the two inputs convert reciprocally on edit. */
-const USD_RATE = 68000;
-const btcToUsd = b => looksLikeAmount(b) ? (parseFloat(b) * USD_RATE).toFixed(2) : '';
-const usdToBtc = u => looksLikeAmount(u) ? (parseFloat(u) / USD_RATE).toFixed(8) : '';
+const btcToFiat = (btc, price) => price.rate !== null && looksLikeAmount(btc) ? (parseFloat(btc) * price.rate).toFixed(2) : '';
+const fiatToBtc = (fiat, price) => price.rate !== null && looksLikeAmount(fiat) ? (parseFloat(fiat) / price.rate).toFixed(8) : '';
+const formatFiat = (btc, price) => {
+  const amount = btcToFiat(btc, price);
+  return amount ? `~ ${amount} ${price.currency}` : '';
+};
 
-function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete, onScan }) {
+function RecipientCard({ out, idx, deletable, canMax, maxAmount, onChange, onDelete, onScan }) {
+  const { price } = React.useContext(PriceFeedContext);
+  const [fiatEdit, setFiatEdit] = React.useState(null);
+  React.useEffect(() => setFiatEdit(null), [price.currency, price.rate]);
+  /* Keep an explicit fiat edit's text until BTC or the selected quote changes. */
+  const edited = fiatEdit && fiatEdit.btc === out.amount && fiatEdit.currency === price.currency && fiatEdit.rate === price.rate;
+  const fiatValue = out.max ? btcToFiat(maxAmount, price) : edited ? fiatEdit.text : btcToFiat(out.amount, price);
+  const editFiat = e => {
+    const text = e.target.value;
+    if (!/^\d*(\.\d{0,2})?$/.test(text)) return;
+    const btc = fiatToBtc(text, price);
+    setFiatEdit({ text, btc, currency: price.currency, rate: price.rate });
+    onChange({ ...out, amount: btc });
+  };
   const addrState = out.address === '' ? 'none' : looksLikeAddress(out.address) ? 'valid' : 'invalid';
   const amtState = out.max ? 'none' : out.amount === '' ? 'none' : looksLikeAmount(out.amount) ? 'valid' : 'invalid';
   return (
@@ -39,14 +53,11 @@ function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete, onScan
         <Row gap="m">
           <ValidatedInput mono state={amtState} placeholder="0.001 (in BTC)" disabled={out.max}
             value={out.max ? 'MAX' : out.amount} wrapStyle={{ flex: 1, minWidth: 0 }}
-            onChange={e => onChange({ ...out, amount: e.target.value, usd: btcToUsd(e.target.value) })} />
-          <Text variant="body" weight="demibold" color="secondary" style={{ flex: 'none' }}>~USD</Text>
-          <Row gap={6} grow style={{ minWidth: 0 }}>
-            <Text variant="mono" color="muted">$</Text>
-            <Input mono placeholder="Enter amount in USD" disabled={out.max} value={out.usd}
-              style={{ flex: 1, minWidth: 0, boxSizing: 'border-box' }}
-              onChange={e => onChange({ ...out, usd: e.target.value, amount: usdToBtc(e.target.value) })} />
-          </Row>
+            onChange={e => onChange({ ...out, amount: e.target.value })} />
+          {price.rate !== null ? <Row gap="xs" grow style={{ minWidth: 0 }}>
+            <Input mono grow placeholder="0.00" inputMode="decimal" disabled={out.max} value={fiatValue} onChange={editFiat} />
+            <Text variant="body" weight="demibold" color="secondary">{price.currency}</Text>
+          </Row> : null}
           {canMax ? (
             <Row style={{ flex: 'none' }}>
               <Checkbox checked={out.max} onChange={v => onChange({ ...out, max: v })} label="MAX" />
@@ -66,12 +77,16 @@ function RecipientCard({ out, idx, deletable, canMax, onChange, onDelete, onScan
    coins are locked and the fee inputs and Clear are hidden. `initial.round` opens a
    Multikey Send prepared, at that round (1 | 2 | 'ready'), with `initial.payments`. */
 function SendScreen({ wallet, initial = {}, onProgress }) {
-  const blankOutput = () => ({ address: '', amount: '', usd: '', label: '', max: false });
+  const { price } = React.useContext(PriceFeedContext);
+  const { preferences, rate } = React.useContext(FeeFeedContext);
+  const blankOutput = () => ({ address: '', amount: '', label: '', max: false });
   const musig = wallet.kind === 'musig';
   const keyPath = musig ? `Key path: ${wallet.cosigners.split(', ').join(' + ')}` : null;
   const [outputs, setOutputs] = React.useState(initial.payments || [blankOutput()]);
   const [feeRate, setFeeRate] = React.useState(!initial.inputs);
   const [fee, setFee] = React.useState(initial.fee || '1');
+  const [feeMode, setFeeMode] = React.useState(initial.inputs ? 'Manual' : preferences.mode);
+  const [feeTier, setFeeTier] = React.useState(preferences.tier);
   const [auto, setAuto] = React.useState(!initial.inputs);
   const [selected, setSelected] = React.useState(initial.inputs ? Object.fromEntries(initial.inputs.map((_, i) => [i, true])) : {});
   const [modal, setModal] = React.useState(null); // null | 'confirm' | 'sending' | 'sent'
@@ -93,16 +108,36 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
   }, [wallet]);
 
   // The signing step holds a transaction: signed (sp) or prepared (Multikey).
-  const held = musig ? round !== null : signed;
+  const held = musig ? round !== null : signed || modal === 'signer';
+  const recommendation = rate(feeMode, feeTier);
+  // Fallback and explicit overrides stay Manual until the user opts in again.
+  React.useEffect(() => {
+    if (held || restored || feeMode === 'Manual') return;
+    if (recommendation === null) setFeeMode('Manual');
+    setFee(String(recommendation === null ? 1 : recommendation));
+  }, [held, restored, feeMode, recommendation]);
+
+  const initializeFees = () => {
+    const value = rate(preferences.mode, preferences.tier);
+    setFeeMode(value === null ? 'Manual' : preferences.mode);
+    setFeeTier(preferences.tier); setFeeRate(true); setFee(String(value === null ? 1 : value));
+  };
+  const pickFeeMode = mode => { setFeeMode(mode); if (mode !== 'Manual') setFeeRate(true); };
+  const editFee = e => {
+    const value = e.target.value;
+    if (!(feeRate ? /^\d*(\.\d{0,3})?$/ : /^\d*$/).test(value)) return;
+    setFeeMode('Manual'); setFee(value);
+  };
   const clearAll = () => { clearOutputs(); setSelected({}); setSigned(false); setRound(null); setRestored(false); setProgress({}); };
 
   const anyMax = outputs.some(o => o.max);
   const setOut = (i, v) => setOutputs(outputs.map((o, k) => k === i ? v : o));
-  const addOutput = () => setOutputs([...outputs, { address: '', amount: '', usd: '', label: '', max: false }]);
+  const addOutput = () => setOutputs([...outputs, blankOutput()]);
   const delOutput = (i) => setOutputs(outputs.filter((_, k) => k !== i));
   const clearOutputs = () => setOutputs([blankOutput()]);
 
-  const valid = outputs.every(o => looksLikeAddress(o.address) && (o.max || looksLikeAmount(o.amount))) && looksLikeAmount(fee);
+  const validFee = looksLikeAmount(fee) && (feeRate || /^\d+$/.test(fee));
+  const valid = outputs.every(o => looksLikeAddress(o.address) && (o.max || looksLikeAmount(o.amount))) && validFee;
   const selCount = Object.values(selected).filter(Boolean).length;
 
   // Auto coin selection — mock the Rust simulation: greedily cover the
@@ -142,26 +177,25 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
   const feeNum = looksLikeAmount(fee) ? parseFloat(fee) : 0;
   const feeBtc = (feeRate ? feeNum * 200 : feeNum) / 1e8; // mock ~200 vB tx
   const sendBtc = anyMax ? Math.max(0, inSum - feeBtc) : reqTotal;
-  const sendUsd = sendBtc > 0 ? '$' + (sendBtc * USD_RATE).toFixed(2) : '';
   const totalBtc = sendBtc + feeBtc;
   /* summary value: fiat to the left of the BTC amount, every row */
-  const fmt8 = n => <Row inline gap="s"><Text variant="mono" color="muted">{'$' + (n * USD_RATE).toFixed(2)}</Text><BtcText btc={n} fixed /></Row>;
+  const fmt8 = n => <Row inline gap="s"><Text variant="mono" color="muted">{formatFiat(n, price)}</Text><BtcText btc={n} fixed /></Row>;
 
   // diagram data
   const inItems = selCoins.map((c, i) => ({
     w: btcOf(c.value), title: `Input #${i + 1}`,
-    usd: '$' + (btcOf(c.value) * USD_RATE).toFixed(2), addr: c.outpoint,
+    fiat: formatFiat(btcOf(c.value), price), addr: c.outpoint,
   }));
   const recipItems = outputs.map((o, i) => {
     const v = o.max ? sendBtc : (parseFloat(o.amount) || 0);
     return { w: v, kind: 'recipient', title: o.label ? o.label : `Output #${i + 1}`, label: o.label,
-      usd: v > 0 ? '$' + (v * USD_RATE).toFixed(2) : '', addr: o.address || 'recipient address…' };
+      fiat: formatFiat(v, price), addr: o.address || 'recipient address…' };
   }).filter(d => d.w > 0);
   const changeV = anyMax ? 0 : Math.max(0, inSum - reqTotal - feeBtc);
   const outItems = [
     ...recipItems,
-    ...(changeV > 1e-9 ? [{ w: changeV, kind: 'change', title: 'Change', usd: '$' + (changeV * USD_RATE).toFixed(2), addr: '(returned to your wallet)' }] : []),
-    ...(feeBtc > 0 && inSum > 0 ? [{ w: feeBtc, kind: 'fee', title: 'Network fee', usd: '$' + (feeBtc * USD_RATE).toFixed(2), addr: '(paid to miners)' }] : []),
+    ...(changeV > 1e-9 ? [{ w: changeV, kind: 'change', title: 'Change', fiat: formatFiat(changeV, price), addr: '(returned to your wallet)' }] : []),
+    ...(feeBtc > 0 && inSum > 0 ? [{ w: feeBtc, kind: 'fee', title: 'Network fee', fiat: formatFiat(feeBtc, price), addr: '(paid to miners)' }] : []),
   ];
 
   const coinsHeader = (
@@ -208,7 +242,7 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
       <Stack gap="s">
         {outputs.map((o, i) => (
           <RecipientCard key={i} out={o} idx={i} deletable={outputs.length > 1}
-            canMax={!anyMax || o.max} onChange={v => setOut(i, v)} onDelete={() => delOutput(i)}
+            canMax={!anyMax || o.max} maxAmount={Math.max(0, sendBtc - reqTotal)} onChange={v => setOut(i, v)} onDelete={() => delOutput(i)}
             onScan={() => setModal({ type: 'scan', idx: i })} />
         ))}
       </Stack>
@@ -242,16 +276,20 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
   const actionRow = (
     <Row align="flex-end" gap="s">
       {held ? null : (
+      <React.Fragment>
+      <ComboBox value={feeMode} options={['Manual', 'Default', 'Smart']} width={120} onChange={pickFeeMode} />
+      {feeMode === 'Smart' ? <ComboBox value={feeTier} options={['Low', 'Medium', 'Fast']} width={120} onChange={setFeeTier} /> : null}
       <div style={{ flex: 'none' }}>
         <FieldLabel>Fee rate</FieldLabel>
         <Row gap="s">
-          <Toggle on={feeRate} onClick={() => setFeeRate(r => !r)} />
-          <ValidatedInput mono maxLength={6} inputMode="numeric" state={looksLikeAmount(fee) ? 'valid' : 'invalid'}
-            value={fee} onChange={e => setFee(e.target.value.replace(/[^\d.]/g, '').slice(0, 6))}
+          <Toggle on={feeRate} onClick={() => { setFeeMode('Manual'); setFeeRate(r => !r); }} />
+          <ValidatedInput mono aria-label="Fee value" inputMode={feeRate ? 'decimal' : 'numeric'} state={validFee ? 'valid' : 'invalid'}
+            value={fee} onChange={editFee}
             wrapStyle={{ flex: 'none', width: 104 }} />
           <Text variant="body" color="secondary" style={{ flex: 'none' }}>{feeRate ? 'sats/vB' : 'sats'}</Text>
         </Row>
       </div>
+      </React.Fragment>
       )}
       <Spacer />
       {musig ? (
@@ -325,13 +363,13 @@ function SendScreen({ wallet, initial = {}, onProgress }) {
       ) : null}
       {modal && modal.type === 'musig' ? (
         <MusigSignModal signers={musigSigners(wallet.cosigners.split(', '))} round={round}
-          initial={{ done: progress.done }} lost={progress.lost} finalized={progress.finalized}
+          initial={progress} txid={progress.txid || MUSIG_TXID} lost={progress.lost} finalized={progress.finalized}
           saveWarning={initial.saveWarning} onProgress={updateProgress}
           onRound={updateRound} onClose={() => setModal(null)}
           onBroadcast={() => { updateProgress({ broadcast: true, finalized: true }); setModal({ type: 'sent', txid: MUSIG_TXID }); }} />
       ) : null}
       {modal && modal.type === 'sent' ? (
-        <SentModal txid={modal.txid} onClose={() => { clearAll(); setModal(null); }} />
+        <SentModal txid={modal.txid} onClose={() => { clearAll(); initializeFees(); setModal(null); }} />
       ) : null}
     </React.Fragment>
   );
@@ -364,4 +402,4 @@ function SentModal({ onClose }) {
 
 Object.assign(window, { SendScreen, BroadcastModal, SentModal, SENT_TXID,
   RecipientCard,
-  looksLikeAmount, looksLikeAddress, btcToUsd, usdToBtc, USD_RATE });
+  looksLikeAmount, looksLikeAddress, btcToFiat, fiatToBtc, formatFiat });

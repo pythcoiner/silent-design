@@ -171,4 +171,4 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+ReactDOM.createRoot(document.getElementById('root')).render(<PriceFeedProvider><FeeFeedProvider><App /></FeeFeedProvider></PriceFeedProvider>);

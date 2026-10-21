@@ -68,6 +68,9 @@ export const BUTTONS = {
   sign_hot: { role: 'primary', label: 'Sign', w: 'M' },
   sign_round: { role: 'primary', label: 'Sign Round {n}', args: true, w: 'M' },
   try_again: { role: 'primary', label: 'Try Again', w: 'M' },
+  reset_signing: { role: 'destructive', label: 'Reset', w: 'M' },
+  confirm_reset_signing: { role: 'destructive', label: 'Yes, reset', w: 'L' },
+  cancel: { role: 'default', label: 'Cancel', w: 'M' },
   unlocking: { role: 'primary', label: 'Unlocking…', w: 'M' },
   /* the app state's password unlock (issue #37) */
   unlock: { role: 'primary', label: 'Unlock', w: 'M' },

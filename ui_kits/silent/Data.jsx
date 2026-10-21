@@ -184,6 +184,44 @@ const OTHER_DEVICES = [{ name: 'Coldcard Mk4', fp: '7e02da41' }];
 
 Object.assign(window, { SIGNING_PLAN, SIGNING_PLAN_ALL, VERIFY_PLAN, SP_VERIFY_PLAN, OTHER_DEVICES });
 
+/* UI stand-in for Host::selectedPrice(), not a network feed. Mainline has no feeds. */
+const PriceFeedContext = React.createContext({ sources: [], price: { source: '', currency: '', rate: null }, selectPrice: () => {} });
+function PriceFeedProvider({ sources = [], initialSelection = { source: '', currency: '' }, children }) {
+  const [selection, setSelection] = React.useState(initialSelection);
+  const source = sources.find(s => s.id === selection.source);
+  const rate = source && source.currencies.includes(selection.currency) ? (source.rates || {})[selection.currency] : null;
+  const price = { ...selection, rate: Number.isFinite(rate) && rate > 0 ? rate : null };
+  return <PriceFeedContext.Provider value={{ sources, price, selectPrice: (source, currency) => setSelection({ source, currency }) }}>{children}</PriceFeedContext.Provider>;
+}
+
+/* Explicit gallery quotes only. No source or currency is selected by default. */
+const PRICE_FEED_SOURCES = [
+  { id: '["prices","feed","primary"]', name: 'Price Feed A', currencies: ['EUR', 'USD'], rates: { EUR: 60000, USD: 68000 } },
+  { id: '["prices","feed","secondary"]', name: 'Price Feed B', currencies: ['USD'], rates: { USD: 70000 } },
+];
+Object.assign(window, { PriceFeedContext, PriceFeedProvider, PRICE_FEED_SOURCES });
+
+const FEE_PREFERENCES = { mode: 'Manual', default_source: '', smart_source: '', tier: 'Medium' };
+const FeeFeedContext = React.createContext({ sources: [], preferences: FEE_PREFERENCES, selectFees: () => {}, rate: () => null });
+function FeeFeedProvider({ sources = [], initialPreferences = FEE_PREFERENCES, children }) {
+  const [preferences, selectFees] = React.useState(initialPreferences);
+  const rate = (mode, tier) => {
+    const source = sources.find(s => s.id === (mode === 'Default' ? preferences.default_source : preferences.smart_source));
+    const value = mode === 'Default' && source && source.has_default ? source.defaultRate
+      : mode === 'Smart' && source && source.has_smart ? (source.smartRates || {})[tier] : null;
+    return Number.isFinite(value) && value > 0 ? value : null;
+  };
+  return <FeeFeedContext.Provider value={{ sources, preferences, selectFees, rate }}>{children}</FeeFeedContext.Provider>;
+}
+
+/* Capability-specific gallery fixtures, not providers selected by the app. */
+const FEE_FEED_SOURCES = [
+  { id: '["fees","feed","default"]', name: 'Default Feed', has_default: true, has_smart: false, defaultRate: 0.5 },
+  { id: '["fees","feed","smart"]', name: 'Smart Feed', has_default: false, has_smart: true, smartRates: { Low: 0.25, Medium: 0.75, Fast: 2 } },
+  { id: '["fees","feed","combined"]', name: 'Combined Feed', has_default: true, has_smart: true, defaultRate: 3, smartRates: { Low: 1, Medium: 2, Fast: 4 } },
+];
+Object.assign(window, { FeeFeedContext, FeeFeedProvider, FEE_PREFERENCES, FEE_FEED_SOURCES });
+
 const defaultXpubPath = (network) => (network === 'Bitcoin' ? "m/84'/0'/0'" : "m/84'/1'/0'");
 const deviceName = (d) => (d.brand && d.model && !d.model.startsWith(d.brand) ? `${d.brand} ${d.model}` : d.model || d.brand);
 
