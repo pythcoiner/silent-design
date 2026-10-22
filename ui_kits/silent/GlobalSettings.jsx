@@ -96,16 +96,16 @@ function FeeSettingsSection({ open = true, onFold }) {
   </Stack>;
 }
 
-/* PluginSection (issue #41): a plugin comes in only dropped on the window (its folder,
-   or its library with its metadata file beside it): Silent seals it into the encrypted
-   state and lists it off. Nothing found in ~/.silent/plugins/ is ever loaded, so
-   there is no Scan. `added`: the line after a drop ({ names, updated }). */
+/* PluginSection (issue #69): drop a ZIP bundle, whatever its filename or extension.
+   Silent validates the bundle and admits its native library before sealing it into
+   encrypted state, listed off. Admission is not an OS sandbox.
+   `added`: the line after a drop ({ name, updated }). */
 function PluginDrop({ dragging }) {
   return (
     <Card tone="inset" pad="m" style={dragging ? { outline: '2px dashed var(--accent)', outlineOffset: -2 } : undefined}>
       <Stack align="center" gap="s" style={{ padding: 'var(--space-m) 0' }}>
         <Icon name="puzzle" size={48} tone="muted" />
-        <Text as="div" variant="caption" color="muted" align="center">Drop a plugin's folder, or its library with its metadata file beside it, on this window to add it. Built-in modules are not listed here.</Text>
+        <Text as="div" variant="caption" color="muted" align="center">Drop a plugin ZIP bundle on this window to add it. Any filename or extension is accepted; loose libraries, JSON files and folders are not. Built-in modules are not listed here.</Text>
       </Stack>
     </Card>
   );

@@ -31,7 +31,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=66"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=66"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=63"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=27"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=28"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const noop = () => {};
@@ -128,12 +128,13 @@
           { title: 'Restored PSBT: actual fee stays 280 sats, no editable fee controls or recommendation changes', ...Fees({ locked: true, initialPreferences: feePreference('Smart') }) },
           { title: 'Prepared Multikey: Sign locks the fee; pushed recommendations cannot alter it while signing', ...Fees({ wallet: WALLETS.multikey, initialPreferences: feePreference('Smart') }) },
         ]},
-        { name: '2.2 · Plugin Manager', items: [
-          { title: 'No plugin yet: drop one on the window (issue #41)', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 560) },
-          { title: 'Dragging a plugin over the window', tag: 'PluginDrop', ...GS({ plugins: [], sections: [], initial: { dragging: true } }, 560) },
-          { title: 'Dropped: sealed into the state, listed off', tag: 'PluginSection', ...GS({ plugins: [{ id: 'payjoin', name: 'Payjoin', version: '1.2.3', desc: 'Payjoin sending and receiving.', enabled: false }], sections: [], initial: { added: { name: 'Payjoin' } } }, 660) },
+        { name: '2.2 · Plugin Manager (issue #69): preview fixtures, no ZIP validation here. Native admission is not an OS sandbox.', items: [
+          { title: 'No plugin yet: drop a ZIP bundle with any filename or extension', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 560) },
+          { title: 'Dragging a ZIP bundle over the window', tag: 'PluginDrop', ...GS({ plugins: [], sections: [], initial: { dragging: true } }, 560) },
+          { title: 'ZIP bundle named payjoin.bundle: admitted, sealed into the state, listed off', tag: 'PluginSection', ...GS({ plugins: [{ id: 'payjoin', name: 'Payjoin', version: '1.2.3', desc: 'Payjoin sending and receiving.', enabled: false }], sections: [], initial: { added: { name: 'Payjoin' } } }, 660) },
           { title: 'Dropped again while on: an update', tag: 'PluginSection', ...GS({ sections: [], initial: { added: { name: 'Atomic Swaps', updated: true } } }, 760) },
-          { title: 'Dropped something that is not a plugin', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { notice: { tone: 'error', title: 'Could not add the plugin', body: 'no plugin metadata file in /home/user/Downloads/photos' } } }, 640) },
+          { title: 'Loose library rejected: imports must be ZIP bundles', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { notice: { tone: 'error', title: 'Could not add the plugin', body: '/home/user/Downloads/payjoin.so: not a ZIP archive' } } }, 640) },
+          { title: 'ZIP bundle rejected: missing manifest', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { notice: { tone: 'error', title: 'Could not add the plugin', body: '/home/user/Downloads/payjoin: no manifest.json at the bundle root' } } }, 640) },
           { title: 'Disable — confirm (an account closes)', tag: 'DisablePluginConfirm', ...GS({ initial: { view: { disable: 'atomic-swaps' } } }, 460) },
           { title: 'Disable — confirm (nothing uses it)', tag: 'DisablePluginConfirm', ...GS({ plugins: PLUGINS.map(p => p.id === 'payjoin' ? { ...p, enabled: true } : p), initial: { view: { disable: 'payjoin' } } }, 380) },
           { title: 'Disable — unloading', tag: 'PluginRow', ...GS({ sections: [], initial: { busyId: 'atomic-swaps' } }, 640) },
