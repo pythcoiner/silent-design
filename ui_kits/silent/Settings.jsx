@@ -1,40 +1,47 @@
 /* Silent UI Kit — Settings screen (Settings.cpp). */
 
-/* ServerRow — a server setting (Settings.cpp row): label on top (FieldLabel), then
-   input · tip height (while connected) · Test · Connect/Disconnect on one row. Test shows
-   while the input (or its transport) differs from the saved address; a passing Test saves
-   it and drops the old connection. Connect waits for a saved address. `transport` adds the
-   SSL / Verify Certificate toggles (as the creation wizard's Electrum step). Shared by the
-   sp and Multikey Settings. */
+/* ServerRow composes EndpointRow with height, connection and transport controls.
+   A passing fixture test saves the draft and drops the old connection. */
 function ServerRow({ label, initial, placeholder, height, connectId, disconnectId, transport = false }) {
   const [value, setValue] = React.useState(initial);
-  const [saved, setSaved] = React.useState(initial);
-  const [testing, setTesting] = React.useState(false);
+  const [saved, setSaved] = React.useState({ value: initial, ssl: true, verifyCert: true });
+  const [test, setTest] = React.useState(null);
   const [connected, setConnected] = React.useState(true);
   const [ssl, setSsl] = React.useState(true);
   const [verifyCert, setVerifyCert] = React.useState(true);
-  React.useEffect(() => { setValue(initial); setSaved(initial); setConnected(true); }, [initial]);
-  const test = () => { setTesting(true); setTimeout(() => { setTesting(false); setSaved(value); setConnected(false); }, 800); };
-  const dirty = value !== saved && value.trim();
+  React.useEffect(() => {
+    setValue(initial); setSaved({ value: initial, ssl: true, verifyCert: true });
+    setSsl(true); setVerifyCert(true); setTest(null); setConnected(true);
+  }, [initial]);
+  const runTest = () => {
+    setTest('testing');
+    setTimeout(() => {
+      if (/localhost:8080/.test(value)) {
+        setTest({ error: `Could not reach ${value}: connection refused. Start the BlindBit server, then test again.` });
+      } else {
+        setTest('ok'); setSaved({ value, ssl, verifyCert }); setConnected(false);
+      }
+    }, 900);
+  };
+  const testing = test === 'testing';
+  const dirty = value !== saved.value || (transport && (ssl !== saved.ssl || (ssl && verifyCert !== saved.verifyCert)));
   return (
     <Stack gap="s">
-      <div>
-        <FieldLabel>{label}</FieldLabel>
+      <EndpointRow label={label} labelAbove value={value} placeholder={placeholder}
+        onChange={v => { setValue(v); setTest(null); }} test={test} onTest={runTest}
+        available={!testing} testAvailable={dirty} rightControls={
         <Row gap="s">
-          <Input grow value={value} placeholder={placeholder} onChange={e => setValue(e.target.value)} />
-          {/* the connected server's tip, asked every 30 s while Settings shows */}
-          {/* a fixed slot, so stacked rows' inputs share one width; empty while disconnected */}
+          {/* The height slot stays while disconnected, so server inputs line up. */}
           <Stack style={{ width: '8em', flex: 'none' }}>{connected && height ? <Text variant="mono" color="secondary">Height {height}</Text> : null}</Stack>
-          {testing ? <Btn id="testing" disabled /> : dirty ? <Btn id="test" onClick={test} /> : <Btn id="test" placeholder />}
-          {connected ? <Btn id={disconnectId} onClick={() => setConnected(false)} />
-            : <Btn id={connectId} disabled={value !== saved} onClick={() => setConnected(true)} />}
+          {connected ? <Btn id={disconnectId} disabled={testing} onClick={() => setConnected(false)} />
+            : <Btn id={connectId} disabled={testing || dirty || !saved.value.trim()} onClick={() => setConnected(true)} />}
         </Row>
-      </div>
+      } />
       {transport ? (
         <Row gap="l">
-          <Field label="SSL:"><Toggle on={ssl} onClick={() => { setSsl(!ssl); setSaved(null); }} /></Field>
+          <Field label="SSL:"><Toggle on={ssl} disabled={testing} onClick={() => { setSsl(!ssl); setTest(null); }} /></Field>
           <Field label={<Row gap="xs">Verify Certificate: <InfoTip label="Turn off for a server with a self-signed certificate." /></Row>}>
-            <Toggle on={ssl && verifyCert} disabled={!ssl} onClick={() => { setVerifyCert(!verifyCert); setSaved(null); }} />
+            <Toggle on={ssl && verifyCert} disabled={testing || !ssl} onClick={() => { setVerifyCert(!verifyCert); setTest(null); }} />
           </Field>
         </Row>
       ) : null}

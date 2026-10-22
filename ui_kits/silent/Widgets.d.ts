@@ -7,6 +7,13 @@ export interface PaymentRowProps { children?: React.ReactNode; style?: React.CSS
 export declare function PaymentRow(props: PaymentRowProps): JSX.Element;
 export interface ValidatedInputProps { children?: React.ReactNode; style?: React.CSSProperties; [prop: string]: any }
 export declare function ValidatedInput(props: ValidatedInputProps): JSX.Element;
+export interface EndpointRowProps {
+  label: React.ReactNode; value: string; onChange: (value: string) => void;
+  test?: 'testing' | 'ok' | { error: string } | null; onTest: () => void;
+  placeholder?: string; available?: boolean; testAvailable?: boolean;
+  labelAbove?: boolean; rightControls?: React.ReactNode;
+}
+export declare function EndpointRow(props: EndpointRowProps): JSX.Element;
 export interface StepperProps { children?: React.ReactNode; style?: React.CSSProperties; [prop: string]: any }
 export declare function Stepper(props: StepperProps): JSX.Element;
 export interface TooltipProps { children?: React.ReactNode; style?: React.CSSProperties; [prop: string]: any }
@@ -53,5 +60,5 @@ export declare function ConfirmDots(props: { n?: number }): JSX.Element;
 export declare function prettyDescriptor(d: string, aliases?: Record<string, string>): string;
 export declare function DescriptorView(props: { value: string; aliases?: Record<string, string> }): JSX.Element;
 export declare function WizardSteps(props: { steps: string[]; current: number }): JSX.Element;
-export interface WidgetsNamespace { SectionLabel: typeof SectionLabel; FieldLabel: typeof FieldLabel; PaymentRow: typeof PaymentRow; ValidatedInput: typeof ValidatedInput; Stepper: typeof Stepper; Tooltip: typeof Tooltip; DateStamp: typeof DateStamp; DirectionIcon: typeof DirectionIcon; ConfirmDots: typeof ConfirmDots; DescriptorView: typeof DescriptorView; FoldSection: typeof FoldSection; IndexPill: typeof IndexPill; KeyValue: typeof KeyValue; Table: typeof Table; TransactionSummary: typeof TransactionSummary; CoinTable: typeof CoinTable; SectionHeader: typeof SectionHeader; Section: typeof Section; CopyField: typeof CopyField; ShortValue: typeof ShortValue; WordGrid: typeof WordGrid; WordInputGrid: typeof WordInputGrid; RouteIcons: typeof RouteIcons; ScanProgress: typeof ScanProgress; ModalActions: typeof ModalActions; ScrollArea: typeof ScrollArea; FieldNote: typeof FieldNote; EmptyState: typeof EmptyState; FoldChevron: typeof FoldChevron; WizardSteps: typeof WizardSteps; InfoTip: typeof InfoTip; }
+export interface WidgetsNamespace { SectionLabel: typeof SectionLabel; FieldLabel: typeof FieldLabel; PaymentRow: typeof PaymentRow; ValidatedInput: typeof ValidatedInput; EndpointRow: typeof EndpointRow; Stepper: typeof Stepper; Tooltip: typeof Tooltip; DateStamp: typeof DateStamp; DirectionIcon: typeof DirectionIcon; ConfirmDots: typeof ConfirmDots; DescriptorView: typeof DescriptorView; FoldSection: typeof FoldSection; IndexPill: typeof IndexPill; KeyValue: typeof KeyValue; Table: typeof Table; TransactionSummary: typeof TransactionSummary; CoinTable: typeof CoinTable; SectionHeader: typeof SectionHeader; Section: typeof Section; CopyField: typeof CopyField; ShortValue: typeof ShortValue; WordGrid: typeof WordGrid; WordInputGrid: typeof WordInputGrid; RouteIcons: typeof RouteIcons; ScanProgress: typeof ScanProgress; ModalActions: typeof ModalActions; ScrollArea: typeof ScrollArea; FieldNote: typeof FieldNote; EmptyState: typeof EmptyState; FoldChevron: typeof FoldChevron; WizardSteps: typeof WizardSteps; InfoTip: typeof InfoTip; }
 export declare const Widgets: WidgetsNamespace;

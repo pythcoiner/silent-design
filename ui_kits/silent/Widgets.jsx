@@ -40,6 +40,25 @@ export function ValidatedInput({ state, wrapStyle, ...inputProps }) {
   );
 }
 
+/* EndpointRow: shared test presentation; callers own operations and saved values. */
+export function EndpointRow({ label, value, onChange, test, onTest, placeholder,
+  available = true, testAvailable = true, labelAbove = false, rightControls }) {
+  const controls = <React.Fragment>
+    <Input grow mono value={value} placeholder={placeholder} disabled={!available} onChange={e => onChange(e.target.value)} />
+    <Btn id={test === 'testing' ? 'testing' : 'test'}
+      disabled={!available || !testAvailable || !value.trim() || test === 'testing'} onClick={onTest} />
+    <ValidationMark state={test === 'ok' ? 'valid' : test && test.error ? 'invalid' : 'none'} />
+    {rightControls}
+  </React.Fragment>;
+  return (
+    <React.Fragment>
+      {labelAbove ? <div><FieldLabel>{label}</FieldLabel><Row gap="xs">{controls}</Row></div>
+        : <Field label={label}>{controls}</Field>}
+      {test && test.error ? <FieldNote tone="error">{test.error}</FieldNote> : null}
+    </React.Fragment>
+  );
+}
+
 /* Stepper — − ●●●○○ + level control. Qt: row of two inline-icon Buttons + Label. */
 export function Stepper({ label, value, min, max, onChange }) {
   const dots = '●'.repeat(value) + '○'.repeat(max - value);
@@ -581,9 +600,9 @@ export function ModalActions({ leading, onBack, backId = 'back', reason, childre
   );
 }
 
-Object.assign(window, { SectionLabel, FieldLabel, PaymentRow, ValidatedInput, Stepper,
+Object.assign(window, { SectionLabel, FieldLabel, PaymentRow, ValidatedInput, EndpointRow, Stepper,
   Tooltip, timeAgo, DateStamp, DATE_COL_W, DIRECTIONS, DirectionIcon, ConfirmDots, prettyDescriptor, DescriptorView, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable,
   SectionHeader, Section, CopyField, ShortValue, WordGrid, WordInputGrid, ROUTE_KINDS, RouteIcons, ScanProgress, ModalActions, ScrollArea, FieldNote, EmptyState, FoldChevron, WizardSteps, InfoTip });
 
 /* File-level namespace (DS compiler indexes this file as `Widgets`). */
-export const Widgets = { SectionLabel, FieldLabel, PaymentRow, ValidatedInput, Stepper, Tooltip, timeAgo, DateStamp, DATE_COL_W, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable, SectionHeader, Section, CopyField, ShortValue, WordGrid, WordInputGrid, RouteIcons, ScanProgress, ModalActions, ScrollArea, FieldNote, EmptyState, FoldChevron, WizardSteps, InfoTip };
+export const Widgets = { SectionLabel, FieldLabel, PaymentRow, ValidatedInput, EndpointRow, Stepper, Tooltip, timeAgo, DateStamp, DATE_COL_W, FoldSection, IndexPill, KeyValue, Table, TransactionSummary, CoinTable, SectionHeader, Section, CopyField, ShortValue, WordGrid, WordInputGrid, RouteIcons, ScanProgress, ModalActions, ScrollArea, FieldNote, EmptyState, FoldChevron, WizardSteps, InfoTip };

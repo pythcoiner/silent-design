@@ -33,7 +33,7 @@ window.CATALOG_GROUPS = [
     ['components-route-icons', 'Route icons · section header · modal actions', 'span2', ['RouteIcons', 'SectionHeader', 'ModalActions']],
     ['components-modal-status', 'Modal & status', 'span2', ['Modal', 'ModalStatus', 'Spinner', 'SentModal']],
     ['components-stepper', 'Stepper, disclosure & wizard steps', 'span2', ['Stepper', 'FoldSection', 'Tooltip', 'InfoTip', 'WizardSteps']],
-    ['components-form-rows', 'Form rows', 'span2', ['Field', 'FieldGroup', 'PaymentRow', 'ValidatedInput', 'KeyValue']],
+    ['components-form-rows', 'Form rows', 'span2', ['Field', 'FieldGroup', 'PaymentRow', 'ValidatedInput', 'EndpointRow', 'KeyValue']],
     ['components-table', 'Table', 'span2', ['Table']],
   ]],
   ['Components', 'App-specific compositions', [

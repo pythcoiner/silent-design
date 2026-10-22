@@ -64,19 +64,6 @@ const descriptorRoute = (k) => k.routes.find(r => r === 'qr' || r === 'hot') || 
 /* An xpub also comes from the key's USB device. Qt: KeysModule::xpubRoute. */
 const xpubRoute = (k) => k.routes.find(r => r === 'usb' || r === 'qr' || r === 'hot') || null;
 
-function EndpointRow({ label, value, onChange, test, onTest }) {
-  return (
-    <React.Fragment>
-      <Field label={label}>
-        <Input grow mono value={value} onChange={e => onChange(e.target.value)} />
-        <Btn id={test === 'testing' ? 'testing' : 'test'} disabled={!value.trim() || test === 'testing'} onClick={onTest} />
-        <ValidationMark state={test === 'ok' ? 'valid' : test && test.error ? 'invalid' : 'none'} />
-      </Field>
-      {test && test.error ? <FieldNote tone="error">{test.error}</FieldNote> : null}
-    </React.Fragment>
-  );
-}
-
 function CreateAccount({ existing, keys = window.KEYS, onCancel, onCreate, onOpenKeys, initial = {} }) {
   const [name, setName] = React.useState(initial.name || '');
   const [network, setNetwork] = React.useState(initial.network || 'Regtest');
@@ -210,4 +197,4 @@ function ConfirmDelete({ name, onCancel, onConfirm }) {
   );
 }
 
-Object.assign(window, { MenuTab, AccountType, CreateAccount, ConfirmDelete, EndpointRow, ENDPOINT_DEFAULTS, REGTEST_ELECTRUM_URL });
+Object.assign(window, { MenuTab, AccountType, CreateAccount, ConfirmDelete, ENDPOINT_DEFAULTS, REGTEST_ELECTRUM_URL });
