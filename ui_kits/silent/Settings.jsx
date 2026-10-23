@@ -2,7 +2,7 @@
 
 /* ServerRow composes EndpointRow with height, connection and transport controls.
    A passing fixture test saves the draft and drops the old connection. */
-function ServerRow({ label, initial, placeholder, height, connectId, disconnectId, transport = false }) {
+function ServerRow({ label, initial, placeholder, height, connectId, disconnectId, transport = false, lockConnectedElectrum = false }) {
   const [value, setValue] = React.useState(initial);
   const [saved, setSaved] = React.useState({ value: initial, ssl: true, verifyCert: true });
   const [test, setTest] = React.useState(null);
@@ -24,12 +24,13 @@ function ServerRow({ label, initial, placeholder, height, connectId, disconnectI
     }, 900);
   };
   const testing = test === 'testing';
+  const addressLocked = lockConnectedElectrum && connected;
   const dirty = value !== saved.value || (transport && (ssl !== saved.ssl || (ssl && verifyCert !== saved.verifyCert)));
   return (
     <Stack gap="s">
       <EndpointRow label={label} labelAbove value={value} placeholder={placeholder}
         onChange={v => { setValue(v); setTest(null); }} test={test} onTest={runTest}
-        available={!testing} testAvailable={dirty} rightControls={
+        available={!testing} readOnly={addressLocked} testAvailable={dirty} rightControls={
         <Row gap="s">
           {/* The height slot stays while disconnected, so server inputs line up. */}
           <Stack style={{ width: '8em', flex: 'none' }}>{connected && height ? <Text variant="mono" color="secondary">Height {height}</Text> : null}</Stack>
@@ -39,7 +40,7 @@ function ServerRow({ label, initial, placeholder, height, connectId, disconnectI
       } />
       {transport ? (
         <Row gap="l">
-          <Field label="SSL:"><Toggle on={ssl} disabled={testing} onClick={() => { setSsl(!ssl); setTest(null); }} /></Field>
+          <Field label="SSL:"><Toggle on={ssl} disabled={testing || addressLocked} onClick={() => { setSsl(!ssl); setTest(null); }} /></Field>
           <Field label={<Row gap="xs">Verify Certificate: <InfoTip label="Turn off for a server with a self-signed certificate." /></Row>}>
             <Toggle on={ssl && verifyCert} disabled={testing || !ssl} onClick={() => { setVerifyCert(!verifyCert); setTest(null); }} />
           </Field>
@@ -59,7 +60,7 @@ function MusigSettingsScreen({ wallet }) {
     <ScreenWrap title="Settings" titleRight={<Pill id="network" label={wallet.network} />}>
       <Stack gap="l">
         <ServerRow label="Electrum Address" initial={wallet.electrum} placeholder="host:port (e.g. 127.0.0.1:50001)"
-          height={wallet.electrumHeight} connectId="connect_electrum" disconnectId="disconnect_electrum" transport />
+          height={wallet.electrumHeight} connectId="connect_electrum" disconnectId="disconnect_electrum" transport lockConnectedElectrum />
         <Section label="Policy">
           <Stack gap="s">
             <PolicyReview paths={wallet.paths || []} />

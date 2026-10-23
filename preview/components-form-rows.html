@@ -28,7 +28,7 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=3"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=36"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=3"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=66"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=67"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=46"></script>
   <script type="text/babel">
     ReactDOM.createRoot(document.getElementById('endpoint-states')).render(
@@ -41,6 +41,7 @@
         <EndpointRow label="Settings: label above, test unavailable" labelAbove value="server:50002" test="ok"
           testAvailable={false} onChange={() => {}} onTest={() => {}} rightControls={<Btn id="connect_electrum" />} />
         <EndpointRow label="Unavailable:" value="server:50002" available={false} onChange={() => {}} onTest={() => {}} />
+        <EndpointRow label="Read-only (copyable):" value="server:50002" readOnly testAvailable={false} onChange={() => {}} onTest={() => {}} />
       </Stack>
     );
   </script>

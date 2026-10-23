@@ -42,9 +42,9 @@ export function ValidatedInput({ state, wrapStyle, ...inputProps }) {
 
 /* EndpointRow: shared test presentation; callers own operations and saved values. */
 export function EndpointRow({ label, value, onChange, test, onTest, placeholder,
-  available = true, testAvailable = true, labelAbove = false, rightControls }) {
+  available = true, readOnly = false, testAvailable = true, labelAbove = false, rightControls }) {
   const controls = <React.Fragment>
-    <Input grow mono value={value} placeholder={placeholder} disabled={!available} onChange={e => onChange(e.target.value)} />
+    <Input grow mono value={value} placeholder={placeholder} disabled={!available} readOnly={readOnly} onChange={e => onChange(e.target.value)} />
     <Btn id={test === 'testing' ? 'testing' : 'test'}
       disabled={!available || !testAvailable || !value.trim() || test === 'testing'} onClick={onTest} />
     <ValidationMark state={test === 'ok' ? 'valid' : test && test.error ? 'invalid' : 'none'} />
