@@ -16,11 +16,11 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Icons.jsx?v=3"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Primitives.jsx?v=36"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Layout.jsx?v=3"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=57"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=45"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Widgets.jsx?v=67"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Variants.jsx?v=46"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Modal.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Address.jsx?v=9"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=18"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Data.jsx?v=19"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Sidebar.jsx?v=8"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Keys.jsx?v=49"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Signing.jsx?v=25"></script>
@@ -28,10 +28,10 @@
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/ScreensBasic.jsx?v=52"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/TxFlow.jsx?v=6"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Send.jsx?v=51"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=15"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=19"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Settings.jsx?v=67"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/MenuTab.jsx?v=66"></script>
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/Musig.jsx?v=63"></script>
-  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=27"></script>
+  <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs" src="../ui_kits/silent/GlobalSettings.jsx?v=29"></script>
 
   <script type="text/babel" data-presets="react" data-plugins="transform-modules-commonjs">
     const noop = () => {};
@@ -39,7 +39,7 @@
     const GS = (props, h) => ({ span: 'full', ...F(<GlobalSettingsTab onTheme={noop} {...props} />, h) });
     const P = (id) => PLUGINS.find(p => p.id === id);
     const enabledOnly = [P('atomic-swaps')];
-    const refusing = PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, refuseUnload: true } : p);
+    const refusing = PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, enabled: false, removing: true, disableFailed: true, error: 'Shutdown failed; plugin remains disabled and loaded. Retry disable to keep saved data, or confirm Remove to erase it.' } : p);
 
     function PriceSettingsDemo({ initialSelection, initialSources = PRICE_FEED_SOURCES, locked = false }) {
       const [sources, setSources] = React.useState(initialSources);
@@ -128,16 +128,29 @@
           { title: 'Restored PSBT: actual fee stays 280 sats, no editable fee controls or recommendation changes', ...Fees({ locked: true, initialPreferences: feePreference('Smart') }) },
           { title: 'Prepared Multikey: Sign locks the fee; pushed recommendations cannot alter it while signing', ...Fees({ wallet: WALLETS.multikey, initialPreferences: feePreference('Smart') }) },
         ]},
-        { name: '2.2 · Plugin Manager', items: [
-          { title: 'No plugin yet: drop one on the window (issue #41)', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 560) },
-          { title: 'Dragging a plugin over the window', tag: 'PluginDrop', ...GS({ plugins: [], sections: [], initial: { dragging: true } }, 560) },
-          { title: 'Dropped: sealed into the state, listed off', tag: 'PluginSection', ...GS({ plugins: [{ id: 'payjoin', name: 'Payjoin', version: '1.2.3', desc: 'Payjoin sending and receiving.', enabled: false }], sections: [], initial: { added: { name: 'Payjoin' } } }, 660) },
+        { name: '2.2 · Plugin Manager (issue #69): preview fixtures, no ZIP validation here. Native admission is not an OS sandbox.', items: [
+          { title: 'No plugin yet: drop a ZIP bundle with any filename or extension', tag: 'PluginSection', ...GS({ plugins: [], sections: [] }, 560) },
+          { title: 'Dragging a ZIP bundle over the window', tag: 'PluginDrop', ...GS({ plugins: [], sections: [], initial: { dragging: true } }, 560) },
+          { title: 'ZIP bundle named payjoin.bundle: admitted, sealed into the state, listed off', tag: 'PluginSection', ...GS({ plugins: [{ id: 'payjoin', name: 'Payjoin', version: '1.2.3', desc: 'Payjoin sending and receiving.', enabled: false }], sections: [], initial: { added: { name: 'Payjoin' } } }, 660) },
           { title: 'Dropped again while on: an update', tag: 'PluginSection', ...GS({ sections: [], initial: { added: { name: 'Atomic Swaps', updated: true } } }, 760) },
-          { title: 'Dropped something that is not a plugin', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { notice: { tone: 'error', title: 'Could not add the plugin', body: 'no plugin metadata file in /home/user/Downloads/photos' } } }, 640) },
+          { title: 'Loose library rejected: imports must be ZIP bundles', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { notice: { tone: 'error', title: 'Could not add the plugin', body: '/home/user/Downloads/payjoin.so: not a ZIP archive' } } }, 640) },
+          { title: 'ZIP bundle rejected: missing manifest', tag: 'PluginSection', ...GS({ plugins: [], sections: [], initial: { notice: { tone: 'error', title: 'Could not add the plugin', body: '/home/user/Downloads/payjoin: no manifest.json at the bundle root' } } }, 640) },
           { title: 'Disable — confirm (an account closes)', tag: 'DisablePluginConfirm', ...GS({ initial: { view: { disable: 'atomic-swaps' } } }, 460) },
           { title: 'Disable — confirm (nothing uses it)', tag: 'DisablePluginConfirm', ...GS({ plugins: PLUGINS.map(p => p.id === 'payjoin' ? { ...p, enabled: true } : p), initial: { view: { disable: 'payjoin' } } }, 380) },
           { title: 'Disable — unloading', tag: 'PluginRow', ...GS({ sections: [], initial: { busyId: 'atomic-swaps' } }, 640) },
-          { title: 'Disable refused — stays enabled', tag: 'PluginSection', ...GS({ plugins: refusing, sections: [], initial: { notice: { tone: 'error', title: 'Could not disable Atomic Swaps', body: 'The plugin refused to unload. It stays enabled. Close its accounts, then try again.' } } }, 700) },
+          { title: 'Disable refused: retry disable preserves data; Remove remains separately destructive', tag: 'PluginSection', ...GS({ plugins: refusing, sections: [], initial: { notice: { tone: 'error', title: 'Plugin shutdown or removal failed', body: 'Shutdown failed; plugin remains disabled and loaded. Retry disable to keep saved data, or confirm Remove to erase it.' } } }, 700) },
+        ]},
+        { name: '2.2.1 · Destructive removal (#71): preview states only, no native shutdown or data erasure here.', items: [
+          { title: 'Remove enabled plugin: named destructive confirmation, no keep-data option', tag: 'RemovePluginConfirm', ...GS({ initial: { view: { remove: 'atomic-swaps' } } }, 420) },
+          { title: 'Remove disabled plugin: same destructive confirmation', tag: 'RemovePluginConfirm', ...GS({ initial: { view: { remove: 'payjoin' } } }, 420) },
+          { title: 'Remove incompatible or failed plugin: metadata only, no constructor required', tag: 'RemovePluginConfirm', ...GS({ initial: { view: { remove: 'nostr-backup' } } }, 420) },
+          { title: 'Removal pending: sources withdrawn, native work still closing', tag: 'PluginSection', ...GS({ plugins: PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, enabled: false, removing: true } : p), sections: [], initial: { busyId: 'atomic-swaps', result: 'Removing atomic-swaps. Waiting for shutdown and private-data cleanup.' } }, 760) },
+          { title: 'Partial cleanup failed: disabled with an explicit phase and retry', tag: 'PluginSection', ...GS({ plugins: PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, enabled: false, removing: true, error: 'Private tree cleared; legacy-source deletion failed: io. Plugin and bundle retained; retry Remove after resolving the error.' } : p), sections: [], initial: { notice: { tone: 'error', title: 'Plugin shutdown or removal failed', body: 'Private tree cleared; legacy-source deletion failed: io. Plugin and bundle retained; retry Remove after resolving the error.' } } }, 760) },
+          { title: 'Removal failure then retry: interactive preview fixture', tag: 'PluginSection', ...GS({ plugins: PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, removeError: 'Unload failed; data and bundle retained. Retry removal.' } : p) }, 900) },
+          { title: 'Interrupted removal: disabled until cleanup is retried', tag: 'PluginSection', ...GS({ plugins: PLUGINS.map(p => p.id === 'atomic-swaps' ? { ...p, enabled: false, removing: true, error: 'Removal was interrupted. Private data may already be cleared. Use Remove to finish cleanup.' } : p) }, 900) },
+          { title: 'Pending-removal read error: plugin actions blocked, Try Again re-reads state', tag: 'PluginSection', ...GS({ plugins: refusing, initial: { readError: 'Application state is locked.', readErrorPersists: true } }, 1000) },
+          { title: 'State readable on retry: known removal retained, Remove becomes available', tag: 'PluginSection', ...GS({ plugins: refusing, initial: { readError: 'Application state is locked.' } }, 1000) },
+          { title: 'Successful removal: row and grants gone, unrelated plugins remain', tag: 'PluginSection', ...GS({ plugins: PLUGINS.filter(p => p.id !== 'atomic-swaps'), sections: [], initial: { result: 'atomic-swaps was removed with its saved state and accounts.' } }, 700) },
         ]},
         { name: '2.4 · Plugin access (issue #35)', items: [
           { title: 'Access: one row per library version answered, Accounts and Keys apply at once', tag: 'PluginAccessFlow', ...GS({ initial: { view: { access: 'atomic-swaps' } } }, 480) },

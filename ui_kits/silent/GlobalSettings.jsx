@@ -3,13 +3,14 @@
    a centred column. Sections: General (theme, language), optional Price feed,
    Transaction fees, Plugin Manager (external plugins only), and Extension Settings
    (module sections, only when at least one exists).
-   Opening a section, a plugin's access or confirming a plugin disable REPLACES the
+   Opening a section, a plugin's access or confirming disable/removal REPLACES the
    page content, with a way back; leaving the tab goes back to the sections. */
 
 const GS_WIDTH = 1040;   /* a flow's width, the content width of the former 1040 modal */
 /* One body width whatever the rows hold: longer texts wrap in it.
    Qt: metric::SETTINGS_BODY_WIDTH. */
 const GS_BODY_WIDTH = 666;
+const GS_REMOVE_WIDTH = 760; /* Qt: ModalWidth::Wizard. */
 
 /* PluginRow — one discovered plugin: name · description, id + version (mono),
    enable toggle. A plugin that failed to load uses the error row tone, with the
@@ -17,16 +18,20 @@ const GS_BODY_WIDTH = 666;
    width when empty, so id/version lines up on every row. Once the plugin has asked
    for the accounts or the keys (an answer is kept), Access opens what it may use.
    Qt: QFrame row with HBox(Label stack, Label, Pill or Access, Toggle). */
-function PluginRow({ plugin, busy, onToggle, onAccess }) {
+function PluginRow({ plugin, busy, unavailable, onToggle, onAccess, onRemove, onRetryDisable }) {
   const failed = !!plugin.error;
   const hasAccess = !!(plugin.access && plugin.access.length);
   return (
     <SelectRow icon={failed ? 'circle_x' : 'puzzle'} tone={failed ? 'error' : undefined} title={plugin.name || plugin.id}
-      sub={failed ? plugin.error : plugin.desc}
+      sub={failed ? plugin.error : plugin.removing ? 'Unavailable during shutdown or removal. After an error, use Remove to retry cleanup.' : plugin.desc}
       meta={`${plugin.id}  v${plugin.version}`}
-      status={busy ? <Pill id="plugin_unloading" /> : hasAccess ? <Btn id="plugin_access" onClick={() => onAccess && onAccess(plugin)} /> : null}
+      status={<Row gap="s">
+        {plugin.disableFailed && !busy ? <Btn id="retry_disable_plugin" disabled={unavailable} onClick={() => onRetryDisable && onRetryDisable(plugin)} /> : null}
+        {!busy && !plugin.removing && hasAccess ? <Btn id="plugin_access" disabled={unavailable} onClick={() => onAccess && onAccess(plugin)} /> : null}
+        <Btn id="remove_plugin" disabled={busy || unavailable} onClick={() => onRemove && onRemove(plugin)} />
+      </Row>}
       trailingWidth="var(--toggle-w)" chevron={false}
-      trailing={failed ? null : <Toggle on={plugin.enabled} disabled={busy} onClick={() => onToggle(plugin)} />} />
+      trailing={failed ? null : <Toggle on={plugin.enabled} disabled={busy || plugin.removing || unavailable} onClick={() => onToggle(plugin)} />} />
   );
 }
 
@@ -96,32 +101,34 @@ function FeeSettingsSection({ open = true, onFold }) {
   </Stack>;
 }
 
-/* PluginSection (issue #41): a plugin comes in only dropped on the window (its folder,
-   or its library with its metadata file beside it): Silent seals it into the encrypted
-   state and lists it off. Nothing found in ~/.silent/plugins/ is ever loaded, so
-   there is no Scan. `added`: the line after a drop ({ names, updated }). */
+/* PluginSection (issue #69): drop a ZIP bundle, whatever its filename or extension.
+   Silent validates the bundle and admits its native library before sealing it into
+   encrypted state, listed off. Admission is not an OS sandbox.
+   `added`: the line after a drop ({ name, updated }). */
 function PluginDrop({ dragging }) {
   return (
     <Card tone="inset" pad="m" style={dragging ? { outline: '2px dashed var(--accent)', outlineOffset: -2 } : undefined}>
       <Stack align="center" gap="s" style={{ padding: 'var(--space-m) 0' }}>
         <Icon name="puzzle" size={48} tone="muted" />
-        <Text as="div" variant="caption" color="muted" align="center">Drop a plugin's folder, or its library with its metadata file beside it, on this window to add it. Built-in modules are not listed here.</Text>
+        <Text as="div" variant="caption" color="muted" align="center">Drop a plugin ZIP bundle on this window to add it. Any filename or extension is accepted; loose libraries, JSON files and folders are not. Built-in modules are not listed here.</Text>
       </Stack>
     </Card>
   );
 }
 
-function PluginSection({ plugins, added, notice, busyId, dragging, onToggle, onAccess, open = true, onFold }) {
+function PluginSection({ plugins, added, notice, result, readError, onRetryState, busyId, dragging, onToggle, onAccess, onRemove, onRetryDisable, open = true, onFold }) {
   return (
     <Stack>
       <SectionHeader label="Plugin Manager" count={plugins.length ? plugins.length : null} open={open} onToggle={onFold} />
       {open ? <Stack gap="s">
-        {notice ? <Notice tone={notice.tone} title={notice.title}>{notice.body}</Notice> : null}
-        {added ? <Text as="div" variant="caption" color="success">{added.updated
+        {readError ? <Notice tone="error" title="Could not read pending plugin removals" action={<Btn id="try_again" onClick={onRetryState} />}>Plugin controls are unavailable until application state can be read. Unlock or restore access, then try again. Known removal records have been kept. {readError}</Notice> : null}
+        {!readError && notice ? <Notice tone={notice.tone} title={notice.title}>{notice.body}</Notice> : null}
+        {!readError && result ? <Text as="div" variant="caption" color="success">{result}</Text> : null}
+        {!readError && added ? <Text as="div" variant="caption" color="success">{added.updated
           ? `${added.name} updated: it loads the new version once turned off and on again.`
           : `${added.name} added, off: turn it on to load it.`}</Text> : null}
         {plugins.map(p => (
-          <PluginRow key={p.id} plugin={p} busy={busyId === p.id} onToggle={onToggle} onAccess={onAccess} />
+          <PluginRow key={p.id} plugin={p} busy={busyId === p.id} unavailable={!!readError} onToggle={onToggle} onAccess={onAccess} onRemove={onRemove} onRetryDisable={onRetryDisable} />
         ))}
         <PluginDrop dragging={dragging} />
       </Stack> : null}
@@ -171,6 +178,13 @@ function DisablePluginConfirm({ plugin }) {
       {plugin.themes && plugin.themes.length ? <Notice tone="info">Its themes ({plugin.themes.join(', ')}) are removed. If one is in use, Silent switches to Light.</Notice> : null}
     </Stack>
   );
+}
+
+function RemovePluginConfirm({ plugin }) {
+  return <Stack gap="m" style={{ width: '100%' }}>
+    <Text as="div" variant="body">Remove {plugin.name || plugin.id}?</Text>
+    <Notice tone="warning">This permanently deletes the installed plugin and all of its saved state and accounts. There is no keep-data option. Reinstalling starts with empty data. Shared signer keys and other plugins' accounts are not deleted.</Notice>
+  </Stack>;
 }
 
 /* What an external plugin may use (issue #35; src/views/modals/appsettings/AccessFlow.cpp):
@@ -239,15 +253,18 @@ function PluginAccessPrompt({ plugin, account = true, keys = false, state = fals
   );
 }
 
-function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLUGINS, sections = EXTENSION_SECTIONS, initial = {} }) {
+function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLUGINS, sections: sectionsIn = EXTENSION_SECTIONS, initial = {} }) {
   const { sources } = React.useContext(PriceFeedContext);
   const [themeLocal, setThemeLocal] = React.useState(initial.theme || themeProp || 'Light');
   const theme = themeProp != null && initial.theme == null ? themeProp : themeLocal;
   const [language, setLanguage] = React.useState(initial.language || 'English');
   const [langSaved, setLangSaved] = React.useState(!!initial.langSaved);
   const [plugins, setPlugins] = React.useState(pluginsIn);
+  const sections = sectionsIn.filter(s => !s.pluginId || plugins.some(p => p.id === s.pluginId && p.enabled && !p.removing && !p.error));
   const [added, setAdded] = React.useState(initial.added || null);        // null | { name, updated }
   const [notice, setNotice] = React.useState(initial.notice || null);
+  const [readError, setReadError] = React.useState(initial.readError || null);
+  const [result, setResult] = React.useState(initial.result || null);
   const [busyId, setBusyId] = React.useState(initial.busyId || null);
   const [view, setView] = React.useState(initial.view || null);
   const [folds, setFolds] = React.useState({ general: true, prices: true, fees: true, plugins: true, extensions: true, ...(initial.folds || {}) });   // true = open
@@ -263,11 +280,38 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
     setView({ disable: p.id });
   };
   const confirmDisable = (p) => {
-    setView(null); setBusyId(p.id);
+    if (readError || busyId === p.id) return;
+    setView(null); setBusyId(p.id); setNotice(null); setResult(null);
+    setPlugins(ps => ps.map(x => (x.id === p.id ? { ...x, enabled: false, removing: true } : x)));
     setTimeout(() => {
       setBusyId(null);
-      if (p.refuseUnload) { setNotice({ tone: 'error', title: `Could not disable ${p.name}`, body: 'The plugin refused to unload. It stays enabled. Close its accounts, then try again.' }); return; }
-      setPlugins(ps => ps.map(x => (x.id === p.id ? { ...x, enabled: false } : x)));
+      if (p.refuseUnload) {
+        setNotice({ tone: 'error', title: 'Plugin shutdown or removal failed', body: 'Shutdown failed; plugin remains disabled and loaded. Retry disable to keep saved data, or confirm Remove to erase it.' });
+        setPlugins(ps => ps.map(x => x.id === p.id ? { ...x, disableFailed: true, refuseUnload: false, error: 'Shutdown failed; plugin remains disabled and loaded. Retry disable to keep saved data, or confirm Remove to erase it.' } : x));
+        return;
+      }
+      setPlugins(ps => ps.map(x => (x.id === p.id ? { ...x, enabled: false, removing: false, disableFailed: false, error: null } : x)));
+      setResult(`${p.id} was disabled. Its saved data was kept.`);
+      if ((p.themes || []).includes(theme)) pickTheme('Light');
+    }, 900);
+  };
+
+  const confirmRemove = p => {
+    if (readError || busyId === p.id) return;
+    setView(null); setNotice(null); setAdded(null); setBusyId(p.id);
+    setResult(`Removing ${p.id}. Waiting for shutdown and private-data cleanup.`);
+    setPlugins(ps => ps.map(x => x.id === p.id ? { ...x, enabled: false, removing: true, disableFailed: false } : x));
+    /* Preview only: the real host waits for cooperative shutdown and checked cleanup. */
+    setTimeout(() => {
+      setBusyId(null);
+      if (p.removeError || p.refuseUnload) {
+        setResult(null);
+        setNotice({ tone: 'error', title: 'Plugin shutdown or removal failed', body: p.removeError || 'Unload failed; data and bundle retained. Retry removal.' });
+        setPlugins(ps => ps.map(x => x.id === p.id ? { ...x, error: p.removeError || 'Unload failed; data and bundle retained. Retry removal.', removeError: null, refuseUnload: false } : x));
+        return;
+      }
+      setPlugins(ps => ps.filter(x => x.id !== p.id));
+      setResult(`${p.id} was removed with its saved state and accounts.`);
       if ((p.themes || []).includes(theme)) pickTheme('Light');
     }, 900);
   };
@@ -275,6 +319,7 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
   const section = view && view.section ? sections.find(s => s.id === view.section) : null;
   const disabling = view && view.disable ? plugins.find(p => p.id === view.disable) : null;
   const accessing = view && view.access ? plugins.find(p => p.id === view.access) : null;
+  const removing = view && view.remove ? plugins.find(p => p.id === view.remove) : null;
   const setAccess = (id, access) => setPlugins(ps => ps.map(x => (x.id === id ? { ...x, access } : x)));
 
   let title = 'Settings', body, actions;
@@ -286,6 +331,10 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
     title = `${accessing.name} Access`;
     body = <PluginAccessFlow plugin={accessing} onChange={(access) => setAccess(accessing.id, access)} />;
     actions = <ModalActions onBack={() => setView(null)} backId="all_settings"><Btn id="done" onClick={() => setView(null)} /></ModalActions>;
+  } else if (removing) {
+    title = 'Remove';
+    body = <RemovePluginConfirm plugin={removing} />;
+    actions = <ModalActions onBack={() => setView(null)}><Btn id="remove_plugin" onClick={() => confirmRemove(removing)} /></ModalActions>;
   } else if (disabling) {
     title = 'Disable Plugin';
     body = <DisablePluginConfirm plugin={disabling} />;
@@ -302,7 +351,7 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
         <Divider space="0" />
         <FeeSettingsSection open={folds.fees} onFold={() => fold('fees')} />
         <Divider space="0" />
-        <PluginSection plugins={plugins} added={added} notice={notice} busyId={busyId} dragging={!!initial.dragging} onToggle={toggle} onAccess={(p) => { setNotice(null); setView({ access: p.id }); }} open={folds.plugins} onFold={() => fold('plugins')} />
+        <PluginSection plugins={plugins} added={added} notice={notice} result={result} readError={readError} onRetryState={() => { if (!initial.readErrorPersists) setReadError(null); }} busyId={busyId} dragging={!!initial.dragging && !readError} onToggle={toggle} onAccess={(p) => { setNotice(null); setView({ access: p.id }); }} onRemove={p => setView({ remove: p.id })} onRetryDisable={confirmDisable} open={folds.plugins} onFold={() => fold('plugins')} />
         {sections.length ? <Divider space="0" /> : null}
         <ExtensionSection sections={sections} onOpen={(id) => setView({ section: id })} open={folds.extensions} onFold={() => fold('extensions')} />
       </Stack>
@@ -314,9 +363,9 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
      in a scroll area, inset by its gutters (a scrollbar and --space-xs), the title
      with them; a flow takes the content width of the former modal.
      Qt: AppSettings::setView. */
-  const main = !section && !accessing && !disabling;
+  const main = !section && !accessing && !disabling && !removing;
   const inset = 'calc(10px + var(--space-xs))';
-  const flowW = `calc(${GS_WIDTH}px - 2 * var(--space-m) - 2px)`;   /* the modal's body width */
+  const flowW = `calc(${removing ? GS_REMOVE_WIDTH : GS_WIDTH}px - 2 * var(--space-m) - 2px)`;   /* the modal's body width */
   const width = main ? `calc(${GS_BODY_WIDTH}px + 2 * ${inset} + 2 * var(--space-s))`
     : `calc(${flowW} + 2 * var(--space-s))`;
   return (
@@ -333,4 +382,4 @@ function GlobalSettingsTab({ theme: themeProp, onTheme, plugins: pluginsIn = PLU
   );
 }
 
-Object.assign(window, { FeeSettingsSection, PriceFeedSection, PluginRow, PluginDrop, GlobalSettingsTab, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });
+Object.assign(window, { FeeSettingsSection, PriceFeedSection, PluginRow, PluginDrop, GlobalSettingsTab, GeneralSection, PluginSection, ExtensionSection, ExtensionFrame, DisablePluginConfirm, RemovePluginConfirm, PluginAccessFlow, PluginAccessPrompt, GS_WIDTH });

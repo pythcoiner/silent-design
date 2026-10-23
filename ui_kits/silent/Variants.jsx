@@ -35,6 +35,8 @@ export const BUTTONS = {
   kit_skip_scan: { role: 'default', label: 'Simulate Scan', icon: 'chevron_right', iconSize: 14, w: 'L' },
   /* screens */
   disable_plugin: { role: 'destructive', label: 'Disable Plugin', w: 'L' },
+  remove_plugin: { role: 'destructive', label: 'Remove', w: 'M' },
+  retry_disable_plugin: { role: 'default', label: 'Retry disable', w: 'M' },
   /* an external plugin's grants (issue #35): the row's Access, its page's Forget, the prompt */
   plugin_access: { role: 'default', label: 'Access', icon: 'lock', iconSize: 14, w: 'M' },
   forget_access: { role: 'default', label: 'Forget', w: 'M' },

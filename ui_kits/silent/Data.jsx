@@ -151,7 +151,7 @@ const PLUGINS = [
 ];
 const EXTENSION_SECTIONS = [
   { id: 'hw', title: 'Hardware Wallets', module: 'Hardware Wallets', icon: 'usb' },
-  { id: 'swaps', title: 'Atomic Swaps', module: 'Atomic Swaps', icon: 'puzzle' },
+  { id: 'swaps', title: 'Atomic Swaps', module: 'Atomic Swaps', pluginId: 'atomic-swaps', icon: 'puzzle' },
 ];
 /* Demo stand-in for the BIP39 English list (the app checks the real 2048 words). */
 const BIP39_DEMO = new Set([...MNEMONIC_WORDS, 'lumber', 'quarter', 'solar', 'tiny', 'wisdom', 'zebra', 'abandon', 'ability', 'able', 'about', 'above', 'absent', 'absorb', 'abstract', 'absurd', 'abuse', 'access', 'accident', 'account', 'zoo']);
